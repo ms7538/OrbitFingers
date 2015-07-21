@@ -189,60 +189,60 @@ public class SOFview extends View {
                 //We assign the current X and Y coordinate of the finger to startX and startY minus the previously translated
                 //amount for each coordinates This works even when we are translating the first time because the initial
                 //values for these two variables is zero.
-                startX = event.getX() - previousTranslateX;
-                startY = event.getY() - previousTranslateY;
-
-                if (translateX == 0 && translateY == 0){
-                    if(event.getX() >= 600 && event.getX() <= 700 && event.getY() >= 250 && event.getY() < 350) {
-                        update2();
-
-                    }}
-                break;
+//                startX = event.getX() - previousTranslateX;
+//                startY = event.getY() - previousTranslateY;
+//
+//                if (translateX == 0 && translateY == 0){
+//                    if(event.getX() >= 600 && event.getX() <= 700 && event.getY() >= 250 && event.getY() < 350) {
+//                        update2();
+//
+//                    }}
+//                break;
 
             case MotionEvent.ACTION_MOVE:
-                if (detector.isInProgress()){
-                    mLastGestureX = detector.getFocusX();
-                    mLastGestureY =detector.getFocusY();
-                }
-
-                translateX = event.getX() - startX;
-                translateY = event.getY() - startY;
-
-                //We cannot use startX and startY directly because we have adjusted their values using the previous translation values.
-                //This is why we need to add those values to startX and startY so that we can get the actual coordinates of the finger.
-                double distance = Math.sqrt(Math.pow(event.getX() - (startX + previousTranslateX), 2) +
-                                Math.pow(event.getY() - (startY + previousTranslateY), 2)
-                );
-
-                if(distance > 0) {
-                    dragged = true;
-                }
+//                if (detector.isInProgress()){
+//                    mLastGestureX = detector.getFocusX();
+//                    mLastGestureY =detector.getFocusY();
+//                }
+//
+//                translateX = event.getX() - startX;
+//                translateY = event.getY() - startY;
+//
+//                //We cannot use startX and startY directly because we have adjusted their values using the previous translation values.
+//                //This is why we need to add those values to startX and startY so that we can get the actual coordinates of the finger.
+//                double distance = Math.sqrt(Math.pow(event.getX() - (startX + previousTranslateX), 2) +
+//                                Math.pow(event.getY() - (startY + previousTranslateY), 2)
+//                );
+//
+//                if(distance > 0) {
+//                    dragged = true;
+//                }
 
                 break;
 
             case MotionEvent.ACTION_POINTER_DOWN:
-                mode = ZOOM;
+                //mode = ZOOM;
                 break;
 
             case MotionEvent.ACTION_UP:
-                mode = NONE;
-                dragged = false;
+               // mode = NONE;
+                //dragged = false;
 
                 //All fingers went up, so let's save the value of translateX and translateY into previousTranslateX and
                 //previousTranslate
-                previousTranslateX = translateX;
-                previousTranslateY = translateY;
+                //previousTranslateX = translateX;
+                //previousTranslateY = translateY;
 
 
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
-                mode = DRAG;
+                //mode = DRAG;
 
                 //This is not strictly necessary; we save the value of translateX and translateY into previousTranslateX
                 //and previousTranslateY when the second finger goes up
-                previousTranslateX = translateX;
-                previousTranslateY = translateY;
+                //previousTranslateX = translateX;
+                //previousTranslateY = translateY;
                 break;
         }
 
@@ -254,9 +254,9 @@ public class SOFview extends View {
         //        OR
         // o The mode is DRAG and the scale factor is not equal to 1 (meaning we have zoomed) and dragged is
         //   set to true (meaning the finger has actually moved)
-        if ((mode == DRAG && scaleFactor != 1f && dragged) || mode == ZOOM) {
-            invalidate();
-        }
+//        if ((mode == DRAG && scaleFactor != 1f && dragged) || mode == ZOOM) {
+//            invalidate();
+//        }
 
         return true;
     }
@@ -300,9 +300,9 @@ public class SOFview extends View {
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(MIN_ZOOM, Math.min(scaleFactor, MAX_ZOOM));
-            invalidate();
+//            scaleFactor *= detector.getScaleFactor();
+//            scaleFactor = Math.max(MIN_ZOOM, Math.min(scaleFactor, MAX_ZOOM));
+//            invalidate();
             return true;
         }
     }
