@@ -1,35 +1,24 @@
 package poloapps.orbitfingers;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
-
-public class MainActivity extends ActionBarActivity {
-
+public class SimpOF extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button button = (Button)findViewById(R.id.simple);
-        button.setOnClickListener(new OnClickListener() {
+        View view = new SOFview(getApplicationContext());
+        setContentView(view);
+        view.setBackgroundColor(Color.parseColor("#090404"));
 
 
-            @Override
-            public void onClick(View arg0) {
-                Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
     }
 
     @Override
