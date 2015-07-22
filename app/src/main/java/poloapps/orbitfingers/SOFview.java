@@ -24,28 +24,30 @@ import android.util.Log;
 public class SOFview extends View {
 
    private ScaleGestureDetector detector; 
-    private float MBrad = 20; // Ball's radius
-    private float B1rad = 6; // 2 Ball's  radius
+    private float MBsze = 20; // Ball's radius
+    private float Bsize = 6; // 2 Ball's  radius
     private float MBx = 950;  // Ball's center (x,y)
-    private float B1X = 950;  // Ball's center (x,y)
     private float MBy = 300;
+    private float B1X = 950;  // Ball's center (x,y)
     private float B1y= 480;
+    private float B2X = 950;  // Ball's center (x,y)
+    private float B2y= 500;
     private int CX=950;
     private int CY=300;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
     private double B1dist=150;
+    private double B2dist=250;
 
     private float flrdB1 = (float) B1dist;
-
+    private float flrdB2 = (float) B2dist;
     private String MBclr="#ffea7d";
-    private String MBclr2="#fffffe";
+    private String B2color="#017ed5";
     private String B1color="#017ed5";
-
-    private String B1orbclr="#017ed5";
-
-    private  double thcns=.001;
+    private  double thcns=.1;
     private double theta=130;
+    private  double thcns2=.1;
+    private double theta2=130;
     // Status message to show Ball's (x,y) position and speed.
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
@@ -74,22 +76,18 @@ public class SOFview extends View {
         super.onDraw(canvas);
         canvas.save();
 
-
         //String unitType = getContext().getString(R.string.pref_units_key);
         paint.setStyle(Paint.Style.STROKE);
 
-        paint.setColor(Color.parseColor(B1orbclr));
+        paint.setColor(Color.parseColor(B1color));
         canvas.drawCircle(CX, CY, flrdB1, paint);
-
+        paint.setColor(Color.parseColor(B1color));
+        canvas.drawCircle(CX, CY, flrdB2, paint);
         // Draw Planets
         paint.setStyle(Paint.Style.FILL);
-        ballBounds.set(MBx - MBrad, MBy - MBrad, MBx + MBrad, MBy + MBrad);
-        paint.setColor(Color.parseColor(MBclr));
-        canvas.drawOval(ballBounds, paint);//must be done for each
-        ballBounds.set(B1X - B1rad, B1y - B1rad, B1X + B1rad, B1y + B1rad);
-        paint.setColor(Color.parseColor(B1color));
-
-        canvas.drawOval(ballBounds, paint);
+        drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, MBclr);
+        drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, B1color);
+        drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, B2color);
         paint.setTypeface(Typeface.MONOSPACE);
         paint.setTextSize(12);
        String str="POS1";
@@ -107,9 +105,15 @@ public class SOFview extends View {
         // update();
     }
 
+    private static void drawball(Canvas canvas, RectF ballBounds, float MBx, float MBsze, float MBy, Paint paint, String MBclr) {
+        ballBounds.set(MBx - MBsze, MBy - MBsze, MBx + MBsze, MBy + MBsze);
+        paint.setColor(Color.parseColor(MBclr));
+        canvas.drawOval(ballBounds, paint);//must be done for each
+    }
+
     private void txtcnvs(Canvas canvas, String str, int x, int y) {
         formatter.format(str);
-        paint.setColor(Color.parseColor(B1orbclr));
+        paint.setColor(Color.parseColor(B1color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
         statusMsg.delete(0, statusMsg.length()); // Empty buffer
     }
@@ -155,14 +159,16 @@ public class SOFview extends View {
     private void update() {
 
         thcns=.1;
-        B1orbclr="#017ed6";
-
-
         theta-=thcns*1;
+        theta2-=thcns*2;
         double Ex=B1dist* Math.cos(Math.toRadians(theta));
         double Ey=B1dist* Math.sin(Math.toRadians(theta));
+        double E2x=B2dist* Math.cos(Math.toRadians(theta2));
+        double E2y=B2dist* Math.sin(Math.toRadians(theta2));
         B1X =CX+ (float) Ex;
         B1y =CY+(float) Ey;
+        B2X =CX+ (float) E2x;
+        B2y =CY+(float) E2y;
 
        }
 
