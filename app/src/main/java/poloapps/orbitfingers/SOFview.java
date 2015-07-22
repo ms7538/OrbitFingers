@@ -15,8 +15,6 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import java.util.Formatter;
-import java.util.GregorianCalendar;
-
 import android.graphics.Typeface;
 import android.widget.Toast;
 import android.util.Log;
@@ -26,13 +24,13 @@ public class SOFview extends View {
    private ScaleGestureDetector detector; 
     private float MBsze = 20; // Ball's radius
     private float Bsize = 6; // 2 Ball's  radius
-    private float MBx = 950;  // Ball's center (x,y)
+    private float MBx = 900;  // Ball's center (x,y)
     private float MBy = 300;
-    private float B1X = 950;  // Ball's center (x,y)
+    private float B1X = 900;  // Ball's center (x,y)
     private float B1y= 480;
-    private float B2X = 950;  // Ball's center (x,y)
+    private float B2X = 900;  // Ball's center (x,y)
     private float B2y= 500;
-    private int CX=950;
+    private int CX=900;
     private int CY=300;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
@@ -45,13 +43,15 @@ public class SOFview extends View {
     private String B2color="#017ed5";
     private String B1color="#017ed5";
     private  double thcns=.1;
-    private double theta=130;
+    private double theta=180;
     private  double thcns2=.1;
-    private double theta2=130;
+    private double theta2=180;
     // Status message to show Ball's (x,y) position and speed.
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
+
+
     public SOFview(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
@@ -125,7 +125,11 @@ public class SOFview extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
+                if(event.getX() >= 870 && event.getX() <= 920 && event.getY() >= 250 && event.getY() < 350) {
 
+                    Toast.makeText(getContext(), "push detected",
+                            Toast.LENGTH_SHORT).show();
+                }
               break;
 
             case MotionEvent.ACTION_MOVE:
