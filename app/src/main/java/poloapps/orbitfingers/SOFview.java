@@ -163,8 +163,15 @@ public class SOFview extends View {
     private void update() {
 
         thcns=.1;
-        theta-=thcns*1;
-        theta2-=thcns*2;
+        theta+=thcns*8;
+        Log.i("theta", Double.toString(theta));
+        if(theta>360|| theta < -360){theta=0;}
+        theta2+=thcns*10;
+        Log.i("theta2", Double.toString(theta2));
+        if(theta2>360|| theta2 < -360){theta2=0;}
+
+       // if(theta2==theta){ Toast.makeText(getContext(), "theta equals",
+          //      Toast.LENGTH_SHORT).show();}
         double Ex=B1dist* Math.cos(Math.toRadians(theta));
         double Ey=B1dist* Math.sin(Math.toRadians(theta));
         double E2x=B2dist* Math.cos(Math.toRadians(theta2));
