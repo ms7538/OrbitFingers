@@ -24,28 +24,30 @@ public class SOFview extends View {
    private ScaleGestureDetector detector; 
     private float MBsze = 20; // Ball's radius
     private float Bsize = 6; // 2 Ball's  radius
-    private float MBx = 900;  // Ball's center (x,y)
+   private float XAL=950;
+    private float MBx = XAL;  // Ball's center (x,y)
     private float MBy = 300;
-    private float B1X = 900;  // Ball's center (x,y)
+    private float B1X = XAL;  // Ball's center (x,y)
     private float B1y= 480;
-    private float B2X = 900;  // Ball's center (x,y)
+    private float B2X = XAL;  // Ball's center (x,y)
     private float B2y= 500;
-    private int CX=900;
+    private int CX=Math.round(XAL);
     private int CY=300;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
-    private double B1dist=150;
-    private double B2dist=250;
+    private double B1dist=100;
+    private double B2dist=200;
 
     private float flrdB1 = (float) B1dist;
     private float flrdB2 = (float) B2dist;
     private String MBclr="#ffea7d";
     private String B2color="#017ed5";
     private String B1color="#017ed5";
-    private  double thcns=.1;
+    private  double thcns=.5;
     private double theta=180;
-    private  double thcns2=.1;
-    private double theta2=180;
+    private  double thcns2=.99;
+    private double theta2=280;
+    private int Mch=0;
     // Status message to show Ball's (x,y) position and speed.
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
@@ -125,10 +127,9 @@ public class SOFview extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if(event.getX() >= 870 && event.getX() <= 920 && event.getY() >= 250 && event.getY() < 350) {
+                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && Mch==10) {
 
-                    Toast.makeText(getContext(), "push detected",
-                            Toast.LENGTH_SHORT).show();
+                    Log.i("theta", Double.toString(Mch));
                 }
               break;
 
@@ -162,16 +163,15 @@ public class SOFview extends View {
 
     private void update() {
 
-        thcns=.1;
         theta+=thcns*8;
-        Log.i("theta", Double.toString(theta));
         if(theta>360|| theta < -360){theta=0;}
-        theta2+=thcns*10;
-        Log.i("theta2", Double.toString(theta2));
+        theta2+=thcns2;
         if(theta2>360|| theta2 < -360){theta2=0;}
-
-       // if(theta2==theta){ Toast.makeText(getContext(), "theta equals",
-          //      Toast.LENGTH_SHORT).show();}
+        if(theta2> .95*theta && theta2< 1.05*theta ){
+            Mch=10;
+        }else {
+            Mch=0;
+        }
         double Ex=B1dist* Math.cos(Math.toRadians(theta));
         double Ey=B1dist* Math.sin(Math.toRadians(theta));
         double E2x=B2dist* Math.cos(Math.toRadians(theta2));
