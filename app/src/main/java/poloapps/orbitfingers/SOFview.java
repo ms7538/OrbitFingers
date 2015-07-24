@@ -95,8 +95,11 @@ public class SOFview extends View {
         int y=460;
         //txtcnvs(canvas, Double.toString(ThtAbs1), CX, y,12);
         //txtcnvs(canvas, Double.toString(ThtAbs2), CX, y+60,12);
-        txtcnvs(canvas, Double.toString(score), 625, 35,30,currscorecol);
-        txtcnvs(canvas, "SCORE: ", 495, 35, 30, Blue1);
+        if(score<0){
+            score=0;
+        }
+        txtcnvs(canvas, Integer.toString(score), 635, 35,30,currscorecol);
+        txtcnvs(canvas, "SCORE: ", 505, 35, 30, Blue1);
         if(score>5){
             currscorecol=Green1;
         }else  currscorecol=Red1;
@@ -188,11 +191,11 @@ public class SOFview extends View {
 
     private void update() {
 
-        theta -= thcns;
+        theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
         }
-        theta2 += thcns2;
+        theta2 -= thcns2;
         if (theta2 > 360 || theta2 < -360) {
             theta2 = 0;
         }
@@ -229,7 +232,7 @@ public class SOFview extends View {
         B2y = CY + (float) E2y;
 
         if (Currcol != Blue1) {
-            Sleep(30);
+            Sleep(50);
             Currcol = Blue1;
         }
     }
