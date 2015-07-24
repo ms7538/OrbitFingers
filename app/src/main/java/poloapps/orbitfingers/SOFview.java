@@ -45,6 +45,7 @@ public class SOFview extends View {
     private String Currcol= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
+   private String currscorecol= Red1;
     private  double thcns=.5;
     private double theta=0;
     private  double thcns2=.5;
@@ -82,21 +83,24 @@ public class SOFview extends View {
         canvas.save();
 
         //String unitType = getContext().getString(R.string.pref_units_key);
-        paint.setStyle(Paint.Style.STROKE);
 
         orbit(canvas, paint, Currcol, CX, CY, flrdB1);
         orbit(canvas, paint, Currcol, CX, CY, flrdB2);
         // Draw Planets
-        paint.setStyle(Paint.Style.FILL);
+
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, MBclr);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Blue1);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Blue1);
-        paint.setTypeface(Typeface.MONOSPACE);
-        paint.setTextSize(12);
-       String str="POS1";
-       int y=460;
-        txtcnvs(canvas, Double.toString(ThtAbs1), CX, y);
-        txtcnvs(canvas, Double.toString(ThtAbs2), CX, y+60);
+
+        int y=460;
+        //txtcnvs(canvas, Double.toString(ThtAbs1), CX, y,12);
+        //txtcnvs(canvas, Double.toString(ThtAbs2), CX, y+60,12);
+        txtcnvs(canvas, Double.toString(score), 625, 35,30,currscorecol);
+        txtcnvs(canvas, "SCORE: ", 495, 35, 30, Blue1);
+        if(score>5){
+            currscorecol=Green1;
+        }else  currscorecol=Red1;
+
         update();
 
         // Delay
@@ -110,19 +114,23 @@ public class SOFview extends View {
     }
 
     private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float flrdB1) {
+        paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor(blue1));
         canvas.drawCircle(CX, CY, flrdB1, paint);
     }
 
     private static void drawball(Canvas canvas, RectF ballBounds, float MBx, float MBsze, float MBy, Paint paint, String MBclr) {
+        paint.setStyle(Paint.Style.FILL);
         ballBounds.set(MBx - MBsze, MBy - MBsze, MBx + MBsze, MBy + MBsze);
         paint.setColor(Color.parseColor(MBclr));
         canvas.drawOval(ballBounds, paint);//must be done for each
     }
 
-    private void txtcnvs(Canvas canvas, String str, int x, int y) {
+    private void txtcnvs(Canvas canvas, String str, int x, int y, int tsize, String color) {
+        paint.setTypeface(Typeface.MONOSPACE);
+        paint.setTextSize(tsize);
         formatter.format(str);
-        paint.setColor(Color.parseColor(Blue1));
+        paint.setColor(Color.parseColor(color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
         statusMsg.delete(0, statusMsg.length()); // Empty buffer
     }
@@ -136,10 +144,16 @@ public class SOFview extends View {
             case MotionEvent.ACTION_DOWN:
                 if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
-                    Log.i("theta", Double.toString(Mch));
+                    if(Mch==10){
+                        score +=10;
+
+                    }else score +=5;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
+                    score -=5;
                 }
+
+
 
 
               break;
@@ -194,12 +208,12 @@ public class SOFview extends View {
             ThtAbs2= theta2;
         }
 
-        if (ThtAbs2 > .95 * ThtAbs1 && ThtAbs2 < 1.05 * ThtAbs1) {
+        if (ThtAbs2 > .98 * ThtAbs1 && ThtAbs2 < 1.02 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .95*180 && ThtAbs2 -ThtAbs1< 1.05*180){
+        }else if(ThtAbs2 -ThtAbs1> .98*180 && ThtAbs2 -ThtAbs1< 1.02*180){
             Mch=5;
 
-        }else if(ThtAbs1 -ThtAbs2> .95*180 && ThtAbs1 -ThtAbs2< 1.05*180){
+        }else if(ThtAbs1 -ThtAbs2> .98*180 && ThtAbs1 -ThtAbs2< 1.02*180){
             Mch=5;
 
         } else {
@@ -215,15 +229,20 @@ public class SOFview extends View {
         B2y = CY + (float) E2y;
 
         if (Currcol != Blue1) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
+            Sleep(30);
             Currcol = Blue1;
         }
     }
-       // Called back when the view is first created or its size changes.
+
+    private static void Sleep(int CX) {
+        try {
+            Thread.sleep(CX);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    // Called back when the view is first created or its size changes.
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
