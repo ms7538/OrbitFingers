@@ -37,7 +37,7 @@ public class SOFview extends View {
     private Paint paint;           // The paint (e.g. style, color) used for drawing
     private double B1dist=100;
     private double B2dist=200;
-
+    private int score=0;
     private float flrdB1 = (float) B1dist;
     private float flrdB2 = (float) B2dist;
     private String MBclr="#ffea7d";
@@ -46,10 +46,11 @@ public class SOFview extends View {
     private String Green1="#00ff00";
     private String Red1="#ff0000";
     private  double thcns=.5;
-    private double theta=180;
-    private  double thcns2=.99;
-    private double theta2=280;
+    private double theta=0;
+    private  double thcns2=.5;
+    private double theta2=0;
     private int Mch=0;
+   private double ThtAbs1=0.0, ThtAbs2=0.0;
     // Status message to show Ball's (x,y) position and speed.
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
@@ -94,7 +95,8 @@ public class SOFview extends View {
         paint.setTextSize(12);
        String str="POS1";
        int y=460;
-        txtcnvs(canvas, str, CX, y);
+        txtcnvs(canvas, Double.toString(ThtAbs1), CX, y);
+        txtcnvs(canvas, Double.toString(ThtAbs2), CX, y+60);
         update();
 
         // Delay
@@ -132,10 +134,10 @@ public class SOFview extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && Mch==10) {
+                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
                     Log.i("theta", Double.toString(Mch));
-                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && Mch!=10){
+                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
                 }
 
@@ -172,7 +174,7 @@ public class SOFview extends View {
 
     private void update() {
 
-        theta += thcns * 8;
+        theta -= thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
         }
@@ -180,8 +182,26 @@ public class SOFview extends View {
         if (theta2 > 360 || theta2 < -360) {
             theta2 = 0;
         }
-        if (theta2 > .95 * theta && theta2 < 1.05 * theta) {
+        if(theta<0){
+            ThtAbs1= theta+360;
+        }else{
+        ThtAbs1= theta;
+        }
+        ThtAbs2= Math.abs(theta2);
+        if(theta2<0){
+            ThtAbs2= theta2+360;
+        }else{
+            ThtAbs2= theta2;
+        }
+
+        if (ThtAbs2 > .95 * ThtAbs1 && ThtAbs2 < 1.05 * ThtAbs1) {
             Mch = 10;
+        }else if(ThtAbs2 -ThtAbs1> .95*180 && ThtAbs2 -ThtAbs1< 1.05*180){
+            Mch=5;
+
+        }else if(ThtAbs1 -ThtAbs2> .95*180 && ThtAbs1 -ThtAbs2< 1.05*180){
+            Mch=5;
+
         } else {
             Mch = 0;
         }
