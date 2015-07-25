@@ -69,7 +69,8 @@ public class SOFview extends View {
     private  double Lthcns=.5;
     private double Ltheta=180;
     private  double Lthcns2=.5;
-    private double Ltheta2=270;
+    private double Ltheta2=270
+            ;
     private int LMch=0;
 
     public SOFview(Context context) {
@@ -123,7 +124,7 @@ public class SOFview extends View {
         }
         txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
-        if(score>5){
+        if(score>50){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -178,7 +179,16 @@ public class SOFview extends View {
                     Currcol=Red1;
                     score -=5;
                 }
+                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
+                    CurrcolL=Green1;
+                    if(LMch==10){
+                        score +=10;
 
+                    }else score +=5;
+                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
+                    CurrcolL=Red1;
+                    score -=5;
+                }
 
 
 
@@ -293,6 +303,7 @@ public class SOFview extends View {
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
             Sleep(50);
             Currcol = Blue1;
+            CurrcolL=Blue1;
         }
     }
 
