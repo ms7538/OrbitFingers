@@ -26,7 +26,7 @@ public class SOFview extends View {
     private float Bsize = 10; // 2 Ball's  radius
    private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
-    private float MBxL=XAL-600;
+    private float MBxL=300;
     private float MBy = 300;
     private float B1X = XAL;  // Ball's center (x,y)
     private float B1y= 400;
@@ -38,6 +38,7 @@ public class SOFview extends View {
     private float B2yL= 500;
     private int CX=Math.round(XAL);
     private int CY=300;
+    private int Lx=300;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
     private double B1dist=100;
@@ -101,12 +102,12 @@ public class SOFview extends View {
         orbit(canvas, paint, Currcol, CX, CY, flrdB2x);
         orbit(canvas, paint, Currcol, CX, CY, flrdB1xx);
         orbit(canvas, paint, Currcol, CX, CY, flrdB2xx);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1x);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2x);
-        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB1xx);
-        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB2xx);
+        orbit(canvas, paint, CurrcolL, Lx, CY, flrdB1);
+        orbit(canvas, paint, CurrcolL, Lx, CY, flrdB2);
+        orbit(canvas, paint, CurrcolL, Lx, CY, flrdB1x);
+        orbit(canvas, paint, CurrcolL, Lx, CY, flrdB2x);
+        orbit(canvas, paint, CurrcolL, Lx, CY, flrdB1xx);
+        orbit(canvas, paint, CurrcolL, Lx, CY, flrdB2xx);
         // Draw Planets
         drawball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
         drawball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
@@ -122,8 +123,8 @@ public class SOFview extends View {
         if(score<0){
             score=0;
         }
-        txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
-        txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
+        txtcnvs(canvas, Integer.toString(score), 685, 35,30,currscorecol);
+        txtcnvs(canvas, "SCORE: ", 555, 35, 30, Blue1);
         if(score>50){
             currscorecol=Green1;
         }else  currscorecol=Red1;
@@ -179,13 +180,13 @@ public class SOFview extends View {
                     Currcol=Red1;
                     score -=5;
                 }
-                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
+                if((event.getX() >= Lx-30 && event.getX() <= Lx+30 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
                         score +=10;
 
                     }else score +=5;
-                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
+                }else if ((event.getX() >= Lx-30 && event.getX() <= Lx+30 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
                     score -=5;
                 }
@@ -295,13 +296,13 @@ public class SOFview extends View {
         Ey = B1dist * Math.sin(Math.toRadians(Ltheta));
         E2x = B2dist * Math.cos(Math.toRadians(Ltheta2));
         E2y = B2dist * Math.sin(Math.toRadians(Ltheta2));
-        B1XL = CX-600 + (float) Ex;
+        B1XL = Lx + (float) Ex;
         B1yL = CY + (float) Ey;
-        B2XL = CX-600 + (float) E2x;
+        B2XL = Lx + (float) E2x;
         B2yL = CY + (float) E2y;
 
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
-            Sleep(50);
+            Sleep(10);
             Currcol = Blue1;
             CurrcolL=Blue1;
         }
