@@ -22,15 +22,20 @@ import android.util.Log;
 public class SOFview extends View {
 
    private ScaleGestureDetector detector; 
-    private float MBsze = 20; // Ball's radius
-    private float Bsize = 6; // 2 Ball's  radius
+    private float MBsze = 30; // Ball's radius
+    private float Bsize = 10; // 2 Ball's  radius
    private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
+    private float MBxL=XAL-600;
     private float MBy = 300;
     private float B1X = XAL;  // Ball's center (x,y)
-    private float B1y= 480;
+    private float B1y= 400;
     private float B2X = XAL;  // Ball's center (x,y)
     private float B2y= 500;
+    private float B1XL = XAL-600;  // Ball's center (x,y)
+    private float B1yL= 400;
+    private float B2XL = XAL-600;  // Ball's center (x,y)
+    private float B2yL= 500;
     private int CX=Math.round(XAL);
     private int CY=300;
     private RectF ballBounds;      // Needed for Canvas.drawOval
@@ -40,9 +45,14 @@ public class SOFview extends View {
     private int score=0;
     private float flrdB1 = (float) B1dist;
     private float flrdB2 = (float) B2dist;
+    private float flrdB1x = (float) B1dist-1;
+    private float flrdB2x = (float) B2dist-1;
+    private float flrdB1xx = (float) B1dist-2;
+    private float flrdB2xx = (float) B2dist-2;
     private String MBclr="#ffea7d";
     private String Blue1="#017ed5";
     private String Currcol= Blue1;
+    private String CurrcolL= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
    private String currscorecol= Red1;
@@ -52,11 +62,15 @@ public class SOFview extends View {
     private double theta2=0;
     private int Mch=0;
    private double ThtAbs1=0.0, ThtAbs2=0.0;
-    // Status message to show Ball's (x,y) position and speed.
+    private double LThtAbs1=0.0, LThtAbs2=0.0;
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-
+    private  double Lthcns=.5;
+    private double Ltheta=180;
+    private  double Lthcns2=.5;
+    private double Ltheta2=270;
+    private int LMch=0;
 
     public SOFview(Context context) {
         super(context);
@@ -64,16 +78,12 @@ public class SOFview extends View {
         ballBounds = new RectF();
         paint = new Paint();
         // Set the font face and size of drawing text
-        paint.setTypeface(Typeface.MONOSPACE);
-        paint.setTextSize(16);
+
         // To enable keypad on this View
         this.setFocusable(true);
         this.requestFocus();
         // To enable touch mode
         this.setFocusableInTouchMode(true);
-
-
-
     }
 
     // Called back to draw the view. Also called by invalidate().
@@ -86,11 +96,24 @@ public class SOFview extends View {
 
         orbit(canvas, paint, Currcol, CX, CY, flrdB1);
         orbit(canvas, paint, Currcol, CX, CY, flrdB2);
+        orbit(canvas, paint, Currcol, CX, CY, flrdB1x);
+        orbit(canvas, paint, Currcol, CX, CY, flrdB2x);
+        orbit(canvas, paint, Currcol, CX, CY, flrdB1xx);
+        orbit(canvas, paint, Currcol, CX, CY, flrdB2xx);
+        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1);
+        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2);
+        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1x);
+        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2x);
+        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB1xx);
+        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB2xx);
         // Draw Planets
+        drawball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
+        drawball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
+        drawball(canvas, ballBounds, B2XL, Bsize, B2yL, paint, CurrcolL);
 
-        drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, MBclr);
-        drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Blue1);
-        drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Blue1);
+        drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
+        drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
+        drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
 
         int y=460;
         //txtcnvs(canvas, Double.toString(ThtAbs1), CX, y,12);
@@ -98,8 +121,8 @@ public class SOFview extends View {
         if(score<0){
             score=0;
         }
-        txtcnvs(canvas, Integer.toString(score), 635, 35,30,currscorecol);
-        txtcnvs(canvas, "SCORE: ", 505, 35, 30, Blue1);
+        txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
+        txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
         if(score>5){
             currscorecol=Green1;
         }else  currscorecol=Red1;
@@ -195,33 +218,60 @@ public class SOFview extends View {
         if (theta > 360 || theta < -360) {
             theta = 0;
         }
+        Ltheta += Lthcns;
+        if (Ltheta > 360 || Ltheta < -360) {
+            Ltheta = 0;
+        }
+
         theta2 -= thcns2;
         if (theta2 > 360 || theta2 < -360) {
             theta2 = 0;
+        }
+        Ltheta2 -= Lthcns2;
+        if (Ltheta2 > 360 || Ltheta2 < -360) {
+            Ltheta2 = 0;
         }
         if(theta<0){
             ThtAbs1= theta+360;
         }else{
         ThtAbs1= theta;
         }
-        ThtAbs2= Math.abs(theta2);
+       // ThtAbs2= Math.abs(theta2);
+        if(Ltheta<0){
+            LThtAbs1= Ltheta+360;
+        }else{
+            LThtAbs1= Ltheta;
+        }
         if(theta2<0){
             ThtAbs2= theta2+360;
         }else{
             ThtAbs2= theta2;
+        }
+        if(Ltheta2<0){
+            LThtAbs2= Ltheta2+360;
+        }else{
+            LThtAbs2= Ltheta2;
         }
 
         if (ThtAbs2 > .98 * ThtAbs1 && ThtAbs2 < 1.02 * ThtAbs1) {
             Mch = 10;
         }else if(ThtAbs2 -ThtAbs1> .98*180 && ThtAbs2 -ThtAbs1< 1.02*180){
             Mch=5;
-
         }else if(ThtAbs1 -ThtAbs2> .98*180 && ThtAbs1 -ThtAbs2< 1.02*180){
             Mch=5;
-
         } else {
             Mch = 0;
         }
+        if (LThtAbs2 > .98 * LThtAbs1 && LThtAbs2 < 1.02 * LThtAbs1) {
+            LMch = 10;
+        }else if(LThtAbs2 -LThtAbs1> .98*180 && LThtAbs2 -LThtAbs1< 1.02*180){
+            LMch=5;
+        }else if(LThtAbs1 -LThtAbs2> .98*180 && LThtAbs1 -LThtAbs2< 1.02*180){
+            LMch=5;
+        } else {
+            LMch = 0;
+        }
+
         double Ex = B1dist * Math.cos(Math.toRadians(theta));
         double Ey = B1dist * Math.sin(Math.toRadians(theta));
         double E2x = B2dist * Math.cos(Math.toRadians(theta2));
@@ -231,7 +281,16 @@ public class SOFview extends View {
         B2X = CX + (float) E2x;
         B2y = CY + (float) E2y;
 
-        if (Currcol != Blue1) {
+        Ex = B1dist * Math.cos(Math.toRadians(Ltheta));
+        Ey = B1dist * Math.sin(Math.toRadians(Ltheta));
+        E2x = B2dist * Math.cos(Math.toRadians(Ltheta2));
+        E2y = B2dist * Math.sin(Math.toRadians(Ltheta2));
+        B1XL = CX-600 + (float) Ex;
+        B1yL = CY + (float) Ey;
+        B2XL = CX-600 + (float) E2x;
+        B2yL = CY + (float) E2y;
+
+        if ((Currcol != Blue1) ||CurrcolL != Blue1) {
             Sleep(50);
             Currcol = Blue1;
         }
