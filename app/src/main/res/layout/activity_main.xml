@@ -8,13 +8,18 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+    <TextView android:text="Select Level" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/simple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/simple" />
+    <Button
+        android:id="@+id/simple2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 2" />
 
 
 </LinearLayout>
