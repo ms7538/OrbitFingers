@@ -69,9 +69,8 @@ public class SOFview extends View {
     private  double Lthcns=.5;
     private double Ltheta=180;
     private  double Lthcns2=.5;
-    private double Ltheta2=270
-            ;
-    private int LMch=0;
+    private double Ltheta2=270;
+    private int LMch=0,updC=0;
 
     public SOFview(Context context) {
         super(context);
@@ -223,7 +222,23 @@ public class SOFview extends View {
 
 
     private void update() {
+        updC++;
+       // Log.i("update count", String.valueOf(updC));
 
+        if ( (updC % 10) == 0)
+        {
+            thcns=1.0;
+            thcns2=.9;
+            Lthcns=.5;
+            Lthcns2=.65;
+        }
+        else  if ( (updC % 2) == 0)
+        {
+            thcns=.5;
+            thcns2=.4;
+            Lthcns=1.1;
+            Lthcns2=.98;
+                    }
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
