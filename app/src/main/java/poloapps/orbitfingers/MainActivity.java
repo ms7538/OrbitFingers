@@ -1,5 +1,6 @@
 package poloapps.orbitfingers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -15,12 +16,19 @@ import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
+    SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+    SharedPreferences.Editor editor = mSettings.edit();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button = (Button)findViewById(R.id.simple);
+
+        editor.putInt("LVL", 0); editor.commit();
+        Button button = (Button) findViewById(R.id.simple);
+        button.setBackgroundColor(getResources().getColor(R.color.green));
         button.setOnClickListener(new OnClickListener() {
 
 
@@ -30,6 +38,9 @@ public class MainActivity extends ActionBarActivity {
                 MainActivity.this.startActivity(myIntent);
             }
         });
+        Button button2 = (Button) findViewById(R.id.simple2);
+        button2.setBackgroundColor(getResources().getColor(R.color.dkgry));
+
     }
 
     @Override

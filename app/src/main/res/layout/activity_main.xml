@@ -15,6 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/simple" />
-
+    <Button
+        android:id="@+id/simple2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/simple2"
+        android:clickable="true" />
 
 </LinearLayout>

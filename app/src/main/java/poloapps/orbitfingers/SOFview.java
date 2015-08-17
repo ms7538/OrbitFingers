@@ -20,7 +20,7 @@ import android.widget.Toast;
 import android.util.Log;
 
 public class SOFview extends View {
-
+    private String someLevel="";
    private ScaleGestureDetector detector; 
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
@@ -89,6 +89,7 @@ public class SOFview extends View {
     // Called back to draw the view. Also called by invalidate().
     @Override
     protected void onDraw(Canvas canvas) {
+
         super.onDraw(canvas);
         canvas.save();
 
@@ -222,6 +223,7 @@ public class SOFview extends View {
 
 
     private void update() {
+        if (score>50){}
         updC++;
        // Log.i("update count", String.valueOf(updC));
 
