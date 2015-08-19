@@ -229,7 +229,9 @@ public class SOFview extends View {
     private void update() {
         String lvl= mSettings.getString("level", "0");
         if (score>5){
-
+            Intent intent = new Intent(getContext(), MainActivity.class);
+           intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            super.getContext().startActivity(intent);
 
 
             editor.putString("level", "one");

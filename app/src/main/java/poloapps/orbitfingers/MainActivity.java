@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ public class MainActivity extends ActionBarActivity {
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         SharedPreferences.Editor editor = mSettings.edit();
         String lvl= mSettings.getString("level", "");
+        Log.i("M123A",lvl);
         Button button = (Button) findViewById(R.id.simple);
         button.setBackgroundColor(getResources().getColor(R.color.green));
         button.setOnClickListener(new OnClickListener() {
@@ -47,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (lvl=="one"){
             button2.setBackgroundColor(getResources().getColor(R.color.green));
-        }else{
+        }else if (lvl=="0"){
             button2.setBackgroundColor(getResources().getColor(R.color.red));
             button3.setBackgroundColor(getResources().getColor(R.color.red));
             button4.setBackgroundColor(getResources().getColor(R.color.red));
