@@ -27,8 +27,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         SharedPreferences.Editor editor = mSettings.edit();
-        String lvl= mSettings.getString("level", "");
-        Log.i("M123A",lvl);
+        Integer lv= mSettings.getInt("levl", 0);
+        //Log.i("M123A",lv);
         Button button = (Button) findViewById(R.id.simple);
         button.setBackgroundColor(getResources().getColor(R.color.green));
         button.setOnClickListener(new OnClickListener() {
@@ -47,9 +47,9 @@ public class MainActivity extends ActionBarActivity {
         Button button6 = (Button) findViewById(R.id.simple6);
 
 
-        if (lvl=="one"){
+        if (lv==1){
             button2.setBackgroundColor(getResources().getColor(R.color.green));
-        }else if (lvl=="0"){
+        }else if (lv==0){
             button2.setBackgroundColor(getResources().getColor(R.color.red));
             button3.setBackgroundColor(getResources().getColor(R.color.red));
             button4.setBackgroundColor(getResources().getColor(R.color.red));
