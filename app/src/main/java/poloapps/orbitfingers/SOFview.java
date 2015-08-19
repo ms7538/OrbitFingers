@@ -1,8 +1,11 @@
 package poloapps.orbitfingers;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -71,7 +74,8 @@ public class SOFview extends View {
     private  double Lthcns2=.5;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
-
+    SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
+    SharedPreferences.Editor editor = mSettings.edit();
     public SOFview(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
@@ -223,10 +227,21 @@ public class SOFview extends View {
 
 
     private void update() {
-        if (score>50){}
-        updC++;
-       // Log.i("update count", String.valueOf(updC));
+        String lvl= mSettings.getString("level", "0");
+        if (score>5){
 
+
+
+            editor.putString("level", "one");
+            editor.commit();
+
+        }else {
+            editor.putString("level", "0");
+            editor.commit();
+        }
+        Log.i("level", lvl);
+        updC++;
+       //
         if ( (updC % 10) == 0)
         {
             thcns=1.0;

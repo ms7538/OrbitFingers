@@ -16,8 +16,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
-    SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-    SharedPreferences.Editor editor = mSettings.edit();
+
 
 
 
@@ -25,8 +24,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        editor.putInt("LVL", 0); editor.commit();
+        SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        SharedPreferences.Editor editor = mSettings.edit();
+        String lvl= mSettings.getString("level", "");
         Button button = (Button) findViewById(R.id.simple);
         button.setBackgroundColor(getResources().getColor(R.color.green));
         button.setOnClickListener(new OnClickListener() {
@@ -39,7 +39,24 @@ public class MainActivity extends ActionBarActivity {
             }
         });
         Button button2 = (Button) findViewById(R.id.simple2);
-        button2.setBackgroundColor(getResources().getColor(R.color.dkgry));
+        Button button3 = (Button) findViewById(R.id.simple3);
+        Button button4 = (Button) findViewById(R.id.simple4);
+        Button button5 = (Button) findViewById(R.id.simple5);
+        Button button6 = (Button) findViewById(R.id.simple6);
+
+
+        if (lvl=="one"){
+            button2.setBackgroundColor(getResources().getColor(R.color.green));
+        }else{
+            button2.setBackgroundColor(getResources().getColor(R.color.red));
+            button3.setBackgroundColor(getResources().getColor(R.color.red));
+            button4.setBackgroundColor(getResources().getColor(R.color.red));
+            button5.setBackgroundColor(getResources().getColor(R.color.red));
+            button6.setBackgroundColor(getResources().getColor(R.color.red));
+
+        }
+
+
 
     }
 
