@@ -62,10 +62,10 @@ public class MainActivity extends ActionBarActivity {
 //        Button button6 = (Button) findViewById(R.id.simple6);
 
 
-        if (lv==1){
+        if (lv>1){
             button2.setBackgroundColor(getResources().getColor(R.color.green));
-        }else if (lv==0){
-            button2.setBackgroundColor(getResources().getColor(R.color.red));
+        }else {
+            //button2.setBackgroundColor(getResources().getColor(R.color.red));
 //            button3.setBackgroundColor(getResources().getColor(R.color.red));
 //            button4.setBackgroundColor(getResources().getColor(R.color.red));
 //            button5.setBackgroundColor(getResources().getColor(R.color.red));
