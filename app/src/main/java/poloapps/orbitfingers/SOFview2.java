@@ -22,12 +22,12 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 import android.util.Log;
 
-public class SOFview extends View {
+public class SOFview2 extends View {
     private String someLevel="";
-   private ScaleGestureDetector detector; 
+    private ScaleGestureDetector detector;
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
-   private float XAL=950;
+    private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
     private float MBxL=XAL-600;
     private float MBy = 300;
@@ -53,18 +53,18 @@ public class SOFview extends View {
     private float flrdB1xx = (float) B1dist-2;
     private float flrdB2xx = (float) B2dist-2;
     private String MBclr="#ffea7d";
-    private String Blue1="#017ed5";
+    private String Blue1="#800080";
     private String Currcol= Blue1;
     private String CurrcolL= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
-   private String currscorecol= Red1;
+    private String currscorecol= Red1;
     private  double thcns=.5;
     private double theta=0;
     private  double thcns2=.5;
     private double theta2=0;
     private int Mch=0;
-   private double ThtAbs1=0.0, ThtAbs2=0.0;
+    private double ThtAbs1=0.0, ThtAbs2=0.0;
     private double LThtAbs1=0.0, LThtAbs2=0.0;
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
@@ -76,7 +76,7 @@ public class SOFview extends View {
     private int LMch=0,updC=0;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
-    public SOFview(Context context) {
+    public SOFview2(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
         ballBounds = new RectF();
@@ -196,7 +196,7 @@ public class SOFview extends View {
 
 
 
-              break;
+                break;
 
             case MotionEvent.ACTION_MOVE:
 //
@@ -229,16 +229,15 @@ public class SOFview extends View {
     private void update() {
         //String lvl= mSettings.getString("level", "0");
         if (score>5){
-            editor.putInt("levl", 2);
-            editor.commit();
             Intent intent = new Intent(getContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             super.getContext().startActivity(intent);
-
+            editor.putInt("levl", 3);
+            editor.commit();
         }
 
         updC++;
-       //
+        //
         if ( (updC % 10) == 0)
         {
             thcns=1.0;
@@ -252,7 +251,7 @@ public class SOFview extends View {
             thcns2=.4;
             Lthcns=1.1;
             Lthcns2=.98;
-                    }
+        }
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
@@ -273,9 +272,9 @@ public class SOFview extends View {
         if(theta<0){
             ThtAbs1= theta+360;
         }else{
-        ThtAbs1= theta;
+            ThtAbs1= theta;
         }
-       // ThtAbs2= Math.abs(theta2);
+        // ThtAbs2= Math.abs(theta2);
         if(Ltheta<0){
             LThtAbs1= Ltheta+360;
         }else{

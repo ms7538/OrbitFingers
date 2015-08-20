@@ -11,10 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 public class SimpOF extends ActionBarActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        Integer LS= mSettings.getInt("ls", 1);
         View view = new SOFview(getApplicationContext());
+        switch (LS){
+            case 2:
+                view = new SOFview2(getApplicationContext());
+                break;
+        }
         setContentView(view);
         view.setBackgroundColor(Color.parseColor("#090404"));
 

@@ -26,35 +26,50 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-        SharedPreferences.Editor editor = mSettings.edit();
-        Integer lv= mSettings.getInt("levl", 0);
+        final SharedPreferences.Editor editor = mSettings.edit();
+        Integer lv= mSettings.getInt("levl", 1);
         //Log.i("M123A",lv);
+
         Button button = (Button) findViewById(R.id.simple);
         button.setBackgroundColor(getResources().getColor(R.color.green));
         button.setOnClickListener(new OnClickListener() {
-
-
             @Override
             public void onClick(View arg0) {
+                editor.putInt("ls", 1);
+                editor.commit();
                 Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
                 MainActivity.this.startActivity(myIntent);
             }
         });
+
         Button button2 = (Button) findViewById(R.id.simple2);
-        Button button3 = (Button) findViewById(R.id.simple3);
-        Button button4 = (Button) findViewById(R.id.simple4);
-        Button button5 = (Button) findViewById(R.id.simple5);
-        Button button6 = (Button) findViewById(R.id.simple6);
+        if (lv >=2) {
+
+            button2.setBackgroundColor(getResources().getColor(R.color.green));
+            button2.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    editor.putInt("ls", 2);
+                    editor.commit();
+                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
+            });
+        }
+//        Button button3 = (Button) findViewById(R.id.simple3);
+//        Button button4 = (Button) findViewById(R.id.simple4);
+//        Button button5 = (Button) findViewById(R.id.simple5);
+//        Button button6 = (Button) findViewById(R.id.simple6);
 
 
         if (lv==1){
             button2.setBackgroundColor(getResources().getColor(R.color.green));
         }else if (lv==0){
             button2.setBackgroundColor(getResources().getColor(R.color.red));
-            button3.setBackgroundColor(getResources().getColor(R.color.red));
-            button4.setBackgroundColor(getResources().getColor(R.color.red));
-            button5.setBackgroundColor(getResources().getColor(R.color.red));
-            button6.setBackgroundColor(getResources().getColor(R.color.red));
+//            button3.setBackgroundColor(getResources().getColor(R.color.red));
+//            button4.setBackgroundColor(getResources().getColor(R.color.red));
+//            button5.setBackgroundColor(getResources().getColor(R.color.red));
+//            button6.setBackgroundColor(getResources().getColor(R.color.red));
 
         }
 
