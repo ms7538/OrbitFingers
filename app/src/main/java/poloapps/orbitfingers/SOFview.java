@@ -24,10 +24,10 @@ import android.util.Log;
 
 public class SOFview extends View {
     private String someLevel="";
-   private ScaleGestureDetector detector; 
+    private ScaleGestureDetector detector;
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
-   private float XAL=950;
+    private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
     private float MBxL=XAL-600;
     private float MBy = 300;
@@ -58,20 +58,20 @@ public class SOFview extends View {
     private String CurrcolL= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
-   private String currscorecol= Red1;
-    private  double thcns=.5;
+    private String currscorecol= Red1;
+    private  double thcns=0;
     private double theta=0;
-    private  double thcns2=.5;
+    private  double thcns2=0;
     private double theta2=0;
     private int Mch=0;
-   private double ThtAbs1=0.0, ThtAbs2=0.0;
+    private double ThtAbs1=0.0, ThtAbs2=0.0;
     private double LThtAbs1=0.0, LThtAbs2=0.0;
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=.5;
+    private  double Lthcns=0;
     private double Ltheta=180;
-    private  double Lthcns2=.5;
+    private  double Lthcns2=0;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
@@ -109,8 +109,8 @@ public class SOFview extends View {
         orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2);
         orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1x);
         orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2x);
-        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB1xx);
-        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB2xx);
+        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1xx);
+        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2xx);
         // Draw Planets
         drawball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
         drawball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
@@ -128,8 +128,10 @@ public class SOFview extends View {
         }
         txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
-        if(score>50){
+        if(score>=5){
             currscorecol=Green1;
+            editor.putInt("levl", 2);
+            editor.commit();
         }else  currscorecol=Red1;
 
         update();
@@ -169,9 +171,7 @@ public class SOFview extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-
             case MotionEvent.ACTION_DOWN:
                 if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
@@ -187,40 +187,22 @@ public class SOFview extends View {
                     CurrcolL=Green1;
                     if(LMch==10){
                         score +=10;
-
                     }else score +=5;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
                     score -=5;
                 }
-
-
-
               break;
-
             case MotionEvent.ACTION_MOVE:
-//
-
                 break;
-
             case MotionEvent.ACTION_POINTER_DOWN:
-
                 break;
-
             case MotionEvent.ACTION_UP:
-
-
                 break;
-
             case MotionEvent.ACTION_POINTER_UP:
-
                 break;
         }
-
         detector.onTouchEvent(event);
-
-
-
         return true;
     }
 
@@ -228,14 +210,14 @@ public class SOFview extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>5){
-            editor.putInt("levl", 2);
-            editor.commit();
+        if (score>=5){
+            ///super.getContext().finish();
             Intent intent = new Intent(getContext(), MainActivity.class);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             super.getContext().startActivity(intent);
 
-        }
+        }else{
 
         updC++;
        //
@@ -274,7 +256,7 @@ public class SOFview extends View {
             ThtAbs1= theta+360;
         }else{
         ThtAbs1= theta;
-        }
+        }}
        // ThtAbs2= Math.abs(theta2);
         if(Ltheta<0){
             LThtAbs1= Ltheta+360;
@@ -330,19 +312,19 @@ public class SOFview extends View {
         B2yL = CY + (float) E2y;
 
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
-            Sleep(50);
+            //Sleep(50);
             Currcol = Blue1;
             CurrcolL=Blue1;
         }
     }
 
-    private static void Sleep(int CX) {
-        try {
-            Thread.sleep(CX);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
+//    private static void Sleep(int CX) {
+//        try {
+//            Thread.sleep(CX);
+//        } catch (InterruptedException ex) {
+//            Thread.currentThread().interrupt();
+//        }
+//    }
 
     // Called back when the view is first created or its size changes.
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
