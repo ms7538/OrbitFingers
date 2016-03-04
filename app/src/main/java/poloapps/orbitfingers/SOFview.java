@@ -205,6 +205,7 @@ public class SOFview extends View {
         detector.onTouchEvent(event);
         return true;
     }
+    //kjjk
 
 
 
