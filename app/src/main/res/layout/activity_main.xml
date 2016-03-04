@@ -15,6 +15,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/simple" />
+    <Button
+        android:id="@+id/simple2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/simple2"
+        android:clickable="true" />
+    <Button
+        android:id="@+id/simple3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 3"
+        android:clickable="true" />
+    <Button
+        android:id="@+id/simple4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 4"
+        android:clickable="true" />
+    <Button
+        android:id="@+id/simple5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 5"
+        android:clickable="true" />
+    <Button
+        android:id="@+id/simple6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Level 6"
+        android:clickable="true" />
 
 
 </LinearLayout>
