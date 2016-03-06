@@ -23,7 +23,7 @@ import android.widget.Toast;
 import android.util.Log;
 
 public class SOFview extends View {
-    private String someLevel="";
+
    private ScaleGestureDetector detector; 
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
@@ -136,7 +136,10 @@ public class SOFview extends View {
         }
         txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
-        if(score>10){
+        txtcnvs(canvas, "LEVEL 1", 0, 35, 30, Blue1);
+
+
+        if(score>50){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -201,10 +204,7 @@ public class SOFview extends View {
                     CurrcolL=Red1;
                     score -=5;
                 }
-
-
-
-              break;
+                break;
 
             case MotionEvent.ACTION_MOVE:
                 break;
@@ -224,7 +224,7 @@ public class SOFview extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=5){
+        if (score>=50){
             editor.putInt("levl", 2);
             editor.commit();
            if(c2==0) {
@@ -357,6 +357,6 @@ public class SOFview extends View {
         }
     }
 
-    void update3() {}
+
 
 }

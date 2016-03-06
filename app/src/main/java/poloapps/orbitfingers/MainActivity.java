@@ -104,13 +104,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, " Toast ",
-                Toast.LENGTH_SHORT).show();
-        finish();
-        System.exit(0);
-    }
 
 
 
