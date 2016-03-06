@@ -151,7 +151,7 @@ public class SOFview extends View {
         invalidate();  // Force a re-draw
         // update();
     }
-
+//test
     private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float flrdB1) {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor(blue1));
