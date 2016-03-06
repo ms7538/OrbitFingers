@@ -2,7 +2,8 @@
     <string name="app_name">OrbitFingers</string>
 
     <string name="hello_world">SELECT GAME</string>
-    <string name="simple">SIMPLE</string>
+    <string name="simple">Level 1</string>
+    <string name="simple2">Level 2</string>
     <string name="action_settings">Settings</string>
-    <string name="SOF">Simple OF Activity</string>
+    <string name="SOF">LEVEL 1</string>
 </resources>
