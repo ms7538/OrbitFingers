@@ -58,9 +58,9 @@ public class SOFview2 extends View {
     private String Green1="#00ff00";
     private String Red1="#ff0000";
     private String currscorecol= Red1;
-    private  double thcns=1.3;
+    private  double thcns=1.7;
     private double theta=0;
-    private  double thcns2=1.3;
+    private  double thcns2=1.7;
     private double theta2=0;
     private int Mch=0;
     private double ThtAbs1=0.0, ThtAbs2=0.0;
@@ -138,7 +138,7 @@ public class SOFview2 extends View {
         txtcnvs(canvas, "LEVEL 2", 0, 35, 30, Blue1);
 
 
-        if(score>50){
+        if(score>100){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -223,7 +223,7 @@ public class SOFview2 extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=50){
+        if (score>=100){  /// ensure 100
             editor.putInt("levl", 3);
             editor.commit();
             if(c2==0) {
@@ -240,6 +240,14 @@ public class SOFview2 extends View {
 
         //updC++;
         //
+
+        if ( score < 20){
+            thcns=1.4;
+            thcns2=1.4;
+            Lthcns=1.4;
+            Lthcns2=1.4;
+        }
+
         if ( score >= 20 && score <=40)
         {
             thcns=1.5;
@@ -247,13 +255,33 @@ public class SOFview2 extends View {
             Lthcns=1.5;
             Lthcns2=1.5;
         }
-        else  if ( score > 40 && score <=60)
+        if ( score > 40 && score <=60)
         {
             thcns=1.6;
             thcns2=1.6;
             Lthcns=1.6;
             Lthcns2=1.6;
                     }
+
+         if ( score > 60 && score <=80)
+        {
+            thcns=1.7;
+            thcns2=1.7;
+            Lthcns=1.7;
+            Lthcns2=1.7;
+        }
+
+        if ( score > 80 && score <=100)
+        {
+            thcns=1.8;
+            thcns2=1.8;
+            Lthcns=1.8;
+            Lthcns2=1.8;
+        }
+
+
+
+
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;

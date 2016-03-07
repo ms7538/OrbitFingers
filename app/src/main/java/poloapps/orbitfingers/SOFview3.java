@@ -22,12 +22,11 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 import android.util.Log;
 
-public class SOFview extends View {
-
-   private ScaleGestureDetector detector; 
+public class SOFview3 extends View {
+    private ScaleGestureDetector detector;
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
-   private float XAL=950;
+    private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
     private float MBxL=XAL-600;
     private float MBy = 300;
@@ -53,25 +52,25 @@ public class SOFview extends View {
     private float flrdB1xx = (float) B1dist-2;
     private float flrdB2xx = (float) B2dist-2;
     private String MBclr="#ffea7d";
-    private String Blue1="#017ed5";
+    private String Blue1="#663333";
     private String Currcol= Blue1;
     private String CurrcolL= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
-   private String currscorecol= Red1;
-    private  double thcns=1.2;
+    private String currscorecol= Red1;
+    private  double thcns=1.8;
     private double theta=0;
-    private  double thcns2=1.2;
+    private  double thcns2=1.8;
     private double theta2=0;
     private int Mch=0;
-   private double ThtAbs1=0.0, ThtAbs2=0.0;
+    private double ThtAbs1=0.0, ThtAbs2=0.0;
     private double LThtAbs1=0.0, LThtAbs2=0.0;
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=1.2;
+    private  double Lthcns=1.8;
     private double Ltheta=180;
-    private  double Lthcns2=1.2;
+    private  double Lthcns2=1.8;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
     private int c1=0,c2=0;
@@ -79,15 +78,15 @@ public class SOFview extends View {
     SharedPreferences.Editor editor = mSettings.edit();
 
 
-    public SOFview(Context context) {
+    public SOFview3(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
         ballBounds = new RectF();
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
-                            "   Level 2 Unlocks at 100 points",
+            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 10 points when pushing while balls are not alligned" +
+                            "   Level 4 Unlocks at 100 points",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
@@ -136,10 +135,10 @@ public class SOFview extends View {
         }
         txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
-        txtcnvs(canvas, "LEVEL 1", 0, 35, 30, Blue1);
+        txtcnvs(canvas, "LEVEL 3", 0, 35, 30, Blue1);
 
 
-        if(score>100){
+        if(score>=100){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -154,7 +153,7 @@ public class SOFview extends View {
         invalidate();  // Force a re-draw
         // update();
     }
-//test
+    //test
     private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float flrdB1) {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor(blue1));
@@ -192,7 +191,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=5;
+                    score -=10;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -202,7 +201,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=5;
+                    score -=10;
                 }
                 break;
 
@@ -224,23 +223,65 @@ public class SOFview extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=100){
-            editor.putInt("levl", 2);
+        if (score>=100){  /// ensure 100
+            editor.putInt("levl", 4);
             editor.commit();
-           if(c2==0) {
-               Toast.makeText(getContext(), " Level 2 Unlocked",
-                       Toast.LENGTH_SHORT).show();
+            if(c2==0) {
+                Toast.makeText(getContext(), " Level 4 Unlocked",
+                        Toast.LENGTH_SHORT).show();
                 c2++;
-           }
-           // Intent intent = new Intent(getContext(), MainActivity.class);
-           // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            }
+            // Intent intent = new Intent(getContext(), MainActivity.class);
+            // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
             //super.getContext().startActivity(intent);
 
         }
 
+        //updC++;
+        //
 
-//                    }
+        if ( score < 20){
+            thcns=1.9;
+            thcns2=1.9;
+            Lthcns=1.9;
+            Lthcns2=1.9;
+        }
+
+        if ( score >= 20 && score <=40)
+        {
+            thcns=2.0;
+            thcns2=2.0;
+            Lthcns=2.0;
+            Lthcns2=2.0;
+        }
+        if ( score > 40 && score <=60)
+        {
+            thcns=2.1;
+            thcns2=2.1;
+            Lthcns=2.1;
+            Lthcns2=2.1;
+        }
+
+        if ( score > 60 && score <=80)
+        {
+            thcns=2.2;
+            thcns2=2.2;
+            Lthcns=2.2;
+            Lthcns2=2.2;
+        }
+
+        if ( score > 80 && score <=100)
+        {
+            thcns=2.3;
+            thcns2=2.3;
+            Lthcns=2.3;
+            Lthcns2=2.3;
+        }
+
+
+
+
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
@@ -261,9 +302,9 @@ public class SOFview extends View {
         if(theta<0){
             ThtAbs1= theta+360;
         }else{
-        ThtAbs1= theta;
+            ThtAbs1= theta;
         }
-       // ThtAbs2= Math.abs(theta2);
+        // ThtAbs2= Math.abs(theta2);
         if(Ltheta<0){
             LThtAbs1= Ltheta+360;
         }else{
@@ -318,7 +359,7 @@ public class SOFview extends View {
         B2yL = CY + (float) E2y;
 
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
-            Sleep(80);
+            Sleep(100);
             Currcol = Blue1;
             CurrcolL=Blue1;
         }
@@ -342,7 +383,5 @@ public class SOFview extends View {
             return true;
         }
     }
-
-
 
 }
