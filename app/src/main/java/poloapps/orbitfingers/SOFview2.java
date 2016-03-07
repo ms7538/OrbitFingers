@@ -138,7 +138,7 @@ public class SOFview2 extends View {
         txtcnvs(canvas, "LEVEL 2", 0, 35, 30, Blue1);
 
 
-        if(score>100){
+        if(score>=100){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 

@@ -86,8 +86,7 @@ public class SOFview extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
-                            "   Level 2 Unlocks at 100 points",
+            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points,  Level 2 Unlocks at 100 points",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
@@ -139,7 +138,7 @@ public class SOFview extends View {
         txtcnvs(canvas, "LEVEL 1", 0, 35, 30, Blue1);
 
 
-        if(score>100){
+        if(score>=100){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -192,7 +191,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=5;
+                   // score -=5;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -202,7 +201,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=5;
+                    //score -=5;
                 }
                 break;
 
