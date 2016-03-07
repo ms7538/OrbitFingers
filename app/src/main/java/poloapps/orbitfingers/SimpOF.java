@@ -34,6 +34,11 @@ public class SimpOF extends ActionBarActivity {
                 setContentView(view3);
                 view3.setBackgroundColor(Color.parseColor("#090404"));
                 break;
+            case 4:
+                View view4 = new SOFview4(getApplicationContext());
+                setContentView(view4);
+                view4.setBackgroundColor(Color.parseColor("#090404"));
+                break;
 
         }
 

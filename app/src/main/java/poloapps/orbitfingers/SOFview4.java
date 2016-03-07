@@ -22,7 +22,7 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 import android.util.Log;
 
-public class SOFview2 extends View {
+public class SOFview4 extends View {
     private ScaleGestureDetector detector;
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
@@ -52,15 +52,15 @@ public class SOFview2 extends View {
     private float flrdB1xx = (float) B1dist-2;
     private float flrdB2xx = (float) B2dist-2;
     private String MBclr="#ffea7d";
-    private String Blue1="#800080";
+    private String Blue1="#D2691E";
     private String Currcol= Blue1;
     private String CurrcolL= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
     private String currscorecol= Red1;
-    private  double thcns=1.7;
+    private  double thcns=1.9;
     private double theta=0;
-    private  double thcns2=1.7;
+    private  double thcns2=1.9;
     private double theta2=0;
     private int Mch=0;
     private double ThtAbs1=0.0, ThtAbs2=0.0;
@@ -68,9 +68,9 @@ public class SOFview2 extends View {
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=1.3;
+    private  double Lthcns=1.8;
     private double Ltheta=180;
-    private  double Lthcns2=1.3;
+    private  double Lthcns2=1.8;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
     private int c1=0,c2=0;
@@ -78,15 +78,15 @@ public class SOFview2 extends View {
     SharedPreferences.Editor editor = mSettings.edit();
 
 
-    public SOFview2(Context context) {
+    public SOFview4(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
         ballBounds = new RectF();
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
-                            "   Level 3 Unlocks at 200 points",
+            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 10 points when pushing while balls are not alligned" +
+                            "   Level 5 Unlocks at 100 points",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
@@ -135,7 +135,7 @@ public class SOFview2 extends View {
         }
         txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
-        txtcnvs(canvas, "LEVEL 2", 0, 35, 30, Blue1);
+        txtcnvs(canvas, "LEVEL 4", 0, 35, 30, Blue1);
 
 
         if(score>=100){
@@ -191,7 +191,7 @@ public class SOFview2 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=5;
+                    score -=10;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -201,7 +201,7 @@ public class SOFview2 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=5;
+                    score -=10;
                 }
                 break;
 
@@ -223,11 +223,11 @@ public class SOFview2 extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=5){  /// ensure 100
-            editor.putInt("levl", 3);
+        if (score>=100){  /// ensure 100
+            editor.putInt("levl", 5);
             editor.commit();
             if(c2==0) {
-                Toast.makeText(getContext(), " Level 3 Unlocked",
+                Toast.makeText(getContext(), " Level 5 Unlocked",
                         Toast.LENGTH_SHORT).show();
                 c2++;
             }
@@ -242,46 +242,42 @@ public class SOFview2 extends View {
         //
 
         if ( score < 20){
-            thcns=1.4;
-            thcns2=1.4;
-            Lthcns=1.4;
-            Lthcns2=1.4;
+            thcns=2.0;
+            thcns2=2.0;
+            Lthcns=2.0;
+            Lthcns2=2.0;
         }
 
         if ( score >= 20 && score <=40)
         {
-            thcns=1.5;
-            thcns2=1.5;
-            Lthcns=1.5;
-            Lthcns2=1.5;
+            thcns=2.1;
+            thcns2=2.1;
+            Lthcns=2.1;
+            Lthcns2=2.1;
         }
         if ( score > 40 && score <=60)
         {
-            thcns=1.6;
-            thcns2=1.6;
-            Lthcns=1.6;
-            Lthcns2=1.6;
-                    }
+            thcns=2.2;
+            thcns2=2.2;
+            Lthcns=2.2;
+            Lthcns2=2.2;
+        }
 
-         if ( score > 60 && score <=80)
+        if ( score > 60 && score <=80)
         {
-            thcns=1.7;
-            thcns2=1.7;
-            Lthcns=1.7;
-            Lthcns2=1.7;
+            thcns=2.3;
+            thcns2=2.3;
+            Lthcns=2.3;
+            Lthcns2=2.3;
         }
 
         if ( score > 80 && score <=100)
         {
-            thcns=1.8;
-            thcns2=1.8;
-            Lthcns=1.8;
-            Lthcns2=1.8;
+            thcns=2.4;
+            thcns2=2.4;
+            Lthcns=2.4;
+            Lthcns2=2.4;
         }
-
-
-
-
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
@@ -321,20 +317,20 @@ public class SOFview2 extends View {
             LThtAbs2= Ltheta2;
         }
 
-        if (ThtAbs2 > .97 * ThtAbs1 && ThtAbs2 < 1.03 * ThtAbs1) {
+        if (ThtAbs2 > .975 * ThtAbs1 && ThtAbs2 < 1.025 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .97*180 && ThtAbs2 -ThtAbs1< 1.03*180){
+        }else if(ThtAbs2 -ThtAbs1> .975*180 && ThtAbs2 -ThtAbs1< 1.025*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .97*180 && ThtAbs1 -ThtAbs2< 1.03*180){
+        }else if(ThtAbs1 -ThtAbs2> .975*180 && ThtAbs1 -ThtAbs2< 1.025*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .97 * LThtAbs1 && LThtAbs2 < 1.03 * LThtAbs1) {
+        if (LThtAbs2 > .975 * LThtAbs1 && LThtAbs2 < 1.025 * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .97*180 && LThtAbs2 -LThtAbs1< 1.03*180){
+        }else if(LThtAbs2 -LThtAbs1> .975*180 && LThtAbs2 -LThtAbs1< 1.025*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .97*180 && LThtAbs1 -LThtAbs2< 1.03*180){
+        }else if(LThtAbs1 -LThtAbs2> .975*180 && LThtAbs1 -LThtAbs2< 1.025*180){
             LMch=5;
         } else {
             LMch = 0;

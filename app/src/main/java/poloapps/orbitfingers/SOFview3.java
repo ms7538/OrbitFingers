@@ -191,7 +191,7 @@ public class SOFview3 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=10;
+                    score -=5;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -201,7 +201,7 @@ public class SOFview3 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=10;
+                    score -=5;
                 }
                 break;
 
@@ -218,12 +218,9 @@ public class SOFview3 extends View {
         detector.onTouchEvent(event);
         return true;
     }
-
-
-
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=100){  /// ensure 100
+        if (score>=5){  /// ensure 100
             editor.putInt("levl", 4);
             editor.commit();
             if(c2==0) {
@@ -279,9 +276,6 @@ public class SOFview3 extends View {
             Lthcns2=2.3;
         }
 
-
-
-
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
@@ -321,20 +315,20 @@ public class SOFview3 extends View {
             LThtAbs2= Ltheta2;
         }
 
-        if (ThtAbs2 > .98 * ThtAbs1 && ThtAbs2 < 1.02 * ThtAbs1) {
+        if (ThtAbs2 > .97 * ThtAbs1 && ThtAbs2 < 1.03 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .98*180 && ThtAbs2 -ThtAbs1< 1.02*180){
+        }else if(ThtAbs2 -ThtAbs1> .97*180 && ThtAbs2 -ThtAbs1< 1.03*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .98*180 && ThtAbs1 -ThtAbs2< 1.02*180){
+        }else if(ThtAbs1 -ThtAbs2> .97*180 && ThtAbs1 -ThtAbs2< 1.03*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .98 * LThtAbs1 && LThtAbs2 < 1.02 * LThtAbs1) {
+        if (LThtAbs2 > .97 * LThtAbs1 && LThtAbs2 < 1.03 * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .98*180 && LThtAbs2 -LThtAbs1< 1.02*180){
+        }else if(LThtAbs2 -LThtAbs1> .97*180 && LThtAbs2 -LThtAbs1< 1.03*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .98*180 && LThtAbs1 -LThtAbs2< 1.02*180){
+        }else if(LThtAbs1 -LThtAbs2> .97*180 && LThtAbs1 -LThtAbs2< 1.03*180){
             LMch=5;
         } else {
             LMch = 0;

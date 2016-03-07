@@ -73,16 +73,31 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+        Button button4 = (Button) findViewById(R.id.simple4);
+
+        if (lv >=4) {
+
+            button4.setBackgroundColor(getResources().getColor(R.color.green));
+            button4.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    editor.putInt("ls", 4);
+                    editor.commit();
+                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
+            });
+        }
 
 
-//        Button button4 = (Button) findViewById(R.id.simple4);
-//        Button button5 = (Button) findViewById(R.id.simple5);
-//        Button button6 = (Button) findViewById(R.id.simple6);
 
 
         if (lv>1){
             button2.setBackgroundColor(getResources().getColor(R.color.green));
         }else {
+
+
+
             //button2.setBackgroundColor(getResources().getColor(R.color.red));
 //            button3.setBackgroundColor(getResources().getColor(R.color.red));
 //            button4.setBackgroundColor(getResources().getColor(R.color.red));

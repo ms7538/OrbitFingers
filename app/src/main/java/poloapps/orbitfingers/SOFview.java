@@ -59,9 +59,9 @@ public class SOFview extends View {
     private String Green1="#00ff00";
     private String Red1="#ff0000";
    private String currscorecol= Red1;
-    private  double thcns=1.2;
+    private  double thcns=1.5;
     private double theta=0;
-    private  double thcns2=1.2;
+    private  double thcns2=1.5;
     private double theta2=0;
     private int Mch=0;
    private double ThtAbs1=0.0, ThtAbs2=0.0;
@@ -69,9 +69,9 @@ public class SOFview extends View {
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=1.2;
+    private  double Lthcns=1.5;
     private double Ltheta=180;
-    private  double Lthcns2=1.2;
+    private  double Lthcns2=1.5;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
     private int c1=0,c2=0;
@@ -86,7 +86,8 @@ public class SOFview extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points,  Level 2 Unlocks at 100 points",
+            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
+                            "  Level 2 Unlocks at 100 points",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
@@ -191,7 +192,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                   // score -=5;
+                    score -=5;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -201,7 +202,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    //score -=5;
+                    score -=5;
                 }
                 break;
 
@@ -223,7 +224,7 @@ public class SOFview extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=100){
+        if (score>=5){
             editor.putInt("levl", 2);
             editor.commit();
            if(c2==0) {
@@ -279,20 +280,20 @@ public class SOFview extends View {
             LThtAbs2= Ltheta2;
         }
 
-        if (ThtAbs2 > .98 * ThtAbs1 && ThtAbs2 < 1.02 * ThtAbs1) {
+        if (ThtAbs2 > .975 * ThtAbs1 && ThtAbs2 < 1.025 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .98*180 && ThtAbs2 -ThtAbs1< 1.02*180){
+        }else if(ThtAbs2 -ThtAbs1> .975*180 && ThtAbs2 -ThtAbs1< 1.025*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .98*180 && ThtAbs1 -ThtAbs2< 1.02*180){
+        }else if(ThtAbs1 -ThtAbs2> .975*180 && ThtAbs1 -ThtAbs2< 1.025*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .98 * LThtAbs1 && LThtAbs2 < 1.02 * LThtAbs1) {
+        if (LThtAbs2 > .975 * LThtAbs1 && LThtAbs2 < 1.025 * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .98*180 && LThtAbs2 -LThtAbs1< 1.02*180){
+        }else if(LThtAbs2 -LThtAbs1> .975*180 && LThtAbs2 -LThtAbs1< 1.025*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .98*180 && LThtAbs1 -LThtAbs2< 1.02*180){
+        }else if(LThtAbs1 -LThtAbs2> .975*180 && LThtAbs1 -LThtAbs2< 1.025*180){
             LMch=5;
         } else {
             LMch = 0;
