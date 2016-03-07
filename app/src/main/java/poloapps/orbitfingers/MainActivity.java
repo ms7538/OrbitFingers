@@ -57,10 +57,24 @@ public class MainActivity extends ActionBarActivity {
             });
         }
 
-//
-//
-//
-//         Button button3 = (Button) findViewById(R.id.simple3);
+
+         Button button3 = (Button) findViewById(R.id.simple3);
+
+        if (lv >=3) {
+
+            button3.setBackgroundColor(getResources().getColor(R.color.green));
+            button3.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    editor.putInt("ls", 3);
+                    editor.commit();
+                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
+            });
+        }
+
+
 //        Button button4 = (Button) findViewById(R.id.simple4);
 //        Button button5 = (Button) findViewById(R.id.simple5);
 //        Button button6 = (Button) findViewById(R.id.simple6);
@@ -104,13 +118,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, " Toast ",
-                Toast.LENGTH_SHORT).show();
-        finish();
-        System.exit(0);
-    }
 
 
 
