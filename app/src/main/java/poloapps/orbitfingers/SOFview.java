@@ -59,9 +59,9 @@ public class SOFview extends View {
     private String Green1="#00ff00";
     private String Red1="#ff0000";
    private String currscorecol= Red1;
-    private  double thcns=1.5;
+    private  double thcns=1;
     private double theta=0;
-    private  double thcns2=1.5;
+    private  double thcns2=1;
     private double theta2=0;
     private int Mch=0;
    private double ThtAbs1=0.0, ThtAbs2=0.0;
@@ -69,9 +69,9 @@ public class SOFview extends View {
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=1.5;
+    private  double Lthcns=1;
     private double Ltheta=180;
-    private  double Lthcns2=1.5;
+    private  double Lthcns2=1;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
     private int c1=0,c2=0;
@@ -142,12 +142,19 @@ public class SOFview extends View {
         if(score>=100){
             currscorecol=Green1;
         }else  currscorecol=Red1;
+        if ( score >= 50){
+            thcns=1.2;
+            thcns2=1.2;
+            Lthcns=1.2;
+            Lthcns2=1.2;
+        }
+
 
         update();
 
         // Delay
         try {
-            Thread.sleep(30);
+            Thread.sleep(25);
         } catch (InterruptedException e) { }
 
         canvas.restore();
@@ -224,7 +231,9 @@ public class SOFview extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=5){
+        if (score>=100){
+
+
             editor.putInt("levl", 2);
             editor.commit();
            if(c2==0) {
@@ -280,20 +289,20 @@ public class SOFview extends View {
             LThtAbs2= Ltheta2;
         }
 
-        if (ThtAbs2 > .975 * ThtAbs1 && ThtAbs2 < 1.025 * ThtAbs1) {
+        if (ThtAbs2 > .977 * ThtAbs1 && ThtAbs2 < 1.023 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .975*180 && ThtAbs2 -ThtAbs1< 1.025*180){
+        }else if(ThtAbs2 -ThtAbs1> .977*180 && ThtAbs2 -ThtAbs1< 1.023*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .975*180 && ThtAbs1 -ThtAbs2< 1.025*180){
+        }else if(ThtAbs1 -ThtAbs2> .977*180 && ThtAbs1 -ThtAbs2< 1.023*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .975 * LThtAbs1 && LThtAbs2 < 1.025 * LThtAbs1) {
+        if (LThtAbs2 > .977 * LThtAbs1 && LThtAbs2 < 1.023 * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .975*180 && LThtAbs2 -LThtAbs1< 1.025*180){
+        }else if(LThtAbs2 -LThtAbs1> .977*180 && LThtAbs2 -LThtAbs1< 1.023*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .975*180 && LThtAbs1 -LThtAbs2< 1.025*180){
+        }else if(LThtAbs1 -LThtAbs2> .977*180 && LThtAbs1 -LThtAbs2< 1.023*180){
             LMch=5;
         } else {
             LMch = 0;

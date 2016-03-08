@@ -90,24 +90,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
 
-
-
-        if (lv>1){
-            button2.setBackgroundColor(getResources().getColor(R.color.green));
-        }else {
-
-
-
-            //button2.setBackgroundColor(getResources().getColor(R.color.red));
-//            button3.setBackgroundColor(getResources().getColor(R.color.red));
-//            button4.setBackgroundColor(getResources().getColor(R.color.red));
-//            button5.setBackgroundColor(getResources().getColor(R.color.red));
-//            button6.setBackgroundColor(getResources().getColor(R.color.red));
-
-        }
-
-
-
     }
 
     @Override
