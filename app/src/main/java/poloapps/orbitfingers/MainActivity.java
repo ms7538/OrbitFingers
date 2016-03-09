@@ -88,8 +88,20 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+        Button button5 = (Button) findViewById(R.id.simple5);
+        if (lv >=5) {
 
-
+            button5.setBackgroundColor(getResources().getColor(R.color.green));
+            button5.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    editor.putInt("ls", 5);
+                    editor.commit();
+                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
+            });
+        }
     }
 
     @Override

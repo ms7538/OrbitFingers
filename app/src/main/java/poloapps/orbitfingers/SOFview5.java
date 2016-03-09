@@ -1,6 +1,4 @@
 package poloapps.orbitfingers;
-
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +20,7 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 import android.util.Log;
 
-public class SOFview4 extends View {
+public class SOFview5 extends View {
     private ScaleGestureDetector detector;
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
@@ -52,15 +50,15 @@ public class SOFview4 extends View {
     private float flrdB1xx = (float) B1dist-2;
     private float flrdB2xx = (float) B2dist-2;
     private String MBclr="#ffea7d";
-    private String Blue1="#004040";
+    private String Blue1="#f2f2f2";
     private String Currcol= Blue1;
     private String CurrcolL= Blue1;
     private String Green1="#00ff00";
     private String Red1="#ff0000";
     private String currscorecol= Red1;
-    private  double thcns=1.9;
+    private  double thcns=2.1;
     private double theta=0;
-    private  double thcns2=1.9;
+    private  double thcns2=2.1;
     private double theta2=0;
     private int Mch=0;
     private double ThtAbs1=0.0, ThtAbs2=0.0;
@@ -68,9 +66,9 @@ public class SOFview4 extends View {
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=1.9;
+    private  double Lthcns=2.1;
     private double Ltheta=180;
-    private  double Lthcns2=1.9;
+    private  double Lthcns2=2.1;
     private double Ltheta2=270;
     private int LMch=0,updC=0;
     private int c1=0,c2=0;
@@ -78,15 +76,15 @@ public class SOFview4 extends View {
     SharedPreferences.Editor editor = mSettings.edit();
 
 
-    public SOFview4(Context context) {
+    public SOFview5(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());
         ballBounds = new RectF();
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 10 points when pushing while balls are not alligned" +
-                            "   Level 5 Unlocks at 300 points",
+            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 20 points when pushing while balls are not alligned" +
+                            "   WIN GAME at 500 points",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
@@ -135,10 +133,10 @@ public class SOFview4 extends View {
         }
         txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
-        txtcnvs(canvas, "LEVEL 4", 0, 35, 30, Blue1);
+        txtcnvs(canvas, "LEVEL 5", 0, 35, 30, Blue1);
 
 
-        if(score>=300){
+        if(score>=500){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -191,7 +189,7 @@ public class SOFview4 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=10;
+                    score -=20;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -201,7 +199,7 @@ public class SOFview4 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=10;
+                    score -=20;
                 }
                 break;
 
@@ -223,7 +221,7 @@ public class SOFview4 extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=300){  /// ensure 100
+        if (score>=5){  /// ensure 100
             editor.putInt("levl", 5);
             editor.commit();
             if(c2==0) {
@@ -242,71 +240,87 @@ public class SOFview4 extends View {
         //
 
         if ( score < 20){
-            thcns=2;
-            thcns2=2;
-            Lthcns=2;
-            Lthcns2=2;
-        }
-
-        if ( score >= 20 && score <=40)
-        {
-            thcns=2.05;
-            thcns2=2.05;
-            Lthcns=2.05;
-            Lthcns2=2.05;
-        }
-        if ( score > 40 && score <=60)
-        {
-            thcns=2.1;
-            thcns2=2.1;
-            Lthcns=2.1;
-            Lthcns2=2.1;
-        }
-
-        if ( score > 60 && score <=80)
-        {
-            thcns=2.15;
-            thcns2=2.15;
-            Lthcns=2.15;
-            Lthcns2=2.15;
-        }
-
-        if ( score > 80 && score <=100)
-        {
-            thcns=2.2;
-            thcns2=2.2;
-            Lthcns=2.2;
-            Lthcns2=2.2;
-        }
-        if ( score > 100 && score <=150){
-            thcns=2.25;
-            thcns2=2.25;
-            Lthcns=2.25;
-            Lthcns2=2.25;
-        }
-
-        if ( score > 150 && score <=200)
-        {
-            thcns=2.3;
-            thcns2=2.3;
-            Lthcns=2.3;
-            Lthcns2=2.3;
-        }
-        if ( score > 200 && score <=250)
-        {
-            thcns=2.35;
-            thcns2=2.35;
-            Lthcns=2.35;
-            Lthcns2=2.35;
-        }
-
-        if ( score > 250 )
-        {
             thcns=2.4;
             thcns2=2.4;
             Lthcns=2.4;
             Lthcns2=2.4;
         }
+
+        if ( score >= 20 && score <=40)
+        {
+            thcns=2.45;
+            thcns2=2.45;
+            Lthcns=2.45;
+            Lthcns2=2.45;
+        }
+        if ( score > 40 && score <=60)
+        {
+            thcns=2.5;
+            thcns2=2.5;
+            Lthcns=2.5;
+            Lthcns2=2.5;
+        }
+
+        if ( score > 60 && score <=80)
+        {
+            thcns=2.6;
+            thcns2=2.6;
+            Lthcns=2.6;
+            Lthcns2=2.6;
+        }
+
+        if ( score > 80 && score <=100)
+        {
+            thcns=2.7;
+            thcns2=2.7;
+            Lthcns=2.7;
+            Lthcns2=2.7;
+        }
+        if ( score > 100 && score <=150){
+            thcns=2.8;
+            thcns2=2.8;
+            Lthcns=2.8;
+            Lthcns2=2.8;
+        }
+
+        if ( score > 150 && score <=200)
+        {
+            thcns=2.9;
+            thcns2=2.9;
+            Lthcns=2.9;
+            Lthcns2=2.9;
+        }
+        if ( score > 200 && score <=250)
+        {
+            thcns=3;
+            thcns2=3;
+            Lthcns=3;
+            Lthcns2=3;
+        }
+
+        if ( score > 250 && score <=350)
+        {
+            thcns=3.1;
+            thcns2=3.1;
+            Lthcns=3.1;
+            Lthcns2=3.1;
+        }
+
+        if ( score > 350 && score <=450)
+        {
+            thcns=3.2;
+            thcns2=3.2;
+            Lthcns=3.2;
+            Lthcns2=3.2;
+        }
+        if ( score > 450)
+        {
+            thcns=3.3;
+            thcns2=3.3;
+            Lthcns=3.3;
+            Lthcns2=3.3;
+        }
+
 
         theta += thcns;
         if (theta > 360 || theta < -360) {
@@ -347,20 +361,20 @@ public class SOFview4 extends View {
             LThtAbs2= Ltheta2;
         }
 
-        if (ThtAbs2 > .983 * ThtAbs1 && ThtAbs2 < 1.017 * ThtAbs1) {
+        if (ThtAbs2 > .985 * ThtAbs1 && ThtAbs2 < 1.015 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .983*180 && ThtAbs2 -ThtAbs1< 1.017*180){
+        }else if(ThtAbs2 -ThtAbs1> .985*180 && ThtAbs2 -ThtAbs1< 1.015*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .983*180 && ThtAbs1 -ThtAbs2< 1.017*180){
+        }else if(ThtAbs1 -ThtAbs2> .985*180 && ThtAbs1 -ThtAbs2< 1.015*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .983 * LThtAbs1 && LThtAbs2 < 1.017 * LThtAbs1) {
+        if (LThtAbs2 > .985 * LThtAbs1 && LThtAbs2 < 1.015 * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .983*180 && LThtAbs2 -LThtAbs1< 1.017*180){
+        }else if(LThtAbs2 -LThtAbs1> .985*180 && LThtAbs2 -LThtAbs1< 1.015*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .983*180 && LThtAbs1 -LThtAbs2< 1.017*180){
+        }else if(LThtAbs1 -LThtAbs2> .985*180 && LThtAbs1 -LThtAbs2< 1.015*180){
             LMch=5;
         } else {
             LMch = 0;

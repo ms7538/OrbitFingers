@@ -43,13 +43,7 @@
         android:text="Level 5"
         android:layout_marginTop="5dp"
         android:clickable="true" />
-    <Button
-        android:id="@+id/simple6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Level 6"
-        android:clickable="true" />
+
 
 
 </LinearLayout>
