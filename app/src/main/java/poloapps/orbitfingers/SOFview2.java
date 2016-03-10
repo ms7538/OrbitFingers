@@ -29,17 +29,17 @@ public class SOFview2 extends View {
     private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
     private float MBxL=XAL-600;
-    private float MBy = 300;
+    private float MBy = 210;
     private float B1X = XAL;  // Ball's center (x,y)
-    private float B1y= 400;
+    private float B1y= 210;
     private float B2X = XAL;  // Ball's center (x,y)
-    private float B2y= 500;
+    private float B2y= 410;
     private float B1XL = XAL-600;  // Ball's center (x,y)
-    private float B1yL= 400;
+    private float B1yL= 310;
     private float B2XL = XAL-600;  // Ball's center (x,y)
-    private float B2yL= 500;
+    private float B2yL= 410;
     private int CX=Math.round(XAL);
-    private int CY=300;
+    private int CY=210;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
     private double B1dist=100;
@@ -183,28 +183,27 @@ public class SOFview2 extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && (Mch==10 || Mch==5)) {
+                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
                     if(Mch==10){
                         score +=10;
 
                     }else score +=10;
-                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
+                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
                     score -=5;
                 }
-                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
+                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
                         score +=10;
 
                     }else score +=10;
-                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
+                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
                     score -=5;
                 }
                 break;
-
             case MotionEvent.ACTION_MOVE:
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
