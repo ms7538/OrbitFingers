@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -102,6 +103,12 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
     }
 
     @Override
