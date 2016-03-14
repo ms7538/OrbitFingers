@@ -83,7 +83,7 @@ public class SOFview5 extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 20 points when pushing while balls are not alligned" +
+            Toast.makeText(getContext(), "Push center while circles are alligned to gain 10 points, loose 20 points when pushing while circles are not alligned" +
                             "   WIN GAME at 500 points",
                     Toast.LENGTH_LONG).show();
             c1++;
@@ -221,11 +221,11 @@ public class SOFview5 extends View {
 
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=5){  /// ensure 100
+        if (score>=500){  /// ensure 100
             editor.putInt("levl", 5);
             editor.commit();
             if(c2==0) {
-                Toast.makeText(getContext(), " Level 5 Unlocked",
+                Toast.makeText(getContext(), " WINNER",
                         Toast.LENGTH_SHORT).show();
                 c2++;
             }

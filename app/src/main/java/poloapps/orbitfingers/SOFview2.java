@@ -85,7 +85,7 @@ public class SOFview2 extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
+            Toast.makeText(getContext(), "Push center while circles are alligned to gain 10 points, loose 5 points when pushing while circles are not alligned" +
                             "   Level 3 Unlocks at 150 points",
                     Toast.LENGTH_LONG).show();
             c1++;
