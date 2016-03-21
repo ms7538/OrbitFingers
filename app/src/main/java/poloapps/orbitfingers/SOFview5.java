@@ -189,7 +189,7 @@ public class SOFview5 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=5;
+                    score -=20;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -199,7 +199,7 @@ public class SOFview5 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=5;
+                    score -=20;
                 }
                 break;
 
@@ -220,24 +220,6 @@ public class SOFview5 extends View {
 
 
     private void update() {
-        //String lvl= mSettings.getString("level", "0");
-        if (score>=5){  /// ensure 100
-            editor.putInt("levl", 5);
-            editor.commit();
-            if(c2==0) {
-                Toast.makeText(getContext(), " Level 5 Unlocked",
-                        Toast.LENGTH_SHORT).show();
-                c2++;
-            }
-            // Intent intent = new Intent(getContext(), MainActivity.class);
-            // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            //super.getContext().startActivity(intent);
-
-        }
-
-        //updC++;
-        //
 
         if ( score < 20){
             thcns=2.4;

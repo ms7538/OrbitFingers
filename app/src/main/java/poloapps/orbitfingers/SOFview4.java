@@ -191,7 +191,7 @@ public class SOFview4 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=5;
+                    score -=10;
                 }
                 if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -201,7 +201,7 @@ public class SOFview4 extends View {
                     }else score +=10;
                 }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=5;
+                    score -=10;
                 }
                 break;
 
