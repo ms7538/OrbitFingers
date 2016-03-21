@@ -29,17 +29,17 @@ public class SOFview3 extends View {
     private float XAL=950;
     private float MBx = XAL;  // Ball's center (x,y)
     private float MBxL=XAL-600;
-    private float MBy = 300;
+    private float MBy = 210;
     private float B1X = XAL;  // Ball's center (x,y)
-    private float B1y= 400;
+    private float B1y= 210;
     private float B2X = XAL;  // Ball's center (x,y)
-    private float B2y= 500;
+    private float B2y= 410;
     private float B1XL = XAL-600;  // Ball's center (x,y)
-    private float B1yL= 400;
+    private float B1yL= 310;
     private float B2XL = XAL-600;  // Ball's center (x,y)
-    private float B2yL= 500;
+    private float B2yL= 410;
     private int CX=Math.round(XAL);
-    private int CY=300;
+    private int CY=210;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
     private double B1dist=100;
@@ -86,7 +86,7 @@ public class SOFview3 extends View {
         // Set the font face and size of drawing text
         if (c1==0) {
             Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 10 points when pushing while balls are not alligned" +
-                            "   Level 4 Unlocks at 100 points",
+                            "   Level 4 Unlocks at 200 points",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
@@ -138,7 +138,7 @@ public class SOFview3 extends View {
         txtcnvs(canvas, "LEVEL 3", 0, 35, 30, Blue1);
 
 
-        if(score>=100){
+        if(score>=200){
             currscorecol=Green1;
         }else  currscorecol=Red1;
 
@@ -146,7 +146,7 @@ public class SOFview3 extends View {
 
         // Delay
         try {
-            Thread.sleep(30);
+            Thread.sleep(25);
         } catch (InterruptedException e) { }
 
         canvas.restore();
@@ -183,25 +183,25 @@ public class SOFview3 extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) && (Mch==10 || Mch==5)) {
+                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
                     if(Mch==10){
                         score +=10;
 
                     }else score +=10;
-                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 250 && event.getY() < 350) &&!(Mch==10 || Mch==5)){
+                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=10;
+                    score -=5;
                 }
-                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) && (LMch==10 || LMch==5)) {
+                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
                         score +=10;
 
                     }else score +=10;
-                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 250 && event.getY() < 350) &&!(LMch==10 || LMch==5)){
+                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=10;
+                    score -=5;
                 }
                 break;
 
@@ -218,12 +218,9 @@ public class SOFview3 extends View {
         detector.onTouchEvent(event);
         return true;
     }
-
-
-
     private void update() {
         //String lvl= mSettings.getString("level", "0");
-        if (score>=100){  /// ensure 100
+        if (score>=200){  /// ensure 100
             editor.putInt("levl", 4);
             editor.commit();
             if(c2==0) {
@@ -250,38 +247,55 @@ public class SOFview3 extends View {
 
         if ( score >= 20 && score <=40)
         {
-            thcns=2.0;
-            thcns2=2.0;
-            Lthcns=2.0;
-            Lthcns2=2.0;
+            thcns=1.95;
+            thcns2=1.95;
+            Lthcns=1.95;
+            Lthcns2=1.95;
         }
         if ( score > 40 && score <=60)
+        {
+            thcns=2;
+            thcns2=2;
+            Lthcns=2;
+            Lthcns2=2;
+        }
+
+        if ( score > 60 && score <=80)
+        {
+            thcns=2.05;
+            thcns2=2.05;
+            Lthcns=2.05;
+            Lthcns2=2.05;
+        }
+
+        if ( score > 80 && score <=100)
         {
             thcns=2.1;
             thcns2=2.1;
             Lthcns=2.1;
             Lthcns2=2.1;
         }
-
-        if ( score > 60 && score <=80)
+        if ( score > 100 && score <=125)
         {
-            thcns=2.2;
-            thcns2=2.2;
-            Lthcns=2.2;
-            Lthcns2=2.2;
+            thcns=2.15;
+            thcns2=2.15;
+            Lthcns=2.15;
+            Lthcns2=2.15;
         }
-
-        if ( score > 80 && score <=100)
+        if ( score > 125 && score <=160)
         {
-            thcns=2.3;
-            thcns2=2.3;
-            Lthcns=2.3;
-            Lthcns2=2.3;
+            thcns=1.85;
+            thcns2=1.85;
+            Lthcns=1.85;
+            Lthcns2=1.85;
         }
-
-
-
-
+        if ( score > 160)
+        {
+            thcns=1.9;
+            thcns2=1.9;
+            Lthcns=1.9;
+            Lthcns2=1.9;
+        }
         theta += thcns;
         if (theta > 360 || theta < -360) {
             theta = 0;
@@ -321,20 +335,20 @@ public class SOFview3 extends View {
             LThtAbs2= Ltheta2;
         }
 
-        if (ThtAbs2 > .98 * ThtAbs1 && ThtAbs2 < 1.02 * ThtAbs1) {
+        if (ThtAbs2 > .983 * ThtAbs1 && ThtAbs2 < 1.017 * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .98*180 && ThtAbs2 -ThtAbs1< 1.02*180){
+        }else if(ThtAbs2 -ThtAbs1> .983*180 && ThtAbs2 -ThtAbs1< 1.017*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .98*180 && ThtAbs1 -ThtAbs2< 1.02*180){
+        }else if(ThtAbs1 -ThtAbs2> .983*180 && ThtAbs1 -ThtAbs2< 1.017*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .98 * LThtAbs1 && LThtAbs2 < 1.02 * LThtAbs1) {
+        if (LThtAbs2 > .983 * LThtAbs1 && LThtAbs2 < 1.017 * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .98*180 && LThtAbs2 -LThtAbs1< 1.02*180){
+        }else if(LThtAbs2 -LThtAbs1> .983*180 && LThtAbs2 -LThtAbs1< 1.017*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .98*180 && LThtAbs1 -LThtAbs2< 1.02*180){
+        }else if(LThtAbs1 -LThtAbs2> .983*180 && LThtAbs1 -LThtAbs2< 1.017*180){
             LMch=5;
         } else {
             LMch = 0;
@@ -359,7 +373,7 @@ public class SOFview3 extends View {
         B2yL = CY + (float) E2y;
 
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
-            Sleep(100);
+            Sleep(80);
             Currcol = Blue1;
             CurrcolL=Blue1;
         }

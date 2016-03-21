@@ -14,7 +14,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -73,23 +74,38 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+        Button button4 = (Button) findViewById(R.id.simple4);
 
+        if (lv >=4) {
 
-//        Button button4 = (Button) findViewById(R.id.simple4);
-//        Button button5 = (Button) findViewById(R.id.simple5);
-//        Button button6 = (Button) findViewById(R.id.simple6);
-
-
-        if (lv>1){
-            button2.setBackgroundColor(getResources().getColor(R.color.green));
-        }else {
-            //button2.setBackgroundColor(getResources().getColor(R.color.red));
-//            button3.setBackgroundColor(getResources().getColor(R.color.red));
-//            button4.setBackgroundColor(getResources().getColor(R.color.red));
-//            button5.setBackgroundColor(getResources().getColor(R.color.red));
-//            button6.setBackgroundColor(getResources().getColor(R.color.red));
-
+            button4.setBackgroundColor(getResources().getColor(R.color.green));
+            button4.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    editor.putInt("ls", 4);
+                    editor.commit();
+                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
+            });
         }
+        Button button5 = (Button) findViewById(R.id.simple5);
+        if (lv >=5) {
+
+            button5.setBackgroundColor(getResources().getColor(R.color.green));
+            button5.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    editor.putInt("ls", 5);
+                    editor.commit();
+                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+                    MainActivity.this.startActivity(myIntent);
+                }
+            });
+        }
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
 
