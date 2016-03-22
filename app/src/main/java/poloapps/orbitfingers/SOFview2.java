@@ -24,6 +24,7 @@ import android.util.Log;
 
 public class SOFview2 extends View {
     private ScaleGestureDetector detector;
+    //
     private float MBsze = 30; // Ball's radius
     private float Bsize = 10; // 2 Ball's  radius
     private float XAL=950;
