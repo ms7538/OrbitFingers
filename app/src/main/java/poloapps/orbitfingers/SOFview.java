@@ -232,8 +232,6 @@ public class SOFview extends View {
     private void update() {
         //String lvl= mSettings.getString("level", "0");
         if (score>=100){
-
-
             editor.putInt("levl", 2);
             editor.commit();
            if(c2==0) {

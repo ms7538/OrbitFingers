@@ -14,13 +14,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
 public class MainActivity extends ActionBarActivity {
 
 
-
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,21 +32,41 @@ public class MainActivity extends ActionBarActivity {
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         Integer lv= mSettings.getInt("levl", 1);
-        //Log.i("M123A",lv);
-
-        Button button = (Button) findViewById(R.id.simple);
-        button.setBackgroundColor(getResources().getColor(R.color.green));
-        button.setOnClickListener(new OnClickListener() {
+        //Log.i("M123A", Integer.toString(lv));
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
+        requestNewInterstitial();
+        mInterstitialAd.setAdListener(new AdListener() {
             @Override
-            public void onClick(View arg0) {
-                editor.putInt("ls", 1);
-                editor.commit();
+            public void onAdClosed() {
+                requestNewInterstitial();
                 Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
                 MainActivity.this.startActivity(myIntent);
             }
         });
 
+
+        Button button = (Button) findViewById(R.id.simple);
+        button.setBackgroundColor(getResources().getColor(R.color.green));
+
+
         Button button2 = (Button) findViewById(R.id.simple2);
+        Button button3 = (Button) findViewById(R.id.simple3);
+        Button button4 = (Button) findViewById(R.id.simple4);
+        Button button5 = (Button) findViewById(R.id.simple5);
+
+
+
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                editor.putInt("ls", 1);
+                editor.commit();
+                luanchlevel();
+            }
+        });
+
+
         if (lv >=2) {
 
             button2.setBackgroundColor(getResources().getColor(R.color.green));
@@ -52,14 +75,10 @@ public class MainActivity extends ActionBarActivity {
                 public void onClick(View arg0) {
                     editor.putInt("ls", 2);
                     editor.commit();
-                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-                    MainActivity.this.startActivity(myIntent);
+                    luanchlevel();
                 }
             });
         }
-
-
-         Button button3 = (Button) findViewById(R.id.simple3);
 
         if (lv >=3) {
 
@@ -69,12 +88,11 @@ public class MainActivity extends ActionBarActivity {
                 public void onClick(View arg0) {
                     editor.putInt("ls", 3);
                     editor.commit();
-                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-                    MainActivity.this.startActivity(myIntent);
+                    luanchlevel();
                 }
             });
         }
-        Button button4 = (Button) findViewById(R.id.simple4);
+
 
         if (lv >=4) {
 
@@ -84,12 +102,11 @@ public class MainActivity extends ActionBarActivity {
                 public void onClick(View arg0) {
                     editor.putInt("ls", 4);
                     editor.commit();
-                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-                    MainActivity.this.startActivity(myIntent);
+                    luanchlevel();
                 }
             });
         }
-        Button button5 = (Button) findViewById(R.id.simple5);
+
         if (lv >=5) {
 
             button5.setBackgroundColor(getResources().getColor(R.color.green));
@@ -98,8 +115,7 @@ public class MainActivity extends ActionBarActivity {
                 public void onClick(View arg0) {
                     editor.putInt("ls", 5);
                     editor.commit();
-                    Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-                    MainActivity.this.startActivity(myIntent);
+                    luanchlevel();
                 }
             });
         }
@@ -118,6 +134,24 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+
+   private void luanchlevel(){
+       if (mInterstitialAd.isLoaded()) {
+           mInterstitialAd.show();
+       } else {
+           Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+           MainActivity.this.startActivity(myIntent);
+       }
+
+   }
+
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
