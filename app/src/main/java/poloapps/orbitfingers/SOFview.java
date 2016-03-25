@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,9 +21,12 @@ import android.view.View;
 import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
-import android.util.Log;
+
 
 public class SOFview extends View {
+    //private double scale = getResources().getDisplayMetrics().density;
+    SharedPreferences xSettings = getContext().getSharedPreferences("Settings", 0);
+    Integer LS= xSettings.getInt("ls", 1);
 
     private ScaleGestureDetector detector;
     private float MBsze = 30; // Center ball size
@@ -248,7 +252,7 @@ public class SOFview extends View {
                         Toast.LENGTH_SHORT).show();
                 c2++;
             }
-          
+
 
         }
 
