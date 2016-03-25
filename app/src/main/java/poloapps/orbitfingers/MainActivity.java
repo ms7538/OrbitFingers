@@ -24,6 +24,10 @@ public class MainActivity extends ActionBarActivity {
 
 
     InterstitialAd mInterstitialAd;
+    //final float scale = getResources().getDisplayMetrics().density;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +123,9 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
 
 
@@ -135,15 +139,15 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-   private void luanchlevel(){
-       if (mInterstitialAd.isLoaded()) {
-           mInterstitialAd.show();
-       } else {
-           Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-           MainActivity.this.startActivity(myIntent);
-       }
+    private void luanchlevel(){
+//        if (mInterstitialAd.isLoaded()) {
+//            mInterstitialAd.show();
+//        } else {
+        Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+        MainActivity.this.startActivity(myIntent);
+//        }
 
-   }
+    }
 
 
     private void requestNewInterstitial() {

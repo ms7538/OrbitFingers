@@ -24,57 +24,58 @@ import android.util.Log;
 
 public class SOFview extends View {
 
-   private ScaleGestureDetector detector; 
-    private float MBsze = 30; // Ball's radius
-    private float Bsize = 10; // 2 Ball's  radius
-   private float XAL=950;
-    private float MBx = XAL;  // Ball's center (x,y)
-    private float MBxL=XAL-600;
+    private ScaleGestureDetector detector;
+    private float MBsze = 30; // Center ball size
+    private float Bsize = 10; // outer ball size
+    private float XAL = 950;
+    private float MBx = XAL;  // Right center (x,y)
+    private float MBxL = 350;//Left Center
     private float MBy = 210;
     private float B1X = XAL;  // Ball's center (x,y)
-    private float B1y= 210;
-    private float B2X = XAL;  // Ball's center (x,y)
-    private float B2y= 410;
-    private float B1XL = XAL-600;  // Ball's center (x,y)
-    private float B1yL= 310;
-    private float B2XL = XAL-600;  // Ball's center (x,y)
-    private float B2yL= 410;
-    private int CX=Math.round(XAL);
-    private int CY=210;
+    private float B1y = 210;
+    private float  B2X = XAL;  // Ball's center (x,y)
+    private float B2y = 410;
+    private float B1XL = 350;  // Ball's center (x,y)
+    private float B1yL = 310;
+    private float B2XL = 350;  // Ball's center (x,y)
+    private float B2yL = 410;
+    private int CX = Math.round(XAL);
+    private int CXL=350;
+    private int CY = 210;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
-    private double B1dist=100;
-    private double B2dist=200;
-    private int score=0;
+    private double B1dist = 100;
+    private double B2dist = 200;
+    private int score = 0;
     private float flrdB1 = (float) B1dist;
     private float flrdB2 = (float) B2dist;
-    private float flrdB1x = (float) B1dist-1;
-    private float flrdB2x = (float) B2dist-1;
-    private float flrdB1xx = (float) B1dist-2;
-    private float flrdB2xx = (float) B2dist-2;
-    private String MBclr="#ffea7d";
-    private String Blue1="#017ed5";
-    private String Currcol= Blue1;
-    private String CurrcolL= Blue1;
-    private String Green1="#00ff00";
-    private String Red1="#ff0000";
-   private String currscorecol= Red1;
-    private  double thcns=1;
-    private double theta=0;
-    private  double thcns2=1;
-    private double theta2=0;
-    private int Mch=0;
-   private double ThtAbs1=0.0, ThtAbs2=0.0;
-    private double LThtAbs1=0.0, LThtAbs2=0.0;
+    private float flrdB1x = (float) B1dist - 1;
+    private float flrdB2x = (float) B2dist - 1;
+    private float flrdB1xx = (float) B1dist - 2;
+    private float flrdB2xx = (float) B2dist - 2;
+
+    private String Blue1 = "#017ed5";
+    private String Currcol = Blue1;
+    private String CurrcolL = Blue1;
+    private String Green1 = "#00ff00";
+    private String Red1 = "#ff0000";
+    private String currscorecol = Red1;
+    private double thcns = 1;
+    private double theta = 0;
+    private double thcns2 = 1;
+    private double theta2 = 0;
+    private int Mch = 0;
+    private double ThtAbs1 = 0.0, ThtAbs2 = 0.0;
+    private double LThtAbs1 = 0.0, LThtAbs2 = 0.0;
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
     // Constructor
-    private  double Lthcns=1;
-    private double Ltheta=180;
-    private  double Lthcns2=1;
-    private double Ltheta2=270;
-    private int LMch=0,updC=0;
-    private int c1=0,c2=0;
+    private double Lthcns = 1;
+    private double Ltheta = 180;
+    private double Lthcns2 = 1;
+    private double Ltheta2 = 270;
+    private int LMch = 0, updC = 0;
+    private int c1 = 0, c2 = 0;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
 
@@ -85,7 +86,7 @@ public class SOFview extends View {
         ballBounds = new RectF();
         paint = new Paint();
         // Set the font face and size of drawing text
-        if (c1==0) {
+        if (c1 == 0) {
             Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
                             "  Level 2 Unlocks at 100 points",
                     Toast.LENGTH_LONG).show();
@@ -101,7 +102,6 @@ public class SOFview extends View {
     // Called back to draw the view. Also called by invalidate().
     @Override
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
         canvas.save();
 
@@ -113,12 +113,12 @@ public class SOFview extends View {
         orbit(canvas, paint, Currcol, CX, CY, flrdB2x);
         orbit(canvas, paint, Currcol, CX, CY, flrdB1xx);
         orbit(canvas, paint, Currcol, CX, CY, flrdB2xx);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB1x);
-        orbit(canvas, paint, CurrcolL, CX-600, CY, flrdB2x);
-        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB1xx);
-        orbit(canvas, paint, CurrcolL, CX - 600, CY, flrdB2xx);
+        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1);
+        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2);
+        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1x);
+        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2x);
+        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1xx);
+        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2xx);
         // Draw Planets
         drawball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
         drawball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
@@ -127,26 +127,28 @@ public class SOFview extends View {
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
+        clickrect(canvas,275, 450, 425, 550, paint,CurrcolL);
+        clickrect(canvas,875, 450, 1025, 550, paint,Currcol);
 
-        int y=460;
-        //txtcnvs(canvas, Double.toString(ThtAbs1), CX, y,12);
-        //txtcnvs(canvas, Double.toString(ThtAbs2), CX, y+60,12);
-        if(score<0){
-            score=0;
+
+
+
+        if (score < 0) {
+            score = 0;
         }
-        txtcnvs(canvas, Integer.toString(score), 705, 35,30,currscorecol);
+        txtcnvs(canvas, Integer.toString(score), 705, 35, 30, currscorecol);
         txtcnvs(canvas, "SCORE: ", 575, 35, 30, Blue1);
         txtcnvs(canvas, "LEVEL 1", 0, 35, 30, Blue1);
 
 
-        if(score>=100){
-            currscorecol=Green1;
-        }else  currscorecol=Red1;
-        if ( score >= 50){
-            thcns=1.2;
-            thcns2=1.2;
-            Lthcns=1.2;
-            Lthcns2=1.2;
+        if (score >= 100) {
+            currscorecol = Green1;
+        } else currscorecol = Red1;
+        if (score >= 50) {
+            thcns = 1.2;
+            thcns2 = 1.2;
+            Lthcns = 1.2;
+            Lthcns2 = 1.2;
         }
 
 
@@ -155,13 +157,15 @@ public class SOFview extends View {
         // Delay
         try {
             Thread.sleep(25);
-        } catch (InterruptedException e) { }
+        } catch (InterruptedException e) {
+        }
 
         canvas.restore();
         invalidate();  // Force a re-draw
         // update();
     }
-//test
+
+    //test
     private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float flrdB1) {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor(blue1));
@@ -184,30 +188,33 @@ public class SOFview extends View {
         statusMsg.delete(0, statusMsg.length()); // Empty buffer
     }
 
-
+    private void clickrect(Canvas canvas, int left, int top, int right, int bottom, Paint paint, String MBclr) {
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.parseColor(MBclr));
+        canvas.drawRect(left, top, right, bottom, paint);
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) && (Mch==10 || Mch==5)) {
+                if((event.getX() >= 825 && event.getX() <= 1075 && event.getY()>= 450 && event.getY() < 550) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
                     if(Mch==10){
                         score +=10;
-
                     }else score +=10;
-                }else if ((event.getX() >= CX-30 && event.getX() <= CX+30 && event.getY() >= 160 && event.getY() < 260) &&!(Mch==10 || Mch==5)){
+                }else if ((event.getX() >= 825 && event.getX() <= 1075 && event.getY()>= 450 && event.getY() < 550) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
                     score -=5;
                 }
-                if((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) && (LMch==10 || LMch==5)) {
+                if((event.getX() >= 225 && event.getX() <= 475 && event.getY() >= 450 && event.getY() < 550) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
                         score +=10;
 
                     }else score +=10;
-                }else if ((event.getX() >= CX-630 && event.getX() <= CX-570 && event.getY() >= 160 && event.getY() < 260) &&!(LMch==10 || LMch==5)){
+                }else if ((event.getX() >= 225 && event.getX() <= 475 && event.getY() >= 450 && event.getY() < 550) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
                     score -=5;
                 }
@@ -230,19 +237,18 @@ public class SOFview extends View {
 
 
     private void update() {
-        //String lvl= mSettings.getString("level", "0");
+
         if (score>=100){
+
+
             editor.putInt("levl", 2);
             editor.commit();
-           if(c2==0) {
-               Toast.makeText(getContext(), " Level 2 Unlocked",
-                       Toast.LENGTH_SHORT).show();
+            if(c2==0) {
+                Toast.makeText(getContext(), " Level 2 Unlocked",
+                        Toast.LENGTH_SHORT).show();
                 c2++;
-           }
-           // Intent intent = new Intent(getContext(), MainActivity.class);
-           // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            //super.getContext().startActivity(intent);
+            }
+          
 
         }
 
@@ -268,9 +274,9 @@ public class SOFview extends View {
         if(theta<0){
             ThtAbs1= theta+360;
         }else{
-        ThtAbs1= theta;
+            ThtAbs1= theta;
         }
-       // ThtAbs2= Math.abs(theta2);
+        // ThtAbs2= Math.abs(theta2);
         if(Ltheta<0){
             LThtAbs1= Ltheta+360;
         }else{
@@ -319,9 +325,9 @@ public class SOFview extends View {
         Ey = B1dist * Math.sin(Math.toRadians(Ltheta));
         E2x = B2dist * Math.cos(Math.toRadians(Ltheta2));
         E2y = B2dist * Math.sin(Math.toRadians(Ltheta2));
-        B1XL = CX-600 + (float) Ex;
+        B1XL = CXL + (float) Ex;
         B1yL = CY + (float) Ey;
-        B2XL = CX-600 + (float) E2x;
+        B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
