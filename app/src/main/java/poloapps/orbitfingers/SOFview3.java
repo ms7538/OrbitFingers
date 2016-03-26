@@ -102,7 +102,7 @@ public class SOFview3 extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1==0) {
-            Toast.makeText(getContext(), "Click during alligment to gain 10 points, 10 points penalty during missalignment" +
+            Toast.makeText(getContext(), "Click during alligment to gain 10 points, 5 points penalty during missalignment" +
                             "   Level 4 Unlocks at 200 points",
                     Toast.LENGTH_LONG).show();
             c1++;
