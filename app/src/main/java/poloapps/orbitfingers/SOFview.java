@@ -16,6 +16,8 @@ import android.widget.Toast;
 public class SOFview extends View {
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
     String DensScale= prefs.getString("scale", "1");
+    Integer LS= prefs.getInt("ls", 1);
+    String LSt="LEVEL:"+ Integer.toString(LS);
     float scalefactor = Float.parseFloat(DensScale);
     private ScaleGestureDetector detector;
     private float MBsze = scalefactor*30; // Center ball size
@@ -34,11 +36,11 @@ public class SOFview extends View {
     private float B1yL = scalefactor*310;
     private float B2XL = scalefactor*350;  // Ball's center (x,y)
     private float B2yL = scalefactor*410;
-    private float rectLbeginX=scalefactor*300;//left click rectangle x start
+    private float rectLbeginX=scalefactor*320;//left click rectangle x start
     private float rectLendX=scalefactor*425;//left click rectangle x end
     private float rectbeginY=scalefactor*450;//both click rectangle y start
     private float rectendY=scalefactor*550;//both click rectangle y end
-    private float rectRbeginX=scalefactor*900;//right click rectangle x start
+    private float rectRbeginX=scalefactor*920;//right click rectangle x start
     private float rectRendX=scalefactor*1025;//right click rectangle x end
     private float txtYandlength=scalefactor*35;// text y start and x lentght (both 35)
     private float txtXscr=scalefactor*575;// text "score" x start
@@ -99,7 +101,7 @@ public class SOFview extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1 == 0) {
-            Toast.makeText(getContext(), "Push center while balls are alligned to gain 10 points, loose 5 points when pushing while balls are not alligned" +
+            Toast.makeText(getContext(), "Click during alligment to gain 10 points, 5 points penalty during missalignment" +
                             "  Level 2 Unlocks at 100 points",
                     Toast.LENGTH_LONG).show();
             c1++;
@@ -126,33 +128,20 @@ public class SOFview extends View {
         orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2x);
         orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1xx);
         orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2xx);
-        // Draw Planets
         drawball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
         drawball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
         drawball(canvas, ballBounds, B2XL, Bsize, B2yL, paint, CurrcolL);
-
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
-         //clickrect(canvas, RRBX, RBY, RREX, REY, paint, "#EE9572");
-        // clickrect(canvas, RLBX, RBY , RLEX, REY, paint,"#EE9572");
         if (score < 0) {
             score = 0;
         }
         txtcnvs(canvas, Integer.toString(score), TAS, TYL, TYL, currscorecol);
         txtcnvs(canvas, "SCORE: ", TXS, TYL, TYL, Blue1);
-        txtcnvs(canvas, "LEVEL 1", 0, TYL, TYL, Blue1);
+        txtcnvs(canvas, LSt, 0, TYL, TYL, Blue1);
         canvas.drawBitmap(myBitmap, RRBX,RBY , null);
         canvas.drawBitmap(myBitmap, RLBX,RBY , null);
-        if (score >= 100) {
-            currscorecol = Green1;
-        } else currscorecol = Red1;
-        if (score >= 50) {
-            thcns = 1.2;
-            thcns2 = 1.2;
-            Lthcns = 1.2;
-            Lthcns2 = 1.2;
-        }
         update();
         // Delay
         try {
@@ -161,7 +150,6 @@ public class SOFview extends View {
         }
         canvas.restore();
         invalidate();  // Force a re-draw
-        // update();
     }
     private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float flrdB1) {
         paint.setStyle(Paint.Style.STROKE);
@@ -181,11 +169,6 @@ public class SOFview extends View {
         paint.setColor(Color.parseColor(color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
         statusMsg.delete(0, statusMsg.length()); // Empty buffer
-    }
-    private void clickrect(Canvas canvas, int left, int top, int right, int bottom, Paint paint, String MBclr) {
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.parseColor(MBclr));
-        canvas.drawRect(left, top, right, bottom, paint);
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -231,10 +214,17 @@ public class SOFview extends View {
             editor.putInt("levl", 2);
             editor.commit();
             if(c2==0) {
+                currscorecol = Green1;
                 Toast.makeText(getContext(), " Level 2 Unlocked",
                         Toast.LENGTH_SHORT).show();
                 c2++;
             }
+        }
+        if (score >= 50) {
+            thcns = 1.2;
+            thcns2 = 1.2;
+            Lthcns = 1.2;
+            Lthcns2 = 1.2;
         }
         theta += thcns;
         if (theta > 360 || theta < -360) {
@@ -273,7 +263,6 @@ public class SOFview extends View {
         }else{
             LThtAbs2= Ltheta2;
         }
-
         if (ThtAbs2 > .977 * ThtAbs1 && ThtAbs2 < 1.023 * ThtAbs1) {
             Mch = 10;
         }else if(ThtAbs2 -ThtAbs1> .977*180 && ThtAbs2 -ThtAbs1< 1.023*180){
@@ -300,7 +289,6 @@ public class SOFview extends View {
         B1y = CY + (float) Ey;
         B2X = CX + (float) E2x;
         B2y = CY + (float) E2y;
-
         Ex = B1dist * Math.cos(Math.toRadians(Ltheta));
         Ey = B1dist * Math.sin(Math.toRadians(Ltheta));
         E2x = B2dist * Math.cos(Math.toRadians(Ltheta2));
@@ -309,7 +297,6 @@ public class SOFview extends View {
         B1yL = CY + (float) Ey;
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
-
         if ((Currcol != Blue1) ||CurrcolL != Blue1) {
             Sleep(80);
             Currcol = Blue1;
@@ -323,13 +310,9 @@ public class SOFview extends View {
             Thread.currentThread().interrupt();
         }
     }
-    // Called back when the view is first created or its size changes.
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-//            scaleFactor *= detector.getScaleFactor();
-//            scaleFactor = Math.max(MIN_ZOOM, Math.min(scaleFactor, MAX_ZOOM));
-//            invalidate();
             return true;
         }
     }
