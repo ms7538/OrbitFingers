@@ -25,23 +25,23 @@ public class SimpOF extends ActionBarActivity {
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         Integer LS= mSettings.getInt("ls", 1);
         //View view = new SOFview(getApplicationContext());
-            String scalemultiplier="1";
-            float density = this.getResources().getDisplayMetrics().density;
-            if (density == 4.0) {
-                scalemultiplier= "2";
-            }
-            if (density == 3.0) {
-                scalemultiplier="1.5";
-            }
-            if (density == 2.0) {
-                scalemultiplier="1";
-            }
-            if (density == 1.5) {
-                scalemultiplier=".75";
-            }
-            if (density == 1.0) {
-                scalemultiplier=".5";
-            }
+        String scalemultiplier="1";
+        float density = this.getResources().getDisplayMetrics().density;
+        if (density == 4.0) {
+            scalemultiplier= "2.5";
+        }
+        if (density == 3.0) {
+            scalemultiplier="2.0";
+        }
+        if (density == 2.0) {
+            scalemultiplier="1";
+        }
+        if (density == 1.5) {
+            scalemultiplier=".6";
+        }
+        if (density == 1.0) {
+            scalemultiplier=".5";
+        }
 
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString("scale", scalemultiplier);
@@ -88,7 +88,7 @@ public class SimpOF extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
-         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         super.startActivity(intent);
         return;
