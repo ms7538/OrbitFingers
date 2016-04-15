@@ -100,9 +100,9 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -111,12 +111,12 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
     private void luanchlevel(){
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
+//        if (mInterstitialAd.isLoaded()) {
+//            mInterstitialAd.show();
+//        } else {
         Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
         MainActivity.this.startActivity(myIntent);
-        }
+       // }
     }
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()

@@ -69,6 +69,10 @@ public class SOFview extends View {
     private float flrdB1xx = (float) B1dist - 2;
     private float flrdB2xx = (float) B2dist - 2;
     private String Blue1 = "#017ed5";
+    private String Purp2="#800080";
+    private String L3col="#663333";
+    private String L4col="#004040";
+    private String L5col="#f2f2f2";
     private String Currcol = Blue1;
     private String CurrcolL = Blue1;
     private String Green1 = "#00ff00";
@@ -88,7 +92,12 @@ public class SOFview extends View {
     private double Lthcns2 = 1;
     private double Ltheta2 = 270;
     private int LMch = 0, dsbc=0;
-    private int c1 = 0, c2 = 0;
+    private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0;
+    private double AAmin=.977;
+    private double AAmax=1.023;
+    private int ScorePen=5;
+    private int ScoreMin=0;
+    private int ScorePeak;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
     Bitmap myBitmap = BitmapFactory.decodeResource(
@@ -134,9 +143,7 @@ public class SOFview extends View {
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
-        if (score < 0) {
-            score = 0;
-        }
+
         txtcnvs(canvas, Integer.toString(score), TAS, TYL, TYL, currscorecol);
         txtcnvs(canvas, "SCORE: ", TXS, TYL, TYL, Blue1);
         txtcnvs(canvas, LSt, 0, TYL, TYL, Blue1);
@@ -183,7 +190,7 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= RRBX  && event.getX() <=  RREX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=5;
+                    score -=ScorePen;
                 }
                 if((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
@@ -193,90 +200,68 @@ public class SOFview extends View {
                     }else score +=10;
                 }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=5;
+                    score -=ScorePen;
                 }
                 break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                break;
+//            case MotionEvent.ACTION_MOVE:
+//                break;
+//            case MotionEvent.ACTION_POINTER_DOWN:
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                break;
+//            case MotionEvent.ACTION_POINTER_UP:
+//                break;
         }
         detector.onTouchEvent(event);
         return true;
     }
     private void update() {
-
-        if (score>=100){
-            editor.putInt("levl", 2);
-            editor.commit();
-            if(c2==0) {
-                currscorecol = Green1;
-                Toast.makeText(getContext(), " Level 2 Unlocked",
-                        Toast.LENGTH_SHORT).show();
-                c2++;
-            }
+        if (score < ScoreMin) {
+            score = ScoreMin;
         }
-        if (score >= 50) {
+        if (score >= 50 && score <100) {
             thcns = 1.2;
             thcns2 = 1.2;
             Lthcns = 1.2;
             Lthcns2 = 1.2;
         }
-        theta += thcns;
-        if (theta > 360 || theta < -360) {
-            theta = 0;
-        }
-        Ltheta += Lthcns;
-        if (Ltheta > 360 || Ltheta < -360) {
-            Ltheta = 0;
+
+
+        if (score>=20 && c2==0){
+            c2++;
+            editor.putInt("levl", 2);
+            editor.commit();
+            Blue1="#800080";
+            ScoreMin=100;
+            AAmin=.980;
+            AAmax=1.02;
+            ScorePen=5;
+            Toast.makeText(getContext(), " Level 2 Unlocked",
+                    Toast.LENGTH_SHORT).show();
+            // currscorecol = Green1;
+
+
+
+
+
         }
 
-        theta2 -= thcns2;
-        if (theta2 > 360 || theta2 < -360) {
-            theta2 = 0;
-        }
-        Ltheta2 -= Lthcns2;
-        if (Ltheta2 > 360 || Ltheta2 < -360) {
-            Ltheta2 = 0;
-        }
-        if(theta<0){
-            ThtAbs1= theta+360;
-        }else{
-            ThtAbs1= theta;
-        }
-        if(Ltheta<0){
-            LThtAbs1= Ltheta+360;
-        }else{
-            LThtAbs1= Ltheta;
-        }
-        if(theta2<0){
-            ThtAbs2= theta2+360;
-        }else{
-            ThtAbs2= theta2;
-        }
-        if(Ltheta2<0){
-            LThtAbs2= Ltheta2+360;
-        }else{
-            LThtAbs2= Ltheta2;
-        }
-        if (ThtAbs2 > .977 * ThtAbs1 && ThtAbs2 < 1.023 * ThtAbs1) {
+        ThetaCalc();
+        
+        if (ThtAbs2 > AAmin * ThtAbs1 && ThtAbs2 < AAmax * ThtAbs1) {
             Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> .977*180 && ThtAbs2 -ThtAbs1< 1.023*180){
+        }else if(ThtAbs2 -ThtAbs1> AAmin*180 && ThtAbs2 -ThtAbs1< AAmax*180){
             Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> .977*180 && ThtAbs1 -ThtAbs2< 1.023*180){
+        }else if(ThtAbs1 -ThtAbs2> AAmin*180 && ThtAbs1 -ThtAbs2< AAmax*180){
             Mch=5;
         } else {
             Mch = 0;
         }
-        if (LThtAbs2 > .977 * LThtAbs1 && LThtAbs2 < 1.023 * LThtAbs1) {
+        if (LThtAbs2 > AAmin * LThtAbs1 && LThtAbs2 < AAmax * LThtAbs1) {
             LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> .977*180 && LThtAbs2 -LThtAbs1< 1.023*180){
+        }else if(LThtAbs2 -LThtAbs1> AAmin*180 && LThtAbs2 -LThtAbs1< AAmax*180){
             LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> .977*180 && LThtAbs1 -LThtAbs2< 1.023*180){
+        }else if(LThtAbs1 -LThtAbs2> AAmin*180 && LThtAbs1 -LThtAbs2< AAmax*180){
             LMch=5;
         } else {
             LMch = 0;
@@ -303,6 +288,45 @@ public class SOFview extends View {
             CurrcolL=Blue1;
         }
     }
+   private void ThetaCalc(){
+       theta += thcns;
+       if (theta > 360 || theta < -360) {
+           theta = 0;
+       }
+       Ltheta += Lthcns;
+       if (Ltheta > 360 || Ltheta < -360) {
+           Ltheta = 0;
+       }
+
+       theta2 -= thcns2;
+       if (theta2 > 360 || theta2 < -360) {
+           theta2 = 0;
+       }
+       Ltheta2 -= Lthcns2;
+       if (Ltheta2 > 360 || Ltheta2 < -360) {
+           Ltheta2 = 0;
+       }
+       if(theta<0){
+           ThtAbs1= theta+360;
+       }else{
+           ThtAbs1= theta;
+       }
+       if(Ltheta<0){
+           LThtAbs1= Ltheta+360;
+       }else{
+           LThtAbs1= Ltheta;
+       }
+       if(theta2<0){
+           ThtAbs2= theta2+360;
+       }else{
+           ThtAbs2= theta2;
+       }
+       if(Ltheta2<0){
+           LThtAbs2= Ltheta2+360;
+       }else{
+           LThtAbs2= Ltheta2;
+       }
+   }
     private static void Sleep(int CX) {
         try {
             Thread.sleep(CX);
