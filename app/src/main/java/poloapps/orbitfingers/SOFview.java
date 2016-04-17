@@ -61,7 +61,6 @@ public class SOFview extends View {
     private Paint paint;           // The paint (e.g. style, color) used for drawing
     private double B1dist = scalefactor*100;
     private double B2dist = scalefactor*200;
-    private int score = 0;
     private float flrdB1 = (float) B1dist;
     private float flrdB2 = (float) B2dist;
     private float flrdB1x = (float) B1dist - 1;
@@ -77,29 +76,32 @@ public class SOFview extends View {
     private String CurrcolL = Blue1;
     private String Green1 = "#00ff00";
     private String Red1 = "#ff0000";
-    private String currscorecol = Red1;
-    private double thcns = 1;
+    private String ScCo="#f2f2f2";
+    private String currscorecol = ScCo;
+    private double RotSpeed=1.15;
+    private double thcns = RotSpeed;
     private double theta = 0;
-    private double thcns2 = 1;
+    private double thcns2 = RotSpeed;
     private double theta2 = 0;
     private int Mch = 0;
     private double ThtAbs1 = 0.0, ThtAbs2 = 0.0;
     private double LThtAbs1 = 0.0, LThtAbs2 = 0.0;
     private StringBuilder statusMsg = new StringBuilder();
-    private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMsg
-    private double Lthcns = 1;
+    private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMs
+    private double Lthcns = RotSpeed;
     private double Ltheta = 180;
-    private double Lthcns2 = 1;
+    private double Lthcns2 = RotSpeed;
     private double Ltheta2 = 270;
     private int LMch = 0, dsbc=0;
     private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0;
-    private double AAmin=.977;
-    private double AAmax=1.023;
+    private double AAmin=.975;
+    private double AAmax=1.025;
     private int ScorePen=5;
     private int ScoreMin=0;
     private int ScorePeak;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
+    private int score = mSettings.getInt("LSS", 0);
     Bitmap myBitmap = BitmapFactory.decodeResource(
             getResources(),
             R.drawable.thmb1);
@@ -110,9 +112,7 @@ public class SOFview extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1 == 0) {
-            Toast.makeText(getContext(), "Click during alligment to gain 10 points, 5 points penalty during missalignment" +
-                            "  Level 2 Unlocks at 100 points",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Click during alligment to gain points, Loose points during missalignment", Toast.LENGTH_LONG).show();
             c1++;
         }
         // To enable keypad on this View
@@ -143,10 +143,9 @@ public class SOFview extends View {
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
-
         txtcnvs(canvas, Integer.toString(score), TAS, TYL, TYL, currscorecol);
         txtcnvs(canvas, "SCORE: ", TXS, TYL, TYL, Blue1);
-        txtcnvs(canvas, LSt, 0, TYL, TYL, Blue1);
+        txtcnvs(canvas, LSt, 0, TYL, TYL, ScCo);
         canvas.drawBitmap(myBitmap, RRBX,RBY , null);
         canvas.drawBitmap(myBitmap, RLBX,RBY , null);
         update();
@@ -187,20 +186,27 @@ public class SOFview extends View {
                     Currcol=Green1;
                     if(Mch==10){
                         score +=10;
+                        currscorecol=Green1;
                     }else score +=10;
                 }else if ((event.getX() >= RRBX  && event.getX() <=  RREX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
-                    score -=ScorePen;
+                    if (score>=(ScoreMin+ScorePen)){
+                        score -= ScorePen;
+                        currscorecol=Red1;
+                    }
                 }
                 if((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
                         score +=10;
-
+                        currscorecol=Green1;
                     }else score +=10;
                 }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
-                    score -=ScorePen;
+                    if (score>=(ScoreMin+ScorePen)){
+                        score -= ScorePen;
+                        currscorecol=Red1;
+                    }
                 }
                 break;
 //            case MotionEvent.ACTION_MOVE:
@@ -216,20 +222,15 @@ public class SOFview extends View {
         return true;
     }
     private void update() {
+
+        currscorecol=ScCo;
         if (score < ScoreMin) {
             score = ScoreMin;
         }
-        if (score >= 50 && score <100) {
-            thcns = 1.2;
-            thcns2 = 1.2;
-            Lthcns = 1.2;
-            Lthcns2 = 1.2;
-        }
-
-
-        if (score>=20 && c2==0){
+        if (score>=100 && c2==0){
             c2++;
             editor.putInt("levl", 2);
+            editor.putInt("scorelevel",100);
             editor.commit();
             Blue1="#800080";
             ScoreMin=100;
@@ -238,34 +239,11 @@ public class SOFview extends View {
             ScorePen=5;
             Toast.makeText(getContext(), " Level 2 Unlocked",
                     Toast.LENGTH_SHORT).show();
-            // currscorecol = Green1;
-
-
-
-
+            LSt="LEVEL:"+ Integer.toString(2);
 
         }
-
+        ScoreRSpeed();
         ThetaCalc();
-        
-        if (ThtAbs2 > AAmin * ThtAbs1 && ThtAbs2 < AAmax * ThtAbs1) {
-            Mch = 10;
-        }else if(ThtAbs2 -ThtAbs1> AAmin*180 && ThtAbs2 -ThtAbs1< AAmax*180){
-            Mch=5;
-        }else if(ThtAbs1 -ThtAbs2> AAmin*180 && ThtAbs1 -ThtAbs2< AAmax*180){
-            Mch=5;
-        } else {
-            Mch = 0;
-        }
-        if (LThtAbs2 > AAmin * LThtAbs1 && LThtAbs2 < AAmax * LThtAbs1) {
-            LMch = 10;
-        }else if(LThtAbs2 -LThtAbs1> AAmin*180 && LThtAbs2 -LThtAbs1< AAmax*180){
-            LMch=5;
-        }else if(LThtAbs1 -LThtAbs2> AAmin*180 && LThtAbs1 -LThtAbs2< AAmax*180){
-            LMch=5;
-        } else {
-            LMch = 0;
-        }
         double Ex = B1dist * Math.cos(Math.toRadians(theta));
         double Ey = B1dist * Math.sin(Math.toRadians(theta));
         double E2x = B2dist * Math.cos(Math.toRadians(theta2));
@@ -288,7 +266,22 @@ public class SOFview extends View {
             CurrcolL=Blue1;
         }
     }
-   private void ThetaCalc(){
+   private void ScoreRSpeed(){
+       thcns = RotSpeed;
+       thcns2 = RotSpeed;
+       Lthcns = RotSpeed;
+       Lthcns2 = RotSpeed;
+       if (score >= 50 && score <100) {
+           RotSpeed=1.3;
+       }else if (score >= 100 && score <175) {
+           RotSpeed=1.5;
+       }else if (score >= 175 && score <250) {
+           RotSpeed=1.65;
+       }else if (score>=250){
+
+       }
+   }
+    private void ThetaCalc(){
        theta += thcns;
        if (theta > 360 || theta < -360) {
            theta = 0;
@@ -326,7 +319,32 @@ public class SOFview extends View {
        }else{
            LThtAbs2= Ltheta2;
        }
+
+       if (ThtAbs2 > AAmin * ThtAbs1 && ThtAbs2 < AAmax * ThtAbs1) {
+           Mch = 10;
+       }else if(ThtAbs2 -ThtAbs1> AAmin*180 && ThtAbs2 -ThtAbs1< AAmax*180){
+           Mch=5;
+       }else if(ThtAbs1 -ThtAbs2> AAmin*180 && ThtAbs1 -ThtAbs2< AAmax*180){
+           Mch=5;
+       } else {
+           Mch = 0;
+       }
+       if (LThtAbs2 > AAmin * LThtAbs1 && LThtAbs2 < AAmax * LThtAbs1) {
+           LMch = 10;
+       }else if(LThtAbs2 -LThtAbs1> AAmin*180 && LThtAbs2 -LThtAbs1< AAmax*180){
+           LMch=5;
+       }else if(LThtAbs1 -LThtAbs2> AAmin*180 && LThtAbs1 -LThtAbs2< AAmax*180){
+           LMch=5;
+       } else {
+           LMch = 0;
+       }
+        currscorecol=ScCo;
    }
+
+   private void PeakScrClc(){
+       ScorePeak=score;
+   }
+
     private static void Sleep(int CX) {
         try {
             Thread.sleep(CX);

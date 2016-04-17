@@ -33,34 +33,33 @@ public class SimpOF extends ActionBarActivity {
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString("scale", scalemultiplier);
         editor.commit();
+
+
+
         switch (LS){
             case 1:
-                View view = new SOFview(getApplicationContext());
-                setContentView(view);
-                view.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 0);
+                editor.commit();
                 break;
             case 2:
-                View view2 = new SOFview2(getApplicationContext());
-                setContentView(view2);
-                view2.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 100);
+                editor.commit();
                 break;
             case 3:
-                View view3 = new SOFview3(getApplicationContext());
-                setContentView(view3);
-                view3.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 250);
+                editor.commit();
                 break;
             case 4:
-                View view4 = new SOFview4(getApplicationContext());
-                setContentView(view4);
-                view4.setBackgroundColor(Color.parseColor("#090404"));
+
                 break;
             case 5:
-                View view5 = new SOFview5(getApplicationContext());
-                setContentView(view5);
-                view5.setBackgroundColor(Color.parseColor("#090404"));
+
                 break;
 
         }
+        View view = new SOFview(getApplicationContext());
+        setContentView(view);
+        view.setBackgroundColor(Color.parseColor("#090404"));
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
