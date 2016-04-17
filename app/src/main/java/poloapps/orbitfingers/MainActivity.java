@@ -12,7 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.view.View.OnClickListener;
+import android.view.ViewDebug;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -29,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         Integer lv= mSettings.getInt("levl", 1);
+         Integer PS= mSettings.getInt("peakscore", 0);
         //Log.i("M123A", Integer.toString(lv));
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
@@ -103,6 +106,15 @@ public class MainActivity extends ActionBarActivity {
 //        AdView mAdView = (AdView) findViewById(R.id.adView);
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
+
+         if (PS<10) {
+             ((TextView) findViewById(R.id.peaksc)).setText("                                    " + Integer.toString(PS));
+         }else if (PS<100){
+             ((TextView) findViewById(R.id.peaksc)).setText("                                   " + Integer.toString(PS));
+         }else if (PS<1000){
+             ((TextView) findViewById(R.id.peaksc)).setText("                                 " + Integer.toString(PS));
+         }
+
     }
 
     @Override

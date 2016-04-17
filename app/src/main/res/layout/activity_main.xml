@@ -44,7 +44,19 @@
         android:text="Level 5"
         android:layout_marginTop="5dp"
         android:clickable="true" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="                          PEAK SCORE: "
+        android:layout_marginTop="5dp"
+         />
+    <TextView
+        android:id="@+id/peaksc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="                                 XX"
+        android:layout_marginTop="5dp"
+         />
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"

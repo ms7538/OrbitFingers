@@ -17,6 +17,7 @@ public class SOFview extends View {
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
     String DensScale= prefs.getString("scale", "1");
     Integer LS= prefs.getInt("ls", 1);
+    Integer PS= prefs.getInt("peakscore", 0);
     String LSt="LEVEL:"+ Integer.toString(LS);
     float scalefactor = Float.parseFloat(DensScale);
     private ScaleGestureDetector detector;
@@ -43,9 +44,11 @@ public class SOFview extends View {
     private float rectRbeginX=scalefactor*920;//right click rectangle x start
     private float rectRendX=scalefactor*1025;//right click rectangle x end
     private float txtYandlength=scalefactor*35;// text y start and x lentght (both 35)
+    private float peaktext=scalefactor*435;//
     private float txtXscr=scalefactor*575;// text "score" x start
     private float txtactscore=scalefactor*705;/// acutal score start x
     private int  TYL = Math.round(txtYandlength);
+    private int  TYL2 = Math.round(peaktext);
     private int  TXS = Math.round(txtXscr);
     private int  TAS = Math.round(txtactscore);
     private int  RLBX = Math.round(rectLbeginX);
@@ -98,7 +101,6 @@ public class SOFview extends View {
     private double AAmax=1.025;
     private int ScorePen=5;
     private int ScoreMin=0;
-    private int ScorePeak;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
     private int score = mSettings.getInt("LSS", 0);
@@ -144,7 +146,9 @@ public class SOFview extends View {
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
         txtcnvs(canvas, Integer.toString(score), TAS, TYL, TYL, currscorecol);
+        txtcnvs(canvas, Integer.toString(PS), TAS, TYL2, TYL, Green1);
         txtcnvs(canvas, "SCORE: ", TXS, TYL, TYL, Blue1);
+        txtcnvs(canvas, "PEAK: ", TXS, TYL2, TYL, Green1);
         txtcnvs(canvas, LSt, 0, TYL, TYL, ScCo);
         canvas.drawBitmap(myBitmap, RRBX,RBY , null);
         canvas.drawBitmap(myBitmap, RLBX,RBY , null);
@@ -187,7 +191,11 @@ public class SOFview extends View {
                     if(Mch==10){
                         score +=10;
                         currscorecol=Green1;
-                    }else score +=10;
+                        PeakScrClc();
+                    }else {
+                        score += 10;
+                        PeakScrClc();
+                    }
                 }else if ((event.getX() >= RRBX  && event.getX() <=  RREX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
                     if (score>=(ScoreMin+ScorePen)){
@@ -200,7 +208,11 @@ public class SOFview extends View {
                     if(LMch==10){
                         score +=10;
                         currscorecol=Green1;
-                    }else score +=10;
+                        PeakScrClc();
+                    }else{
+                        score += 10;
+                        PeakScrClc();
+                    }
                 }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
                     if (score>=(ScoreMin+ScorePen)){
@@ -227,12 +239,14 @@ public class SOFview extends View {
         if (score < ScoreMin) {
             score = ScoreMin;
         }
+
+
         if (score>=100 && c2==0){
             c2++;
             editor.putInt("levl", 2);
             editor.putInt("scorelevel",100);
             editor.commit();
-            Blue1="#800080";
+            Blue1=Purp2;
             ScoreMin=100;
             AAmin=.980;
             AAmax=1.02;
@@ -240,6 +254,21 @@ public class SOFview extends View {
             Toast.makeText(getContext(), " Level 2 Unlocked",
                     Toast.LENGTH_SHORT).show();
             LSt="LEVEL:"+ Integer.toString(2);
+
+        }
+        if (score>=300 && c3==0){
+            c3++;
+            editor.putInt("levl", 3);
+            editor.putInt("scorelevel",300);
+            editor.commit();
+            Blue1=L3col;
+            ScoreMin=300;
+            AAmin=.985;
+            AAmax=1.015;
+            ScorePen=10;
+            Toast.makeText(getContext(), " Level 3 Unlocked",
+                    Toast.LENGTH_SHORT).show();
+            LSt="LEVEL:"+ Integer.toString(3);
 
         }
         ScoreRSpeed();
@@ -271,11 +300,12 @@ public class SOFview extends View {
        thcns2 = RotSpeed;
        Lthcns = RotSpeed;
        Lthcns2 = RotSpeed;
+
        if (score >= 50 && score <100) {
            RotSpeed=1.3;
        }else if (score >= 100 && score <175) {
            RotSpeed=1.5;
-       }else if (score >= 175 && score <250) {
+       }else if (score >= 175 && score <300) {
            RotSpeed=1.65;
        }else if (score>=250){
 
@@ -342,7 +372,11 @@ public class SOFview extends View {
    }
 
    private void PeakScrClc(){
-       ScorePeak=score;
+       if (score > PS) {
+           PS=score;
+           editor.putInt("peakscore",PS);
+           editor.commit();
+       }
    }
 
     private static void Sleep(int CX) {
