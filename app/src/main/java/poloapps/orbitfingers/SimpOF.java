@@ -46,14 +46,16 @@ public class SimpOF extends ActionBarActivity {
                 editor.commit();
                 break;
             case 3:
-                editor.putInt("LSS", 250);
+                editor.putInt("LSS", 300);
                 editor.commit();
                 break;
             case 4:
-
+                editor.putInt("LSS", 600);
+                editor.commit();
                 break;
             case 5:
-
+                editor.putInt("LSS", 1000);
+                editor.commit();
                 break;
 
         }

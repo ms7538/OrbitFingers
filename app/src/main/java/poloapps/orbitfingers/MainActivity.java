@@ -106,12 +106,24 @@ public class MainActivity extends ActionBarActivity {
 //        AdView mAdView = (AdView) findViewById(R.id.adView);
 //        AdRequest adRequest = new AdRequest.Builder().build();
 //        mAdView.loadAd(adRequest);
-
+         Button rbutton = (Button) findViewById(R.id.reset1);
+         rbutton.setBackgroundColor(getResources().getColor(R.color.dkgry));
+         rbutton.setOnClickListener(new OnClickListener() {
+             @Override
+             public void onClick(View arg0) {
+                int PS=0;
+                 editor.putInt("peakscore",PS);
+                 editor.commit();
+                 ((TextView) findViewById(R.id.peaksc)).setText("                                    " + Integer.toString(PS));
+             }
+         });
          if (PS<10) {
              ((TextView) findViewById(R.id.peaksc)).setText("                                    " + Integer.toString(PS));
          }else if (PS<100){
              ((TextView) findViewById(R.id.peaksc)).setText("                                   " + Integer.toString(PS));
          }else if (PS<1000){
+             ((TextView) findViewById(R.id.peaksc)).setText("                                  " + Integer.toString(PS));
+         }else if (PS<10000) {
              ((TextView) findViewById(R.id.peaksc)).setText("                                 " + Integer.toString(PS));
          }
 

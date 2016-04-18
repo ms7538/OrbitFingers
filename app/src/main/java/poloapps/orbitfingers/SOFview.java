@@ -96,14 +96,15 @@ public class SOFview extends View {
     private double Lthcns2 = RotSpeed;
     private double Ltheta2 = 270;
     private int LMch = 0, dsbc=0;
-    private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0;
-    private double AAmin=.975;
-    private double AAmax=1.025;
+    private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0, scpen=0;
+    private double AAmin=.973;
+    private double AAmax=1.027;
     private int ScorePen=5;
     private int ScoreMin=0;
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
     private int score = mSettings.getInt("LSS", 0);
+    private int levl=mSettings.getInt("levl",0);
     Bitmap myBitmap = BitmapFactory.decodeResource(
             getResources(),
             R.drawable.thmb1);
@@ -114,7 +115,7 @@ public class SOFview extends View {
         paint = new Paint();
         // Set the font face and size of drawing text
         if (c1 == 0) {
-            Toast.makeText(getContext(), "Click during alligment to gain points, Loose points during missalignment", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Click during alligment to gain points                                         Else loose points when clicking during missalignment", Toast.LENGTH_LONG).show();
             c1++;
         }
         // To enable keypad on this View
@@ -236,41 +237,74 @@ public class SOFview extends View {
     private void update() {
 
         currscorecol=ScCo;
-        if (score < ScoreMin) {
+        if (score <= ScoreMin) {
             score = ScoreMin;
         }
-
-
-        if (score>=100 && c2==0){
+        if ((score>=100&& score<300) && c2==0){
             c2++;
-            editor.putInt("levl", 2);
+            if (levl<2) {
+                editor.putInt("levl", 2);
+            }
             editor.putInt("scorelevel",100);
             editor.commit();
             Blue1=Purp2;
             ScoreMin=100;
-            AAmin=.980;
-            AAmax=1.02;
+            AAmin=.975;
+            AAmax=1.025;
             ScorePen=5;
-            Toast.makeText(getContext(), " Level 2 Unlocked",
-                    Toast.LENGTH_SHORT).show();
             LSt="LEVEL:"+ Integer.toString(2);
 
         }
-        if (score>=300 && c3==0){
+        else if ((score>=300&& score<600) && c3==0){
             c3++;
-            editor.putInt("levl", 3);
+            if (levl<3) {
+                editor.putInt("levl", 3);
+            }
             editor.putInt("scorelevel",300);
             editor.commit();
             Blue1=L3col;
             ScoreMin=300;
-            AAmin=.985;
-            AAmax=1.015;
+            AAmin=.98;
+            AAmax=1.02;
             ScorePen=10;
-            Toast.makeText(getContext(), " Level 3 Unlocked",
-                    Toast.LENGTH_SHORT).show();
             LSt="LEVEL:"+ Integer.toString(3);
 
+        }else if (score>=600&& score<1000){
+           if (score!=605 && score!=610){
+               ScorePen = 15;
+           }else if (score==605) {
+               ScorePen = 5;
+           }else  ScorePen = 10;
+            if( c4==0) {
+               c4++;
+               if (levl < 4) {
+                   editor.putInt("levl", 4);
+               }
+               editor.putInt("scorelevel", 600);
+               editor.commit();
+               Blue1 = L4col;
+               ScoreMin = 600;
+               AAmin = .982;
+               AAmax = 1.018;
+               LSt = "LEVEL:" + Integer.toString(4);
+           }
+        }else if (score>=1000){
+            if (score!=1010){
+                ScorePen = 20;
+            }else ScorePen = 10;
+            if( c5==0) {
+                c5++;
+                editor.putInt("levl", 5);
+                editor.putInt("scorelevel", 1000);
+                editor.commit();
+                Blue1 = L5col;
+                ScoreMin = 1000;
+                AAmin = .985;
+                AAmax = 1.015;
+                LSt = "LEVEL:" + Integer.toString(5);
+            }
         }
+
         ScoreRSpeed();
         ThetaCalc();
         double Ex = B1dist * Math.cos(Math.toRadians(theta));
@@ -307,8 +341,22 @@ public class SOFview extends View {
            RotSpeed=1.5;
        }else if (score >= 175 && score <300) {
            RotSpeed=1.65;
-       }else if (score>=250){
-
+       }else if (score >= 300 && score <400) {
+           RotSpeed=1.75;
+       }else if (score >= 400 && score <600) {
+           RotSpeed = 1.85;
+       }else if (score >= 600 && score <800) {
+           RotSpeed = 1.9;
+       }else if (score >= 800 && score <1000) {
+           RotSpeed = 1.95;
+       }else if (score>=1000&& score <1100){
+           RotSpeed=2.05;
+       }else if (score>=1100&& score <1300) {
+           RotSpeed = 2.2;
+       }else if (score>=1300&& score <1600){
+           RotSpeed=2.4;
+       }else if (score>=1600){
+           RotSpeed=2.5;
        }
    }
     private void ThetaCalc(){
@@ -320,7 +368,6 @@ public class SOFview extends View {
        if (Ltheta > 360 || Ltheta < -360) {
            Ltheta = 0;
        }
-
        theta2 -= thcns2;
        if (theta2 > 360 || theta2 < -360) {
            theta2 = 0;
