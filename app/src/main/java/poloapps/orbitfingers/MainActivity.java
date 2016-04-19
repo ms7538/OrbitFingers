@@ -33,17 +33,17 @@ public class MainActivity extends ActionBarActivity {
         Integer lv= mSettings.getInt("levl", 1);
          Integer PS= mSettings.getInt("peakscore", 0);
         //Log.i("M123A", Integer.toString(lv));
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
-        requestNewInterstitial();
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-                Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
+//        requestNewInterstitial();
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                requestNewInterstitial();
+//                Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
+//                MainActivity.this.startActivity(myIntent);
+//            }
+//        });
         Button button = (Button) findViewById(R.id.simple);
         button.setBackgroundColor(getResources().getColor(R.color.green));
         Button button2 = (Button) findViewById(R.id.simple2);
@@ -103,9 +103,9 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
-//        AdView mAdView = (AdView) findViewById(R.id.adView);
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        mAdView.loadAd(adRequest);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
          Button rbutton = (Button) findViewById(R.id.reset1);
          rbutton.setBackgroundColor(getResources().getColor(R.color.dkgry));
          rbutton.setOnClickListener(new OnClickListener() {
@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
 //        } else {
         Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
         MainActivity.this.startActivity(myIntent);
-       // }
+    //    }
     }
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()

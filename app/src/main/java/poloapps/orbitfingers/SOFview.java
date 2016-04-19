@@ -72,8 +72,8 @@ public class SOFview extends View {
     private float flrdB2xx = (float) B2dist - 2;
     private String Blue1 = "#017ed5";
     private String Purp2="#800080";
-    private String L3col="#663333";
-    private String L4col="#004040";
+    private String L3col="#c0fff4";
+    private String L4col="#afcea9";
     private String L5col="#f2f2f2";
     private String Currcol = Blue1;
     private String CurrcolL = Blue1;
@@ -119,6 +119,8 @@ public class SOFview extends View {
             c1++;
         }
         // To enable keypad on this View
+//        editor.putInt("levl",5);
+//        editor.commit();
         this.setFocusable(true);
         this.requestFocus();
         // To enable touch mode
@@ -255,20 +257,26 @@ public class SOFview extends View {
             LSt="LEVEL:"+ Integer.toString(2);
 
         }
-        else if ((score>=300&& score<600) && c3==0){
-            c3++;
-            if (levl<3) {
-                editor.putInt("levl", 3);
+        else if (score>=300&& score<600) {
+            if (score!=305){
+                ScorePen = 10;
+            }else  {
+                ScorePen = 5;
             }
-            editor.putInt("scorelevel",300);
-            editor.commit();
-            Blue1=L3col;
-            ScoreMin=300;
-            AAmin=.98;
-            AAmax=1.02;
-            ScorePen=10;
-            LSt="LEVEL:"+ Integer.toString(3);
-
+            if (c3==0) {
+               c3++;
+               if (levl < 3) {
+                   editor.putInt("levl", 3);
+               }
+               editor.putInt("scorelevel", 300);
+               editor.commit();
+               Blue1 = L3col;
+               ScoreMin = 300;
+               AAmin = .98;
+               AAmax = 1.02;
+               ScorePen = 10;
+               LSt = "LEVEL:" + Integer.toString(3);
+           }
         }else if (score>=600&& score<1000){
            if (score!=605 && score!=610){
                ScorePen = 15;
@@ -289,9 +297,9 @@ public class SOFview extends View {
                LSt = "LEVEL:" + Integer.toString(4);
            }
         }else if (score>=1000){
-            if (score!=1010){
+            if (score!=1010 && score!=1005){
                 ScorePen = 20;
-            }else ScorePen = 10;
+            }else ScorePen = 5;
             if( c5==0) {
                 c5++;
                 editor.putInt("levl", 5);
