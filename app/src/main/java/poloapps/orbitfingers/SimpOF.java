@@ -16,16 +16,16 @@ public class SimpOF extends ActionBarActivity {
         String scalemultiplier="1";
         float density = this.getResources().getDisplayMetrics().density;
         if (density == 4.0) {
-            scalemultiplier= "2.5";
+            scalemultiplier= "2.0";
         }
         if (density == 3.0) {
-            scalemultiplier="2.0";
+            scalemultiplier="1.5";
         }
         if (density == 2.0) {
             scalemultiplier="1";
         }
         if (density == 1.5) {
-            scalemultiplier=".6";
+            scalemultiplier=".5";
         }
         if (density == 1.0) {
             scalemultiplier=".5";
