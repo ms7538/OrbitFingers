@@ -7,18 +7,23 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v7.app.ActionBar;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import java.util.Formatter;
 import android.graphics.Typeface;
+import android.view.ViewDebug;
 import android.widget.Toast;
 public class SOFview extends View {
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
     String DensScale= prefs.getString("scale", "1");
     Integer LS= prefs.getInt("ls", 1);
     Integer PS= prefs.getInt("peakscore", 0);
-    String LSt="LEVEL:"+ Integer.toString(LS);
+    String LSt="PEAK:";
+    String LSd= Integer.toString(PS);
+    String LUP="100";
+    String tLUP="NEXT 2@";
     float scalefactor = Float.parseFloat(DensScale);
     private ScaleGestureDetector detector;
     private float MBsze = scalefactor*30; // Center ball size
@@ -37,26 +42,21 @@ public class SOFview extends View {
     private float B1yL = scalefactor*310;
     private float B2XL = scalefactor*350;  // Ball's center (x,y)
     private float B2yL = scalefactor*410;
-    private float rectLbeginX=scalefactor*320;//left click rectangle x start
-    private float rectLendX=scalefactor*425;//left click rectangle x end
-    private float rectbeginY=scalefactor*450;//both click rectangle y start
-    private float rectendY=scalefactor*550;//both click rectangle y end
-    private float rectRbeginX=scalefactor*920;//right click rectangle x start
-    private float rectRendX=scalefactor*1025;//right click rectangle x end
-    private float txtYandlength=scalefactor*35;// text y start and x lentght (both 35)
-    private float peaktext=scalefactor*435;//
-    private float txtXscr=scalefactor*575;// text "score" x start
-    private float txtactscore=scalefactor*705;/// acutal score start x
-    private int  TYL = Math.round(txtYandlength);
-    private int  TYL2 = Math.round(peaktext);
-    private int  TXS = Math.round(txtXscr);
-    private int  TAS = Math.round(txtactscore);
-    private int  RLBX = Math.round(rectLbeginX);
-    private int  RLEX = Math.round(rectLendX);
-    private int  RRBX = Math.round(rectRbeginX);
-    private int  RREX = Math.round(rectRendX);
-    private int  RBY = Math.round(rectbeginY);
-    private int  REY = Math.round(rectendY);
+    private int  TYL = Math.round(scalefactor*35);// text y and length
+    private int  TYL2 = Math.round(scalefactor*70);//peaktext
+    private int  TYL4 = Math.round(scalefactor*225);//peaktext
+   private  int TYL3= Math.round(scalefactor*484);
+    private int  TYL5 = Math.round(scalefactor*530);//peaktext
+    private int  TXS2 = Math.round(scalefactor*550);
+    private int  TXS = Math.round(scalefactor*580);//"SCORE:" start x
+    private int  TXS3 = Math.round(scalefactor*575);//"SCORE:" start x
+    private int  TAS = Math.round(scalefactor*600);
+    private int  RLBX = Math.round(scalefactor*320);
+    private int  RLEX = Math.round(scalefactor*425);
+    private int  RRBX = Math.round(scalefactor*920);
+    private int  RREX = Math.round(scalefactor*1025);
+    private int  RBY = Math.round(scalefactor*450);
+    private int  REY = Math.round(scalefactor*550);
     private int CX = Math.round(XAL);
     private int CXL=Math.round(XALL);
     private int CY = Math.round(YAL);
@@ -81,6 +81,7 @@ public class SOFview extends View {
     private String Red1 = "#ff0000";
     private String ScCo="#f2f2f2";
     private String currscorecol = ScCo;
+    private String levlupcol=Purp2;
     private double RotSpeed=1.15;
     private double thcns = RotSpeed;
     private double theta = 0;
@@ -95,7 +96,7 @@ public class SOFview extends View {
     private double Ltheta = 180;
     private double Lthcns2 = RotSpeed;
     private double Ltheta2 = 270;
-    private int LMch = 0, dsbc=0;
+    private int LMch = 0;
     private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0, scpen=0;
     private double AAmin=.973;
     private double AAmax=1.027;
@@ -104,7 +105,8 @@ public class SOFview extends View {
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
     private int score = mSettings.getInt("LSS", 0);
-    private int levl=mSettings.getInt("levl",0);
+    private int levl=mSettings.getInt("levl",1);
+
     Bitmap myBitmap = BitmapFactory.decodeResource(
             getResources(),
             R.drawable.thmb1);
@@ -114,13 +116,15 @@ public class SOFview extends View {
         ballBounds = new RectF();
         paint = new Paint();
         // Set the font face and size of drawing text
+
         if (c1 == 0) {
-            Toast.makeText(getContext(), "Click during alligment to gain points                                         Else loose points when clicking during missalignment", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Click during alligment to gain points ", Toast.LENGTH_LONG).show();
             c1++;
         }
         // To enable keypad on this View
-//        editor.putInt("levl",5);
+//       editor.putInt("levl",5);
 //        editor.commit();
+
         this.setFocusable(true);
         this.requestFocus();
         // To enable touch mode
@@ -148,11 +152,30 @@ public class SOFview extends View {
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
-        txtcnvs(canvas, Integer.toString(score), TAS, TYL, TYL, currscorecol);
-        txtcnvs(canvas, Integer.toString(PS), TAS, TYL2, TYL, Green1);
-        txtcnvs(canvas, "SCORE: ", TXS, TYL, TYL, Blue1);
-        txtcnvs(canvas, "PEAK: ", TXS, TYL2, TYL, Green1);
-        txtcnvs(canvas, LSt, 0, TYL, TYL, ScCo);
+        switch (LS){
+            case 1:
+                TAS=625;
+                break;
+            case 2:
+                TAS=615;
+                break;
+            case 3:
+                TAS=615;
+                break;
+            case 4:
+                TAS=615;
+                break;
+            case 5:
+                TAS=600;
+                break;
+
+        }
+        txtcnvs(canvas,Integer.toString(score), TAS, TYL4, TYL, currscorecol);
+        txtcnvs(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, Blue1);
+        txtcnvs(canvas, "PEAK ", 0, TYL2, TYL, Green1);
+        txtcnvs(canvas, LSd, 0, TYL, TYL, Green1);
+        txtcnvs(canvas, LUP, TAS, TYL5, TYL, levlupcol);
+        txtcnvs(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
         canvas.drawBitmap(myBitmap, RRBX,RBY , null);
         canvas.drawBitmap(myBitmap, RLBX,RBY , null);
         update();
@@ -236,6 +259,7 @@ public class SOFview extends View {
         detector.onTouchEvent(event);
         return true;
     }
+
     private void update() {
 
         currscorecol=ScCo;
@@ -247,6 +271,11 @@ public class SOFview extends View {
             if (levl<2) {
                 editor.putInt("levl", 2);
             }
+
+            levlupcol=L3col;
+            LS=2;
+            tLUP="NEXT 3@";
+            LUP="300";
             editor.putInt("scorelevel",100);
             editor.commit();
             Blue1=Purp2;
@@ -254,7 +283,7 @@ public class SOFview extends View {
             AAmin=.975;
             AAmax=1.025;
             ScorePen=5;
-            LSt="LEVEL:"+ Integer.toString(2);
+
 
         }
         else if (score>=300&& score<600) {
@@ -268,6 +297,10 @@ public class SOFview extends View {
                if (levl < 3) {
                    editor.putInt("levl", 3);
                }
+                LS=3;
+                tLUP="NEXT 4@";
+                levlupcol=L4col;
+                LUP="600";
                editor.putInt("scorelevel", 300);
                editor.commit();
                Blue1 = L3col;
@@ -275,7 +308,6 @@ public class SOFview extends View {
                AAmin = .98;
                AAmax = 1.02;
                ScorePen = 10;
-               LSt = "LEVEL:" + Integer.toString(3);
            }
         }else if (score>=600&& score<1000){
            if (score!=605 && score!=610){
@@ -288,13 +320,17 @@ public class SOFview extends View {
                if (levl < 4) {
                    editor.putInt("levl", 4);
                }
-               editor.putInt("scorelevel", 600);
-               editor.commit();
-               Blue1 = L4col;
-               ScoreMin = 600;
-               AAmin = .982;
-               AAmax = 1.018;
-               LSt = "LEVEL:" + Integer.toString(4);
+                tLUP="NEXT 5@";
+                levlupcol=L5col;
+                LUP="1000";
+                editor.putInt("scorelevel", 600);
+                editor.commit();
+                Blue1 = L4col;
+                ScoreMin = 600;
+                AAmin = .982;
+                AAmax = 1.018;
+                LS=4;
+
            }
         }else if (score>=1000){
             if (score!=1010 && score!=1005){
@@ -302,14 +338,19 @@ public class SOFview extends View {
             }else ScorePen = 5;
             if( c5==0) {
                 c5++;
-                editor.putInt("levl", 5);
+                if (levl < 5) {
+                    editor.putInt("levl", 5);
+                   }
+                tLUP="";
+                levlupcol=L5col;
+                LUP="";
                 editor.putInt("scorelevel", 1000);
                 editor.commit();
                 Blue1 = L5col;
                 ScoreMin = 1000;
                 AAmin = .985;
                 AAmax = 1.015;
-                LSt = "LEVEL:" + Integer.toString(5);
+                LS=5;
             }
         }
 
@@ -426,9 +467,11 @@ public class SOFview extends View {
         currscorecol=ScCo;
    }
 
+
    private void PeakScrClc(){
        if (score > PS) {
            PS=score;
+           LSd= Integer.toString(PS);
            editor.putInt("peakscore",PS);
            editor.commit();
        }

@@ -1,19 +1,27 @@
 package poloapps.orbitfingers;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
+
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
+
 public class SimpOF extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         Integer LS= mSettings.getInt("ls", 1);
+        String levsel= ("LEVEL : "+Integer.toString(LS));
         String scalemultiplier="1";
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar.setTitle("ORBITFINGERS");
         float density = this.getResources().getDisplayMetrics().density;
         if (density == 4.0) {
             scalemultiplier= "2.0";
