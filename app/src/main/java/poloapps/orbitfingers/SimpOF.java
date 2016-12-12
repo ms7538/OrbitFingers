@@ -23,19 +23,25 @@ public class SimpOF extends ActionBarActivity {
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setTitle("ORBITFINGERS");
         float density = this.getResources().getDisplayMetrics().density;
-        if (density == 4.0) {
+        if (density == 6.0) {
+            scalemultiplier= "3.0";
+        }
+        else if (density == 5.0) {
+            scalemultiplier= "2.5";
+        }
+        else if (density == 4.0) {
             scalemultiplier= "2.0";
         }
-        if (density == 3.0) {
+        else if (density == 3.0) {
             scalemultiplier="1.5";
         }
-        if (density == 2.0) {
+        else if (density == 2.0) {
             scalemultiplier="1";
         }
-        if (density == 1.5) {
+        else if (density == 1.5) {
             scalemultiplier=".5";
         }
-        if (density == 1.0) {
+        else if (density == 1.0) {
             scalemultiplier=".5";
         }
         SharedPreferences.Editor editor = mSettings.edit();

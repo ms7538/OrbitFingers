@@ -36,7 +36,7 @@ public class SOFview extends View {
     private float MBy = scalefactor*210;
     private float B1X = XAL;  // Ball's center (x,y)
     private float B1y = scalefactor*210;
-    private float  B2X = XAL;  // Ball's center (x,y)
+    private float B2X = XAL;  // Ball's center (x,y)
     private float B2y = scalefactor*410;
     private float B1XL = scalefactor*350;  // Ball's center (x,y)
     private float B1yL = scalefactor*310;
@@ -45,9 +45,9 @@ public class SOFview extends View {
     private int  TYL = Math.round(scalefactor*35);// text y and length
     private int  TYL2 = Math.round(scalefactor*70);//peaktext
     private int  TYL4 = Math.round(scalefactor*225);//peaktext
-   private  int TYL3= Math.round(scalefactor*484);
+    private  int TYL3= Math.round(scalefactor*484);
     private int  TYL5 = Math.round(scalefactor*530);//peaktext
-    private int  TXS2 = Math.round(scalefactor*550);
+    private int  TXS2 = Math.round(scalefactor*630);
     private int  TXS = Math.round(scalefactor*580);//"SCORE:" start x
     private int  TXS3 = Math.round(scalefactor*575);//"SCORE:" start x
     private int  TAS = Math.round(scalefactor*600);
@@ -170,11 +170,11 @@ public class SOFview extends View {
                 break;
 
         }
-        txtcnvs(canvas,Integer.toString(score), TAS, TYL4, TYL, currscorecol);
+        txtcnvs(canvas,Integer.toString(score), TXS2, TYL4, TYL, currscorecol);
         txtcnvs(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, Blue1);
         txtcnvs(canvas, "PEAK ", 0, TYL2, TYL, Green1);
         txtcnvs(canvas, LSd, 0, TYL, TYL, Green1);
-        txtcnvs(canvas, LUP, TAS, TYL5, TYL, levlupcol);
+        txtcnvs(canvas, LUP, TXS2, TYL5, TYL, levlupcol);
         txtcnvs(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
         canvas.drawBitmap(myBitmap, RRBX,RBY , null);
         canvas.drawBitmap(myBitmap, RLBX,RBY , null);

@@ -120,7 +120,7 @@ public class MainActivity extends ActionBarActivity {
              }
          });
          if (PS<10) {
-             ((TextView) findViewById(R.id.peaksc)).setText("                                    " + Integer.toString(PS));
+             ((TextView) findViewById(R.id.peaksc)).setText("                                     " + Integer.toString(PS));
          }else if (PS<100){
              ((TextView) findViewById(R.id.peaksc)).setText("                                   " + Integer.toString(PS));
          }else if (PS<1000){
