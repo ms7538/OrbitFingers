@@ -1,75 +1,101 @@
 package poloapps.orbitfingers;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-public class SimpOF extends ActionBarActivity {
+import android.view.ViewDebug;
 
+public class SimpOF extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         Integer LS= mSettings.getInt("ls", 1);
-        //View view = new SOFview(getApplicationContext());
+        String levsel= ("LEVEL : "+Integer.toString(LS));
+        String scalemultiplier="1";
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar.setTitle("ORBITFINGERS");
+        float density = this.getResources().getDisplayMetrics().density;
+        if (density == 6.0) {
+            scalemultiplier= "3.0";
+        }
+        else if (density == 5.0) {
+            scalemultiplier= "2.5";
+        }
+        else if (density == 4.0) {
+            scalemultiplier= "2.0";
+        }
+        else if (density == 3.0) {
+            scalemultiplier="1.5";
+        }
+        else if (density == 2.0) {
+            scalemultiplier="1";
+        }
+        else if (density == 1.5) {
+            scalemultiplier=".5";
+        }
+        else if (density == 1.0) {
+            scalemultiplier=".5";
+        }
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putString("scale", scalemultiplier);
+        editor.commit();
+
+
+
         switch (LS){
             case 1:
-                View view = new SOFview(getApplicationContext());
-                setContentView(view);
-                view.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 0);
+                editor.commit();
                 break;
             case 2:
-                View view2 = new SOFview2(getApplicationContext());
-                setContentView(view2);
-                view2.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 100);
+                editor.commit();
                 break;
             case 3:
-                View view3 = new SOFview3(getApplicationContext());
-                setContentView(view3);
-                view3.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 300);
+                editor.commit();
                 break;
             case 4:
-                View view4 = new SOFview4(getApplicationContext());
-                setContentView(view4);
-                view4.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 600);
+                editor.commit();
                 break;
             case 5:
-                View view5 = new SOFview5(getApplicationContext());
-                setContentView(view5);
-                view5.setBackgroundColor(Color.parseColor("#090404"));
+                editor.putInt("LSS", 1000);
+                editor.commit();
                 break;
 
         }
-
-        //
-
+        View view = new SOFview(getApplicationContext());
+        setContentView(view);
+        view.setBackgroundColor(Color.parseColor("#090404"));
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        super.startActivity(intent);
+        return;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+       int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
