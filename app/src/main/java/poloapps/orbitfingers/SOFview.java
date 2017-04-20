@@ -17,13 +17,14 @@ import android.view.ViewDebug;
 import android.widget.Toast;
 public class SOFview extends View {
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
-    String DensScale= prefs.getString("scale", "1");
-    Integer LS= prefs.getInt("ls", 1);
-    Integer PS= prefs.getInt("peakscore", 0);
-    String LSt="PEAK:";
-    String LSd= Integer.toString(PS);
-    String LUP="100";
-    String tLUP="NEXT 2@";
+    String DensScale = prefs.getString("scale", "1");
+    Integer LS  = prefs.getInt("ls", 1);
+    Integer PS  = prefs.getInt("peakscore", 0);
+    String LSt  = "PEAK:";
+    String LSd  = Integer.toString(PS);
+    String LUP  = "100";
+    String tLUP = "NEXT 2@";
+
     float scalefactor = Float.parseFloat(DensScale);
     private ScaleGestureDetector detector;
     private float MBsze = scalefactor*30; // Center ball size

@@ -17,35 +17,21 @@ public class SimpOF extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-        Integer LS= mSettings.getInt("ls", 1);
-        String levsel= ("LEVEL : "+Integer.toString(LS));
-        String scalemultiplier="1";
+        Integer LS = mSettings.getInt("ls", 1);
+
+
+        double scalemultiplier = 1.0;
+
         android.support.v7.app.ActionBar bar = getSupportActionBar();
+
         bar.setTitle("ORBITFINGERS");
+
         float density = this.getResources().getDisplayMetrics().density;
-        if (density == 6.0) {
-            scalemultiplier= "3.0";
-        }
-        else if (density == 5.0) {
-            scalemultiplier= "2.5";
-        }
-        else if (density == 4.0) {
-            scalemultiplier= "2.0";
-        }
-        else if (density == 3.0) {
-            scalemultiplier="1.5";
-        }
-        else if (density == 2.0) {
-            scalemultiplier="1";
-        }
-        else if (density == 1.5) {
-            scalemultiplier=".5";
-        }
-        else if (density == 1.0) {
-            scalemultiplier=".5";
-        }
+
+        scalemultiplier = density / 2;
+        String plain = String.format( "%.1f", scalemultiplier );
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putString("scale", scalemultiplier);
+        editor.putString( "scale", plain );
         editor.commit();
 
 

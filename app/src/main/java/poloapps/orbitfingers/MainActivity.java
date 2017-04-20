@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
 //                MainActivity.this.startActivity(myIntent);
 //            }
 //        });
-         
+
 
         Button button = (Button) findViewById(R.id.simple);
         button.setBackgroundColor(getResources().getColor(R.color.green));
