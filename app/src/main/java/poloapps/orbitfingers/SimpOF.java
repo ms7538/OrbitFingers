@@ -20,7 +20,6 @@ public class SimpOF extends ActionBarActivity {
         Integer LS = mSettings.getInt("ls", 1);
 
 
-        double scalemultiplier = 1.0;
 
         android.support.v7.app.ActionBar bar = getSupportActionBar();
 
@@ -28,7 +27,7 @@ public class SimpOF extends ActionBarActivity {
 
         float density = this.getResources().getDisplayMetrics().density;
 
-        scalemultiplier = density / 2;
+        double scalemultiplier = density / 2;
         String plain = String.format( "%.1f", scalemultiplier );
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString( "scale", plain );

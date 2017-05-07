@@ -12,75 +12,87 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <!-- Content here -->
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/simple"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/simple" />
-    <Button
-        android:id="@+id/simple2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/simple2"
-        android:layout_marginTop="5dp"
-        android:clickable="true" />
-    <Button
-        android:id="@+id/simple3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Level 3"
-        android:layout_marginTop="5dp"
-        android:clickable="true" />
-    <Button
-        android:id="@+id/simple4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Level 4"
-        android:layout_marginTop="5dp"
-        android:clickable="true" />
-    <Button
-        android:id="@+id/simple5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Level 5"
-        android:layout_marginTop="5dp"
-        android:clickable="true" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="                          PEAK SCORE: "
-        android:layout_marginTop="5dp"
-         />
-     <TextView
-        android:id="@+id/peaksc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="                                 XX"
-        android:layout_marginTop="5dp"
-         />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hello_world" />
+
+            <Button
+                android:id="@+id/simple"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/simple" />
+
+            <Button
+                android:id="@+id/simple2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:text="@string/simple2" />
+
+            <Button
+                android:id="@+id/simple3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:text="Level 3" />
+
+            <Button
+                android:id="@+id/simple4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:text="Level 4" />
+
+            <Button
+                android:id="@+id/simple5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:text="Level 5" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text=" PEAK SCORE: " />
+
+            <TextView
+                android:id="@+id/peaksc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="X" />
+
             <Button
                 android:id="@+id/reset1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reset Peak Score"
                 android:layout_marginTop="5dp"
-                android:clickable="true" />
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id">
-    </com.google.android.gms.ads.AdView>
+                android:clickable="true"
+                android:text="Reset Peak Score" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

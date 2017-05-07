@@ -103,14 +103,17 @@ public class SOFview extends View {
     private double AAmax=1.027;
     private int ScorePen=5;
     private int ScoreMin=0;
+
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
+
     private int score = mSettings.getInt("LSS", 0);
     private int levl=mSettings.getInt("levl",1);
 
     Bitmap myBitmap = BitmapFactory.decodeResource(
             getResources(),
             R.drawable.thmb1);
+
     public SOFview(Context context) {
         super(context);
         detector = new ScaleGestureDetector(getContext(), new ScaleListener());

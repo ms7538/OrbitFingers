@@ -33,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
         final SharedPreferences.Editor editor = mSettings.edit();
         Integer lv= mSettings.getInt("levl", 1);
          Integer PS= mSettings.getInt("peakscore", 0);
+
         //Log.i("M123A", Integer.toString(lv));
 //        mInterstitialAd = new InterstitialAd(this);
 //        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
@@ -117,18 +118,12 @@ public class MainActivity extends ActionBarActivity {
                 int PS=0;
                  editor.putInt("peakscore",PS);
                  editor.commit();
-                 ((TextView) findViewById(R.id.peaksc)).setText("                                    " + Integer.toString(PS));
+                 ((TextView) findViewById(R.id.peaksc)).setText(Integer.toString(PS));
              }
          });
-         if (PS<10) {
-             ((TextView) findViewById(R.id.peaksc)).setText("                                     " + Integer.toString(PS));
-         }else if (PS<100){
-             ((TextView) findViewById(R.id.peaksc)).setText("                                   " + Integer.toString(PS));
-         }else if (PS<1000){
-             ((TextView) findViewById(R.id.peaksc)).setText("                                  " + Integer.toString(PS));
-         }else if (PS<10000) {
-             ((TextView) findViewById(R.id.peaksc)).setText("                                 " + Integer.toString(PS));
-         }
+
+         ((TextView) findViewById(R.id.peaksc)).setText(Integer.toString(PS));
+
 
     }
 
