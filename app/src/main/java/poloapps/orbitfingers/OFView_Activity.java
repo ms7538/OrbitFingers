@@ -227,7 +227,7 @@ public class OFView_Activity extends View {
         paint.setColor(Color.parseColor(color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
         statusMsg.delete(0, statusMsg.length());
-    }
+    }//test
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
