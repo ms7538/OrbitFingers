@@ -226,7 +226,7 @@ public class OFView_Activity extends View {
         formatter.format(str);
         paint.setColor(Color.parseColor(color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
-        statusMsg.delete(0, statusMsg.length()); // Empty buffer
+        statusMsg.delete(0, statusMsg.length());
     }
 
     @Override
