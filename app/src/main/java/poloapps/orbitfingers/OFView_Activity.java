@@ -13,6 +13,7 @@ import android.view.View;
 import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
+//V3.0 Created
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
@@ -227,7 +228,7 @@ public class OFView_Activity extends View {
         paint.setColor(Color.parseColor(color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
         statusMsg.delete(0, statusMsg.length());
-    }//test
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
