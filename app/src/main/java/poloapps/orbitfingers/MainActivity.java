@@ -1,30 +1,30 @@
 package poloapps.orbitfingers;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBar;
+
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
-import android.util.Log;
+
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.view.View.OnClickListener;
-import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
-public class MainActivity extends ActionBarActivity {
-    InterstitialAd mInterstitialAd;
+public class MainActivity extends AppCompatActivity {
+    //InterstitialAd mInterstitialAd;
      @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         Button button = (Button) findViewById(R.id.simple);
-        button.setBackgroundColor(getResources().getColor(R.color.green));
+        button.setBackgroundColor(ContextCompat.getColor(this,(R.color.green)));
         Button button2 = (Button) findViewById(R.id.simple2);
         Button button3 = (Button) findViewById(R.id.simple3);
         Button button4 = (Button) findViewById(R.id.simple4);
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
         if (lv >=2) {
-            button2.setBackgroundColor(getResources().getColor(R.color.green));
+            button2.setBackgroundColor(ContextCompat.getColor(this,(R.color.green)));
             button2.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity {
         }
         if (lv >=3) {
 
-            button3.setBackgroundColor(getResources().getColor(R.color.green));
+            button3.setBackgroundColor(ContextCompat.getColor(this,(R.color.green)));
             button3.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -86,7 +86,7 @@ public class MainActivity extends ActionBarActivity {
             });
         }
         if (lv >=4) {
-            button4.setBackgroundColor(getResources().getColor(R.color.green));
+            button4.setBackgroundColor(ContextCompat.getColor(this,(R.color.green)));
             button4.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
             });
         }
         if (lv >=5) {
-            button5.setBackgroundColor(getResources().getColor(R.color.green));
+            button5.setBackgroundColor(ContextCompat.getColor(this,(R.color.green)));
             button5.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -111,7 +111,7 @@ public class MainActivity extends ActionBarActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
          Button rbutton = (Button) findViewById(R.id.reset1);
-         rbutton.setBackgroundColor(getResources().getColor(R.color.dkgry));
+         rbutton.setBackgroundColor(ContextCompat.getColor(this,(R.color.dkgry)));
          rbutton.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -140,12 +140,12 @@ public class MainActivity extends ActionBarActivity {
         MainActivity.this.startActivity(myIntent);
     //    }
     }
-    private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-
-        mInterstitialAd.loadAd(adRequest);
-    }
+//    private void requestNewInterstitial() {
+//        AdRequest adRequest = new AdRequest.Builder()
+//                .build();
+//
+//        mInterstitialAd.loadAd(adRequest);
+//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

@@ -7,12 +7,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
 
-public class SimpOF extends ActionBarActivity {
+public class SimpOF extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
