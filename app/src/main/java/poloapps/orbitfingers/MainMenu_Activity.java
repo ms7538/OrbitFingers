@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
 
@@ -18,12 +17,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 
-public class MainActivity extends AppCompatActivity {
+public class MainMenu_Activity extends AppCompatActivity {
     //InterstitialAd mInterstitialAd;
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         Integer lv= mSettings.getInt("levl", 1);
+
          Integer PS= mSettings.getInt("peakscore", 0);
 
         //Log.i("M123A", Integer.toString(lv));
@@ -42,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 //            @Override
 //            public void onAdClosed() {
 //                requestNewInterstitial();
-//                Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-//                MainActivity.this.startActivity(myIntent);
+//                Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
+//                MainMenu_Activity.this.startActivity(myIntent);
 //            }
 //        });
 
@@ -136,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
 //        if (mInterstitialAd.isLoaded()) {
 //            mInterstitialAd.show();
 //        } else {
-        Intent myIntent = new Intent(MainActivity.this, SimpOF.class);
-        MainActivity.this.startActivity(myIntent);
+        Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
+        MainMenu_Activity.this.startActivity(myIntent);
     //    }
     }
 //    private void requestNewInterstitial() {

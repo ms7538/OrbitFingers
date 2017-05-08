@@ -7,127 +7,139 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.v7.app.ActionBar;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import java.util.Formatter;
 import android.graphics.Typeface;
-import android.view.ViewDebug;
 import android.widget.Toast;
-public class SOFview extends View {
-    SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
+public class OFView_Activity extends View {
+
+    SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
+
     String DensScale = prefs.getString("scale", "1");
+
     Integer LS  = prefs.getInt("ls", 1);
     Integer PS  = prefs.getInt("peakscore", 0);
-    String LSt  = "PEAK:";
+
+
+
     String LSd  = Integer.toString(PS);
+
     String LUP  = "100";
     String tLUP = "NEXT 2@";
 
-    float scalefactor = Float.parseFloat(DensScale);
+    float scale_factor = Float.parseFloat(DensScale);
+
     private ScaleGestureDetector detector;
-    private float MBsze = scalefactor*30; // Center ball size
-    private float Bsize = scalefactor*10; // outer ball size
-    private float XAL = scalefactor*950;
-    private float XALL=scalefactor*350;
-    private float YAL=scalefactor*210;
-    private float MBx = XAL;  // Right center (x,y)
-    private float MBxL = scalefactor*350;//Left Center
-    private float MBy = scalefactor*210;
-    private float B1X = XAL;  // Ball's center (x,y)
-    private float B1y = scalefactor*210;
-    private float B2X = XAL;  // Ball's center (x,y)
-    private float B2y = scalefactor*410;
-    private float B1XL = scalefactor*350;  // Ball's center (x,y)
-    private float B1yL = scalefactor*310;
-    private float B2XL = scalefactor*350;  // Ball's center (x,y)
-    private float B2yL = scalefactor*410;
-    private int  TYL = Math.round(scalefactor*35);// text y and length
-    private int  TYL2 = Math.round(scalefactor*70);//peaktext
-    private int  TYL4 = Math.round(scalefactor*225);//peaktext
-    private  int TYL3= Math.round(scalefactor*484);
-    private int  TYL5 = Math.round(scalefactor*530);//peaktext
-    private int  TXS2 = Math.round(scalefactor*630);
-    private int  TXS = Math.round(scalefactor*580);//"SCORE:" start x
-    private int  TXS3 = Math.round(scalefactor*575);//"SCORE:" start x
-    private int  TAS = Math.round(scalefactor*600);
-    private int  RLBX = Math.round(scalefactor*320);
-    private int  RLEX = Math.round(scalefactor*425);
-    private int  RRBX = Math.round(scalefactor*920);
-    private int  RREX = Math.round(scalefactor*1025);
-    private int  RBY = Math.round(scalefactor*450);
-    private int  REY = Math.round(scalefactor*550);
-    private int CX = Math.round(XAL);
-    private int CXL=Math.round(XALL);
-    private int CY = Math.round(YAL);
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
-    private double B1dist = scalefactor*100;
-    private double B2dist = scalefactor*200;
-    private float flrdB1 = (float) B1dist;
-    private float flrdB2 = (float) B2dist;
-    private float flrdB1x = (float) B1dist - 1;
-    private float flrdB2x = (float) B2dist - 1;
-    private float flrdB1xx = (float) B1dist - 2;
-    private float flrdB2xx = (float) B2dist - 2;
-    private String Blue1 = "#017ed5";
-    private String Purp2="#800080";
-    private String L3col="#c0fff4";
-    private String L4col="#afcea9";
-    private String L5col="#f2f2f2";
-    private String Currcol = Blue1;
+
+    private float MBsze     = scale_factor *30; // Center ball size
+    private float Bsize     = scale_factor *10; // outer ball size
+    private float XAL       = scale_factor *950;
+    private float XALL      = scale_factor *350;
+    private float YAL       = scale_factor *210;
+    private float MBx       = XAL;  // Right center (x,y)
+    private float MBxL      = scale_factor *350;//Left Center
+    private float MBy       = scale_factor *210;
+    private float B1X       = XAL;  // Ball's center (x,y)
+    private float B1y       = scale_factor *210;
+    private float B2X       = XAL;  // Ball's center (x,y)
+    private float B2y       = scale_factor *410;
+    private float B1XL      = scale_factor *350;  // Ball's center (x,y)
+    private float B1yL      = scale_factor *310;
+    private float B2XL      = scale_factor *350;  // Ball's center (x,y)
+    private float B2yL      = scale_factor *410;
+    private int   TYL       = Math.round(scale_factor *35);// text y and length
+    private int   TYL2      = Math.round(scale_factor *70);//peaktext
+    private int   TYL4      = Math.round(scale_factor *225);
+    private int   TYL3      = Math.round(scale_factor *484);
+    private int   TYL5      = Math.round(scale_factor *530);
+    private int   TXS2      = Math.round(scale_factor *630);
+    private int   TXS       = Math.round(scale_factor *580);//"SCORE:" start x
+    private int   TXS3      = Math.round(scale_factor *575);//"SCORE:" start x
+    private int   TAS       = Math.round(scale_factor *600);
+    private int   RLBX      = Math.round(scale_factor *320);
+    private int   RLEX      = Math.round(scale_factor *425);
+    private int   RRBX      = Math.round(scale_factor *920);
+    private int   RREX      = Math.round(scale_factor *1025);
+    private int   RBY       = Math.round(scale_factor *450);
+    private int   REY       = Math.round(scale_factor *550);
+    private int   CX        = Math.round(XAL);
+    private int   CXL       = Math.round(XALL);
+    private int   CY        = Math.round(YAL);
+
+    private double B1dist   = scale_factor *100;
+    private double B2dist   = scale_factor *200;
+    private float flrdB1    = (float) B1dist;
+    private float flrdB2    = (float) B2dist;
+    private float flrdB1x   = (float) B1dist - 1;
+    private float flrdB2x   = (float) B2dist - 1;
+    private float flrdB1xx  = (float) B1dist - 2;
+    private float flrdB2xx  = (float) B2dist - 2;
+
+    private String Blue1    = "#017ed5";
+    private String Purp2    = "#800080";
+    private String L3col    = "#c0fff4";
+    private String L4col    = "#afcea9";
+    private String L5col    = "#f2f2f2";
+    private String Currcol  = Blue1;
     private String CurrcolL = Blue1;
-    private String Green1 = "#00ff00";
-    private String Red1 = "#ff0000";
-    private String ScCo="#f2f2f2";
+    private String Green1   = "#00ff00";
+    private String Red1     = "#ff0000";
+    private String ScCo     = "#f2f2f2";
     private String currscorecol = ScCo;
-    private String levlupcol=Purp2;
-    private double RotSpeed=1.15;
-    private double thcns = RotSpeed;
-    private double theta = 0;
-    private double thcns2 = RotSpeed;
-    private double theta2 = 0;
-    private int Mch = 0;
-    private double ThtAbs1 = 0.0, ThtAbs2 = 0.0;
+    private String levlupcol    = Purp2;
+    private double RotSpeed     = 1.15;
+    private double thcns        = RotSpeed;
+    private double theta        = 0;
+    private double thcns2       = RotSpeed;
+    private double theta2       = 0;
+    private int Mch             = 0;
+
+    private double ThtAbs1  = 0.0, ThtAbs2  = 0.0;
     private double LThtAbs1 = 0.0, LThtAbs2 = 0.0;
+
     private StringBuilder statusMsg = new StringBuilder();
-    private Formatter formatter = new Formatter(statusMsg);  // Formatting the statusMs
-    private double Lthcns = RotSpeed;
-    private double Ltheta = 180;
+    private Formatter formatter     = new Formatter(statusMsg);  // Formatting the statusMs
+
+    private double Lthcns  = RotSpeed;
+    private double Ltheta  = 180;
     private double Lthcns2 = RotSpeed;
     private double Ltheta2 = 270;
-    private int LMch = 0;
-    private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0, scpen=0;
-    private double AAmin=.973;
-    private double AAmax=1.027;
-    private int ScorePen=5;
-    private int ScoreMin=0;
+    private int    LMch    = 0;
+
+    private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0;
+
+    private double AAmin = .973;
+    private double AAmax = 1.027;
+    private int ScorePen = 5;
+    private int ScoreMin = 0;
 
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
 
-    private int score = mSettings.getInt("LSS", 0);
-    private int levl=mSettings.getInt("levl",1);
+    private int score   = mSettings.getInt("LSS", 0);
+    private int levl    = mSettings.getInt("levl",1);
 
     Bitmap myBitmap = BitmapFactory.decodeResource(
             getResources(),
             R.drawable.thmb1);
 
-    public SOFview(Context context) {
+    public OFView_Activity(Context context) {
         super(context);
-        detector = new ScaleGestureDetector(getContext(), new ScaleListener());
+
+        detector   = new ScaleGestureDetector(getContext(), new ScaleListener());
         ballBounds = new RectF();
-        paint = new Paint();
+        paint      = new Paint();
         // Set the font face and size of drawing text
 
         if (c1 == 0) {
             Toast.makeText(getContext(), "Click during alligment to gain points ", Toast.LENGTH_LONG).show();
             c1++;
         }
-        // To enable keypad on this View
-//       editor.putInt("levl",5);
-//        editor.commit();
+
 
         this.setFocusable(true);
         this.requestFocus();
@@ -136,8 +148,10 @@ public class SOFview extends View {
     }
     @Override
     protected void onDraw(Canvas canvas) {
+
         super.onDraw(canvas);
         canvas.save();
+
         orbit(canvas, paint, Currcol, CX, CY, flrdB1);
         orbit(canvas, paint, Currcol, CX, CY, flrdB2);
         orbit(canvas, paint, Currcol, CX, CY, flrdB1x);
@@ -156,6 +170,7 @@ public class SOFview extends View {
         drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
         drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
         drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
+
         switch (LS){
             case 1:
                 TAS=625;
@@ -174,6 +189,7 @@ public class SOFview extends View {
                 break;
 
         }
+
         txtcnvs(canvas,Integer.toString(score), TXS2, TYL4, TYL, currscorecol);
         txtcnvs(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, Blue1);
         txtcnvs(canvas, "PEAK ", 0, TYL2, TYL, Green1);
@@ -182,7 +198,9 @@ public class SOFview extends View {
         txtcnvs(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
         canvas.drawBitmap(myBitmap, RRBX,RBY , null);
         canvas.drawBitmap(myBitmap, RLBX,RBY , null);
+
         update();
+
         // Delay
         try {
             Thread.sleep(25);
@@ -210,6 +228,7 @@ public class SOFview extends View {
         canvas.drawText(statusMsg.toString(), x, y, paint);
         statusMsg.delete(0, statusMsg.length()); // Empty buffer
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -251,14 +270,7 @@ public class SOFview extends View {
                     }
                 }
                 break;
-//            case MotionEvent.ACTION_MOVE:
-//                break;
-//            case MotionEvent.ACTION_POINTER_DOWN:
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                break;
-//            case MotionEvent.ACTION_POINTER_UP:
-//                break;
+
         }
         detector.onTouchEvent(event);
         return true;
@@ -276,22 +288,22 @@ public class SOFview extends View {
                 editor.putInt("levl", 2);
             }
 
-            levlupcol=L3col;
-            LS=2;
-            tLUP="NEXT 3@";
-            LUP="300";
+            levlupcol   = L3col;
+            LS          = 2;
+            tLUP        = "NEXT 3@";
+            LUP         = "300";
             editor.putInt("scorelevel",100);
             editor.commit();
             Blue1=Purp2;
-            ScoreMin=100;
-            AAmin=.975;
-            AAmax=1.025;
-            ScorePen=5;
+            ScoreMin    = 100;
+            AAmin       =.975;
+            AAmax       =1.025;
+            ScorePen    = 5;
 
 
         }
-        else if (score>=300&& score<600) {
-            if (score!=305){
+        else if (score  >= 300 && score < 600) {
+            if (score   != 305){
                 ScorePen = 10;
             }else  {
                 ScorePen = 5;
@@ -346,7 +358,7 @@ public class SOFview extends View {
                     editor.putInt("levl", 5);
                    }
                 tLUP="";
-                levlupcol=L5col;
+                levlupcol = L5col;
                 LUP="";
                 editor.putInt("scorelevel", 1000);
                 editor.commit();
@@ -376,39 +388,59 @@ public class SOFview extends View {
         B1yL = CY + (float) Ey;
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
-        if ((Currcol != Blue1) ||CurrcolL != Blue1) {
+
+        if ((Currcol != Blue1) || CurrcolL != Blue1) {
             Sleep(80);
-            Currcol = Blue1;
-            CurrcolL=Blue1;
+            Currcol  = Blue1;
+            CurrcolL = Blue1;
         }
     }
    private void ScoreRSpeed(){
-       thcns = RotSpeed;
-       thcns2 = RotSpeed;
-       Lthcns = RotSpeed;
-       Lthcns2 = RotSpeed;
+       thcns    = RotSpeed;
+       thcns2   = RotSpeed;
+       Lthcns   = RotSpeed;
+       Lthcns2  = RotSpeed;
 
        if (score >= 50 && score <100) {
-           RotSpeed=1.3;
+           RotSpeed = 1.3;
        }else if (score >= 100 && score <175) {
+
            RotSpeed=1.5;
+
        }else if (score >= 175 && score <300) {
-           RotSpeed=1.65;
+
+           RotSpeed =  1.65;
+
        }else if (score >= 300 && score <400) {
-           RotSpeed=1.75;
+
+           RotSpeed = 1.75;
+
        }else if (score >= 400 && score <600) {
+
            RotSpeed = 1.85;
+
        }else if (score >= 600 && score <800) {
+
            RotSpeed = 1.9;
+
        }else if (score >= 800 && score <1000) {
+
            RotSpeed = 1.95;
+
        }else if (score>=1000&& score <1100){
+
            RotSpeed=2.05;
+
        }else if (score>=1100&& score <1300) {
+
            RotSpeed = 2.2;
+
        }else if (score>=1300&& score <1600){
+
            RotSpeed=2.4;
+
        }else if (score>=1600){
+
            RotSpeed=2.5;
        }
    }
@@ -460,11 +492,15 @@ public class SOFview extends View {
            Mch = 0;
        }
        if (LThtAbs2 > AAmin * LThtAbs1 && LThtAbs2 < AAmax * LThtAbs1) {
+
            LMch = 10;
        }else if(LThtAbs2 -LThtAbs1> AAmin*180 && LThtAbs2 -LThtAbs1< AAmax*180){
+
            LMch=5;
+
        }else if(LThtAbs1 -LThtAbs2> AAmin*180 && LThtAbs1 -LThtAbs2< AAmax*180){
            LMch=5;
+
        } else {
            LMch = 0;
        }
@@ -474,8 +510,8 @@ public class SOFview extends View {
 
    private void PeakScrClc(){
        if (score > PS) {
-           PS=score;
-           LSd= Integer.toString(PS);
+           PS   = score;
+           LSd  = Integer.toString(PS);
            editor.putInt("peakscore",PS);
            editor.commit();
        }
