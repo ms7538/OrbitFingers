@@ -124,7 +124,11 @@ public class OFView_Activity extends View {
     private int score   = mSettings.getInt("LSS", 0);
     private int levl    = mSettings.getInt("levl",1);
 
-    Bitmap myBitmap = BitmapFactory.decodeResource(
+    Bitmap left_Finger_Print = BitmapFactory.decodeResource(
+            getResources(),
+            R.drawable.thmb1);
+
+    Bitmap right_Finger_Print = BitmapFactory.decodeResource(  // inverse print image
             getResources(),
             R.drawable.thmb1);
 
@@ -197,8 +201,8 @@ public class OFView_Activity extends View {
         txtcnvs(canvas, LSd, 0, TYL, TYL, Green1);
         txtcnvs(canvas, LUP, TXS2, TYL5, TYL, levlupcol);
         txtcnvs(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
-        canvas.drawBitmap(myBitmap, RRBX,RBY , null);
-        canvas.drawBitmap(myBitmap, RLBX,RBY , null);
+        canvas.drawBitmap(right_Finger_Print, RRBX,RBY , null);
+        canvas.drawBitmap(left_Finger_Print, RLBX,RBY , null);
 
         update();
 
@@ -236,6 +240,17 @@ public class OFView_Activity extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
+                if(event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) {
+                right_Finger_Print = BitmapFactory.decodeResource(
+                        getResources(),
+                        R.drawable.thmb2);
+                }
+                if(event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY){
+                            left_Finger_Print = BitmapFactory.decodeResource(
+                            getResources(),
+                            R.drawable.thmb2);
+
+                }
                 if((event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
                     if(Mch==10){
@@ -272,7 +287,20 @@ public class OFView_Activity extends View {
                 }
                 break;
 
+            case MotionEvent.ACTION_UP:
+                if(event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) {
+                            right_Finger_Print = BitmapFactory.decodeResource(
+                            getResources(),
+                            R.drawable.thmb1);
+                }
+                if(event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) {
+                            left_Finger_Print = BitmapFactory.decodeResource(
+                            getResources(),
+                            R.drawable.thmb1);
+                }
+                break;
         }
+
         detector.onTouchEvent(event);
         return true;
     }

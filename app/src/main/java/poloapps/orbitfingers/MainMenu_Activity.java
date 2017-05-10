@@ -32,18 +32,18 @@ public class MainMenu_Activity extends AppCompatActivity {
 
          Integer PS = mSettings.getInt("peakscore", 0);
 
-         //Log.i("M123A", Integer.toString(current_level));
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
-//        requestNewInterstitial();
-//        mInterstitialAd.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdClosed() {
-//                requestNewInterstitial();
-//                Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
-//                MainMenu_Activity.this.startActivity(myIntent);
-//            }
-//        });
+ /*        Log.i("M123A", Integer.toString(current_level));
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
+        requestNewInterstitial();
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
+                MainMenu_Activity.this.startActivity(myIntent);
+            }
+        });*/
 
 
          Button how_to_button = (Button) findViewById(R.id.how_to_btn);
