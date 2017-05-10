@@ -4,4 +4,8 @@
     <color name="blue1">#017ed5</color>
     <color name="red">#bf360c</color>
     <color name="dkgry">#333333</color>
+    <color name="l2col">#800080</color>
+    <color name="l3col">#c0fff4</color>
+    <color name="l4col">#afcea9</color>
+    <color name="l5col">#f2f2f2</color>
 </resources>

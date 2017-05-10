@@ -21,45 +21,76 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hello_world" />
+                android:text="@string/main_menu_message" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
 
             <Button
-                android:id="@+id/simple"
+                android:id="@+id/how_to_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/simple" />
+                android:text="@string/how_to" />
 
             <Button
-                android:id="@+id/simple2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:text="@string/simple2" />
-
-            <Button
-                android:id="@+id/simple3"
+                android:id="@+id/play_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:clickable="true"
-                android:text="Level 3" />
-
-            <Button
-                android:id="@+id/simple4"
+                android:text="@string/play" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+            <TextView
+                android:id="@+id/current_level_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:text="Level 4" />
-
-            <Button
-                android:id="@+id/simple5"
+                android:gravity="center"
+                android:text="@string/current_level_tv"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+            <TextView
+                android:id="@+id/target_score_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:text="Level 5" />
+                android:gravity="center"
+                android:text="@string/target_score_tv"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+            <TextView
+                android:id="@+id/min_score_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/min_score_tv"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+
+            <TextView
+                android:id="@+id/penalty_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/penalty_tv"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
 
             <TextView
                 android:id="@+id/textView"
@@ -67,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text=" PEAK SCORE: " />
+                android:text="@string/peak_score_tv" />
 
             <TextView
                 android:id="@+id/peaksc"
@@ -83,7 +114,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:clickable="true"
-                android:text="Reset Peak Score" />
+                android:text="@string/reset" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty" />
+
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"

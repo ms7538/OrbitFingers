@@ -115,7 +115,7 @@ public class OFView_Activity extends View {
 
     private double AAmin = .973;
     private double AAmax = 1.027;
-    private int ScorePen = 5;
+    private int ScorePen = 1;
     private int ScoreMin = 0;
 
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
@@ -137,7 +137,7 @@ public class OFView_Activity extends View {
         // Set the font face and size of drawing text
 
         if (c1 == 0) {
-            Toast.makeText(getContext(), "Click during alligment to gain points ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Click during alignment to gain points ", Toast.LENGTH_LONG).show();
             c1++;
         }
 
@@ -239,11 +239,11 @@ public class OFView_Activity extends View {
                 if((event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) && (Mch==10 || Mch==5)) {
                     Currcol=Green1;
                     if(Mch==10){
-                        score +=10;
+                        score +=100;
                         currscorecol=Green1;
                         PeakScrClc();
                     }else {
-                        score += 10;
+                        score += 100;
                         PeakScrClc();
                     }
                 }else if ((event.getX() >= RRBX  && event.getX() <=  RREX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
@@ -256,11 +256,11 @@ public class OFView_Activity extends View {
                 if((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
-                        score +=10;
+                        score +=100;
                         currscorecol=Green1;
                         PeakScrClc();
                     }else{
-                        score += 10;
+                        score += 100;
                         PeakScrClc();
                     }
                 }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
