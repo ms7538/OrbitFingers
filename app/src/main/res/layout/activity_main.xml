@@ -1,13 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+xmlns:ads="http://schemas.android.com/apk/res-auto"
+android:layout_height="match_parent"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
 
-    tools:context=".MainMenu_Activity" >
+tools:context=".MainMenu_Activity" >
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -23,11 +23,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/main_menu_message" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
-
             <Button
                 android:id="@+id/how_to_btn"
                 android:layout_width="match_parent"
@@ -41,72 +36,122 @@
                 android:layout_marginTop="5dp"
                 android:clickable="true"
                 android:text="@string/play" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
-            <TextView
-                android:id="@+id/current_level_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/current_level_tv"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
-            <TextView
-                android:id="@+id/target_score_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/target_score_tv"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
-            <TextView
-                android:id="@+id/min_score_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/min_score_tv"/>
+
 
             <TextView
+                android:id="@+id/current_level_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/empty" />
+                android:layout_marginTop="5dp"
+                android:text="@string/current_level_tv" />
+
+            <TextView
+                android:id="@+id/current_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/current_level_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/green" />
+
+            <TextView
+                android:id="@+id/target_score_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/target_score_tv" />
+
+            <TextView
+                android:id="@+id/current_target_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+
+            <TextView
+                android:id="@+id/target_score_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/green" />
 
             <TextView
                 android:id="@+id/penalty_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/penalty_tv"/>
+                android:text="@string/penalty_tv" />
+
             <TextView
+                android:id="@+id/current_penalty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/penalty_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:id="@+id/min_score_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/empty" />
+                android:layout_marginTop="5dp"
+                android:text="@string/min_score_tv" />
+
+            <TextView
+                android:id="@+id/current_min_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/min_score_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/green" />
+
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:gravity="center"
-                android:text="@string/peak_score_tv" />
+                android:text="@string/peak_score_tv"
+                android:textColor="@color/green2" />
 
             <TextView
-                android:id="@+id/peaksc"
+                android:id="@+id/peak_score_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="X" />
+                android:text="X"
+                android:textColor="@color/green2" />
+
+            <TextView
+                android:id="@+id/peak_score_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/green2" />
+
 
             <Button
                 android:id="@+id/reset1"
@@ -115,15 +160,6 @@
                 android:layout_marginTop="5dp"
                 android:clickable="true"
                 android:text="@string/reset" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/empty" />
 
 
             <com.google.android.gms.ads.AdView
@@ -136,4 +172,4 @@
                 ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+    </LinearLayout>

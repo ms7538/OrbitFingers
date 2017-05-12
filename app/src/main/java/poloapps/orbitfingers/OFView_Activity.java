@@ -7,12 +7,16 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
+
+import static poloapps.orbitfingers.R.color.l1col;
+
 //V3.0 Created
 public class OFView_Activity extends View {
 
@@ -80,18 +84,18 @@ public class OFView_Activity extends View {
     private float flrdB1xx  = (float) B1dist - 2;
     private float flrdB2xx  = (float) B2dist - 2;
 
-    private String Blue1    = "#017ed5";
-    private String Purp2    = "#800080";
-    private String L3col    = "#c0fff4";
-    private String L4col    = "#afcea9";
+    private String L1col    = "#017ed5";
+    private String L2col    = "#E800FF";
+    private String L3col    = "#11dbec";
+    private String L4col    = "#ffc63d";
     private String L5col    = "#f2f2f2";
-    private String Currcol  = Blue1;
-    private String CurrcolL = Blue1;
+    private String Currcol  = L1col;
+    private String CurrcolL = L1col;
     private String Green1   = "#00ff00";
     private String Red1     = "#ff0000";
     private String ScCo     = "#f2f2f2";
     private String currscorecol = ScCo;
-    private String levlupcol    = Purp2;
+    private String levlupcol    = L2col;
     private double RotSpeed     = 1.15;
     private double thcns        = RotSpeed;
     private double theta        = 0;
@@ -169,12 +173,12 @@ public class OFView_Activity extends View {
         orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2x);
         orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1xx);
         orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2xx);
-        drawball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
-        drawball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
-        drawball(canvas, ballBounds, B2XL, Bsize, B2yL, paint, CurrcolL);
-        drawball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
-        drawball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
-        drawball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
+        draw_ball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
+        draw_ball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
+        draw_ball(canvas, ballBounds, B2XL, Bsize, B2yL, paint, CurrcolL);
+        draw_ball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
+        draw_ball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
+        draw_ball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
 
         switch (LS){
             case 1:
@@ -195,12 +199,12 @@ public class OFView_Activity extends View {
 
         }
 
-        txtcnvs(canvas,Integer.toString(score), TXS2, TYL4, TYL, currscorecol);
-        txtcnvs(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, Blue1);
-        txtcnvs(canvas, "PEAK ", 0, TYL2, TYL, Green1);
-        txtcnvs(canvas, LSd, 0, TYL, TYL, Green1);
-        txtcnvs(canvas, LUP, TXS2, TYL5, TYL, levlupcol);
-        txtcnvs(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
+        canvas_text(canvas,Integer.toString(score), TXS2, TYL4, TYL, currscorecol);
+        canvas_text(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, L1col);
+        canvas_text(canvas, "PEAK ", 0, TYL2, TYL, Green1);
+        canvas_text(canvas, LSd, 0, TYL, TYL, Green1);
+        canvas_text(canvas, LUP, TXS2, TYL5, TYL, levlupcol);
+        canvas_text(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
         canvas.drawBitmap(right_Finger_Print, RRBX,RBY , null);
         canvas.drawBitmap(left_Finger_Print, RLBX,RBY , null);
 
@@ -219,13 +223,13 @@ public class OFView_Activity extends View {
         paint.setColor(Color.parseColor(blue1));
         canvas.drawCircle(CX, CY, flrdB1, paint);
     }
-    private static void drawball(Canvas canvas, RectF ballBounds, float MBx, float MBsze, float MBy, Paint paint, String MBclr) {
+    private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MBsze, float MBy, Paint paint, String MBclr) {
         paint.setStyle(Paint.Style.FILL);
         ballBounds.set(MBx - MBsze, MBy - MBsze, MBx + MBsze, MBy + MBsze);
         paint.setColor(Color.parseColor(MBclr));
         canvas.drawOval(ballBounds, paint);//must be done for each
     }
-    private void txtcnvs(Canvas canvas, String str, int x, int y, int tsize, String color) {
+    private void canvas_text(Canvas canvas, String str, int x, int y, int tsize, String color) {
         paint.setTypeface(Typeface.MONOSPACE);
         paint.setTextSize(tsize);
         formatter.format(str);
@@ -256,10 +260,10 @@ public class OFView_Activity extends View {
                     if(Mch==10){
                         score +=100;
                         currscorecol=Green1;
-                        PeakScrClc();
+                        Peak_Score_Check();
                     }else {
                         score += 100;
-                        PeakScrClc();
+                        Peak_Score_Check();
                     }
                 }else if ((event.getX() >= RRBX  && event.getX() <=  RREX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
                     Currcol=Red1;
@@ -273,10 +277,10 @@ public class OFView_Activity extends View {
                     if(LMch==10){
                         score +=100;
                         currscorecol=Green1;
-                        PeakScrClc();
+                        Peak_Score_Check();
                     }else{
                         score += 100;
-                        PeakScrClc();
+                        Peak_Score_Check();
                     }
                 }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
                     CurrcolL=Red1;
@@ -323,7 +327,7 @@ public class OFView_Activity extends View {
             LUP         = "300";
             editor.putInt("scorelevel",100);
             editor.commit();
-            Blue1=Purp2;
+            L1col = L2col;
             ScoreMin    = 100;
             AAmin       =.975;
             AAmax       =1.025;
@@ -348,7 +352,7 @@ public class OFView_Activity extends View {
                 LUP="600";
                editor.putInt("scorelevel", 300);
                editor.commit();
-               Blue1 = L3col;
+               L1col = L3col;
                ScoreMin = 300;
                AAmin = .98;
                AAmax = 1.02;
@@ -370,7 +374,7 @@ public class OFView_Activity extends View {
                 LUP="1000";
                 editor.putInt("scorelevel", 600);
                 editor.commit();
-                Blue1 = L4col;
+                L1col = L4col;
                 ScoreMin = 600;
                 AAmin = .982;
                 AAmax = 1.018;
@@ -391,7 +395,7 @@ public class OFView_Activity extends View {
                 LUP="";
                 editor.putInt("scorelevel", 1000);
                 editor.commit();
-                Blue1 = L5col;
+                L1col = L5col;
                 ScoreMin = 1000;
                 AAmin = .985;
                 AAmax = 1.015;
@@ -418,10 +422,10 @@ public class OFView_Activity extends View {
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
-        if ((Currcol != Blue1) || CurrcolL != Blue1) {
+        if ((Currcol != L1col) || CurrcolL != L1col) {
             Sleep(80);
-            Currcol  = Blue1;
-            CurrcolL = Blue1;
+            Currcol  = L1col;
+            CurrcolL = L1col;
         }
     }
    private void ScoreRSpeed(){
@@ -537,7 +541,7 @@ public class OFView_Activity extends View {
    }
 
 
-   private void PeakScrClc(){
+   private void Peak_Score_Check(){
        if (score > PS) {
            PS   = score;
            LSd  = Integer.toString(PS);

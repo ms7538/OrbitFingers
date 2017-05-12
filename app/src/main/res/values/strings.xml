@@ -9,26 +9,12 @@
     <string name="play"                 >Play</string>
     <string name="how_to"               >How-To</string>
     <string name="empty"                >       </string>
-    <string name="current_level_tv"     >Current Level: 1</string>
-    <string name="current_level2_tv"    >Current Level: 2</string>
-    <string name="current_level3_tv"    >Current Level: 3</string>
-    <string name="current_level4_tv"    >Current Level: 4</string>
-    <string name="current_level5_tv"    >Current Level: 5</string>
-    <string name="target_score_tv"      >Target Score: 100</string>
-    <string name="target2_score_tv"     >Target Score: 300</string>
-    <string name="target3_score_tv"     >Target Score: 600</string>
-    <string name="target4_score_tv"     >Target Score: 1000</string>
-    <string name="target5_score_tv"     >Target Score: UNLIMITED</string>
-    <string name="min_score_tv"         >Minimum Score: 0</string>
-    <string name="min2_score_tv"        >Minimum Score: 100</string>
-    <string name="min3_score_tv"        >Minimum Score: 300</string>
-    <string name="min4_score_tv"        >Minimum Score: 600</string>
-    <string name="min5_score_tv"        >Minimum Score: 1000</string>
-    <string name="penalty_tv"           >Penalty:  -1</string>
-    <string name="penalty2_tv"          >Penalty:  -5</string>
-    <string name="penalty3_tv"          >Penalty:  -10</string>
-    <string name="penalty4_tv"          >Penalty:  -15</string>
-    <string name="penalty5_tv"          >Penalty:  -20</string>
+    <string name="current_level_tv"     >Current Level: </string>
+    <string name="target_score_tv"      >Target Score:   </string>
+    <string name="min_score_tv"         >Minimum Score: </string>
+    <string name="penalty_tv"           >Penalty:       </string>
     <string name="peak_score_tv"        >PEAK SCORE</string>
     <string name="reset"                >RESET</string>
+    <string name="spacer"               >======================================</string>
+    <string name="x"                    >X</string>
 </resources>
