@@ -15,8 +15,6 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-import static poloapps.orbitfingers.R.color.l1col;
-
 //V3.0 Created
 public class OFView_Activity extends View {
 
@@ -28,6 +26,13 @@ public class OFView_Activity extends View {
     Integer PS  = prefs.getInt("peakscore", 0);
 
 
+    private int L1C         = ContextCompat.getColor(getContext(), (R.color.l1col));
+    private int L2C         = ContextCompat.getColor(getContext(), (R.color.l2col));
+    private int L3C         = ContextCompat.getColor(getContext(), (R.color.l3col));
+    private int L4C         = ContextCompat.getColor(getContext(), (R.color.l4col));
+    private int L5C         = ContextCompat.getColor(getContext(), (R.color.l5col));
+    private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
+    private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
 
     String LSd  = Integer.toString(PS);
 
@@ -40,10 +45,10 @@ public class OFView_Activity extends View {
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
 
-    private float MBsze     = scale_factor *30; // Center ball size
-    private float Bsize     = scale_factor *10; // outer ball size
+    private float MB_size = scale_factor *30; // Center ball size
+    private float B_size = scale_factor *10; // outer ball size
     private float XAL       = scale_factor *950;
-    private float XALL      = scale_factor *350;
+    private float XA_LL = scale_factor *350;
     private float YAL       = scale_factor *210;
     private float MBx       = XAL;  // Right center (x,y)
     private float MBxL      = scale_factor *350;//Left Center
@@ -65,38 +70,38 @@ public class OFView_Activity extends View {
     private int   TXS       = Math.round(scale_factor *580);//"SCORE:" start x
     private int   TXS3      = Math.round(scale_factor *575);//"SCORE:" start x
     private int   TAS       = Math.round(scale_factor *600);
-    private int   RLBX      = Math.round(scale_factor *320);
-    private int   RLEX      = Math.round(scale_factor *425);
-    private int   RRBX      = Math.round(scale_factor *920);
-    private int   RREX      = Math.round(scale_factor *1025);
+    private int   RL_BX     = Math.round(scale_factor *320);
+    private int   RL_EX     = Math.round(scale_factor *425);
+    private int   RR_BX     = Math.round(scale_factor *920);
+    private int   RR_EX     = Math.round(scale_factor *1025);
     private int   RBY       = Math.round(scale_factor *450);
     private int   REY       = Math.round(scale_factor *550);
     private int   CX        = Math.round(XAL);
-    private int   CXL       = Math.round(XALL);
+    private int   CXL       = Math.round(XA_LL);
     private int   CY        = Math.round(YAL);
 
     private double B1dist   = scale_factor *100;
     private double B2dist   = scale_factor *200;
-    private float flrdB1    = (float) B1dist;
-    private float flrdB2    = (float) B2dist;
-    private float flrdB1x   = (float) B1dist - 1;
-    private float flrdB2x   = (float) B2dist - 1;
-    private float flrdB1xx  = (float) B1dist - 2;
-    private float flrdB2xx  = (float) B2dist - 2;
+    private float FB1       = (float) B1dist;
+    private float FB2       = (float) B2dist;
+    private float FB1_x     = (float) B1dist - 1;
+    private float FB2_x     = (float) B2dist - 1;
+    private float FB1_xx    = (float) B1dist - 2;
+    private float FB2_xx    = (float) B2dist - 2;
 
-    private int L1C         = ContextCompat.getColor(getContext(), (R.color.l1col));
-    private String L1col    = "#"+ Integer.toHexString(L1C);
-    private String L2col    = "#E800FF";
-    private String L3col    = "#11dbec";
-    private String L4col    = "#ffc63d";
-    private String L5col    = "#f2f2f2";
-    private String Currcol  = L1col;
-    private String CurrcolL = L1col;
-    private String Green1   = "#00ff00";
-    private String Red1     = "#ff0000";
-    private String ScCo     = "#f2f2f2";
-    private String currscorecol = ScCo;
-    private String levlupcol    = L2col;
+
+    private String L1col        = "#"+ Integer.toHexString(L1C);
+    private String L2col        = "#"+ Integer.toHexString(L2C);
+    private String L3col        = "#"+ Integer.toHexString(L3C);
+    private String L4col        = "#"+ Integer.toHexString(L4C);
+    private String L5col        = "#"+ Integer.toHexString(L5C);
+    private String Right_Color  = L1col;
+    private String Left_Color   = L1col;
+    private String Green1       = "#"+ Integer.toHexString(GREEN);
+    private String Red1         = "#"+ Integer.toHexString(RED);
+    private String ScCo         = L5col;
+    private String score_color  = ScCo;
+    private String next_color   = L2col;
     private double RotSpeed     = 1.15;
     private double thcns        = RotSpeed;
     private double theta        = 0;
@@ -162,24 +167,24 @@ public class OFView_Activity extends View {
         super.onDraw(canvas);
         canvas.save();
 
-        orbit(canvas, paint, Currcol, CX, CY, flrdB1);
-        orbit(canvas, paint, Currcol, CX, CY, flrdB2);
-        orbit(canvas, paint, Currcol, CX, CY, flrdB1x);
-        orbit(canvas, paint, Currcol, CX, CY, flrdB2x);
-        orbit(canvas, paint, Currcol, CX, CY, flrdB1xx);
-        orbit(canvas, paint, Currcol, CX, CY, flrdB2xx);
-        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1);
-        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2);
-        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1x);
-        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2x);
-        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB1xx);
-        orbit(canvas, paint, CurrcolL, CXL, CY, flrdB2xx);
-        draw_ball(canvas, ballBounds, MBxL, MBsze, MBy, paint, CurrcolL);
-        draw_ball(canvas, ballBounds, B1XL, Bsize, B1yL, paint, CurrcolL);
-        draw_ball(canvas, ballBounds, B2XL, Bsize, B2yL, paint, CurrcolL);
-        draw_ball(canvas, ballBounds, MBx, MBsze, MBy, paint, Currcol);
-        draw_ball(canvas, ballBounds, B1X, Bsize, B1y, paint, Currcol);
-        draw_ball(canvas, ballBounds, B2X, Bsize, B2y, paint, Currcol);
+        orbit(canvas, paint, Right_Color, CX, CY, FB1);
+        orbit(canvas, paint, Right_Color, CX, CY, FB2);
+        orbit(canvas, paint, Right_Color, CX, CY, FB1_x);
+        orbit(canvas, paint, Right_Color, CX, CY, FB2_x);
+        orbit(canvas, paint, Right_Color, CX, CY, FB1_xx);
+        orbit(canvas, paint, Right_Color, CX, CY, FB2_xx);
+        orbit(canvas, paint, Left_Color, CXL, CY, FB1);
+        orbit(canvas, paint, Left_Color, CXL, CY, FB2);
+        orbit(canvas, paint, Left_Color, CXL, CY, FB1_x);
+        orbit(canvas, paint, Left_Color, CXL, CY, FB2_x);
+        orbit(canvas, paint, Left_Color, CXL, CY, FB1_xx);
+        orbit(canvas, paint, Left_Color, CXL, CY, FB2_xx);
+        draw_ball(canvas, ballBounds, MBxL, MB_size, MBy, paint, Left_Color);
+        draw_ball(canvas, ballBounds, B1XL, B_size, B1yL, paint, Left_Color);
+        draw_ball(canvas, ballBounds, B2XL, B_size, B2yL, paint, Left_Color);
+        draw_ball(canvas, ballBounds, MBx, MB_size, MBy, paint, Right_Color);
+        draw_ball(canvas, ballBounds, B1X, B_size, B1y, paint, Right_Color);
+        draw_ball(canvas, ballBounds, B2X, B_size, B2y, paint, Right_Color);
 
         switch (LS){
             case 1:
@@ -200,14 +205,14 @@ public class OFView_Activity extends View {
 
         }
 
-        canvas_text(canvas,Integer.toString(score), TXS2, TYL4, TYL, currscorecol);
+        canvas_text(canvas,Integer.toString(score), TXS2, TYL4, TYL, score_color);
         canvas_text(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, L1col);
         canvas_text(canvas, "PEAK ", 0, TYL2, TYL, Green1);
         canvas_text(canvas, LSd, 0, TYL, TYL, Green1);
-        canvas_text(canvas, LUP, TXS2, TYL5, TYL, levlupcol);
-        canvas_text(canvas, tLUP, TXS, TYL3, TYL, levlupcol);
-        canvas.drawBitmap(right_Finger_Print, RRBX,RBY , null);
-        canvas.drawBitmap(left_Finger_Print, RLBX,RBY , null);
+        canvas_text(canvas, LUP, TXS2, TYL5, TYL, next_color);
+        canvas_text(canvas, tLUP, TXS, TYL3, TYL, next_color);
+        canvas.drawBitmap(right_Finger_Print, RR_BX,RBY , null);
+        canvas.drawBitmap(left_Finger_Print, RL_BX,RBY , null);
 
         update();
 
@@ -245,60 +250,60 @@ public class OFView_Activity extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if(event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) {
+                if(event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() < REY) {
                 right_Finger_Print = BitmapFactory.decodeResource(
                         getResources(),
                         R.drawable.thmb2);
                 }
-                if(event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY){
+                if(event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY){
                             left_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb2);
 
                 }
-                if((event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) && (Mch==10 || Mch==5)) {
-                    Currcol=Green1;
+                if((event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() < REY) && (Mch==10 || Mch==5)) {
+                    Right_Color =Green1;
                     if(Mch==10){
                         score +=100;
-                        currscorecol=Green1;
+                        score_color =Green1;
                         Peak_Score_Check();
                     }else {
                         score += 100;
                         Peak_Score_Check();
                     }
-                }else if ((event.getX() >= RRBX  && event.getX() <=  RREX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
-                    Currcol=Red1;
+                }else if ((event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
+                    Right_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
-                        currscorecol=Red1;
+                        score_color =Red1;
                     }
                 }
-                if((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
-                    CurrcolL=Green1;
+                if((event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
+                    Left_Color =Green1;
                     if(LMch==10){
                         score +=10;
-                        currscorecol=Green1;
+                        score_color =Green1;
                         Peak_Score_Check();
                     }else{
                         score += 10;
                         Peak_Score_Check();
                     }
-                }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
-                    CurrcolL=Red1;
+                }else if ((event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
+                    Left_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
-                        currscorecol=Red1;
+                        score_color =Red1;
                     }
                 }
                 break;
 
             case MotionEvent.ACTION_UP:
-                if(event.getX() >= RRBX && event.getX() <= RREX && event.getY()>= RBY && event.getY() < REY) {
+                if(event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() < REY) {
                             right_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb1);
                 }
-                if(event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) {
+                if(event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY) {
                             left_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb1);
@@ -316,7 +321,7 @@ public class OFView_Activity extends View {
         int level4_min = 600;
         int level5_min = 1000;
 
-        currscorecol=ScCo;
+        score_color =ScCo;
         if (score <= ScoreMin) {
             score = ScoreMin;
         }
@@ -327,7 +332,7 @@ public class OFView_Activity extends View {
                 editor.putInt("min_score",level2_min);
             }
 
-            levlupcol   = L3col;
+            next_color = L3col;
             LS          = 2;
             tLUP        = "NEXT 3@";
             LUP         = "300";
@@ -355,7 +360,7 @@ public class OFView_Activity extends View {
                }
                 LS=3;
                 tLUP="NEXT 4@";
-                levlupcol=L4col;
+                next_color =L4col;
                 LUP="600";
                editor.putInt("scorelevel", 300);
                editor.commit();
@@ -378,7 +383,7 @@ public class OFView_Activity extends View {
                    editor.putInt("min_score",level4_min);
                }
                 tLUP="NEXT 5@";
-                levlupcol=L5col;
+                next_color =L5col;
                 LUP="1000";
                 editor.putInt("scorelevel", 600);
                 editor.commit();
@@ -400,7 +405,7 @@ public class OFView_Activity extends View {
                     editor.putInt("min_score",level5_min);
                    }
                 tLUP="";
-                levlupcol = L5col;
+                next_color = L5col;
                 LUP="";
                 editor.putInt("scorelevel", 1000);
                 editor.commit();
@@ -431,10 +436,10 @@ public class OFView_Activity extends View {
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
-        if ((Currcol != L1col) || CurrcolL != L1col) {
+        if ((Right_Color != L1col) || Left_Color != L1col) {
             Sleep(80);
-            Currcol  = L1col;
-            CurrcolL = L1col;
+            Right_Color = L1col;
+            Left_Color = L1col;
         }
     }
    private void ScoreRSpeed(){
@@ -546,7 +551,7 @@ public class OFView_Activity extends View {
        } else {
            LMch = 0;
        }
-        currscorecol=ScCo;
+        score_color =ScCo;
    }
 
 
