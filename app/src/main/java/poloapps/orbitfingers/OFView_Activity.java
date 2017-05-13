@@ -103,9 +103,9 @@ public class OFView_Activity extends View {
     private String score_color  = ScCo;
     private String next_color   = L2col;
     private double RotSpeed     = 1.15;
-    private double thcns        = RotSpeed;
+    private double Right_RS     = RotSpeed;
     private double theta        = 0;
-    private double thcns2       = RotSpeed;
+    private double Right_RS2    = RotSpeed;
     private double theta2       = 0;
     private int Mch             = 0;
 
@@ -115,18 +115,18 @@ public class OFView_Activity extends View {
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter     = new Formatter(statusMsg);  // Formatting the statusMs
 
-    private double Lthcns  = RotSpeed;
-    private double Ltheta  = 180;
-    private double Lthcns2 = RotSpeed;
-    private double Ltheta2 = 270;
-    private int    LMch    = 0;
+    private double Left_Rotation_Speed   = RotSpeed;
+    private double Left_theta            = 180;
+    private double Left_RS2              = RotSpeed;
+    private double Left_theta2           = 270;
+    private int    LMch                  = 0;
 
     private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0;
 
-    private double AAmin = .973;
-    private double AAmax = 1.027;
-    private int ScorePen = 1;
-    private int ScoreMin = 0;
+    private double AA_min   = .973;
+    private double AA_max   = 1.027;
+    private int ScorePen    = 1;
+    private int ScoreMin    =  prefs.getInt("min_score", 0);
 
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
@@ -340,8 +340,8 @@ public class OFView_Activity extends View {
             editor.commit();
             L1col = L2col;
             ScoreMin    = 100;
-            AAmin       = .975;
-            AAmax       = 1.025;
+            AA_min = .975;
+            AA_max = 1.025;
             ScorePen    = 5;
 
 
@@ -366,8 +366,8 @@ public class OFView_Activity extends View {
                editor.commit();
                L1col = L3col;
                ScoreMin = 300;
-               AAmin = .98;
-               AAmax = 1.02;
+               AA_min = .98;
+               AA_max = 1.02;
                ScorePen = 10;
            }
         }else if (score>=600&& score<1000){
@@ -389,8 +389,8 @@ public class OFView_Activity extends View {
                 editor.commit();
                 L1col = L4col;
                 ScoreMin = 600;
-                AAmin = .982;
-                AAmax = 1.018;
+                AA_min = .982;
+                AA_max = 1.018;
                 LS=4;
 
            }
@@ -411,8 +411,8 @@ public class OFView_Activity extends View {
                 editor.commit();
                 L1col = L5col;
                 ScoreMin = 1000;
-                AAmin = .985;
-                AAmax = 1.015;
+                AA_min = .985;
+                AA_max = 1.015;
                 LS=5;
             }
         }
@@ -427,10 +427,10 @@ public class OFView_Activity extends View {
         B1y = CY + (float) Ey;
         B2X = CX + (float) E2x;
         B2y = CY + (float) E2y;
-        Ex = B1dist * Math.cos(Math.toRadians(Ltheta));
-        Ey = B1dist * Math.sin(Math.toRadians(Ltheta));
-        E2x = B2dist * Math.cos(Math.toRadians(Ltheta2));
-        E2y = B2dist * Math.sin(Math.toRadians(Ltheta2));
+        Ex = B1dist * Math.cos(Math.toRadians(Left_theta));
+        Ey = B1dist * Math.sin(Math.toRadians(Left_theta));
+        E2x = B2dist * Math.cos(Math.toRadians(Left_theta2));
+        E2y = B2dist * Math.sin(Math.toRadians(Left_theta2));
         B1XL = CXL + (float) Ex;
         B1yL = CY + (float) Ey;
         B2XL = CXL + (float) E2x;
@@ -443,10 +443,10 @@ public class OFView_Activity extends View {
         }
     }
    private void ScoreRSpeed(){
-       thcns    = RotSpeed;
-       thcns2   = RotSpeed;
-       Lthcns   = RotSpeed;
-       Lthcns2  = RotSpeed;
+       Right_RS = RotSpeed;
+       Right_RS2 = RotSpeed;
+       Left_Rotation_Speed = RotSpeed;
+       Left_RS2 = RotSpeed;
 
        if (score >= 50 && score <100) {
            RotSpeed = 1.3;
@@ -492,60 +492,60 @@ public class OFView_Activity extends View {
        }
    }
     private void ThetaCalc(){
-       theta += thcns;
+       theta += Right_RS;
        if (theta > 360 || theta < -360) {
            theta = 0;
        }
-       Ltheta += Lthcns;
-       if (Ltheta > 360 || Ltheta < -360) {
-           Ltheta = 0;
+       Left_theta += Left_Rotation_Speed;
+       if (Left_theta > 360 || Left_theta < -360) {
+           Left_theta = 0;
        }
-       theta2 -= thcns2;
+       theta2 -= Right_RS2;
        if (theta2 > 360 || theta2 < -360) {
            theta2 = 0;
        }
-       Ltheta2 -= Lthcns2;
-       if (Ltheta2 > 360 || Ltheta2 < -360) {
-           Ltheta2 = 0;
+       Left_theta2 -= Left_RS2;
+       if (Left_theta2 > 360 || Left_theta2 < -360) {
+           Left_theta2 = 0;
        }
        if(theta<0){
            ThtAbs1= theta+360;
        }else{
            ThtAbs1= theta;
        }
-       if(Ltheta<0){
-           LThtAbs1= Ltheta+360;
+       if(Left_theta <0){
+           LThtAbs1= Left_theta +360;
        }else{
-           LThtAbs1= Ltheta;
+           LThtAbs1= Left_theta;
        }
        if(theta2<0){
            ThtAbs2= theta2+360;
        }else{
            ThtAbs2= theta2;
        }
-       if(Ltheta2<0){
-           LThtAbs2= Ltheta2+360;
+       if(Left_theta2 <0){
+           LThtAbs2= Left_theta2 +360;
        }else{
-           LThtAbs2= Ltheta2;
+           LThtAbs2= Left_theta2;
        }
 
-       if (ThtAbs2 > AAmin * ThtAbs1 && ThtAbs2 < AAmax * ThtAbs1) {
+       if (ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1) {
            Mch = 10;
-       }else if(ThtAbs2 -ThtAbs1> AAmin*180 && ThtAbs2 -ThtAbs1< AAmax*180){
+       }else if(ThtAbs2 -ThtAbs1> AA_min *180 && ThtAbs2 -ThtAbs1< AA_max *180){
            Mch=5;
-       }else if(ThtAbs1 -ThtAbs2> AAmin*180 && ThtAbs1 -ThtAbs2< AAmax*180){
+       }else if(ThtAbs1 -ThtAbs2> AA_min *180 && ThtAbs1 -ThtAbs2< AA_max *180){
            Mch=5;
        } else {
            Mch = 0;
        }
-       if (LThtAbs2 > AAmin * LThtAbs1 && LThtAbs2 < AAmax * LThtAbs1) {
+       if (LThtAbs2 > AA_min * LThtAbs1 && LThtAbs2 < AA_max * LThtAbs1) {
 
            LMch = 10;
-       }else if(LThtAbs2 -LThtAbs1> AAmin*180 && LThtAbs2 -LThtAbs1< AAmax*180){
+       }else if(LThtAbs2 -LThtAbs1> AA_min *180 && LThtAbs2 -LThtAbs1< AA_max *180){
 
            LMch=5;
 
-       }else if(LThtAbs1 -LThtAbs2> AAmin*180 && LThtAbs1 -LThtAbs2< AAmax*180){
+       }else if(LThtAbs1 -LThtAbs2> AA_min *180 && LThtAbs1 -LThtAbs2< AA_max *180){
            LMch=5;
 
        } else {
