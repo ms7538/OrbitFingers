@@ -84,7 +84,8 @@ public class OFView_Activity extends View {
     private float flrdB1xx  = (float) B1dist - 2;
     private float flrdB2xx  = (float) B2dist - 2;
 
-    private String L1col    = "#017ed5";
+    private int L1C         = ContextCompat.getColor(getContext(), (R.color.l1col));
+    private String L1col    = "#"+ Integer.toHexString(L1C);
     private String L2col    = "#E800FF";
     private String L3col    = "#11dbec";
     private String L4col    = "#ffc63d";
