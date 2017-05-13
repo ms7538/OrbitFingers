@@ -15,6 +15,7 @@
     <string name="penalty_tv"           >Penalty:       </string>
     <string name="peak_score_tv"        >PEAK SCORE</string>
     <string name="reset"                >RESET</string>
+    <string name="set_peak_min"         >SET MIN SCORE TO PEAK</string>
     <string name="spacer"               >======================================</string>
     <string name="x"                    >X</string>
 </resources>

@@ -71,14 +71,15 @@ public class MainMenu_Activity extends AppCompatActivity {
          AdRequest adRequest = new AdRequest.Builder().build();
          mAdView.loadAd(adRequest);
 
-         Button rbutton = (Button) findViewById(R.id.reset1);
-         rbutton.setBackgroundColor(ContextCompat.getColor(this, (R.color.dark_gray)));
-         rbutton.setOnClickListener(new OnClickListener() {
+         Button reset_button = (Button) findViewById(R.id.reset1);
+         reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.dark_gray)));
+         reset_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
                  int PS = 0;
                  editor.putInt("levl", 1);
                  editor.putInt("peakscore", PS);
+                 editor.putInt("min_score",0);
                  editor.commit();
                  SetText_TColors();
                  ((TextView) findViewById(R.id.peak_score_value)).setText(Integer.toString(PS));
@@ -104,6 +105,7 @@ public class MainMenu_Activity extends AppCompatActivity {
 
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
+        Integer Min_Score_Value = mSettings.getInt("min_score",0);
         Integer current_level= mSettings.getInt("levl", 1);
         Button how_to_button = (Button) findViewById(R.id.how_to_btn);
         how_to_button.setBackgroundColor(ContextCompat.getColor(this,(R.color.orange)));
@@ -112,6 +114,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         TextView level_current = (TextView) findViewById(R.id.current_level);
         TextView level_current_ui = (TextView) findViewById(R.id.current_level_ui);
         TextView min_score_text = (TextView) findViewById(R.id.min_score_text_view);
+        TextView min_score_value = (TextView) findViewById(R.id.current_min_score);
         TextView min_score_ui = (TextView) findViewById(R.id.min_score_ui);
         TextView target_score_text = (TextView) findViewById(R.id.target_score_text_view);
         TextView target_score_ui = (TextView) findViewById(R.id.target_score_ui);
@@ -121,6 +124,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         TextView penalty_text_value = (TextView) findViewById(R.id.current_penalty);
         penalty_text_value.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.red)));
         level_current.setText(Integer.toString(current_level));
+        min_score_value.setText(Integer.toString(Min_Score_Value));
 
         switch (current_level){
             case 1:
@@ -133,6 +137,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                 level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l1col)));
                 target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l2col)));
                 min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l1col)));
+                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l1col)));
                 level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l1col)));
                 target_score.setText(Integer.toString(L1_Target_Score));
                 target_score_text.setText(R.string.target_score_tv);
@@ -149,6 +154,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                 level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l2col)));
                 target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
                 min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l2col)));
+                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l2col)));
                 target_score.setText(Integer.toString(L2_Target_Score));
                 target_score.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
                 penalty_text_value.setText(Integer.toString(L2_Penalty));
@@ -161,6 +167,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                 target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
                 min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
                 level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
+                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
                 level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
                 target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
                 min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
@@ -175,6 +182,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                 target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
                 level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
+                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
                 level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
                 target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l4col)));
@@ -189,6 +197,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                 current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
+                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray)));
                 min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));

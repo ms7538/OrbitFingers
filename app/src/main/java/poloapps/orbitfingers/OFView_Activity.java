@@ -275,11 +275,11 @@ public class OFView_Activity extends View {
                 if((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
                     CurrcolL=Green1;
                     if(LMch==10){
-                        score +=100;
+                        score +=10;
                         currscorecol=Green1;
                         Peak_Score_Check();
                     }else{
-                        score += 100;
+                        score += 10;
                         Peak_Score_Check();
                     }
                 }else if ((event.getX() >= RLBX  && event.getX() <=  RLEX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
@@ -310,6 +310,10 @@ public class OFView_Activity extends View {
     }
 
     private void update() {
+        int level2_min = 100;
+        int level3_min = 300;
+        int level4_min = 600;
+        int level5_min = 1000;
 
         currscorecol=ScCo;
         if (score <= ScoreMin) {
@@ -319,6 +323,7 @@ public class OFView_Activity extends View {
             c2++;
             if (levl<2) {
                 editor.putInt("levl", 2);
+                editor.putInt("min_score",level2_min);
             }
 
             levlupcol   = L3col;
@@ -329,8 +334,8 @@ public class OFView_Activity extends View {
             editor.commit();
             L1col = L2col;
             ScoreMin    = 100;
-            AAmin       =.975;
-            AAmax       =1.025;
+            AAmin       = .975;
+            AAmax       = 1.025;
             ScorePen    = 5;
 
 
@@ -345,6 +350,7 @@ public class OFView_Activity extends View {
                c3++;
                if (levl < 3) {
                    editor.putInt("levl", 3);
+                   editor.putInt("min_score",level3_min);
                }
                 LS=3;
                 tLUP="NEXT 4@";
@@ -368,6 +374,7 @@ public class OFView_Activity extends View {
                c4++;
                if (levl < 4) {
                    editor.putInt("levl", 4);
+                   editor.putInt("min_score",level4_min);
                }
                 tLUP="NEXT 5@";
                 levlupcol=L5col;
@@ -389,6 +396,7 @@ public class OFView_Activity extends View {
                 c5++;
                 if (levl < 5) {
                     editor.putInt("levl", 5);
+                    editor.putInt("min_score",level5_min);
                    }
                 tLUP="";
                 levlupcol = L5col;
