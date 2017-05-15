@@ -331,10 +331,10 @@ public class OFView_Activity extends View {
         }
         if ( score >= level2_min && score < level3_min ){
 
-            if ( score   > level2_min + level2_pen ){
-                ScorePen = level2_pen;
+            if ( score   < level2_min + level2_pen ){
+                ScorePen = score - level2_min;
             }else  {
-                ScorePen = 0;
+                ScorePen = level2_pen;
             }
             if ( c2 == 0 ) {
                 c2++;
@@ -358,10 +358,10 @@ public class OFView_Activity extends View {
         }
         else if ( score  >= level3_min && score < level4_min ) {
 
-            if ( score   > level3_min + level3_pen ){
-                ScorePen = level3_pen;
+            if ( score   < level3_min + level3_pen ){
+                ScorePen = score - level3_min;
             }else  {
-                ScorePen = 0;
+                ScorePen = level3_pen;
             }
 
             if (c3==0) {
@@ -383,10 +383,10 @@ public class OFView_Activity extends View {
             }
         }else if ( score >= level4_min && score < level5_min){
 
-            if ( score   > level4_min + level4_pen ){
-                ScorePen = level4_pen;
+            if ( score   < level4_min + level4_pen ){
+                ScorePen = score - level4_min;
             }else  {
-                ScorePen = 0;
+                ScorePen = level4_pen;
             }
             if ( c4==0 ) {
                c4++;
@@ -407,10 +407,12 @@ public class OFView_Activity extends View {
 
            }
         }else if ( score >= level5_min ){
-            if ( score > level5_min + level5_pen ){
-                ScorePen   = level5_pen;
-            }else ScorePen = 0;
 
+            if ( score   < level5_min + level5_pen ){
+                ScorePen = score - level5_min;
+            }else  {
+                ScorePen = level5_pen;
+            }
             if( c5==0) {
                 c5++;
                 if (levl < 5) {
