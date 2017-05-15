@@ -62,7 +62,7 @@ public class MainMenu_Activity extends AppCompatActivity {
              @Override
              public void onClick(View arg0) {
                  play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), (R.color.dark_gray)));
-                 luanch_level();
+                 launch_level();
              }
          });
 
@@ -128,7 +128,6 @@ public class MainMenu_Activity extends AppCompatActivity {
 
         switch (current_level){
             case 1:
-                editor.putInt("ls", 1);
                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),(R.color.l1col)));
                 play_btn.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));//l5col = white
                 current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l1col)));
@@ -145,7 +144,6 @@ public class MainMenu_Activity extends AppCompatActivity {
                 penalty_text_value.setText(Integer.toString(L1_Penalty));
                 break;
             case 2:
-                editor.putInt("ls", 2);
                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),(R.color.l2col)));
                 current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l2col)));
                 target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
@@ -160,7 +158,6 @@ public class MainMenu_Activity extends AppCompatActivity {
                 penalty_text_value.setText(Integer.toString(L2_Penalty));
                 break;
             case 3:
-                editor.putInt("ls", 3);
                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
                 play_btn.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray)));
                 current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l3col)));
@@ -189,7 +186,6 @@ public class MainMenu_Activity extends AppCompatActivity {
                 target_score.setText(Integer.toString(L4_Target_Score));
                 target_score.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
                 penalty_text_value.setText(Integer.toString(L4_Penalty));
-                editor.putInt("ls", 4);
                 break;
             case 5:
                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),(R.color.l5col)));
@@ -204,7 +200,6 @@ public class MainMenu_Activity extends AppCompatActivity {
                 target_score_text.setText(R.string.empty);
                 target_score.setText(R.string.empty);
                 penalty_text_value.setText(Integer.toString(L5_Penalty));
-                editor.putInt("ls", 5);
                 break;
         }
         editor.commit();
@@ -215,7 +210,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    private void luanch_level(){
+    private void launch_level(){
 //        if (mInterstitialAd.isLoaded()) {
 //            mInterstitialAd.show();
 //        } else {

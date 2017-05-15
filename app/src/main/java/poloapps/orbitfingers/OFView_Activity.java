@@ -45,10 +45,10 @@ public class OFView_Activity extends View {
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
 
-    private float MB_size = scale_factor *30; // Center ball size
-    private float B_size = scale_factor *10; // outer ball size
+    private float MB_size   = scale_factor *30; // Center ball size
+    private float B_size    = scale_factor *10; // outer ball size
     private float XAL       = scale_factor *950;
-    private float XA_LL = scale_factor *350;
+    private float XA_LL     = scale_factor *350;
     private float YAL       = scale_factor *210;
     private float MBx       = XAL;  // Right center (x,y)
     private float MBxL      = scale_factor *350;//Left Center
@@ -131,7 +131,7 @@ public class OFView_Activity extends View {
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
 
-    private int score   = mSettings.getInt("LSS", 0);
+    private int score   = ScoreMin;
     private int levl    = mSettings.getInt("levl",1);
 
     Bitmap left_Finger_Print = BitmapFactory.decodeResource(
@@ -224,15 +224,15 @@ public class OFView_Activity extends View {
         canvas.restore();
         invalidate();  // Force a re-draw
     }
-    private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float flrdB1) {
+    private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float FB1) {
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor(blue1));
-        canvas.drawCircle(CX, CY, flrdB1, paint);
+        canvas.drawCircle(CX, CY, FB1, paint);
     }
-    private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MBsze, float MBy, Paint paint, String MBclr) {
+    private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MB_size, float MBy, Paint paint, String MB_c) {
         paint.setStyle(Paint.Style.FILL);
-        ballBounds.set(MBx - MBsze, MBy - MBsze, MBx + MBsze, MBy + MBsze);
-        paint.setColor(Color.parseColor(MBclr));
+        ballBounds.set(MBx - MB_size, MBy - MB_size, MBx + MB_size, MBy + MB_size);
+        paint.setColor(Color.parseColor(MB_c));
         canvas.drawOval(ballBounds, paint);//must be done for each
     }
     private void canvas_text(Canvas canvas, String str, int x, int y, int tsize, String color) {
@@ -320,100 +320,113 @@ public class OFView_Activity extends View {
         int level3_min = 300;
         int level4_min = 600;
         int level5_min = 1000;
+        int level2_pen = 5;
+        int level3_pen = 10;
+        int level4_pen = 15;
+        int level5_pen = 20;
 
-        score_color =ScCo;
+        score_color = ScCo;
         if (score <= ScoreMin) {
             score = ScoreMin;
         }
-        if ((score>=100&& score<300) && c2==0){
-            c2++;
-            if (levl<2) {
-                editor.putInt("levl", 2);
-                editor.putInt("min_score",level2_min);
+        if ( score >= level2_min && score < level3_min ){
+
+            if ( score   > level2_min + level2_pen ){
+                ScorePen = level2_pen;
+            }else  {
+                ScorePen = 0;
             }
+            if ( c2 == 0 ) {
+                c2++;
+                if ( levl < 2 ) {
+                    editor.putInt("levl", 2);
+                    editor.putInt("min_score", level2_min);
+                }
+                editor.putInt("scorelevel",level2_min);
+                editor.commit();
+                next_color = L3col;
+                LS         = 2;
+                tLUP       = getContext().getString(R.string.level_3);
+                LUP        = Integer.toString(level3_min);
+                L1col      = L2col;
+                ScoreMin   = level2_min;
+                AA_min     = .975;
+                AA_max     = 1.025;
 
-            next_color = L3col;
-            LS          = 2;
-            tLUP        = "NEXT 3@";
-            LUP         = "300";
-            editor.putInt("scorelevel",100);
-            editor.commit();
-            L1col = L2col;
-            ScoreMin    = 100;
-            AA_min = .975;
-            AA_max = 1.025;
-            ScorePen    = 5;
-
+            }
 
         }
-        else if (score  >= 300 && score < 600) {
-            if (score   != 305){
-                ScorePen = 10;
+        else if ( score  >= level3_min && score < level4_min ) {
+
+            if ( score   > level3_min + level3_pen ){
+                ScorePen = level3_pen;
             }else  {
-                ScorePen = 5;
+                ScorePen = 0;
             }
+
             if (c3==0) {
                c3++;
                if (levl < 3) {
                    editor.putInt("levl", 3);
                    editor.putInt("min_score",level3_min);
                }
-                LS=3;
-                tLUP="NEXT 4@";
-                next_color =L4col;
-                LUP="600";
-               editor.putInt("scorelevel", 300);
-               editor.commit();
-               L1col = L3col;
-               ScoreMin = 300;
-               AA_min = .98;
-               AA_max = 1.02;
-               ScorePen = 10;
-           }
-        }else if (score>=600&& score<1000){
-           if (score!=605 && score!=610){
-               ScorePen = 15;
-           }else if (score==605) {
-               ScorePen = 5;
-           }else  ScorePen = 10;
-            if( c4==0) {
+                LS         = 3;
+                editor.putInt("scorelevel",level3_min);
+                editor.commit();
+                tLUP       = getContext().getString(R.string.level_4);
+                next_color = L4col;
+                LUP        = Integer.toString(level4_min);
+                L1col      = L3col;
+                ScoreMin   = level3_min;
+                AA_min     = .98;
+                AA_max     = 1.02;
+            }
+        }else if ( score >= level4_min && score < level5_min){
+
+            if ( score   > level4_min + level4_pen ){
+                ScorePen = level4_pen;
+            }else  {
+                ScorePen = 0;
+            }
+            if ( c4==0 ) {
                c4++;
                if (levl < 4) {
                    editor.putInt("levl", 4);
                    editor.putInt("min_score",level4_min);
                }
-                tLUP="NEXT 5@";
-                next_color =L5col;
-                LUP="1000";
-                editor.putInt("scorelevel", 600);
+                editor.putInt("scorelevel",level4_min);
                 editor.commit();
-                L1col = L4col;
-                ScoreMin = 600;
-                AA_min = .982;
-                AA_max = 1.018;
-                LS=4;
+                tLUP        = getContext().getString(R.string.level_5);
+                next_color  = L5col;
+                LUP         = Integer.toString(level5_min);
+                L1col     = L4col;
+                ScoreMin  = level4_min;
+                AA_min    = .982;
+                AA_max    = 1.018;
+                LS        = 4;
 
            }
-        }else if (score>=1000){
-            if (score!=1010 && score!=1005){
-                ScorePen = 20;
-            }else ScorePen = 5;
+        }else if ( score >= level5_min ){
+            if ( score > level5_min + level5_pen ){
+                ScorePen   = level5_pen;
+            }else ScorePen = 0;
+
             if( c5==0) {
                 c5++;
                 if (levl < 5) {
                     editor.putInt("levl", 5);
                     editor.putInt("min_score",level5_min);
                    }
-                tLUP="";
-                next_color = L5col;
-                LUP="";
-                editor.putInt("scorelevel", 1000);
+                editor.putInt("scorelevel",level5_min);
                 editor.commit();
-                L1col = L5col;
-                ScoreMin = 1000;
-                AA_min = .985;
-                AA_max = 1.015;
-                LS=5;
+                tLUP       = getContext().getString(R.string.empty) ;
+                next_color = L5col;
+                LUP        = getContext().getString(R.string.empty);
+                L1col      = L5col;
+                ScoreMin   = level5_min;
+                AA_min     = .985;
+                AA_max     = 1.015;
+                LS         = 5;
             }
         }
 
@@ -551,7 +564,7 @@ public class OFView_Activity extends View {
        } else {
            LMch = 0;
        }
-        score_color =ScCo;
+        score_color = ScCo;
    }
 
 

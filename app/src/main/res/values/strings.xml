@@ -18,4 +18,8 @@
     <string name="set_peak_min"         >SET MIN SCORE TO PEAK</string>
     <string name="spacer"               >======================================</string>
     <string name="x"                    >X</string>
+    <string name="level_2"              >LEVEL 2</string>
+    <string name="level_3"              >LEVEL 3</string>
+    <string name="level_4"              >LEVEL 4</string>
+    <string name="level_5"              >LEVEL 5</string>
 </resources>

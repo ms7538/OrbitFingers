@@ -17,8 +17,6 @@ public class OF_Activity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-        Integer LS = mSettings.getInt("ls", 1);
-
 
 
         android.support.v7.app.ActionBar bar = getSupportActionBar();
@@ -33,32 +31,6 @@ public class OF_Activity extends AppCompatActivity {
         SharedPreferences.Editor editor = mSettings.edit();
         editor.putString( "scale", plain );
         editor.commit();
-
-
-
-        switch (LS){
-            case 1:
-                editor.putInt("LSS", 0);
-                editor.commit();
-                break;
-            case 2:
-                editor.putInt("LSS", 100);
-                editor.commit();
-                break;
-            case 3:
-                editor.putInt("LSS", 300);
-                editor.commit();
-                break;
-            case 4:
-                editor.putInt("LSS", 600);
-                editor.commit();
-                break;
-            case 5:
-                editor.putInt("LSS", 1000);
-                editor.commit();
-                break;
-
-        }
 
         View view = new OFView_Activity(getApplicationContext());
         setContentView(view);
