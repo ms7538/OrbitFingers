@@ -151,7 +151,7 @@ tools:context=".MainMenu_Activity" >
                 android:text="@string/spacer"
                 android:textColor="@color/green" />
             <Button
-                android:id="@+id/Set_Peak_Min"
+                android:id="@+id/set_peak_min"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"

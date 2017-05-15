@@ -37,7 +37,7 @@ public class OFView_Activity extends View {
     String LSd  = Integer.toString(PS);
 
     String LUP  = "100";
-    String tLUP = "NEXT 2@";
+    String tLUP =  getContext().getString(R.string.level_2);
 
     float scale_factor = Float.parseFloat(DensScale);
 
@@ -99,7 +99,7 @@ public class OFView_Activity extends View {
     private String Left_Color   = L1col;
     private String Green1       = "#"+ Integer.toHexString(GREEN);
     private String Red1         = "#"+ Integer.toHexString(RED);
-    private String ScCo         = L5col;
+    private String ScCo         = L1col;
     private String score_color  = ScCo;
     private String next_color   = L2col;
     private double RotSpeed     = 1.15;
@@ -330,7 +330,7 @@ public class OFView_Activity extends View {
             score = ScoreMin;
         }
         if ( score >= level2_min && score < level3_min ){
-
+            ScCo = L2col;
             if ( score   < level2_min + level2_pen ){
                 ScorePen = score - level2_min;
             }else  {
@@ -349,7 +349,9 @@ public class OFView_Activity extends View {
                 tLUP       = getContext().getString(R.string.level_3);
                 LUP        = Integer.toString(level3_min);
                 L1col      = L2col;
-                ScoreMin   = level2_min;
+                if (ScoreMin  < level2_min){
+                    ScoreMin = level2_min;
+                }
                 AA_min     = .975;
                 AA_max     = 1.025;
 
@@ -357,7 +359,7 @@ public class OFView_Activity extends View {
 
         }
         else if ( score  >= level3_min && score < level4_min ) {
-
+            ScCo = L3col;
             if ( score   < level3_min + level3_pen ){
                 ScorePen = score - level3_min;
             }else  {
@@ -377,12 +379,15 @@ public class OFView_Activity extends View {
                 next_color = L4col;
                 LUP        = Integer.toString(level4_min);
                 L1col      = L3col;
-                ScoreMin   = level3_min;
+
+                if (ScoreMin  < level3_min){
+                    ScoreMin = level3_min;
+                }
                 AA_min     = .98;
                 AA_max     = 1.02;
             }
         }else if ( score >= level4_min && score < level5_min){
-
+            ScCo = L4col;
             if ( score   < level4_min + level4_pen ){
                 ScorePen = score - level4_min;
             }else  {
@@ -400,14 +405,18 @@ public class OFView_Activity extends View {
                 next_color  = L5col;
                 LUP         = Integer.toString(level5_min);
                 L1col     = L4col;
-                ScoreMin  = level4_min;
+
+                if (ScoreMin  < level4_min){
+                    ScoreMin = level4_min;
+                }
+
                 AA_min    = .982;
                 AA_max    = 1.018;
                 LS        = 4;
 
            }
         }else if ( score >= level5_min ){
-
+            ScCo = L5col;
             if ( score   < level5_min + level5_pen ){
                 ScorePen = score - level5_min;
             }else  {
@@ -425,7 +434,11 @@ public class OFView_Activity extends View {
                 next_color = L5col;
                 LUP        = getContext().getString(R.string.empty);
                 L1col      = L5col;
-                ScoreMin   = level5_min;
+
+                if (ScoreMin  < level5_min){
+                    ScoreMin = level5_min;
+                }
+
                 AA_min     = .985;
                 AA_max     = 1.015;
                 LS         = 5;

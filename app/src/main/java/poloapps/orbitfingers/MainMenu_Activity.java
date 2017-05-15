@@ -1,6 +1,7 @@
 package poloapps.orbitfingers;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -26,11 +27,10 @@ public class MainMenu_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_main); //sets activity_main xml file
-         SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
          final SharedPreferences.Editor editor = mSettings.edit();
-
-
-         Integer PS = mSettings.getInt("peakscore", 0);
+         Integer min_score_value = mSettings.getInt("min_score",0);
+         final Integer peak_score_value = mSettings.getInt("peakscore", 0);
 
  /*        Log.i("M123A", Integer.toString(current_level));
         mInterstitialAd = new InterstitialAd(this);
@@ -48,8 +48,36 @@ public class MainMenu_Activity extends AppCompatActivity {
 
          Button how_to_button = (Button) findViewById(R.id.how_to_btn);
          how_to_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.orange)));
+
          final Button play_btn = (Button) findViewById(R.id.play_btn);
+
+         final Button Set_Peak_Min_btn = (Button) findViewById(R.id.set_peak_min);
+
+        if (min_score_value < peak_score_value){
+
+            Set_Peak_Min_btn.setBackgroundColor(ContextCompat.getColor(this, (R.color.navy_blue)));
+            Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    Set_Peak_Min_btn.setBackgroundColor(ContextCompat.
+                            getColor(getApplicationContext(), (R.color.green)));
+
+                    editor.putInt("min_score",peak_score_value);
+                    editor.commit();
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+            });
+
+
+        }
+        else{
+            Set_Peak_Min_btn.setBackgroundColor(ContextCompat.getColor(this, (R.color.dark_gray)));
+        }
+
          SetText_TColors();
+
          how_to_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -61,7 +89,8 @@ public class MainMenu_Activity extends AppCompatActivity {
          play_btn.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
-                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), (R.color.dark_gray)));
+                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
+                         (R.color.dark_gray)));
                  launch_level();
              }
          });
@@ -72,11 +101,12 @@ public class MainMenu_Activity extends AppCompatActivity {
          mAdView.loadAd(adRequest);
 
          Button reset_button = (Button) findViewById(R.id.reset1);
-         reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.dark_gray)));
+         reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.red)));
          reset_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
                  int PS = 0;
+                 Set_Peak_Min_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), (R.color.dark_gray)));
                  editor.putInt("levl", 1);
                  editor.putInt("peakscore", PS);
                  editor.putInt("min_score",0);
@@ -86,7 +116,7 @@ public class MainMenu_Activity extends AppCompatActivity {
              }
          });
 
-         ((TextView) findViewById(R.id.peak_score_value)).setText(Integer.toString(PS));
+         ((TextView) findViewById(R.id.peak_score_value)).setText(Integer.toString(peak_score_value));
 
 
      }

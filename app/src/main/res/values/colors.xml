@@ -3,12 +3,13 @@
     <color name="orange"    >#FF9900</color>
     <color name="green"     >#009900</color>
     <color name="green2"    >#17ff00</color>
-    <color name="l1col"     >#017ed5</color>
+    <color name="l1col"     >#d3c1e7</color>
     <color name="red"       >#e70000</color>
     <color name="dark_gray" >#333333</color>
     <color name="l2col"     >#E800FF</color>
     <color name="l3col"     >#11dbec</color>
     <color name="l4col"     >#ffc63d</color>
     <color name="l5col"     >#f2f2f2</color>
+    <color name="navy_blue" >#017ed5</color>
 
 </resources>
