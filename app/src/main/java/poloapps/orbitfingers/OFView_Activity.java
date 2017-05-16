@@ -35,8 +35,8 @@ public class OFView_Activity extends View {
 
     String Peak_Score_Value = Integer.toString(PS);
 
-    String next_level_text = "100";
-    String Target_Score_Value =  getContext().getString(R.string.level_2);
+    String next_level_value = "100";
+    String next_text =  getContext().getString(R.string.level_2);
 
     float scale_factor = Float.parseFloat(DensScale);
 
@@ -63,11 +63,13 @@ public class OFView_Activity extends View {
     private int   TYL       = Math.round(scale_factor *35);// text y and length
     private int   TYL2      = Math.round(scale_factor *70);//peaktext
     private int   TYL4      = Math.round(scale_factor *225);
-    private int   TYL3      = Math.round(scale_factor *484);
-    private int   TYL5      = Math.round(scale_factor *530);
+    private int   TYL3      = Math.round(scale_factor *475);
+    private int   TYL5      = Math.round(scale_factor *510);
     private int   TXS2      = Math.round(scale_factor *630);
-    private int   TXS       = Math.round(scale_factor *580);//"SCORE:" start x
-    private int   TXS3      = Math.round(scale_factor *575);//"SCORE:" start x
+    private int   TXS       = Math.round(scale_factor *20);//"SCORE:" start x
+    private int   TXS3      = Math.round(scale_factor *575);
+    private int   TXS4      = Math.round(scale_factor *1130);
+    private int   TXS5      = Math.round(scale_factor *1180);
     private int   TAS       = Math.round(scale_factor *600);
     private int   RL_BX     = Math.round(scale_factor *320);
     private int   RL_EX     = Math.round(scale_factor *425);
@@ -204,15 +206,17 @@ public class OFView_Activity extends View {
 
         }
 
-        canvas_text(canvas,Integer.toString(score), TXS2, TYL2, TYL, score_color);
+        canvas_text(canvas,Integer.toString(score), TXS2, TYL4, TYL, score_color);
 
         canvas_text(canvas, (getContext().getString(R.string.level_string) +
                 Integer.toString(LS)), TXS3, TYL, TYL, L1col);
 
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, TYL, TYL, Green1);
-        canvas_text(canvas, Peak_Score_Value, 0, TYL2, TYL, Green1);
-        canvas_text(canvas, next_level_text, TXS2, TYL5, TYL, next_color);
-        canvas_text(canvas, Target_Score_Value, TXS, TYL3, TYL, next_color);
+        canvas_text(canvas, Peak_Score_Value, 0, TYL4, TYL, Green1);
+
+        canvas_text(canvas, next_level_value,TXS5, TYL4, TYL, next_color);
+        canvas_text(canvas, next_text, TXS4, TYL, TYL, next_color);
+
         canvas.drawBitmap(right_Finger_Print, RR_BX,RBY , null);
         canvas.drawBitmap(left_Finger_Print, RL_BX,RBY , null);
 
@@ -348,8 +352,8 @@ public class OFView_Activity extends View {
                 editor.commit();
                 next_color = L3col;
                 LS         = 2;
-                Target_Score_Value = getContext().getString(R.string.level_3);
-                next_level_text = Integer.toString(level3_min);
+                next_text = getContext().getString(R.string.level_3);
+                next_level_value = Integer.toString(level3_min);
                 L1col      = L2col;
                 if (ScoreMin  < level2_min){
                     ScoreMin = level2_min;
@@ -377,9 +381,9 @@ public class OFView_Activity extends View {
                 LS         = 3;
                 editor.putInt("scorelevel",level3_min);
                 editor.commit();
-                Target_Score_Value = getContext().getString(R.string.level_4);
+                next_text = getContext().getString(R.string.level_4);
                 next_color = L4col;
-                next_level_text = Integer.toString(level4_min);
+                next_level_value = Integer.toString(level4_min);
                 L1col      = L3col;
 
                 if (ScoreMin  < level3_min){
@@ -403,9 +407,9 @@ public class OFView_Activity extends View {
                }
                 editor.putInt("scorelevel",level4_min);
                 editor.commit();
-                Target_Score_Value = getContext().getString(R.string.level_5);
+                next_text = getContext().getString(R.string.level_5);
                 next_color  = L5col;
-                next_level_text = Integer.toString(level5_min);
+                next_level_value = Integer.toString(level5_min);
                 L1col     = L4col;
 
                 if (ScoreMin  < level4_min){
@@ -432,9 +436,9 @@ public class OFView_Activity extends View {
                    }
                 editor.putInt("scorelevel",level5_min);
                 editor.commit();
-                Target_Score_Value = getContext().getString(R.string.empty) ;
+                next_text = getContext().getString(R.string.empty) ;
                 next_color = L5col;
-                next_level_text = getContext().getString(R.string.empty);
+                next_level_value = getContext().getString(R.string.empty);
                 L1col      = L5col;
 
                 if (ScoreMin  < level5_min){
