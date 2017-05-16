@@ -20,10 +20,9 @@ public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
 
-    String DensScale = prefs.getString("scale", "1");
-
-    Integer LS  = prefs.getInt("ls", 1);
-    Integer PS  = prefs.getInt("peakscore", 0);
+    String  DensScale  = prefs.getString("scale", "1");
+    Integer LS         = prefs.getInt("ls", 1);
+    Integer PS         = prefs.getInt("peakscore", 0);
 
 
     private int L1C         = ContextCompat.getColor(getContext(), (R.color.l1col));
@@ -34,7 +33,7 @@ public class OFView_Activity extends View {
     private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
     private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
 
-    String LSd  = Integer.toString(PS);
+    String Peak_Score_Value = Integer.toString(PS);
 
     String LUP  = "100";
     String tLUP =  getContext().getString(R.string.level_2);
@@ -206,9 +205,12 @@ public class OFView_Activity extends View {
         }
 
         canvas_text(canvas,Integer.toString(score), TXS2, TYL4, TYL, score_color);
-        canvas_text(canvas, ("LEVEL:"+Integer.toString(LS)), TXS3, TYL, TYL, L1col);
-        canvas_text(canvas, "PEAK ", 0, TYL2, TYL, Green1);
-        canvas_text(canvas, LSd, 0, TYL, TYL, Green1);
+
+        canvas_text(canvas, (getContext().getString(R.string.level_string) +
+                Integer.toString(LS)), TXS3, TYL, TYL, L1col);
+
+        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, TYL, TYL, Green1);
+        canvas_text(canvas, Peak_Score_Value, 0, TYL2, TYL, Green1);
         canvas_text(canvas, LUP, TXS2, TYL5, TYL, next_color);
         canvas_text(canvas, tLUP, TXS, TYL3, TYL, next_color);
         canvas.drawBitmap(right_Finger_Print, RR_BX,RBY , null);
@@ -235,9 +237,9 @@ public class OFView_Activity extends View {
         paint.setColor(Color.parseColor(MB_c));
         canvas.drawOval(ballBounds, paint);//must be done for each
     }
-    private void canvas_text(Canvas canvas, String str, int x, int y, int tsize, String color) {
+    private void canvas_text(Canvas canvas, String str, int x, int y, int t_size, String color) {
         paint.setTypeface(Typeface.MONOSPACE);
-        paint.setTextSize(tsize);
+        paint.setTextSize(t_size);
         formatter.format(str);
         paint.setColor(Color.parseColor(color));
         canvas.drawText(statusMsg.toString(), x, y, paint);
@@ -586,7 +588,7 @@ public class OFView_Activity extends View {
    private void Peak_Score_Check(){
        if (score > PS) {
            PS   = score;
-           LSd  = Integer.toString(PS);
+           Peak_Score_Value = Integer.toString(PS);
            editor.putInt("peakscore",PS);
            editor.commit();
        }

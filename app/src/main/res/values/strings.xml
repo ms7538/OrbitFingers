@@ -22,4 +22,6 @@
     <string name="level_3"              >LEVEL 3</string>
     <string name="level_4"              >LEVEL 4</string>
     <string name="level_5"              >LEVEL 5</string>
+    <string name="peak_text"            >PEAK:</string>
+    <string name="level_string"         >LEVEL:</string>
 </resources>
