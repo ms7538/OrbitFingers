@@ -12,6 +12,7 @@
     <string name="current_level_tv"     >Current Level: </string>
     <string name="target_score_tv"      >Target Score:   </string>
     <string name="min_score_tv"         >Minimum Score: </string>
+    <string name="min"                  >MIN</string>
     <string name="penalty_tv"           >Penalty:       </string>
     <string name="peak_score_tv"        >PEAK SCORE</string>
     <string name="reset"                >RESET</string>

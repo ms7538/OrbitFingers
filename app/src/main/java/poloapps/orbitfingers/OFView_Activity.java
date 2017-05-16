@@ -32,7 +32,7 @@ public class OFView_Activity extends View {
     private int L5C         = ContextCompat.getColor(getContext(), (R.color.l5col));
     private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
     private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
-
+    private int ORANGE       = ContextCompat.getColor(getContext(), (R.color.orange));
     String Peak_Score_Value = Integer.toString(PS);
 
     String next_level_value = "100";
@@ -100,6 +100,8 @@ public class OFView_Activity extends View {
     private String Left_Color   = L1col;
     private String Green1       = "#"+ Integer.toHexString(GREEN);
     private String Red1         = "#"+ Integer.toHexString(RED);
+    private String Orange         = "#"+ Integer.toHexString(ORANGE);
+
     private String ScCo         = L1col;
     private String score_color  = ScCo;
     private String next_color   = L2col;
@@ -211,7 +213,8 @@ public class OFView_Activity extends View {
         canvas_text(canvas, (getContext().getString(R.string.level_string) +
                 Integer.toString(LS)), TXS3, TYL, TYL, L1col);
 
-        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, TYL, TYL, Green1);
+        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, TYL, TYL, Green1 );
+        canvas_text(canvas,getContext().getString(R.string.min)    ,0 , 13*TYL, TYL, Orange );
         canvas_text(canvas, Peak_Score_Value, 0, TYL4, TYL, Green1);
 
         canvas_text(canvas, next_level_value,TXS5, TYL4, TYL, next_color);
