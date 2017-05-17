@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +26,17 @@ public class OF_Activity extends AppCompatActivity {
 
         float density = this.getResources().getDisplayMetrics().density;
 
+        Log.i("float density", String.valueOf(density) );
+
         double scale_multiplier = density / 2;
 
         String plain = String.format( "%.1f", scale_multiplier );
+
+        Log.i("formatted density",plain);
         SharedPreferences.Editor editor = mSettings.edit();
+
         editor.putString( "scale", plain );
+
         editor.commit();
 
         View view = new OFView_Activity(getApplicationContext());

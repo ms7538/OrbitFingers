@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -39,7 +40,6 @@ public class OFView_Activity extends View {
     String next_text =  getContext().getString(R.string.level_2);
 
     float scale_factor = Float.parseFloat(DensScale);
-
     private ScaleGestureDetector detector;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
