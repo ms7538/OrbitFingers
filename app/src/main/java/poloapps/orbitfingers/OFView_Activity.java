@@ -32,9 +32,9 @@ public class OFView_Activity extends View {
     private int L5C         = ContextCompat.getColor(getContext(), (R.color.l5col));
     private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
     private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
-    private int ORANGE       = ContextCompat.getColor(getContext(), (R.color.orange));
-    String Peak_Score_Value = Integer.toString(PS);
+    private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
 
+    String Peak_Score_Value = Integer.toString(PS);
     String next_level_value = "100";
     String next_text =  getContext().getString(R.string.level_2);
 
@@ -61,12 +61,12 @@ public class OFView_Activity extends View {
     private float B2XL      = scale_factor *350;  // Ball's center (x,y)
     private float B2yL      = scale_factor *410;
     private int   TYL       = Math.round(scale_factor *35);// text y and length
-    private int   TYL2      = Math.round(scale_factor *70);//peaktext
+    private int   TYL2      = Math.round(scale_factor *280);
     private int   TYL4      = Math.round(scale_factor *225);
-    private int   TYL3      = Math.round(scale_factor *475);
-    private int   TYL5      = Math.round(scale_factor *510);
-    private int   TXS2      = Math.round(scale_factor *630);
-    private int   TXS       = Math.round(scale_factor *20);//"SCORE:" start x
+    private int   TXS       = Math.round(scale_factor *605);
+    private int   TXS1      = Math.round(scale_factor *620);
+    private int   TXS22     = Math.round(scale_factor *630);
+    private int   TXS12     = Math.round(scale_factor *635);
     private int   TXS3      = Math.round(scale_factor *575);
     private int   TXS4      = Math.round(scale_factor *1130);
     private int   TXS5      = Math.round(scale_factor *1180);
@@ -96,12 +96,12 @@ public class OFView_Activity extends View {
     private String L3col        = "#"+ Integer.toHexString(L3C);
     private String L4col        = "#"+ Integer.toHexString(L4C);
     private String L5col        = "#"+ Integer.toHexString(L5C);
-    private String Right_Color  = L1col;
-    private String Left_Color   = L1col;
     private String Green1       = "#"+ Integer.toHexString(GREEN);
     private String Red1         = "#"+ Integer.toHexString(RED);
-    private String Orange         = "#"+ Integer.toHexString(ORANGE);
+    private String Orange       = "#"+ Integer.toHexString(ORANGE);
 
+    private String Right_Color  = L1col;
+    private String Left_Color   = L1col;
     private String ScCo         = L1col;
     private String score_color  = ScCo;
     private String next_color   = L2col;
@@ -154,7 +154,8 @@ public class OFView_Activity extends View {
         // Set the font face and size of drawing text
 
         if (c1 == 0) {
-            Toast.makeText(getContext(), "Click during alignment to gain points ", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Click during alignment to gain points ",
+                    Toast.LENGTH_LONG).show();
             c1++;
         }
 
@@ -208,13 +209,35 @@ public class OFView_Activity extends View {
 
         }
 
-        canvas_text(canvas,Integer.toString(score), TXS2, TYL4, TYL, score_color);
+        int Score_Text_X_Start = TXS12;
+
+        if ( score < 100 && score >= 10){
+
+            Score_Text_X_Start = TXS22;
+
+        }else if ( score < 1000 && score >= 100){
+
+            Score_Text_X_Start = TXS1;
+        }else if ( score >= 1000){
+
+            Score_Text_X_Start = TXS;
+        }
+
+        canvas_text(canvas,Integer.toString(score), Score_Text_X_Start, TYL4, TYL, score_color);
 
         canvas_text(canvas, (getContext().getString(R.string.level_string) +
                 Integer.toString(LS)), TXS3, TYL, TYL, L1col);
 
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, TYL, TYL, Green1 );
-        canvas_text(canvas,getContext().getString(R.string.min)    ,0 , 13*TYL, TYL, Orange );
+
+        String Min_Text =  getContext().getString(R.string.empty);
+        if (score == ScoreMin){
+           Min_Text =  getContext().getString(R.string.min);
+       }
+
+
+        canvas_text(canvas,Min_Text,TXS1,TYL2,TYL,Orange );
+
         canvas_text(canvas, Peak_Score_Value, 0, TYL4, TYL, Green1);
 
         canvas_text(canvas, next_level_value,TXS5, TYL4, TYL, next_color);
