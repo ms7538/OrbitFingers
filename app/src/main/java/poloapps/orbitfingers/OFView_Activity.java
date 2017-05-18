@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -16,12 +15,14 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.3 Created
+//V3.4 Created--Scaling
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
 
-    String  DensScale  = prefs.getString("scale", "1");
+    String  density_scale = prefs.getString("scale", "1");
+    String  max_height  = prefs.getString("max_h", "1");
+    String  max_width  = prefs.getString("max_w", "1");
     Integer LS         = prefs.getInt("ls", 1);
     Integer PS         = prefs.getInt("peakscore", 0);
 
@@ -37,9 +38,16 @@ public class OFView_Activity extends View {
 
     String Peak_Score_Value = Integer.toString(PS);
     String next_level_value = "100";
-    String next_text =  getContext().getString(R.string.level_2);
+    String next_text        =  getContext().getString(R.string.level_2);
 
-    float scale_factor = Float.parseFloat(DensScale);
+    float  scale_factor      = Float.parseFloat(density_scale);
+    double Max_Height       = Double.parseDouble(max_height);
+    double Max_Width        = Double.parseDouble(max_width);
+    int    Score_X_Start    = (int) (.45  * Max_Width);
+    int    Score_Y_Start    = (int) (.4  * Max_Height);
+    int    Text_Length      = (int) (.03 * Max_Width);
+
+
     private ScaleGestureDetector detector;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
@@ -69,8 +77,7 @@ public class OFView_Activity extends View {
     private int   TXS12     = Math.round(scale_factor *635);
     private int   TXS3      = Math.round(scale_factor *575);
     private int   TXS4      = Math.round(scale_factor *1130);
-    private int   TXS5      = Math.round(scale_factor *1180);
-    private int   TAS       = Math.round(scale_factor *600);
+    private int   TXS5      = Math.round(scale_factor *1170);
     private int   RL_BX     = Math.round(scale_factor *320);
     private int   RL_EX     = Math.round(scale_factor *425);
     private int   RR_BX     = Math.round(scale_factor *920);
@@ -83,6 +90,7 @@ public class OFView_Activity extends View {
 
     private double B1dist   = scale_factor *100;
     private double B2dist   = scale_factor *200;
+
     private float FB1       = (float) B1dist;
     private float FB2       = (float) B2dist;
     private float FB1_x     = (float) B1dist - 1;
@@ -190,24 +198,6 @@ public class OFView_Activity extends View {
         draw_ball(canvas, ballBounds, B1X, B_size, B1y, paint, Right_Color);
         draw_ball(canvas, ballBounds, B2X, B_size, B2y, paint, Right_Color);
 
-        switch (LS){
-            case 1:
-                TAS=625;
-                break;
-            case 2:
-                TAS=615;
-                break;
-            case 3:
-                TAS=615;
-                break;
-            case 4:
-                TAS=615;
-                break;
-            case 5:
-                TAS=600;
-                break;
-
-        }
 
         int Score_Text_X_Start = TXS12;
 
@@ -236,7 +226,7 @@ public class OFView_Activity extends View {
        }
 
 
-        canvas_text(canvas,Min_Text,TXS1,TYL2,TYL,Orange );
+        canvas_text(canvas,Min_Text,Score_X_Start,Score_Y_Start,Text_Length,Orange );
 
         canvas_text(canvas, Peak_Score_Value, 0, TYL4, TYL, Green1);
 

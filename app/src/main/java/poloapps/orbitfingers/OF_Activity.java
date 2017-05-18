@@ -27,33 +27,17 @@ public class OF_Activity extends AppCompatActivity {
 
         bar.setTitle("ORBITFINGERS");
 
-        float density = this.getResources().getDisplayMetrics().density;
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
 
-        Log.i("ob1 screen height", String.valueOf(height) );
-        Log.i("ob1 screen width", String.valueOf(width) );
-        Log.i("ob1 float density", String.valueOf(density) );
-        double scale_multiplier = density /2;
-/*
-        if( density > 2.0 ){
-
-            scale_multiplier = density / 2;
-
-        }
-        else if ( density){
-
-        }*/
-        String format_SM_string = String.valueOf(scale_multiplier);
-
-       // Log.i("formatted density",format_SM_string);
         SharedPreferences.Editor editor = mSettings.edit();
 
-        editor.putString( "scale", format_SM_string );
+        editor.putString( "scale", String.valueOf(this
+                .getResources().getDisplayMetrics().density/2));
 
+        editor.putString( "max_h", String.valueOf(displayMetrics.heightPixels));
+        editor.putString( "max_w", String.valueOf(displayMetrics.widthPixels));
         editor.commit();
 
         View view = new OFView_Activity(getApplicationContext());
