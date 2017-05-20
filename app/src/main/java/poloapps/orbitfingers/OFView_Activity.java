@@ -46,12 +46,15 @@ public class OFView_Activity extends View {
 
     int Min_Ind_X           = (int) (.485 * Max_Width);  // Min Score Indication X Start
     int Peak_Value_X        = 0;
-    int Level_Ind_X         = (int) (.45  * Max_Width);  // Level Number Text Indication X Start
+    int Level_Ind_X         = (int) (.4325  * Max_Width);  // Level Number Text Indication X Start
     int Next_Ind_X          = (int) (.87  * Max_Width);   // Next Level Text Indication X Start
+    final int Score_X_0_9   = (int) (.495 * Max_Width);
+    int Score_X_Adjusted    = Score_X_0_9;
 
     int Min_Ind_Y           = (int) (.4  * Max_Height); // Min Score Indication Y Start
     int Upper_Text_Y        = (int) (.05 * Max_Height); // Peak, Level, Next Indication Y Start
-    int Score_Values_Y      = (int) (.1  * Max_Height); // Peak, Level, Next Values Y Start
+    int Peak_Next_Values_Y  = (int) (.1  * Max_Height); // Peak, Next Values Y Start
+    int Score_Value_Y       = (int) (.1 * Max_Height); // Peak, Next Values Y Start
 
     int Text_Length         = (int) (.03 * Max_Width);
 
@@ -76,10 +79,6 @@ public class OFView_Activity extends View {
     private float B1yL      = scale_factor *310;
     private float B2XL      = scale_factor *350;  // Ball's center (x,y)
     private float B2yL      = scale_factor *410;
-    private int   TXS       = Math.round(scale_factor *605);
-    private int   TXS1      = Math.round(scale_factor *620);
-    private int   TXS22     = Math.round(scale_factor *630);
-    private int   TXS12     = Math.round(scale_factor *635);
     private int   TXS5      = Math.round(scale_factor *1170);
     private int   RL_BX     = Math.round(scale_factor *320);
     private int   RL_EX     = Math.round(scale_factor *425);
@@ -121,7 +120,7 @@ public class OFView_Activity extends View {
     private double theta        = 0;
     private double Right_RS2    = RotSpeed;
     private double theta2       = 0;
-    private int Mch             = 0;
+    private int    Mch          = 0;
 
     private double ThtAbs1  = 0.0, ThtAbs2  = 0.0;
     private double LThtAbs1 = 0.0, LThtAbs2 = 0.0;
@@ -219,18 +218,15 @@ public class OFView_Activity extends View {
         draw_ball(canvas, ballBounds, B2X, B_size, B2y, paint, Right_Color);
 
 
-        int Score_Text_X_Start = TXS12;
 
-        if ( score < 100 && score >= 10){
+        if( score > 9 ) {
 
-            Score_Text_X_Start = TXS22;
+          int lsf = (int) (Math.log10(score) + 1); // lsf = length_score_factor
 
-        }else if ( score < 1000 && score >= 100){
-
-            Score_Text_X_Start = TXS1;
-        }else if ( score >= 1000){
-
-            Score_Text_X_Start = TXS;
+            Score_X_Adjusted = (int)( (1 - (.0125 * lsf)) * Score_X_0_9);
+        }
+        else{
+            Score_X_Adjusted = Score_X_0_9;
         }
 
         if ( PS < 1000 ) {
@@ -248,8 +244,8 @@ public class OFView_Activity extends View {
         }
         else      Peak_Value_X = 0;
 
-        canvas_text(canvas,Integer.toString(score), Score_Text_X_Start,
-                                Score_Values_Y, Text_Length, score_color);
+        canvas_text(canvas,Integer.toString(score), Score_X_Adjusted,
+                Score_Value_Y, Text_Length, score_color);
 
         canvas_text(canvas, (getContext().getString(R.string.level_string) + Integer.toString(LS)), Level_Ind_X,
                                 Upper_Text_Y, Text_Length, L1col);
@@ -263,11 +259,12 @@ public class OFView_Activity extends View {
         canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Orange );
 
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y,
-                Text_Length, Green1 );
+                                                                            Text_Length, Green1 );
 
-        canvas_text(canvas, Peak_Score_Value, Peak_Value_X, Score_Values_Y, Text_Length, Green1);
+        canvas_text(canvas, Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,
+                                                                            Text_Length, Green1);
 
-        canvas_text(canvas, next_level_value,TXS5,Score_Values_Y, Text_Length, next_color);
+        canvas_text(canvas, next_level_value,TXS5, Peak_Next_Values_Y, Text_Length, next_color);
         canvas_text(canvas, next_text, Next_Ind_X, Upper_Text_Y, Text_Length, next_color);
 
         canvas.drawBitmap(right_Finger_Print, RR_BX,RBY , null);
