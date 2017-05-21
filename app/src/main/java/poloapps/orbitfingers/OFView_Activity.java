@@ -292,7 +292,8 @@ public class OFView_Activity extends View {
         paint.setColor(Color.parseColor(blue1));
         canvas.drawCircle(CX, CY, FB1, paint);
     }
-    private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MB_size, float MBy, Paint paint, String MB_c) {
+    private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MB_size,
+                                                            float MBy, Paint paint, String MB_c) {
         paint.setStyle(Paint.Style.FILL);
         ballBounds.set(MBx - MB_size, MBy - MB_size, MBx + MB_size, MBy + MB_size);
         paint.setColor(Color.parseColor(MB_c));
@@ -313,18 +314,21 @@ public class OFView_Activity extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) {
+                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S
+                                                                      && event.getY() < C_TE_Y_E) {
                 right_Finger_Print = BitmapFactory.decodeResource(
                         getResources(),
                         R.drawable.thmb2);
                 }
-                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E){
+                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>=
+                                                               C_TE_Y_S && event.getY() < C_TE_Y_E){
                             left_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb2);
 
                 }
-                if((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) && (Mch==10 || Mch==5)) {
+                if((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S
+                                              && event.getY() < C_TE_Y_E) && (Mch==10 || Mch==5)) {
                     Right_Color =Green1;
                     if(Mch==10){
                         score +=100;
@@ -334,14 +338,16 @@ public class OFView_Activity extends View {
                         score += 100;
                         Peak_Score_Check();
                     }
-                }else if ((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(Mch==10 || Mch==5)){
+                }else if ((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>=
+                                    C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(Mch==10 || Mch==5)){
                     Right_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
                         score_color =Red1;
                     }
                 }
-                if((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) && (LMch==10 || LMch==5)) {
+                if((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S
+                                            && event.getY() < C_TE_Y_E) && (LMch==10 || LMch==5)) {
                     Left_Color =Green1;
                     if(LMch==10){
                         score +=10;
@@ -351,7 +357,8 @@ public class OFView_Activity extends View {
                         score += 10;
                         Peak_Score_Check();
                     }
-                }else if ((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(LMch==10 || LMch==5)){
+                }else if ((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>=
+                                    C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(LMch==10 || LMch==5)){
                     Left_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
@@ -361,12 +368,14 @@ public class OFView_Activity extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
-                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) {
+                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S
+                                                                    && event.getY() < C_TE_Y_E) {
                             right_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb1);
                 }
-                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) {
+                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S
+                                                                      && event.getY() < C_TE_Y_E) {
                             left_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb1);
