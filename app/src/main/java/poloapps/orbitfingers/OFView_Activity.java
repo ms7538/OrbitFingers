@@ -20,7 +20,7 @@ public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
 
-    String  density_scale = prefs.getString("scale", "1");
+    //String  density_scale = prefs.getString("scale", "1");
     String  max_height    = prefs.getString("max_h", "1");
     String  max_width     = prefs.getString("max_w", "1");
     Integer LS            = prefs.getInt("ls", 1);
@@ -40,42 +40,38 @@ public class OFView_Activity extends View {
     String next_level_value = "100";
     String next_text        =  getContext().getString(R.string.level_2);
 
-    float  scale_factor     = Float.parseFloat(density_scale);
+    //float  scale_factor     = Float.parseFloat(density_scale);
     double Max_Height       = Double.parseDouble(max_height); // max y (height)
     double Max_Width        = Double.parseDouble(max_width); //max x (width)
 
-    int Min_Ind_X           = (int) (.478 * Max_Width);  // Min Score Indication X Start
+    int Min_Ind_X           = (int) (.478  * Max_Width);  // Min Score Indication X Start
+    int Level_Ind_X         = (int) (.4325 * Max_Width);  // Level Number Text Indication X Start
+    int Next_Ind_X          = (int) (.87   * Max_Width);   // Next Level Text Indication X Start
+    final int Score_X_0_9   = (int) (.495  * Max_Width);
+    int Next_Value_X        = (int) (.915  * Max_Width);
     int Peak_Value_X        = 0;
-    int Level_Ind_X         = (int) (.4325  * Max_Width);  // Level Number Text Indication X Start
-    int Next_Ind_X          = (int) (.87  * Max_Width);   // Next Level Text Indication X Start
-    final int Score_X_0_9   = (int) (.495 * Max_Width);
     int Score_X_Adjusted    = Score_X_0_9;
-    int Next_Value_X        = (int) (.915 * Max_Width);
-    int Min_Ind_Y           = (int) (.33  * Max_Height); // Min Score Indication Y Start
-    int Upper_Text_Y        = (int) (.05 * Max_Height); // Peak, Level, Next Indication Y Start
-    int Peak_Next_Values_Y  = (int) (.15  * Max_Height); // Peak, Next Values Y Start
-    int Score_Value_Y       = (int) (.25 * Max_Height); // Peak, Next Values Y Start
 
-    int Text_Length         = (int) (.03 * Max_Width);
+
+    int Min_Ind_Y           = (int) (.33  * Max_Height); // Min Score Indication Y Start
+    int Upper_Text_Y        = (int) (.05  * Max_Height); // Peak, Level, Next Indication Y Start
+    int Peak_Next_Values_Y  = (int) (.15  * Max_Height); // Peak, Next Values Y Start
+    int Score_Value_Y       = (int) (.25  * Max_Height); // Peak, Next Values Y Start
+    int Text_Length         = (int) (.03  * Max_Width);
 
 
     private ScaleGestureDetector detector;
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
 
-    private float Static_Radius  = (float)(.04 * Max_Height); // Center ball size
-    private float Dynamic_Radius = (float)(.0125 * Max_Height); // outer ball size
+    private float Static_Radius   = (float) (.04   * Max_Height); // Center ball size
+    private float Dynamic_Radius  = (float) (.0125 * Max_Height); // outer ball size
+    private float Common_Center_Y = (float) (.2    * Max_Width);
+    private float Right_Center_X  = (float) (.75   * Max_Width);
+    private float Left_Center_X   = (float) (.25   * Max_Width);
 
-
-    private float Common_Center_Y = (float) (.2  * Max_Width);
-
-    private float B1yL      = scale_factor *310;
-
-    private float B2y       = scale_factor *410;
-
-    private float Right_Center_X = (float) (.75  * Max_Width);
-    private float Left_Center_X  = (float) (.25  * Max_Width);
-
+    private float B1yL      = 0;
+    private float B2y       = 0;
     private float MBxL      = Left_Center_X;
     private float B1XL      = Left_Center_X;
     private float B2XL      = Left_Center_X;
@@ -98,8 +94,8 @@ public class OFView_Activity extends View {
     private int  CXL        = Math.round(Left_Center_X);
     private int  CY         = Math.round(YAL);
 
-    private double B1dist   = .15 * Max_Height;
-    private double B2dist   = .23 * Max_Height;
+    private double B1dist   = .15 * Max_Height; // orbit 1 distance
+    private double B2dist   = .23 * Max_Height; // orbit 2 distance
 
     private float FB1       = (float) B1dist;
     private float FB2       = (float) B2dist;

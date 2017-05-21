@@ -33,8 +33,8 @@ public class OF_Activity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = mSettings.edit();
 
-        editor.putString( "scale", String.valueOf(this
-                .getResources().getDisplayMetrics().density/2));
+        /*editor.putString( "scale", String.valueOf(this
+                .getResources().getDisplayMetrics().density/2));*/
 
         editor.putString( "max_h", String.valueOf(displayMetrics.heightPixels));
         editor.putString( "max_w", String.valueOf(displayMetrics.widthPixels));
