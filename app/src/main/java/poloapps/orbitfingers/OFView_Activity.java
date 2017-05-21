@@ -149,7 +149,8 @@ public class OFView_Activity extends View {
     SharedPreferences mSettings = getContext().getSharedPreferences("Settings", 0);
     SharedPreferences.Editor editor = mSettings.edit();
 
-    private int score   = ScoreMin;
+    private int score   = mSettings.getInt("current_score",ScoreMin);
+
     private int levl    = mSettings.getInt("levl",1);
 
     Bitmap left_Finger_Print = BitmapFactory.decodeResource(
@@ -338,17 +339,22 @@ public class OFView_Activity extends View {
                     Right_Color =Green1;
                     if(Mch==10){
                         score +=100;
+                        editor.putInt("current_score",score);
                         score_color =Green1;
                         Peak_Score_Check();
                     }else {
                         score += 100;
+                        editor.putInt("current_score",score);
                         Peak_Score_Check();
                     }
+                    editor.commit();
                 }else if ((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>=
                                     C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(Mch==10 || Mch==5)){
                     Right_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
+                        editor.putInt("current_score",score);
+                        editor.commit();
                         score_color =Red1;
                     }
                 }
@@ -357,17 +363,22 @@ public class OFView_Activity extends View {
                     Left_Color =Green1;
                     if(LMch==10){
                         score +=10;
+                        editor.putInt("current_score",score);
                         score_color =Green1;
                         Peak_Score_Check();
                     }else{
                         score += 10;
+                        editor.putInt("current_score",score);
                         Peak_Score_Check();
                     }
+                    editor.commit();
                 }else if ((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>=
                                     C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(LMch==10 || LMch==5)){
                     Left_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
+                        editor.putInt("current_score",score);
+                        editor.commit();
                         score_color =Red1;
                     }
                 }
