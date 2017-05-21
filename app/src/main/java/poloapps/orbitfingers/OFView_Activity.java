@@ -44,17 +44,17 @@ public class OFView_Activity extends View {
     double Max_Height       = Double.parseDouble(max_height); // max y (height)
     double Max_Width        = Double.parseDouble(max_width); //max x (width)
 
-    int Min_Ind_X           = (int) (.485 * Max_Width);  // Min Score Indication X Start
+    int Min_Ind_X           = (int) (.478 * Max_Width);  // Min Score Indication X Start
     int Peak_Value_X        = 0;
     int Level_Ind_X         = (int) (.4325  * Max_Width);  // Level Number Text Indication X Start
     int Next_Ind_X          = (int) (.87  * Max_Width);   // Next Level Text Indication X Start
     final int Score_X_0_9   = (int) (.495 * Max_Width);
     int Score_X_Adjusted    = Score_X_0_9;
-
-    int Min_Ind_Y           = (int) (.4  * Max_Height); // Min Score Indication Y Start
+    int Next_Value_X        = (int) (.915 * Max_Width);
+    int Min_Ind_Y           = (int) (.33  * Max_Height); // Min Score Indication Y Start
     int Upper_Text_Y        = (int) (.05 * Max_Height); // Peak, Level, Next Indication Y Start
-    int Peak_Next_Values_Y  = (int) (.1  * Max_Height); // Peak, Next Values Y Start
-    int Score_Value_Y       = (int) (.1 * Max_Height); // Peak, Next Values Y Start
+    int Peak_Next_Values_Y  = (int) (.15  * Max_Height); // Peak, Next Values Y Start
+    int Score_Value_Y       = (int) (.25 * Max_Height); // Peak, Next Values Y Start
 
     int Text_Length         = (int) (.03 * Max_Width);
 
@@ -63,35 +63,40 @@ public class OFView_Activity extends View {
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
 
-    private float MB_size   = scale_factor *30; // Center ball size
-    private float B_size    = scale_factor *10; // outer ball size
-    private float XAL       = scale_factor *950;
-    private float XA_LL     = scale_factor *350;
-    private float YAL       = scale_factor *210;
-    private float MBx       = XAL;  // Right center (x,y)
-    private float MBxL      = scale_factor *350;//Left Center
-    private float MBy       = scale_factor *210;
-    private float B1X       = XAL;  // Ball's center (x,y)
-    private float B1y       = scale_factor *210;
-    private float B2X       = XAL;  // Ball's center (x,y)
-    private float B2y       = scale_factor *410;
-    private float B1XL      = scale_factor *350;  // Ball's center (x,y)
-    private float B1yL      = scale_factor *310;
-    private float B2XL      = scale_factor *350;  // Ball's center (x,y)
-    private float B2yL      = scale_factor *410;
-    private int   TXS5      = Math.round(scale_factor *1170);
-    private int   RL_BX     = Math.round(scale_factor *320);
-    private int   RL_EX     = Math.round(scale_factor *425);
-    private int   RR_BX     = Math.round(scale_factor *920);
-    private int   RR_EX     = Math.round(scale_factor *1025);
-    private int   RBY       = Math.round(scale_factor *450);
-    private int   REY       = Math.round(scale_factor *550);
-    private int   CX        = Math.round(XAL);
-    private int   CXL       = Math.round(XA_LL);
-    private int   CY        = Math.round(YAL);
+    private float Static_Radius  = (float)(.04 * Max_Height); // Center ball size
+    private float Dynamic_Radius = (float)(.0125 * Max_Height); // outer ball size
 
-    private double B1dist   = scale_factor *100;
-    private double B2dist   = scale_factor *200;
+
+    private float MBy       = scale_factor *210;
+    private float B1yL      = scale_factor *310;
+    private float XA_LL     = scale_factor *350;
+    private float B2y       = scale_factor *410;
+    private float Right_Center_X = (float) (.75  * Max_Width);
+
+    private float MBxL      = XA_LL;
+    private float B1XL      = XA_LL;
+    private float B2XL      = XA_LL;
+    private float B1y       = MBy;
+    private float YAL       = MBy;
+    private float B2yL      = B2y;
+
+    private float B2X       = Right_Center_X;  // Ball's center (x,y)
+    private float B1X       = Right_Center_X;  // Ball's center (x,y)
+    private float MBx       = Right_Center_X;  // Right center (x,y)
+    // touch events and print thumbnails
+    private int  L_TE_X_S   = (int) (.2 * Max_Width);   // Left Touch Event X Start Location
+    private int  L_TE_X_E   = (int) (.29 * Max_Width);  // Left Touch Event X End Location
+    private int  R_TE_X_S   = (int) (.71 * Max_Width);   // Right Touch Event X Start Location
+    private int  R_TE_X_E   = (int) (.80 * Max_Width);  // Right Touch Event X End Location
+    private int  C_TE_Y_S   = (int) (.65 * Max_Height); // Common Touch Event Y Start Location
+    private int  C_TE_Y_E   = (int) (.99 * Max_Height); // Common Touch Event Y End Location
+
+    private int  CX         = Math.round(Right_Center_X);
+    private int  CXL        = Math.round(XA_LL);
+    private int  CY         = Math.round(YAL);
+
+    private double B1dist   = .15 * Max_Height;
+    private double B2dist   = .23 * Max_Height;
 
     private float FB1       = (float) B1dist;
     private float FB2       = (float) B2dist;
@@ -210,12 +215,13 @@ public class OFView_Activity extends View {
         orbit(canvas, paint, Left_Color, CXL, CY, FB2_x);
         orbit(canvas, paint, Left_Color, CXL, CY, FB1_xx);
         orbit(canvas, paint, Left_Color, CXL, CY, FB2_xx);
-        draw_ball(canvas, ballBounds, MBxL, MB_size, MBy, paint, Left_Color);
-        draw_ball(canvas, ballBounds, B1XL, B_size, B1yL, paint, Left_Color);
-        draw_ball(canvas, ballBounds, B2XL, B_size, B2yL, paint, Left_Color);
-        draw_ball(canvas, ballBounds, MBx, MB_size, MBy, paint, Right_Color);
-        draw_ball(canvas, ballBounds, B1X, B_size, B1y, paint, Right_Color);
-        draw_ball(canvas, ballBounds, B2X, B_size, B2y, paint, Right_Color);
+
+        draw_ball(canvas, ballBounds, MBxL, Static_Radius, MBy, paint, Left_Color);
+        draw_ball(canvas, ballBounds, B1XL, Dynamic_Radius, B1yL, paint, Left_Color);
+        draw_ball(canvas, ballBounds, B2XL, Dynamic_Radius, B2yL, paint, Left_Color);
+        draw_ball(canvas, ballBounds, MBx, Static_Radius, MBy, paint, Right_Color);
+        draw_ball(canvas, ballBounds, B1X, Dynamic_Radius, B1y, paint, Right_Color);
+        draw_ball(canvas, ballBounds, B2X, Dynamic_Radius, B2y, paint, Right_Color);
 
 
 
@@ -264,11 +270,13 @@ public class OFView_Activity extends View {
         canvas_text(canvas, Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,
                                                                             Text_Length, Green1);
 
-        canvas_text(canvas, next_level_value,TXS5, Peak_Next_Values_Y, Text_Length, next_color);
+        canvas_text(canvas, next_level_value,Next_Value_X, Peak_Next_Values_Y,
+                                                                    Text_Length, next_color);
+
         canvas_text(canvas, next_text, Next_Ind_X, Upper_Text_Y, Text_Length, next_color);
 
-        canvas.drawBitmap(right_Finger_Print, RR_BX,RBY , null);
-        canvas.drawBitmap(left_Finger_Print, RL_BX,RBY , null);
+        canvas.drawBitmap(right_Finger_Print, R_TE_X_S, C_TE_Y_S, null);
+        canvas.drawBitmap(left_Finger_Print, L_TE_X_S, C_TE_Y_S, null);
 
         update();
 
@@ -306,18 +314,18 @@ public class OFView_Activity extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                if(event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() < REY) {
+                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) {
                 right_Finger_Print = BitmapFactory.decodeResource(
                         getResources(),
                         R.drawable.thmb2);
                 }
-                if(event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY){
+                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E){
                             left_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb2);
 
                 }
-                if((event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() < REY) && (Mch==10 || Mch==5)) {
+                if((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) && (Mch==10 || Mch==5)) {
                     Right_Color =Green1;
                     if(Mch==10){
                         score +=100;
@@ -327,14 +335,14 @@ public class OFView_Activity extends View {
                         score += 100;
                         Peak_Score_Check();
                     }
-                }else if ((event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() <REY) &&!(Mch==10 || Mch==5)){
+                }else if ((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(Mch==10 || Mch==5)){
                     Right_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
                         score_color =Red1;
                     }
                 }
-                if((event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY) && (LMch==10 || LMch==5)) {
+                if((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) && (LMch==10 || LMch==5)) {
                     Left_Color =Green1;
                     if(LMch==10){
                         score +=10;
@@ -344,7 +352,7 @@ public class OFView_Activity extends View {
                         score += 10;
                         Peak_Score_Check();
                     }
-                }else if ((event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY) &&!(LMch==10 || LMch==5)){
+                }else if ((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(LMch==10 || LMch==5)){
                     Left_Color =Red1;
                     if (score>=(ScoreMin+ScorePen)){
                         score -= ScorePen;
@@ -354,12 +362,12 @@ public class OFView_Activity extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
-                if(event.getX() >= RR_BX && event.getX() <= RR_EX && event.getY()>= RBY && event.getY() < REY) {
+                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) {
                             right_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb1);
                 }
-                if(event.getX() >= RL_BX && event.getX() <= RL_EX && event.getY()>= RBY && event.getY() <REY) {
+                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S && event.getY() < C_TE_Y_E) {
                             left_Finger_Print = BitmapFactory.decodeResource(
                             getResources(),
                             R.drawable.thmb1);
