@@ -53,10 +53,10 @@ public class OFView_Activity extends View {
     int Score_X_Adjusted    = Score_X_0_9;
 
 
-    int Min_Ind_Y           = (int) (.33  * Max_Height); // Min Score Indication Y Start
+    int Min_Ind_Y           = (int) (.58  * Max_Height); // Min Score Indication Y Start
     int Upper_Text_Y        = (int) (.05  * Max_Height); // Peak, Level, Next Indication Y Start
     int Peak_Next_Values_Y  = (int) (.15  * Max_Height); // Peak, Next Values Y Start
-    int Score_Value_Y       = (int) (.25  * Max_Height); // Peak, Next Values Y Start
+    int Score_Value_Y       = (int) (.35  * Max_Height); // Peak, Next Values Y Start
     int Text_Length         = (int) (.03  * Max_Width);
 
 
@@ -64,7 +64,7 @@ public class OFView_Activity extends View {
     private RectF ballBounds;      // Needed for Canvas.drawOval
     private Paint paint;           // The paint (e.g. style, color) used for drawing
 
-    private float Static_Radius   = (float) (.04   * Max_Height); // Center ball size
+    private float Static_Radius   = (float) (.035  * Max_Height); // Center ball size
     private float Dynamic_Radius  = (float) (.0125 * Max_Height); // outer ball size
     private float Common_Center_Y = (float) (.2    * Max_Width);
     private float Right_Center_X  = (float) (.75   * Max_Width);
@@ -84,7 +84,7 @@ public class OFView_Activity extends View {
     private float MBx       = Right_Center_X;  // Right center (x,y)
     // touch events and print thumbnails
     private int  L_TE_X_S   = (int) (.21 * Max_Width);   // Left Touch Event X Start Location
-    private int  L_TE_X_E   = (int) (.3 * Max_Width);  // Left Touch Event X End Location
+    private int  L_TE_X_E   = (int) (.3  * Max_Width);  // Left Touch Event X End Location
     private int  R_TE_X_S   = (int) (.71 * Max_Width);   // Right Touch Event X Start Location
     private int  R_TE_X_E   = (int) (.80 * Max_Width);  // Right Touch Event X End Location
     private int  C_TE_Y_S   = (int) (.65 * Max_Height); // Common Touch Event Y Start Location
@@ -94,8 +94,8 @@ public class OFView_Activity extends View {
     private int  CXL        = Math.round(Left_Center_X);
     private int  CY         = Math.round(YAL);
 
-    private double B1dist   = .15 * Max_Height; // orbit 1 distance
-    private double B2dist   = .23 * Max_Height; // orbit 2 distance
+    private double B1dist   = .125 * Max_Height; // orbit 1 distance
+    private double B2dist   = .25 * Max_Height; // orbit 2 distance
 
     private float FB1       = (float) B1dist;
     private float FB2       = (float) B2dist;
@@ -222,6 +222,13 @@ public class OFView_Activity extends View {
         draw_ball(canvas, ballBounds, B1X, Dynamic_Radius, B1y, paint, Right_Color);
         draw_ball(canvas, ballBounds, B2X, Dynamic_Radius, B2y, paint, Right_Color);
 
+        if( score == PS && score != ScoreMin){
+            score_color = Green1;
+        }
+        else if (score == ScoreMin){
+            score_color = Red1;
+        }
+        else score_color = ScCo;
 
 
         if( score > 9 ) {
@@ -261,10 +268,9 @@ public class OFView_Activity extends View {
        }
 
 
-        canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Orange );
+        canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Red1);
 
-        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y,
-                                                                            Text_Length, Green1 );
+        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length, Green1 );
 
         canvas_text(canvas, Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,
                                                                             Text_Length, Green1);
