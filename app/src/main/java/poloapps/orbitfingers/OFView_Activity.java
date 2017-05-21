@@ -67,32 +67,35 @@ public class OFView_Activity extends View {
     private float Dynamic_Radius = (float)(.0125 * Max_Height); // outer ball size
 
 
-    private float MBy       = scale_factor *210;
-    private float B1yL      = scale_factor *310;
-    private float XA_LL     = scale_factor *350;
-    private float B2y       = scale_factor *410;
-    private float Right_Center_X = (float) (.75  * Max_Width);
+    private float Common_Center_Y = (float) (.2  * Max_Width);
 
-    private float MBxL      = XA_LL;
-    private float B1XL      = XA_LL;
-    private float B2XL      = XA_LL;
-    private float B1y       = MBy;
-    private float YAL       = MBy;
+    private float B1yL      = scale_factor *310;
+
+    private float B2y       = scale_factor *410;
+
+    private float Right_Center_X = (float) (.75  * Max_Width);
+    private float Left_Center_X  = (float) (.25  * Max_Width);
+
+    private float MBxL      = Left_Center_X;
+    private float B1XL      = Left_Center_X;
+    private float B2XL      = Left_Center_X;
+    private float B1y       = Common_Center_Y;
+    private float YAL       = Common_Center_Y;
     private float B2yL      = B2y;
 
     private float B2X       = Right_Center_X;  // Ball's center (x,y)
     private float B1X       = Right_Center_X;  // Ball's center (x,y)
     private float MBx       = Right_Center_X;  // Right center (x,y)
     // touch events and print thumbnails
-    private int  L_TE_X_S   = (int) (.2 * Max_Width);   // Left Touch Event X Start Location
-    private int  L_TE_X_E   = (int) (.29 * Max_Width);  // Left Touch Event X End Location
+    private int  L_TE_X_S   = (int) (.21 * Max_Width);   // Left Touch Event X Start Location
+    private int  L_TE_X_E   = (int) (.3 * Max_Width);  // Left Touch Event X End Location
     private int  R_TE_X_S   = (int) (.71 * Max_Width);   // Right Touch Event X Start Location
     private int  R_TE_X_E   = (int) (.80 * Max_Width);  // Right Touch Event X End Location
     private int  C_TE_Y_S   = (int) (.65 * Max_Height); // Common Touch Event Y Start Location
     private int  C_TE_Y_E   = (int) (.99 * Max_Height); // Common Touch Event Y End Location
 
     private int  CX         = Math.round(Right_Center_X);
-    private int  CXL        = Math.round(XA_LL);
+    private int  CXL        = Math.round(Left_Center_X);
     private int  CY         = Math.round(YAL);
 
     private double B1dist   = .15 * Max_Height;
@@ -216,10 +219,10 @@ public class OFView_Activity extends View {
         orbit(canvas, paint, Left_Color, CXL, CY, FB1_xx);
         orbit(canvas, paint, Left_Color, CXL, CY, FB2_xx);
 
-        draw_ball(canvas, ballBounds, MBxL, Static_Radius, MBy, paint, Left_Color);
+        draw_ball(canvas, ballBounds, MBxL, Static_Radius, Common_Center_Y, paint, Left_Color);
         draw_ball(canvas, ballBounds, B1XL, Dynamic_Radius, B1yL, paint, Left_Color);
         draw_ball(canvas, ballBounds, B2XL, Dynamic_Radius, B2yL, paint, Left_Color);
-        draw_ball(canvas, ballBounds, MBx, Static_Radius, MBy, paint, Right_Color);
+        draw_ball(canvas, ballBounds, MBx, Static_Radius, Common_Center_Y, paint, Right_Color);
         draw_ball(canvas, ballBounds, B1X, Dynamic_Radius, B1y, paint, Right_Color);
         draw_ball(canvas, ballBounds, B2X, Dynamic_Radius, B2y, paint, Right_Color);
 
