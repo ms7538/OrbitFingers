@@ -3,13 +3,14 @@
     package="poloapps.orbitfingers"
     >
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Base.Theme.AppCompat" >
         <activity
-            android:name=".MainActivity"
+            android:name=".MainMenu_Activity"
             android:label="@string/app_name"
 
             >
@@ -20,13 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SimpOF"
+            android:name=".OF_Activity"
             android:label="@string/SOF"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".MainMenu_Activity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MainMenu_Activity" />
         </activity>
     </application>
 
