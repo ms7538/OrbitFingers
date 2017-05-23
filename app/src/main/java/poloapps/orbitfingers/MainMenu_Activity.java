@@ -105,15 +105,15 @@ public class MainMenu_Activity extends AppCompatActivity {
          reset_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
-                 int PS = 0;
                  Set_Peak_Min_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
                          (R.color.dark_gray)));
                  editor.putInt("levl", 1);
-                 editor.putInt("peakscore", PS);
+                 editor.putInt("peakscore", 0);
                  editor.putInt("min_score",0);
+                 editor.putInt("current_score",0);
                  editor.commit();
                  SetText_TColors();
-                 ((TextView) findViewById(R.id.peak_score_value)).setText(Integer.toString(PS));
+                 ((TextView) findViewById(R.id.peak_score_value)).setText(Integer.toString(0));
              }
          });
 
