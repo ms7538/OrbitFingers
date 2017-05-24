@@ -150,14 +150,34 @@ tools:context=".MainMenu_Activity" >
                 android:gravity="center"
                 android:text="@string/spacer"
                 android:textColor="@color/red" />
-
-
             <Button
                 android:id="@+id/set_peak_min"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:text="@string/set_peak_min" />
+
+            <TextView
+                android:id="@+id/smp_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/set_peak_min_text" />
+
+            <TextView
+                android:id="@+id/remaining_smp_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/smp_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/red" />
 
             <Button
                 android:id="@+id/reset1"
