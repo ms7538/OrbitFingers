@@ -15,7 +15,7 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.5 Created
+//V3.6 Created-- Ready for MySQL DB integration
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
