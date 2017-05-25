@@ -61,6 +61,52 @@ tools:context=".MainMenu_Activity" >
                 android:textColor="@color/green" />
 
             <TextView
+                android:id="@+id/Peak_Score_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/peak_score_tv"
+                android:textColor="@color/green2" />
+
+            <TextView
+                android:id="@+id/peak_score_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="X"
+                android:textColor="@color/green2" />
+
+            <TextView
+                android:id="@+id/peak_score_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/green2" />
+
+            <TextView
+                android:id="@+id/min_score_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/min_score_tv" />
+
+            <TextView
+                android:id="@+id/current_min_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/min_score_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/green" />
+
+            <TextView
                 android:id="@+id/target_score_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,66 +151,6 @@ tools:context=".MainMenu_Activity" >
                 android:text="@string/spacer"
                 android:textColor="@color/red" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/peak_score_tv"
-                android:textColor="@color/green2" />
-
-            <TextView
-                android:id="@+id/peak_score_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="X"
-                android:textColor="@color/green2" />
-
-            <TextView
-                android:id="@+id/peak_score_ui"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/spacer"
-                android:textColor="@color/green2" />
-
-            <TextView
-                android:id="@+id/min_score_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/min_score_tv" />
-
-            <TextView
-                android:id="@+id/current_min_score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/x" />
-
-            <TextView
-                android:id="@+id/min_score_ui"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/spacer"
-                android:textColor="@color/green" />
-            <Button
-                android:id="@+id/set_peak_min"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/set_peak_min" />
-
-            <Button
-                android:id="@+id/reset1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/reset" />
-
-
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
@@ -173,6 +159,42 @@ tools:context=".MainMenu_Activity" >
                 android:layout_centerHorizontal="true"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+            <Button
+                android:id="@+id/set_peak_min_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="@string/set_peak_min" />
+
+            <TextView
+                android:id="@+id/smp_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/set_peak_min_text" />
+
+            <TextView
+                android:id="@+id/remaining_smp_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/smp_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/spacer"
+                android:textColor="@color/red" />
+
+            <Button
+                android:id="@+id/reset1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="@string/reset" />
+
         </LinearLayout>
     </ScrollView>
     </LinearLayout>

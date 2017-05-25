@@ -15,16 +15,17 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.5 Created
+//V3.6 Created-- Ready for MySQL DB integration
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
 
     //String  density_scale = prefs.getString("scale", "1");
-    String  max_height    = prefs.getString("max_h", "1");
-    String  max_width     = prefs.getString("max_w", "1");
-    Integer LS            = prefs.getInt("ls", 1);
-    Integer PS            = prefs.getInt("peakscore", 0);
+    String  max_height     = prefs.getString("max_h", "1");
+    String  max_width      = prefs.getString("max_w", "1");
+    Integer LS             = prefs.getInt("ls", 1);
+    Integer Peak_Score     = prefs.getInt("peakscore", 0);
+    Integer SMPs_Remaining = prefs.getInt("set_peak_min", 2);
 
 
     private int L1C         = ContextCompat.getColor(getContext(), (R.color.l1col));
@@ -36,7 +37,7 @@ public class OFView_Activity extends View {
     private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
     private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
 
-    String Peak_Score_Value = Integer.toString(PS);
+    String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
     String next_text        =  getContext().getString(R.string.level_2);
 
@@ -105,7 +106,7 @@ public class OFView_Activity extends View {
     private float FB2_xx    = (float) B2dist - 2;
 
 
-    private String L1col        = "#"+ Integer.toHexString(L1C);
+    private String Level_Color = "#"+ Integer.toHexString(L1C);
     private String L2col        = "#"+ Integer.toHexString(L2C);
     private String L3col        = "#"+ Integer.toHexString(L3C);
     private String L4col        = "#"+ Integer.toHexString(L4C);
@@ -114,9 +115,9 @@ public class OFView_Activity extends View {
     private String Red1         = "#"+ Integer.toHexString(RED);
     private String Orange       = "#"+ Integer.toHexString(ORANGE);
 
-    private String Right_Color  = L1col;
-    private String Left_Color   = L1col;
-    private String ScCo         = L1col;
+    private String Right_Color  = Level_Color;
+    private String Left_Color   = Level_Color;
+    private String ScCo         = Level_Color;
     private String score_color  = ScCo;
     private String next_color   = L2col;
     private double RotSpeed     = 1.15;
@@ -169,13 +170,13 @@ public class OFView_Activity extends View {
         paint      = new Paint();
         // Set the font face and size of drawing text
 
-        if ( PS < 1000 ) {
+        if ( Peak_Score < 1000 ) {
 
-            if(PS < 10){
+            if(Peak_Score < 10){
 
                   Peak_Value_X = (int) (.025 * Max_Width);
             }
-            else if(PS < 100){
+            else if(Peak_Score < 100){
 
                   Peak_Value_X = (int) (.018  * Max_Width);
             }
@@ -223,7 +224,7 @@ public class OFView_Activity extends View {
         draw_ball(canvas, ballBounds, B1X, Dynamic_Radius, B1y, paint, Right_Color);
         draw_ball(canvas, ballBounds, B2X, Dynamic_Radius, B2y, paint, Right_Color);
 
-        if( score == PS && score != ScoreMin){
+        if( score == Peak_Score && score != ScoreMin){
             score_color = Green1;
         }
         else if (score == ScoreMin){
@@ -242,13 +243,13 @@ public class OFView_Activity extends View {
             Score_X_Adjusted = Score_X_0_9;
         }
 
-        if ( PS < 1000 ) {
+        if ( Peak_Score < 1000 ) {
 
-            if(PS < 10){
+            if(Peak_Score < 10){
 
                 Peak_Value_X = (int) (.025 * Max_Width);
             }
-            else if(PS < 100){
+            else if(Peak_Score < 100){
 
                 Peak_Value_X = (int) (.018  * Max_Width);
             }
@@ -261,7 +262,7 @@ public class OFView_Activity extends View {
                 Score_Value_Y, Text_Length, score_color);
 
         canvas_text(canvas, (getContext().getString(R.string.level_string) + Integer.toString(LS)), Level_Ind_X,
-                                Upper_Text_Y, Text_Length, L1col);
+                                Upper_Text_Y, Text_Length, Level_Color);
 
         String Min_Text =  getContext().getString(R.string.empty);
         if (score == ScoreMin){
@@ -430,19 +431,24 @@ public class OFView_Activity extends View {
                 if ( levl < 2 ) {
                     editor.putInt("levl", 2);
                     editor.putInt("min_score", level2_min);
+                    SMPs_Remaining = SMPs_Remaining +2;
+                    editor.putInt("set_peak_min",SMPs_Remaining);
                 }
+
                 editor.putInt("scorelevel",level2_min);
                 editor.commit();
                 next_color = L3col;
-                LS         = 2;
-                next_text = getContext().getString(R.string.level_3);
+                LS               = 2;
+                next_text        = getContext().getString(R.string.level_3);
                 next_level_value = Integer.toString(level3_min);
-                L1col      = L2col;
+                Level_Color      = L2col;
+
                 if (ScoreMin  < level2_min){
-                    ScoreMin = level2_min;
+
+                    ScoreMin     = level2_min;
                 }
-                AA_min     = .975;
-                AA_max     = 1.025;
+                AA_min           = .975;
+                AA_max           = 1.025;
 
             }
 
@@ -460,20 +466,24 @@ public class OFView_Activity extends View {
                if (levl < 3) {
                    editor.putInt("levl", 3);
                    editor.putInt("min_score",level3_min);
+                   SMPs_Remaining = SMPs_Remaining +3;
+                   editor.putInt("set_peak_min",SMPs_Remaining);
                }
-                LS         = 3;
+                LS               = 3;
+                next_text        = getContext().getString(R.string.level_4);
+                next_color       = L4col;
+                next_level_value = Integer.toString(level4_min);
+                Level_Color      = L3col;
                 editor.putInt("scorelevel",level3_min);
                 editor.commit();
-                next_text = getContext().getString(R.string.level_4);
-                next_color = L4col;
-                next_level_value = Integer.toString(level4_min);
-                L1col      = L3col;
+
 
                 if (ScoreMin  < level3_min){
-                    ScoreMin = level3_min;
+
+                    ScoreMin     = level3_min;
                 }
-                AA_min     = .98;
-                AA_max     = 1.02;
+                AA_min           = .98;
+                AA_max           = 1.02;
             }
         }else if ( score >= level4_min && score < level5_min){
             ScCo = L4col;
@@ -487,21 +497,23 @@ public class OFView_Activity extends View {
                if (levl < 4) {
                    editor.putInt("levl", 4);
                    editor.putInt("min_score",level4_min);
+                   SMPs_Remaining = SMPs_Remaining +4;
+                   editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 editor.putInt("scorelevel",level4_min);
                 editor.commit();
-                next_text = getContext().getString(R.string.level_5);
-                next_color  = L5col;
+                next_text        = getContext().getString(R.string.level_5);
+                next_color       = L5col;
                 next_level_value = Integer.toString(level5_min);
-                L1col     = L4col;
+                Level_Color      = L4col;
 
                 if (ScoreMin  < level4_min){
-                    ScoreMin = level4_min;
+                    ScoreMin    = level4_min;
                 }
 
-                AA_min    = .982;
-                AA_max    = 1.018;
-                LS        = 4;
+                AA_min          = .982;
+                AA_max          = 1.018;
+                LS              = 4;
 
            }
         }else if ( score >= level5_min ){
@@ -516,21 +528,23 @@ public class OFView_Activity extends View {
                 if (levl < 5) {
                     editor.putInt("levl", 5);
                     editor.putInt("min_score",level5_min);
+                    SMPs_Remaining  = SMPs_Remaining +5;
+                    editor.putInt("set_peak_min",SMPs_Remaining);
                    }
                 editor.putInt("scorelevel",level5_min);
                 editor.commit();
-                next_text = getContext().getString(R.string.empty) ;
-                next_color = L5col;
-                next_level_value = getContext().getString(R.string.empty);
-                L1col      = L5col;
+                next_text          = getContext().getString(R.string.empty) ;
+                next_color         = L5col;
+                next_level_value   = getContext().getString(R.string.empty);
+                Level_Color        = L5col;
 
                 if (ScoreMin  < level5_min){
                     ScoreMin = level5_min;
                 }
 
-                AA_min     = .985;
-                AA_max     = 1.015;
-                LS         = 5;
+                AA_min            = .985;
+                AA_max            = 1.015;
+                LS                = 5;
             }
         }
 
@@ -553,10 +567,10 @@ public class OFView_Activity extends View {
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
-        if ((Right_Color != L1col) || Left_Color != L1col) {
+        if ((Right_Color != Level_Color) || Left_Color != Level_Color) {
             Sleep(80);
-            Right_Color = L1col;
-            Left_Color = L1col;
+            Right_Color = Level_Color;
+            Left_Color = Level_Color;
         }
     }
    private void ScoreRSpeed(){
@@ -673,10 +687,10 @@ public class OFView_Activity extends View {
 
 
    private void Peak_Score_Check(){
-       if (score > PS) {
-           PS   = score;
-           Peak_Score_Value = Integer.toString(PS);
-           editor.putInt("peakscore",PS);
+       if (score > Peak_Score) {
+           Peak_Score = score;
+           Peak_Score_Value = Integer.toString(Peak_Score);
+           editor.putInt("peakscore", Peak_Score);
            editor.commit();
        }
    }
