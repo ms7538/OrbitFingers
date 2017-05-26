@@ -51,12 +51,12 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (success) {
                                 String name = jsonResponse.getString("name");
-                                int age = jsonResponse.getInt("age");
+                                int peak_score_value = jsonResponse.getInt("age");
 
                                 Intent intent = new Intent(LoginActivity.this,
                                                                             UserAreaActivity.class);
                                 intent.putExtra("name", name);
-                                intent.putExtra("age", age);
+                                intent.putExtra("age", peak_score_value);
                                 intent.putExtra("username", username);
                                 LoginActivity.this.startActivity(intent);
                             } else {

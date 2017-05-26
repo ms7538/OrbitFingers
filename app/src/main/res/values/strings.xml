@@ -27,4 +27,6 @@
     <string name="peak_text">PEAK</string>
     <string name="level_string">LEVEL #</string>
     <string name="login_register">Sign-In / Register</string>
+    <string name="peak_score">Peak Score:</string>
+    <string name="register">Register</string>
 </resources>

@@ -28,13 +28,13 @@
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/tvAge"
+        android:id="@+id/tvPeak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Age"
+        android:text="@string/peak_score"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     <EditText
-        android:id="@+id/etAge"
+        android:id="@+id/etPeak"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
