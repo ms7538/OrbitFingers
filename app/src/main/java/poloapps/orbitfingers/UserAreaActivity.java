@@ -17,7 +17,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String username = intent.getStringExtra("username");
-        int peak = intent.getIntExtra("age", -1);
+        int peak = intent.getIntExtra("peak", -1);
 
         TextView tvWelcomeMsg   = (TextView) findViewById(R.id.tvWelcomeMsg);
         EditText etUsername     = (EditText) findViewById(R.id.etUsername);
