@@ -27,7 +27,7 @@ public class UserAreaActivity extends AppCompatActivity {
         String message = name + " welcome to your user area";
         tvWelcomeMsg.setText(message);
         etUsername.setText(username);
-        etAge.setText(age + "");
+        etAge.setText(Integer.toString(age));
 
     }
 }
