@@ -15,7 +15,7 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.6 Created-- MySQL Register / Login on Poloapps.com 
+//V3.6 Created-- MySQL Register / Login on Poloapps.com
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
