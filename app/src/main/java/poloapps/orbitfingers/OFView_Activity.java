@@ -96,7 +96,7 @@ public class OFView_Activity extends View {
     private int  CY         = Math.round(YAL);
 
     private double B1dist   = .125 * Max_Height; // orbit 1 distance
-    private double B2dist   = .25 * Max_Height; // orbit 2 distance
+    private double B2dist   = .25  * Max_Height; // orbit 2 distance
 
     private float FB1       = (float) B1dist;
     private float FB2       = (float) B2dist;
@@ -106,7 +106,7 @@ public class OFView_Activity extends View {
     private float FB2_xx    = (float) B2dist - 2;
 
 
-    private String Level_Color = "#"+ Integer.toHexString(L1C);
+    private String Level_Color  = "#"+ Integer.toHexString(L1C);
     private String L2col        = "#"+ Integer.toHexString(L2C);
     private String L3col        = "#"+ Integer.toHexString(L3C);
     private String L4col        = "#"+ Integer.toHexString(L4C);

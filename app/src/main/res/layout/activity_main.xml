@@ -187,7 +187,12 @@ tools:context=".MainMenu_Activity" >
                 android:gravity="center"
                 android:text="@string/spacer"
                 android:textColor="@color/red" />
-
+            <Button
+                android:id="@+id/login_reg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="@string/login_register" />
             <Button
                 android:id="@+id/reset1"
                 android:layout_width="match_parent"

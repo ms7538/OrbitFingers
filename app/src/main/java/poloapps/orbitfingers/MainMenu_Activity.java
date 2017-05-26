@@ -104,6 +104,20 @@ public class MainMenu_Activity extends AppCompatActivity {
          AdRequest adRequest = new AdRequest.Builder().build();
          mAdView.loadAd(adRequest);
 
+         final Button sign_in_button = (Button) findViewById(R.id.login_reg);
+         sign_in_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.light_gray)));
+         sign_in_button.setTextColor(ContextCompat.getColor(this, (R.color.navy_blue)));
+         sign_in_button.setOnClickListener(new OnClickListener() {
+             @Override
+             public void onClick(View arg0) {
+                 sign_in_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
+                         (R.color.dark_gray)));
+                 Intent myIntent = new Intent(MainMenu_Activity.this, LoginActivity.class);
+                 MainMenu_Activity.this.startActivity(myIntent);
+
+             }
+         });
+
          final Button reset_button = (Button) findViewById(R.id.reset1);
          if (peak_score_value > 0) {
              reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.red)));
