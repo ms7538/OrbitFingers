@@ -7,12 +7,12 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import static java.security.AccessController.getContext;
+
 
 public class OF_Activity extends AppCompatActivity {
 
@@ -33,8 +33,6 @@ public class OF_Activity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = mSettings.edit();
 
-        /*editor.putString( "scale", String.valueOf(this
-                .getResources().getDisplayMetrics().density/2));*/
 
         editor.putString( "max_h", String.valueOf(displayMetrics.heightPixels));
         editor.putString( "max_w", String.valueOf(displayMetrics.widthPixels));
