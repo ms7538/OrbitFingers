@@ -29,4 +29,10 @@
     <string name="login_register">Sign-In / Register</string>
     <string name="peak_score">Peak Score:</string>
     <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register_here">Register Here</string>
+    <string name="name">Name</string>
+    <string name="welcome">Welcome</string>
 </resources>
