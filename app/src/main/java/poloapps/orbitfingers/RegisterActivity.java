@@ -18,6 +18,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 public class RegisterActivity extends AppCompatActivity {
 
     @Override
@@ -31,13 +33,19 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button   bRegister  = (Button) findViewById(R.id.bRegister);
         final TextView tvPeak_Value = (TextView) findViewById(R.id.tv_peak_value);
-        tvPeak_Value.setText((mSettings.getInt("peakscore", 0)) +"");
+        final TextView tvMin_Value = (TextView) findViewById(R.id.tv_min_score_value);
+
+        tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore", 0)));
+
+        tvMin_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("min_score", 0)));
+
+
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String name     = etName.getText().toString();
                 final String username = etUsername.getText().toString();
-                final int peak        =  mSettings.getInt("peakscore", 0);
+                final int peak        = mSettings.getInt("peakscore", 0);
                 final String password = etPassword.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -69,34 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
 
-                android.support.v7.app.ActionBar bar = getSupportActionBar();
 
-                bar.setTitle("ORBITFINGERS REGISTRATION");
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainMenu_Activity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        super.startActivity(intent);
-        return;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
