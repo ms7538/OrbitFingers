@@ -55,11 +55,13 @@ public class LoginActivity extends AppCompatActivity {
                             if (success) {
                                 String name = jsonResponse.getString("name");
                                 int peak_score_value = jsonResponse.getInt("peak");
+                                int min_score_value = jsonResponse.getInt("min");
 
                                 Intent intent = new Intent(LoginActivity.this,
                                                                             UserAreaActivity.class);
                                 intent.putExtra("name", name);
                                 intent.putExtra("peak", peak_score_value);
+                                intent.putExtra("min", min_score_value);
                                 intent.putExtra("username", username);
                                 LoginActivity.this.startActivity(intent);
                             } else {
@@ -96,15 +98,11 @@ public class LoginActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         super.startActivity(intent);
-        return;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 }
