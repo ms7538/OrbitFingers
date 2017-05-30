@@ -60,9 +60,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this,
                                                                             UserAreaActivity.class);
                                 intent.putExtra("name", name);
+                                intent.putExtra("username", username);
                                 intent.putExtra("peak", peak_score_value);
                                 intent.putExtra("min", min_score_value);
-                                intent.putExtra("username", username);
                                 LoginActivity.this.startActivity(intent);
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(
