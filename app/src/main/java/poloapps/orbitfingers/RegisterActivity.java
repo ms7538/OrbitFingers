@@ -34,12 +34,11 @@ public class RegisterActivity extends AppCompatActivity {
         final Button   bRegister          = (Button) findViewById(R.id.bRegister);
         final TextView tvPeak_Value       = (TextView) findViewById(R.id.tv_peak_value);
         final TextView tvMin_Value        = (TextView) findViewById(R.id.tv_min_score_value);
+        final TextView tvSMPs_Value       = (TextView) findViewById(R.id.tv_smp_rem);
 
         tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore", 0)));
-
         tvMin_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("min_score", 0)));
-
-
+        tvSMPs_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("set_peak_min", 0)));
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
