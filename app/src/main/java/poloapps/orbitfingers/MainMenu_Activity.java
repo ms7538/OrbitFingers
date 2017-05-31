@@ -21,7 +21,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
-
+//V3.6c created
 public class MainMenu_Activity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
