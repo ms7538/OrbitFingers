@@ -37,4 +37,5 @@
     <string name="welcome">Welcome</string>
     <string name="reg">Register:</string>
     <string name="min_score">Min Score:</string>
+    <string name="smps_remaining">SMPs Remaining:</string>
 </resources>

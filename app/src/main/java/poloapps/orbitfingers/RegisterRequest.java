@@ -10,7 +10,7 @@ public class RegisterRequest extends StringRequest {
     private static final String REGISTER_REQUEST_URL = "http://www.poloapps.com/Register.php";
     private Map<String, String> params;
 
-    public RegisterRequest(String name, String username, int peak, int min,
+    public RegisterRequest(String name, String username, int peak, int min, int smp,
                                             String password, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
@@ -18,6 +18,7 @@ public class RegisterRequest extends StringRequest {
         params.put("username", username);
         params.put("peak", peak + "");
         params.put("min", min + "");
+        params.put("smp", smp + "");
         params.put("password", password);
     }
 

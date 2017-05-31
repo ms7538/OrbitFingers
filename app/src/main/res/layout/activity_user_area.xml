@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+      />
     <TextView
         android:id="@+id/tvMin"
         android:layout_width="wrap_content"
@@ -50,6 +50,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        />
 
+    <TextView
+        android:id="@+id/tvSMP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/smps_remaining"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    <EditText
+        android:id="@+id/etSMP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        />
 </LinearLayout>

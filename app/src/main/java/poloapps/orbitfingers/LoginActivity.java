@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
+        assert bar != null;
         bar.setTitle("Login");
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String name = jsonResponse.getString("name");
                                 int peak_score_value = jsonResponse.getInt("peak");
                                 int min_score_value = jsonResponse.getInt("min");
+                                int set_min_peak_rem = jsonResponse.getInt("smp");
 
                                 Intent intent = new Intent(LoginActivity.this,
                                                                             UserAreaActivity.class);
@@ -63,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("username", username);
                                 intent.putExtra("peak", peak_score_value);
                                 intent.putExtra("min", min_score_value);
+                                intent.putExtra("smp", set_min_peak_rem);
                                 LoginActivity.this.startActivity(intent);
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(
