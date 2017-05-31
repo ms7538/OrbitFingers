@@ -15,12 +15,11 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.6 Created-- MySQL Register / Login on Poloapps.com
+//V3.6b
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
 
-    //String  density_scale = prefs.getString("scale", "1");
     String  max_height     = prefs.getString("max_h", "1");
     String  max_width      = prefs.getString("max_w", "1");
     Integer LS             = prefs.getInt("ls", 1);
@@ -41,7 +40,7 @@ public class OFView_Activity extends View {
     String next_level_value = "100";
     String next_text        =  getContext().getString(R.string.level_2);
 
-    //float  scale_factor     = Float.parseFloat(density_scale);
+
     double Max_Height       = Double.parseDouble(max_height); // max y (height)
     double Max_Width        = Double.parseDouble(max_width); //max x (width)
 

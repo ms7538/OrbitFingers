@@ -25,6 +25,7 @@ public class OF_Activity extends AppCompatActivity {
 
         android.support.v7.app.ActionBar bar = getSupportActionBar();
 
+        assert bar != null;
         bar.setTitle("ORBITFINGERS");
 
 
@@ -36,7 +37,7 @@ public class OF_Activity extends AppCompatActivity {
 
         editor.putString( "max_h", String.valueOf(displayMetrics.heightPixels));
         editor.putString( "max_w", String.valueOf(displayMetrics.widthPixels));
-        editor.commit();
+        editor.apply();
 
         View view = new OFView_Activity(getApplicationContext());
         setContentView(view);
@@ -55,15 +56,11 @@ public class OF_Activity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         super.startActivity(intent);
-        return;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 }

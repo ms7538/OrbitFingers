@@ -28,12 +28,12 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-        final EditText etName = (EditText) findViewById(R.id.etName);
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button   bRegister  = (Button) findViewById(R.id.bRegister);
-        final TextView tvPeak_Value = (TextView) findViewById(R.id.tv_peak_value);
-        final TextView tvMin_Value = (TextView) findViewById(R.id.tv_min_score_value);
+        final EditText etName             = (EditText) findViewById(R.id.etName);
+        final EditText etUsername         = (EditText) findViewById(R.id.etUsername);
+        final EditText etPassword         = (EditText) findViewById(R.id.etPassword);
+        final Button   bRegister          = (Button) findViewById(R.id.bRegister);
+        final TextView tvPeak_Value       = (TextView) findViewById(R.id.tv_peak_value);
+        final TextView tvMin_Value        = (TextView) findViewById(R.id.tv_min_score_value);
 
         tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore", 0)));
 

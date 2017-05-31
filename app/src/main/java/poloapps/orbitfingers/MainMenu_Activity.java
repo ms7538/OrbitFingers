@@ -23,7 +23,6 @@ import com.google.android.gms.ads.AdView;
 import java.util.Locale;
 
 public class MainMenu_Activity extends AppCompatActivity {
-    //InterstitialAd mInterstitialAd;
      @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -35,20 +34,6 @@ public class MainMenu_Activity extends AppCompatActivity {
 
 
          final Integer peak_score_value = mSettings.getInt("peakscore", 0);
-
- /*        Log.i("M123A", Integer.toString(current_level));
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-6002737231550640/9358444811");
-        requestNewInterstitial();
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-                Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
-                MainMenu_Activity.this.startActivity(myIntent);
-            }
-        });*/
-
 
          Button how_to_button = (Button) findViewById(R.id.how_to_btn);
          how_to_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.orange)));
@@ -69,7 +54,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                     Integer SMPs_Remaining =  set_peak_min_remaining - 1;
                     editor.putInt("set_peak_min",SMPs_Remaining);
                     editor.putInt("min_score",peak_score_value);
-                    editor.commit();
+                    editor.apply();
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
@@ -403,7 +388,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                 penalty_text_value.setText(String.format(Locale.US,"%d",L5_Penalty));
                 break;
         }
-        editor.commit();
+        editor.apply();
     }
 
     @Override
@@ -412,19 +397,9 @@ public class MainMenu_Activity extends AppCompatActivity {
         return true;
     }
     private void launch_level(){
-//        if (mInterstitialAd.isLoaded()) {
-//            mInterstitialAd.show();
-//        } else {
         Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
         MainMenu_Activity.this.startActivity(myIntent);
-    //    }
     }
-//    private void requestNewInterstitial() {
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .build();
-//
-//        mInterstitialAd.loadAd(adRequest);
-//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
