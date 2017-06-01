@@ -6,12 +6,7 @@
     tools:context=".UserAreaActivity"
     >
 
-    <TextView
-        android:id="@+id/tvWelcomeMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    
 
     <TextView
         android:id="@+id/tvUsername"
@@ -20,12 +15,6 @@
         android:text="@string/username"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/tvPeak"
@@ -33,24 +22,14 @@
         android:layout_height="wrap_content"
         android:text="@string/peak_score"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-    <EditText
-        android:id="@+id/etPeak"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-      />
+
     <TextView
         android:id="@+id/tvMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/min_score"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-    <EditText
-        android:id="@+id/etMin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        />
+
 
     <TextView
         android:id="@+id/tvSMP"
@@ -58,10 +37,5 @@
         android:layout_height="wrap_content"
         android:text="@string/smps_remaining"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-    <EditText
-        android:id="@+id/etSMP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        />
+
 </LinearLayout>
