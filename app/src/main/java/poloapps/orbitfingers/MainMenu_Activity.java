@@ -21,26 +21,27 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
+
+import static java.security.AccessController.getContext;
+
 //V3.6c created
 public class MainMenu_Activity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.activity_main); //sets activity_main xml file
-         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-         final SharedPreferences.Editor editor = mSettings.edit();
-         Integer min_score_value = mSettings.getInt("min_score",0);
-         final Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",2);
+         final   SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
+         final   SharedPreferences.Editor editor  = mSettings.edit();
+         Integer min_score_value                  = mSettings.getInt         ("min_score",0);
+         final   Integer set_peak_min_remaining   = mSettings.getInt         ("set_peak_min",2);
+         final   Integer peak_score_value         = mSettings.getInt         ("peakscore", 0);
+         final   Boolean logged_in                = mSettings.getBoolean     ("Signed_In", false);
+         final   String username                  = mSettings.getString      ("current_user","");
 
-
-         final Integer peak_score_value = mSettings.getInt("peakscore", 0);
-
-         Button how_to_button = (Button) findViewById(R.id.how_to_btn);
+         Button how_to_button              = (Button) findViewById(R.id.how_to_btn);
          how_to_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.orange)));
-
-         final Button play_btn = (Button) findViewById(R.id.play_btn);
-
-         final Button Set_Peak_Min_btn = (Button) findViewById(R.id.set_peak_min_button);
+         final Button play_btn             = (Button) findViewById(R.id.play_btn);
+         final Button Set_Peak_Min_btn     = (Button) findViewById(R.id.set_peak_min_button);
 
         if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
 
@@ -92,16 +93,30 @@ public class MainMenu_Activity extends AppCompatActivity {
          mAdView.loadAd(adRequest);
 
          final Button sign_in_button = (Button) findViewById(R.id.login_reg);
-         sign_in_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.light_gray)));
-         sign_in_button.setTextColor(ContextCompat.getColor(this, (R.color.navy_blue)));
+
+         if(!logged_in) {
+             sign_in_button.setText(this.getString(R.string.login_register));
+             sign_in_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.light_gray)));
+             sign_in_button.setTextColor(ContextCompat.getColor(this, (R.color.navy_blue)));
+         }
+         else{
+             sign_in_button.setText(username);
+             sign_in_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.navy_blue)));
+             sign_in_button.setTextColor(ContextCompat.getColor(this, (R.color.light_gray)));
+         }
          sign_in_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
                  sign_in_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
                          (R.color.dark_gray)));
+                 sign_in_button.setTextColor(ContextCompat.getColor(getApplicationContext(),
+                                                                             (R.color.light_gray)));
                  Intent myIntent = new Intent(MainMenu_Activity.this, LoginActivity.class);
-                 MainMenu_Activity.this.startActivity(myIntent);
 
+                 if(logged_in) {
+                     myIntent = new Intent(MainMenu_Activity.this, UserAreaActivity.class);
+                 }
+                 MainMenu_Activity.this.startActivity(myIntent);
              }
          });
 
@@ -115,11 +130,12 @@ public class MainMenu_Activity extends AppCompatActivity {
                              getColor(getApplicationContext(), (R.color.navy_blue)));
                      Set_Peak_Min_btn.setBackgroundColor(
                              ContextCompat.getColor(getApplicationContext(), (R.color.dark_gray)));
-                     editor.putInt("levl", 1);
-                     editor.putInt("peakscore", 0);
-                     editor.putInt("min_score", 0);
-                     editor.putInt("current_score", 0);
-                     editor.putInt("set_peak_min", 2);
+                     editor.putInt    ("levl", 1);
+                     editor.putInt    ("peakscore", 0);
+                     editor.putInt    ("min_score", 0);
+                     editor.putInt    ("current_score", 0);
+                     editor.putInt    ("set_peak_min", 2);
+                     editor.putBoolean("Signed_In", false);
                      editor.commit();
                      SetText_TColors();
                      ((TextView) findViewById(R.id.peak_score_value)).setText
@@ -150,40 +166,38 @@ public class MainMenu_Activity extends AppCompatActivity {
         final int L4_Penalty = 15;
         final int L5_Penalty = 20;
 
-        SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        SharedPreferences mSettings           = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
+
         Integer Min_Score_Value = mSettings.getInt("min_score",0);
         Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",2);
-        Integer current_level= mSettings.getInt("levl", 1);
-        Button how_to_button = (Button) findViewById(R.id.how_to_btn);
+        Integer current_level          = mSettings.getInt("levl", 1);
+        Button how_to_button           = (Button) findViewById(R.id.how_to_btn);
         how_to_button.setBackgroundColor(ContextCompat.getColor(this,(R.color.orange)));
-        final Button play_btn = (Button) findViewById(R.id.play_btn);
-        Button reset_button = (Button) findViewById(R.id.reset1);
-        Button Set_Peak_Min_btn = (Button) findViewById(R.id.set_peak_min_button);
-        TextView current_level_text = (TextView) findViewById(R.id.current_level_text_view);
-        TextView level_current = (TextView) findViewById(R.id.current_level);
-        TextView level_current_ui = (TextView) findViewById(R.id.current_level_ui);
-        TextView min_score_text = (TextView) findViewById(R.id.min_score_text_view);
-        TextView min_score_value = (TextView) findViewById(R.id.current_min_score);
-        TextView min_score_ui = (TextView) findViewById(R.id.min_score_ui);
-        TextView target_score_text = (TextView) findViewById(R.id.target_score_text_view);
-        TextView target_score_ui = (TextView) findViewById(R.id.target_score_ui);
-        TextView target_score = (TextView) findViewById(R.id.current_target_score);
-        TextView penalty_text = (TextView) findViewById(R.id.penalty_text_view);
-        TextView SMPs_remaining_text = (TextView) findViewById(R.id.smp_text_view);
-        TextView SMPs_remaining_value = (TextView) findViewById(R.id.remaining_smp_value);
-        TextView SMPs_ui = (TextView) findViewById(R.id.smp_ui);
+        final Button play_btn          = (Button) findViewById(R.id.play_btn);
+        Button reset_button            = (Button) findViewById(R.id.reset1);
+        Button Set_Peak_Min_btn        = (Button) findViewById(R.id.set_peak_min_button);
+        TextView current_level_text    = (TextView) findViewById(R.id.current_level_text_view);
+        TextView level_current         = (TextView) findViewById(R.id.current_level);
+        TextView level_current_ui      = (TextView) findViewById(R.id.current_level_ui);
+        TextView min_score_text        = (TextView) findViewById(R.id.min_score_text_view);
+        TextView min_score_value       = (TextView) findViewById(R.id.current_min_score);
+        TextView min_score_ui          = (TextView) findViewById(R.id.min_score_ui);
+        TextView target_score_text     = (TextView) findViewById(R.id.target_score_text_view);
+        TextView target_score_ui       = (TextView) findViewById(R.id.target_score_ui);
+        TextView target_score          = (TextView) findViewById(R.id.current_target_score);
+        TextView penalty_text          = (TextView) findViewById(R.id.penalty_text_view);
+        TextView SMPs_remaining_text   = (TextView) findViewById(R.id.smp_text_view);
+        TextView SMPs_remaining_value  = (TextView) findViewById(R.id.remaining_smp_value);
+        TextView SMPs_ui               = (TextView) findViewById(R.id.smp_ui);
         penalty_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.red)));
-        TextView penalty_text_value = (TextView) findViewById(R.id.current_penalty);
+        TextView penalty_text_value    = (TextView) findViewById(R.id.current_penalty);
         reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.red)));
         penalty_text_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
                                                                                 (R.color.red)));
 
         SMPs_remaining_value.setText(String.format(Locale.US,"%d",set_peak_min_remaining));
-
-
         level_current.setText(String.format(Locale.US,"%d",current_level));
-
         min_score_value.setText(String.format(Locale.US,"%d",Min_Score_Value));
 
 

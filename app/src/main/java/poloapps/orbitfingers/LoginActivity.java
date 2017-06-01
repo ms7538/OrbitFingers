@@ -23,14 +23,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        assert bar != null;
+        bar.setTitle("Login");
 
         final EditText etUsername = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
-        android.support.v7.app.ActionBar bar = getSupportActionBar();
-        assert bar != null;
-        bar.setTitle("Login");
+
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
