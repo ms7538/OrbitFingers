@@ -37,14 +37,14 @@ public class UserAreaActivity extends AppCompatActivity {
             editor.apply();
         }
 
-        TextView tvWelcomeMsg   = (TextView) findViewById(R.id.tvWelcomeMsg);
+        //TextView tvWelcomeMsg   = (TextView) findViewById(R.id.tvWelcomeMsg);
       /*  EditText etUsername     = (EditText) findViewById(R.id.etUsername);
         EditText etPeak_display = (EditText) findViewById(R.id.etPeak);
         EditText etMin_display  = (EditText) findViewById(R.id.etMin);
         EditText etSMP_display  = (EditText) findViewById(R.id.etSMP);*/
         // Display user details
         String message = name + " welcome to your user area";
-        tvWelcomeMsg.setText(message);
+        //tvWelcomeMsg.setText(message);
       //  etUsername.setText(username);
         //etPeak_display.setText(String.format(Locale.US,"%d",peak));
         //etMin_display.setText(String.format(Locale.US,"%d",min));

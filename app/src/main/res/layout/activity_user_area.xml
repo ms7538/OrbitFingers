@@ -1,41 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserAreaActivity"
     >
 
-    
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/username"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button5"
+                style="?attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSMP"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
+                android:text="=="
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvSMP"
+                android:layout_alignBottom="@+id/tvSMP"
+                android:layout_alignLeft="@+id/tv_Min_Device_value"
+                android:layout_alignStart="@+id/tv_Min_Device_value"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/tv_Peak_Device_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvPeak"
+                android:layout_alignBottom="@+id/tvPeak"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:text="@string/username"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
 
-    <TextView
-        android:id="@+id/tvPeak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/peak_score"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            <TextView
+                android:id="@+id/tvPeak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/peak_score"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_below="@+id/tvUsername"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/tvMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/min_score"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            <TextView
+                android:id="@+id/tvMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/min_score"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_marginTop="22dp"
+                android:layout_below="@+id/tvPeak"
+                android:layout_alignRight="@+id/tvUsername"
+                android:layout_alignEnd="@+id/tvUsername" />
 
 
-    <TextView
-        android:id="@+id/tvSMP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/smps_remaining"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            <TextView
+                android:id="@+id/tvSMP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:text="@string/smps_remaining"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:layout_below="@+id/tvMin"
+                android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvPeak"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="26dp"
+                android:layout_marginStart="26dp"
+                android:text="Device" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvPeak"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="34dp"
+                android:layout_marginRight="34dp"
+                android:text="Server" />
+
+            <TextView
+                android:id="@+id/tv_Min_Device_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvSMP"
+                android:layout_alignLeft="@+id/tv_Peak_Device_value"
+                android:layout_alignStart="@+id/tv_Peak_Device_value"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvPeak"
+                android:layout_alignBottom="@+id/tvPeak"
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_alignRight="@+id/textView2"
+                android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvSMP"
+                android:layout_alignLeft="@+id/textView9"
+                android:layout_alignStart="@+id/textView9"
+                android:text="@string/x" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvSMP"
+                android:layout_alignBottom="@+id/tvSMP"
+                android:layout_alignLeft="@+id/textView11"
+                android:layout_alignStart="@+id/textView11"
+                android:text="@string/x" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
