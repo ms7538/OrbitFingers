@@ -39,4 +39,6 @@
     <string name="min_score">Min Score:</string>
     <string name="smps_remaining">SMPs Remaining:</string>
     <string name="val">VAL</string>
+    <string name="device">Device</string>
+    <string name="server">Server</string>
 </resources>

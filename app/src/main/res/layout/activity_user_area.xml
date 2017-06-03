@@ -18,7 +18,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/device_server_button"
                 style="?attr/buttonStyleSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,14 +30,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tv_Device_SMP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tvSMP"
-                android:layout_alignBottom="@+id/tvSMP"
+                android:text="@string/x"
+                android:layout_above="@+id/device_server_button"
                 android:layout_alignLeft="@+id/tv_Min_Device_value"
-                android:layout_alignStart="@+id/tv_Min_Device_value"
-                android:text="@string/x" />
+                android:layout_alignStart="@+id/tv_Min_Device_value" />
 
             <TextView
                 android:id="@+id/tv_Peak_Device_value"
@@ -45,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tvPeak"
                 android:layout_alignBottom="@+id/tvPeak"
-                android:layout_alignLeft="@+id/textView"
-                android:layout_alignStart="@+id/textView"
+                android:layout_alignLeft="@+id/tv_Device"
+                android:layout_alignStart="@+id/tv_Device"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:text="@string/x" />
@@ -88,14 +87,14 @@
                 android:id="@+id/tvSMP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/smps_remaining"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:layout_below="@+id/tvMin"
                 android:layout_centerHorizontal="true" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_Device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvPeak"
@@ -103,10 +102,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="26dp"
                 android:layout_marginStart="26dp"
-                android:text="Device" />
+                android:text="@string/device" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_Server"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvPeak"
@@ -114,7 +113,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="34dp"
                 android:layout_marginRight="34dp"
-                android:text="Server" />
+                android:text="@string/server" />
 
             <TextView
                 android:id="@+id/tv_Min_Device_value"
@@ -126,34 +125,34 @@
                 android:text="@string/x" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tv_Server_Peak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tvPeak"
                 android:layout_alignBottom="@+id/tvPeak"
-                android:layout_alignEnd="@+id/textView2"
-                android:layout_alignRight="@+id/textView2"
+                android:layout_alignEnd="@+id/tv_Server"
+                android:layout_alignRight="@+id/tv_Server"
                 android:layout_marginEnd="13dp"
                 android:layout_marginRight="13dp"
                 android:text="@string/x" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/tv_Server_Min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvSMP"
-                android:layout_alignLeft="@+id/textView9"
-                android:layout_alignStart="@+id/textView9"
+                android:layout_alignLeft="@+id/tv_Server_Peak"
+                android:layout_alignStart="@+id/tv_Server_Peak"
                 android:text="@string/x" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tv_Server_SMP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tvSMP"
                 android:layout_alignBottom="@+id/tvSMP"
-                android:layout_alignLeft="@+id/textView11"
-                android:layout_alignStart="@+id/textView11"
+                android:layout_alignLeft="@+id/tv_Server_Min"
+                android:layout_alignStart="@+id/tv_Server_Min"
                 android:text="@string/x" />
 
 

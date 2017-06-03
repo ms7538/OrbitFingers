@@ -21,34 +21,48 @@ public class UserAreaActivity extends AppCompatActivity {
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String username = intent.getStringExtra("username");
 
 
-        int peak = intent.getIntExtra("peak", -1);
-        int min = intent.getIntExtra("min", -1);
-        int smp = intent.getIntExtra("smp", -1);
 
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
+
         if (!logged_in){
+
+            Intent intent = getIntent();
+            String name = intent.getStringExtra("name");
+            String username = intent.getStringExtra("username");
+            int peak = intent.getIntExtra("peak", -1);
+            int min = intent.getIntExtra("min", -1);
+            int smp = intent.getIntExtra("smp", -1);
             editor.putString("current_user",username);
             editor.putBoolean("Signed_In", true);
+            editor.putInt("peak_server",peak);
+            editor.putInt("min_server",min);
+            editor.putInt("smp_server",smp);
             editor.apply();
         }
+        Integer min_score_device    = mSettings.getInt("min_score",0);
+        Integer smp_device          = mSettings.getInt("set_peak_min",2);
+        Integer peak_score_device   = mSettings.getInt("peakscore", 0);
+        Integer min_score_server    = mSettings.getInt("min_server",0);
+        Integer smp_server          = mSettings.getInt("smp_server",0);
+        Integer peak_score_server   = mSettings.getInt("peak_server", 0);
 
-        //TextView tvWelcomeMsg   = (TextView) findViewById(R.id.tvWelcomeMsg);
-      /*  EditText etUsername     = (EditText) findViewById(R.id.etUsername);
-        EditText etPeak_display = (EditText) findViewById(R.id.etPeak);
-        EditText etMin_display  = (EditText) findViewById(R.id.etMin);
-        EditText etSMP_display  = (EditText) findViewById(R.id.etSMP);*/
-        // Display user details
-        String message = name + " welcome to your user area";
-        //tvWelcomeMsg.setText(message);
-      //  etUsername.setText(username);
-        //etPeak_display.setText(String.format(Locale.US,"%d",peak));
-        //etMin_display.setText(String.format(Locale.US,"%d",min));
-        //etSMP_display.setText(String.format(Locale.US,"%d",smp));
+        TextView tv_Device_Peak_value  = (TextView) findViewById(R.id.tv_Peak_Device_value);
+        TextView tv_Device_Min_value   = (TextView) findViewById(R.id.tv_Min_Device_value);
+        TextView tv_Device_SMP_value   = (TextView) findViewById(R.id.tv_Device_SMP);
+
+        TextView tv_Server_Peak_value  = (TextView) findViewById(R.id.tv_Server_Peak);
+        TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
+        TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
+
+        tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
+        tv_Device_Min_value.setText(String.format(Locale.US,"%d",min_score_device));
+        tv_Device_SMP_value.setText(String.format(Locale.US,"%d",smp_device));
+        tv_Server_Peak_value.setText(String.format(Locale.US,"%d",peak_score_server));
+        tv_Server_Min_value.setText(String.format(Locale.US,"%d",min_score_server));
+        tv_Server_SMP_value.setText(String.format(Locale.US,"%d",smp_server));
+
     }
 
     @Override
