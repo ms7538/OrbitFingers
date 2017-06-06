@@ -189,10 +189,10 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer Min_Score_Value = mSettings.getInt("min_score",0);
         Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",2);
         Integer current_level          = mSettings.getInt("levl", 1);
-        Button how_to_button           = (Button) findViewById(R.id.how_to_btn);
-        final Button play_btn          = (Button) findViewById(R.id.play_btn);
-        Button reset_button            = (Button) findViewById(R.id.reset1);
-        Button Set_Peak_Min_btn        = (Button) findViewById(R.id.set_peak_min_button);
+        Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
+        final Button play_btn          = (Button)   findViewById(R.id.play_btn);
+        Button reset_button            = (Button)   findViewById(R.id.reset1);
+        Button Set_Peak_Min_btn        = (Button)   findViewById(R.id.set_peak_min_button);
         TextView current_level_text    = (TextView) findViewById(R.id.current_level_text_view);
         TextView level_current         = (TextView) findViewById(R.id.current_level);
         TextView level_current_ui      = (TextView) findViewById(R.id.current_level_ui);
@@ -242,10 +242,10 @@ public class MainMenu_Activity extends AppCompatActivity {
                 min_score_ui.setTextColor(L1_Color);
                 min_score_value.setTextColor(L1_Color);
                 level_current.setTextColor(L1_Color);
-                target_score.setText(String.format(Locale.US,"%d",L1_Target_Score));
                 target_score_text.setText(R.string.target_score_tv);
                 target_score.setTextColor(L2_Color);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L1_Penalty));
+                target_score.setText(String.format(Locale.US,"%d",L1_Target_Score));
                 break;
 
             case 2:
@@ -258,9 +258,9 @@ public class MainMenu_Activity extends AppCompatActivity {
                 target_score_ui.setTextColor(L3_Color);
                 min_score_ui.setTextColor(L2_Color);
                 min_score_value.setTextColor(L2_Color);
-                target_score.setText(String.format(Locale.US,"%d",L2_Target_Score));
                 target_score.setTextColor(L3_Color);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L2_Penalty));
+                target_score.setText(String.format(Locale.US,"%d",L2_Target_Score));
                 break;
 
             case 3:
@@ -274,8 +274,8 @@ public class MainMenu_Activity extends AppCompatActivity {
                 level_current_ui.setTextColor(L3_Color);
                 target_score_ui.setTextColor(L4_Color);
                 min_score_ui.setTextColor(L3_Color);
-                target_score.setText(String.format(Locale.US,"%d",L3_Target_Score));
                 target_score.setTextColor(L4_Color);
+                target_score.setText(String.format(Locale.US,"%d",L3_Target_Score));
                 penalty_text_value.setText(String.format(Locale.US,"%d",L3_Penalty));
                 break;
 
@@ -290,8 +290,8 @@ public class MainMenu_Activity extends AppCompatActivity {
                 level_current_ui.setTextColor(L4_Color);
                 target_score_ui.setTextColor(L5_Color);
                 min_score_ui.setTextColor(L4_Color);
-                target_score.setText(String.format(Locale.US,"%d",L4_Target_Score));
                 target_score.setTextColor(L5_Color);
+                target_score.setText(String.format(Locale.US,"%d",L4_Target_Score));
                 penalty_text_value.setText(String.format(Locale.US,"%d",L4_Penalty));
                 break;
 

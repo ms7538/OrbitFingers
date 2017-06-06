@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,7 +30,6 @@ public class UserAreaActivity extends AppCompatActivity {
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
 
         if (!logged_in){
-
             Intent intent = getIntent();
             String name = intent.getStringExtra("name");
             String username = intent.getStringExtra("username");
@@ -38,6 +38,7 @@ public class UserAreaActivity extends AppCompatActivity {
             int smp = intent.getIntExtra("smp", -1);
             editor.putString("current_user",username);
             editor.putBoolean("Signed_In", true);
+
             editor.putInt("peak_server",peak);
             editor.putInt("min_server",min);
             editor.putInt("smp_server",smp);
@@ -59,19 +60,19 @@ public class UserAreaActivity extends AppCompatActivity {
         TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
         TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
 
-        Button Device_Set_Button       = (Button) findViewById((R.id.device_set_button));
-        Button Server_Set_Button       = (Button) findViewById((R.id.server_set_button));
+        Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
+        Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
 
         tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
-        tv_Device_Min_value.setText(String.format(Locale.US,"%d",min_score_device));
-        tv_Device_SMP_value.setText(String.format(Locale.US,"%d",smp_device));
+        tv_Device_Min_value.setText (String.format(Locale.US,"%d",min_score_device));
+        tv_Device_SMP_value.setText (String.format(Locale.US,"%d",smp_device));
 
         tv_Server_Peak_value.setText(String.format(Locale.US,"%d",peak_score_server));
-        tv_Server_Min_value.setText(String.format(Locale.US,"%d",min_score_server));
-        tv_Server_SMP_value.setText(String.format(Locale.US,"%d",smp_server));
+        tv_Server_Min_value.setText (String.format(Locale.US,"%d",min_score_server));
+        tv_Server_SMP_value.setText (String.format(Locale.US,"%d",smp_server));
 
 
-        Integer Navy_Blue    =  ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
+        Integer Navy_Blue    = ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
         Integer Dark_Gray    = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
 
         Integer Device_Set_Color = Dark_Gray;
@@ -80,6 +81,21 @@ public class UserAreaActivity extends AppCompatActivity {
         if ( peak_score_device < peak_score_server){
 
             Device_Set_Color = Navy_Blue;
+            Device_Set_Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+
+                    editor.putInt("peakscore",   mSettings.getInt("peak_server",0));
+                    editor.putInt("min_score",   mSettings.getInt("min_server", 0));
+                    editor.putInt("set_peak_min",mSettings.getInt("smp_server", 0));
+                    editor.apply();
+
+                    //Restart Current Activity
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+            });
 
         }
         else if (peak_score_device > peak_score_server){
@@ -89,6 +105,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
         Device_Set_Button.setBackgroundColor(Device_Set_Color);
         Server_Set_Button.setBackgroundColor(Server_Set_Color);
+
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
