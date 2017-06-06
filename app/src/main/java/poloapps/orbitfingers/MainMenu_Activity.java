@@ -38,19 +38,30 @@ public class MainMenu_Activity extends AppCompatActivity {
          final   Boolean logged_in                = mSettings.getBoolean     ("Signed_In", false);
          final   String username                  = mSettings.getString      ("current_user","");
 
+         final Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),
+                                                                               (R.color.navy_blue));
+         Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+         Integer Green       = ContextCompat.getColor(getApplicationContext(),(R.color.green));
+         Integer Red         = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+
+         final Integer Dark_Gray   = ContextCompat.getColor(getApplicationContext(),
+                                                                               (R.color.dark_gray));
+         final Integer Light_Gray   = ContextCompat.getColor(getApplicationContext(),
+                                                                              (R.color.light_gray));
+
          Button how_to_button              = (Button) findViewById(R.id.how_to_btn);
-         how_to_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.orange)));
          final Button play_btn             = (Button) findViewById(R.id.play_btn);
          final Button Set_Peak_Min_btn     = (Button) findViewById(R.id.set_peak_min_button);
 
-        if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
+         how_to_button.setBackgroundColor(Orange);
 
-            Set_Peak_Min_btn.setBackgroundColor(ContextCompat.getColor(this, (R.color.green)));
+         if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
+
+            Set_Peak_Min_btn.setBackgroundColor(Green);
             Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    Set_Peak_Min_btn.setBackgroundColor(ContextCompat.
-                            getColor(getApplicationContext(), (R.color.navy_blue)));
+                    Set_Peak_Min_btn.setBackgroundColor(Navy_Blue);
 
                     Integer SMPs_Remaining =  set_peak_min_remaining - 1;
                     editor.putInt("set_peak_min",SMPs_Remaining);
@@ -65,7 +76,7 @@ public class MainMenu_Activity extends AppCompatActivity {
 
         }
         else{
-            Set_Peak_Min_btn.setBackgroundColor(ContextCompat.getColor(this, (R.color.dark_gray)));
+            Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
         }
 
          SetText_TColors();
@@ -81,8 +92,7 @@ public class MainMenu_Activity extends AppCompatActivity {
          play_btn.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
-                 play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                         (R.color.dark_gray)));
+                 play_btn.setBackgroundColor(Dark_Gray);
                  launch_level();
              }
          });
@@ -96,21 +106,19 @@ public class MainMenu_Activity extends AppCompatActivity {
 
          if(!logged_in) {
              sign_in_button.setText(this.getString(R.string.login_register));
-             sign_in_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.light_gray)));
-             sign_in_button.setTextColor(ContextCompat.getColor(this, (R.color.navy_blue)));
+             sign_in_button.setBackgroundColor(Light_Gray);
+             sign_in_button.setTextColor(Navy_Blue);
          }
          else{
              sign_in_button.setText(username);
-             sign_in_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.navy_blue)));
-             sign_in_button.setTextColor(ContextCompat.getColor(this, (R.color.light_gray)));
+             sign_in_button.setBackgroundColor(Navy_Blue);
+             sign_in_button.setTextColor(Light_Gray);
          }
          sign_in_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
-                 sign_in_button.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                         (R.color.dark_gray)));
-                 sign_in_button.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                             (R.color.light_gray)));
+                 sign_in_button.setBackgroundColor(Dark_Gray);
+                 sign_in_button.setTextColor(Light_Gray);
                  Intent myIntent = new Intent(MainMenu_Activity.this, LoginActivity.class);
 
                  if(logged_in) {
@@ -121,15 +129,13 @@ public class MainMenu_Activity extends AppCompatActivity {
          });
 
          final Button reset_button = (Button) findViewById(R.id.reset1);
-         if (peak_score_value > 0) {
-             reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.red)));
+         if (peak_score_value > 0 || logged_in) {
+             reset_button.setBackgroundColor(Red);
              reset_button.setOnClickListener(new OnClickListener() {
                  @Override
                  public void onClick(View arg0) {
-                     reset_button.setBackgroundColor(ContextCompat.
-                             getColor(getApplicationContext(), (R.color.navy_blue)));
-                     Set_Peak_Min_btn.setBackgroundColor(
-                             ContextCompat.getColor(getApplicationContext(), (R.color.dark_gray)));
+                     reset_button.setBackgroundColor(Navy_Blue);
+                     Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
                      editor.putInt    ("levl", 1);
                      editor.putInt    ("peakscore", 0);
                      editor.putInt    ("min_score", 0);
@@ -146,7 +152,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                  }
              });
          }
-         else   reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.dark_gray)));
+         else   reset_button.setBackgroundColor(Dark_Gray);
 
          ((TextView) findViewById(R.id.peak_score_value)).setText
                                                    (String.format(Locale.US,"%d",peak_score_value));
@@ -169,11 +175,21 @@ public class MainMenu_Activity extends AppCompatActivity {
         SharedPreferences mSettings           = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
+        Integer L1_Color    = ContextCompat.getColor(getApplicationContext(),(R.color.l1col));
+        Integer L2_Color    = ContextCompat.getColor(getApplicationContext(),(R.color.l2col));
+        Integer L3_Color    = ContextCompat.getColor(getApplicationContext(),(R.color.l3col));
+        Integer L4_Color    = ContextCompat.getColor(getApplicationContext(),(R.color.l4col));
+        Integer L5_Color    = ContextCompat.getColor(getApplicationContext(),(R.color.l5col));
+        Integer Red         = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+        Integer Green2      = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
+        Integer Light_Gray  = ContextCompat.getColor(getApplicationContext(),(R.color.light_gray));
+        Integer Dark_Gray   = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
+        Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+
         Integer Min_Score_Value = mSettings.getInt("min_score",0);
         Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",2);
         Integer current_level          = mSettings.getInt("levl", 1);
         Button how_to_button           = (Button) findViewById(R.id.how_to_btn);
-        how_to_button.setBackgroundColor(ContextCompat.getColor(this,(R.color.orange)));
         final Button play_btn          = (Button) findViewById(R.id.play_btn);
         Button reset_button            = (Button) findViewById(R.id.reset1);
         Button Set_Peak_Min_btn        = (Button) findViewById(R.id.set_peak_min_button);
@@ -190,213 +206,105 @@ public class MainMenu_Activity extends AppCompatActivity {
         TextView SMPs_remaining_text   = (TextView) findViewById(R.id.smp_text_view);
         TextView SMPs_remaining_value  = (TextView) findViewById(R.id.remaining_smp_value);
         TextView SMPs_ui               = (TextView) findViewById(R.id.smp_ui);
-        penalty_text.setTextColor(ContextCompat.getColor(getApplicationContext(),(R.color.red)));
         TextView penalty_text_value    = (TextView) findViewById(R.id.current_penalty);
-        reset_button.setBackgroundColor(ContextCompat.getColor(this, (R.color.red)));
-        penalty_text_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.red)));
-
+        penalty_text.setTextColor(Red);
+        how_to_button.setBackgroundColor(Orange);
+        reset_button.setBackgroundColor(Red);
+        penalty_text_value.setTextColor(Red);
         SMPs_remaining_value.setText(String.format(Locale.US,"%d",set_peak_min_remaining));
         level_current.setText(String.format(Locale.US,"%d",current_level));
         min_score_value.setText(String.format(Locale.US,"%d",Min_Score_Value));
 
-
         if( set_peak_min_remaining > 0 ){
             Set_Peak_Min_btn.setVisibility(View.VISIBLE);
-            SMPs_remaining_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                    (R.color.green2)));
-            SMPs_remaining_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                    (R.color.green2)));
-            SMPs_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                    (R.color.green2)));
+            SMPs_remaining_text.setTextColor(Green2);
+            SMPs_remaining_value.setTextColor(Green2);
+            SMPs_ui.setTextColor(Green2);
 
         }
         else{
             Set_Peak_Min_btn.setVisibility(View.INVISIBLE);
-            SMPs_remaining_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                    (R.color.red)));
-            SMPs_remaining_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                    (R.color.red)));
-            SMPs_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                    (R.color.red)));
+            SMPs_remaining_text.setTextColor(Red);
+            SMPs_remaining_value.setTextColor(Red);
+            SMPs_ui.setTextColor(Red);
         }
 
 
         switch (current_level){
             case 1:
-                play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
-
-                play_btn.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                            (R.color.light_gray)));
-
-                current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
-
-                target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
-
-                level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
-
-                target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
-
-                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
-
-                level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l1col)));
+                play_btn.setBackgroundColor(L1_Color);
+                play_btn.setTextColor(Light_Gray);
+                current_level_text.setTextColor(L1_Color);
+                target_score_text.setTextColor(L2_Color);
+                min_score_text.setTextColor(L1_Color);
+                level_current_ui.setTextColor(L1_Color);
+                target_score_ui.setTextColor(L2_Color);
+                min_score_ui.setTextColor(L1_Color);
+                min_score_value.setTextColor(L1_Color);
+                level_current.setTextColor(L1_Color);
                 target_score.setText(String.format(Locale.US,"%d",L1_Target_Score));
                 target_score_text.setText(R.string.target_score_tv);
-                target_score.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
+                target_score.setTextColor(L2_Color);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L1_Penalty));
                 break;
+
             case 2:
-                play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
-                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l2col)));
-
+                play_btn.setBackgroundColor(L2_Color);
+                current_level_text.setTextColor(L2_Color);
+                target_score_text.setTextColor(L3_Color);
+                min_score_text.setTextColor(L2_Color);
+                level_current.setTextColor(L2_Color);
+                level_current_ui.setTextColor(L2_Color);
+                target_score_ui.setTextColor(L3_Color);
+                min_score_ui.setTextColor(L2_Color);
+                min_score_value.setTextColor(L2_Color);
                 target_score.setText(String.format(Locale.US,"%d",L2_Target_Score));
-                target_score.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
+                target_score.setTextColor(L3_Color);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L2_Penalty));
                 break;
+
             case 3:
-                play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                play_btn.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                            (R.color.dark_gray)));
-
-                current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
-                target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l3col)));
-
+                play_btn.setBackgroundColor(L3_Color);
+                play_btn.setTextColor(Dark_Gray);
+                current_level_text.setTextColor(L3_Color);
+                target_score_text.setTextColor(L4_Color);
+                min_score_text.setTextColor(L3_Color);
+                level_current.setTextColor(L3_Color);
+                min_score_value.setTextColor(L3_Color);
+                level_current_ui.setTextColor(L3_Color);
+                target_score_ui.setTextColor(L4_Color);
+                min_score_ui.setTextColor(L3_Color);
                 target_score.setText(String.format(Locale.US,"%d",L3_Target_Score));
-
-                target_score.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
+                target_score.setTextColor(L4_Color);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L3_Penalty));
                 break;
+
             case 4:
-                play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                play_btn.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                            (R.color.dark_gray)));
-                current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                target_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
-                target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l4col)));
-
+                play_btn.setBackgroundColor(L4_Color);
+                play_btn.setTextColor(Dark_Gray);
+                current_level_text.setTextColor(L4_Color);
+                target_score_text.setTextColor(L5_Color);
+                min_score_text.setTextColor(L4_Color);
+                level_current.setTextColor(L4_Color);
+                min_score_value.setTextColor(L4_Color);
+                level_current_ui.setTextColor(L4_Color);
+                target_score_ui.setTextColor(L5_Color);
+                min_score_ui.setTextColor(L4_Color);
                 target_score.setText(String.format(Locale.US,"%d",L4_Target_Score));
-
-                target_score.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
+                target_score.setTextColor(L5_Color);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L4_Penalty));
                 break;
+
             case 5:
-                play_btn.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                play_btn.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                            (R.color.dark_gray)));
-
-                current_level_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                level_current.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                min_score_text.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                min_score_value.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                level_current_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
-                target_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                            (R.color.dark_gray)));
-
-                min_score_ui.setTextColor(ContextCompat.getColor(getApplicationContext(),
-                                                                                (R.color.l5col)));
-
+                play_btn.setBackgroundColor(L5_Color);
+                play_btn.setTextColor(Dark_Gray);
+                current_level_text.setTextColor(L5_Color);
+                level_current.setTextColor(L5_Color);
+                min_score_text.setTextColor(L5_Color);
+                min_score_value.setTextColor(L5_Color);
+                level_current_ui.setTextColor(L5_Color);
+                target_score_ui.setTextColor(Dark_Gray);
+                min_score_ui.setTextColor(L5_Color);
                 target_score_text.setText(R.string.empty);
                 target_score.setText(R.string.empty);
                 penalty_text_value.setText(String.format(Locale.US,"%d",L5_Penalty));

@@ -2,12 +2,17 @@ package poloapps.orbitfingers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 
@@ -19,11 +24,8 @@ public class UserAreaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_area);
 
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+
         final SharedPreferences.Editor editor = mSettings.edit();
-
-
-
-
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
 
         if (!logged_in){
@@ -44,6 +46,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer min_score_device    = mSettings.getInt("min_score",0);
         Integer smp_device          = mSettings.getInt("set_peak_min",2);
         Integer peak_score_device   = mSettings.getInt("peakscore", 0);
+
         Integer min_score_server    = mSettings.getInt("min_server",0);
         Integer smp_server          = mSettings.getInt("smp_server",0);
         Integer peak_score_server   = mSettings.getInt("peak_server", 0);
@@ -56,13 +59,39 @@ public class UserAreaActivity extends AppCompatActivity {
         TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
         TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
 
+        Button Device_Set_Button       = (Button) findViewById((R.id.device_set_button));
+        Button Server_Set_Button       = (Button) findViewById((R.id.server_set_button));
+
         tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
         tv_Device_Min_value.setText(String.format(Locale.US,"%d",min_score_device));
         tv_Device_SMP_value.setText(String.format(Locale.US,"%d",smp_device));
+
         tv_Server_Peak_value.setText(String.format(Locale.US,"%d",peak_score_server));
         tv_Server_Min_value.setText(String.format(Locale.US,"%d",min_score_server));
         tv_Server_SMP_value.setText(String.format(Locale.US,"%d",smp_server));
 
+
+        Integer Navy_Blue    =  ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
+        Integer Dark_Gray    = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
+
+        Integer Device_Set_Color = Dark_Gray;
+        Integer Server_Set_Color = Dark_Gray;
+
+        if ( peak_score_device < peak_score_server){
+
+            Device_Set_Color = Navy_Blue;
+
+        }
+        else if (peak_score_device > peak_score_server){
+
+            Server_Set_Color = Navy_Blue;
+        }
+
+        Device_Set_Button.setBackgroundColor(Device_Set_Color);
+        Server_Set_Button.setBackgroundColor(Server_Set_Color);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
