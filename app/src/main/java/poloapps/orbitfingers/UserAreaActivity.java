@@ -1,5 +1,6 @@
 package poloapps.orbitfingers;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
@@ -12,8 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Locale;
 
@@ -38,7 +45,6 @@ public class UserAreaActivity extends AppCompatActivity {
             int smp = intent.getIntExtra("smp", -1);
             editor.putString("current_user",username);
             editor.putBoolean("Signed_In", true);
-
             editor.putInt("peak_server",peak);
             editor.putInt("min_server",min);
             editor.putInt("smp_server",smp);
@@ -46,7 +52,7 @@ public class UserAreaActivity extends AppCompatActivity {
         }
         Integer min_score_device    = mSettings.getInt("min_score",0);
         Integer smp_device          = mSettings.getInt("set_peak_min",2);
-        Integer peak_score_device   = mSettings.getInt("peakscore", 0);
+        final Integer peak_score_device   = mSettings.getInt("peakscore", 0);
 
         Integer min_score_server    = mSettings.getInt("min_server",0);
         Integer smp_server          = mSettings.getInt("smp_server",0);
@@ -62,6 +68,9 @@ public class UserAreaActivity extends AppCompatActivity {
 
         Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
         Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
+
+        final String username = mSettings.getString("current_user","");
+        final String password = mSettings.getString("user_password","");
 
         tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
         tv_Device_Min_value.setText (String.format(Locale.US,"%d",min_score_device));
@@ -101,6 +110,40 @@ public class UserAreaActivity extends AppCompatActivity {
         else if (peak_score_device > peak_score_server){
 
             Server_Set_Color = Navy_Blue;
+            Server_Set_Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+
+                                if (success) {
+
+
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(
+                                            UserAreaActivity.this);
+                                    builder.setMessage("Update Failed")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    UpdateRequest updateRequest = new UpdateRequest( username, password,
+                                                            peak_score_device,responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+                    queue.add(updateRequest);
+
+                }
+            });
         }
 
         Device_Set_Button.setBackgroundColor(Device_Set_Color);
