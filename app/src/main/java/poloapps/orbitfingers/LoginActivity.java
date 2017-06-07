@@ -2,6 +2,7 @@ package poloapps.orbitfingers;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -31,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
+        final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        final SharedPreferences.Editor editor = mSettings.edit();
 
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("peak", peak_score_value);
                                 intent.putExtra("min", min_score_value);
                                 intent.putExtra("smp", set_min_peak_rem);
+
+                                editor.putString("user_password",password);
+                                editor.apply();
                                 LoginActivity.this.startActivity(intent);
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(

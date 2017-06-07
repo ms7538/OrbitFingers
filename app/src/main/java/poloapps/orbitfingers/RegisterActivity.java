@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        final SharedPreferences.Editor editor = mSettings.edit();
         final EditText etName             = (EditText) findViewById(R.id.etName);
         final EditText etUsername         = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword         = (EditText) findViewById(R.id.etPassword);
@@ -56,6 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
+                                editor.putString("user_password",password);
+                                editor.apply();
+
                                 Intent intent = new Intent(RegisterActivity.this,
                                                                               LoginActivity.class);
                                 RegisterActivity.this.startActivity(intent);

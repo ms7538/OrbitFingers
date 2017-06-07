@@ -25,8 +25,8 @@ public class UserAreaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_area);
 
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-
         final SharedPreferences.Editor editor = mSettings.edit();
+
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
 
         if (!logged_in){
