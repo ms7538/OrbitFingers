@@ -58,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
                                 editor.putString("user_password",password);
+                                editor.putString("user_id",username);
                                 editor.apply();
 
                                 Intent intent = new Intent(RegisterActivity.this,

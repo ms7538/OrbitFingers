@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("peak", peak_score_value);
                                 intent.putExtra("min", min_score_value);
                                 intent.putExtra("smp", set_min_peak_rem);
-
+                                editor.putString("user_id",username);
                                 editor.putString("user_password",password);
                                 editor.apply();
                                 LoginActivity.this.startActivity(intent);
