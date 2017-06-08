@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -120,14 +121,16 @@ public class UserAreaActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-
                                 if (success) {
+                                    int peak_score_DB = jsonResponse.getInt("peak");
+                                    Log.i("OB", Integer.toString(peak_score_DB));
 
                                     Intent intent = getIntent();
                                     finish();
                                     startActivity(intent);
 
                                 } else {
+                                    Log.i("OB1","failed");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(
                                             UserAreaActivity.this);
                                     builder.setMessage("Update Failed")
