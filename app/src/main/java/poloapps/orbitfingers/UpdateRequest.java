@@ -16,7 +16,7 @@ class UpdateRequest extends StringRequest {
         params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
-        params.put("peak"    , peak +"");
+        params.put("up_peak" , peak +"");
     }
 
     @Override

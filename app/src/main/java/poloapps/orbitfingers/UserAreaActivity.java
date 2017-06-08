@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -125,6 +126,10 @@ public class UserAreaActivity extends AppCompatActivity {
                                     int peak_score_DB = jsonResponse.getInt("peak");
                                     Log.i("OB", Integer.toString(peak_score_DB));
 
+                                    Toast.makeText(getApplicationContext(),
+                                            Integer.toString(peak_score_DB),
+                                            Toast.LENGTH_LONG).show();
+
                                     Intent intent = getIntent();
                                     finish();
                                     startActivity(intent);
@@ -144,6 +149,7 @@ public class UserAreaActivity extends AppCompatActivity {
                             }
                         }
                     };
+                    Log.i("OB2",Integer.toString(peak_score_device));
                     UpdateRequest updateRequest = new UpdateRequest( username, password,
                                                             peak_score_device,responseListener);
                     RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
