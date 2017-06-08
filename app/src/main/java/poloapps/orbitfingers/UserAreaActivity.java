@@ -37,21 +37,22 @@ public class UserAreaActivity extends AppCompatActivity {
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
 
         if (!logged_in){
-            Intent intent = getIntent();
-            String name = intent.getStringExtra("name");
+            Intent intent   = getIntent();
+            String name     = intent.getStringExtra("name");
             String username = intent.getStringExtra("username");
-            int peak = intent.getIntExtra("peak", -1);
-            int min = intent.getIntExtra("min", -1);
-            int smp = intent.getIntExtra("smp", -1);
-            editor.putString("current_user",username);
+            int peak        = intent.getIntExtra("peak", -1);
+            int min         = intent.getIntExtra("min", -1);
+            int smp         = intent.getIntExtra("smp", -1);
+
+            editor.putString ("current_user",username);
             editor.putBoolean("Signed_In", true);
-            editor.putInt("peak_server",peak);
-            editor.putInt("min_server",min);
-            editor.putInt("smp_server",smp);
+            editor.putInt    ("peak_server",peak);
+            editor.putInt    ("min_server",min);
+            editor.putInt    ("smp_server",smp);
             editor.apply();
         }
-        Integer min_score_device    = mSettings.getInt("min_score",0);
-        Integer smp_device          = mSettings.getInt("set_peak_min",2);
+        Integer min_score_device          = mSettings.getInt("min_score",0);
+        Integer smp_device                = mSettings.getInt("set_peak_min",2);
         final Integer peak_score_device   = mSettings.getInt("peakscore", 0);
 
         Integer min_score_server    = mSettings.getInt("min_server",0);
@@ -122,6 +123,9 @@ public class UserAreaActivity extends AppCompatActivity {
 
                                 if (success) {
 
+                                    Intent intent = getIntent();
+                                    finish();
+                                    startActivity(intent);
 
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(

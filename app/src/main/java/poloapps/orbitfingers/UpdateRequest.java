@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 //login
 class UpdateRequest extends StringRequest {
-    private static final String UPDATE_REQUEST_URL = "http://www.poloapps.com/UpdateDB.php";
+    private static final String UPDATE_REQUEST_URL = "http://www.poloapps.com/UpdateDB1.php";
     private Map<String, String> params;
 
     UpdateRequest(String username, String password, int peak,
@@ -16,7 +16,7 @@ class UpdateRequest extends StringRequest {
         params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
-        params.put("peak"     ,peak +"");
+        params.put("peak"    , peak +"");
     }
 
     @Override
