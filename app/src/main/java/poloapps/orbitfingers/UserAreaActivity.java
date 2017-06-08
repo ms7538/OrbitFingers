@@ -53,8 +53,8 @@ public class UserAreaActivity extends AppCompatActivity {
             editor.putInt    ("smp_server",smp);
             editor.apply();
         }
-        Integer min_score_device          = mSettings.getInt("min_score",0);
-        Integer smp_device                = mSettings.getInt("set_peak_min",2);
+        final Integer min_score_device          = mSettings.getInt("min_score",0);
+        final Integer smp_device                = mSettings.getInt("set_peak_min",2);
         final Integer peak_score_device   = mSettings.getInt("peakscore", 0);
 
         Integer min_score_server    = mSettings.getInt("min_server",0);
@@ -123,19 +123,18 @@ public class UserAreaActivity extends AppCompatActivity {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
                                 if (success) {
-                                    int peak_score_DB = jsonResponse.getInt("peak");
-                                    Log.i("OB", Integer.toString(peak_score_DB));
 
-                                    Toast.makeText(getApplicationContext(),
-                                            Integer.toString(peak_score_DB),
-                                            Toast.LENGTH_LONG).show();
+                                    editor.putInt("peak_server",jsonResponse.getInt("peak"));
+                                    editor.putInt("min_server" ,jsonResponse.getInt("min"));
+                                    editor.putInt("smp_server" ,jsonResponse.getInt("smp"));
+                                    editor.apply();
 
                                     Intent intent = getIntent();
                                     finish();
                                     startActivity(intent);
 
                                 } else {
-                                    Log.i("OB1","failed");
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(
                                             UserAreaActivity.this);
                                     builder.setMessage("Update Failed")
@@ -149,9 +148,9 @@ public class UserAreaActivity extends AppCompatActivity {
                             }
                         }
                     };
-                    Log.i("OB2",Integer.toString(peak_score_device));
+
                     UpdateRequest updateRequest = new UpdateRequest( username,peak_score_device,
-                                                                                responseListener);
+                                                    min_score_device,smp_device,responseListener);
                     RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
                     queue.add(updateRequest);
 
