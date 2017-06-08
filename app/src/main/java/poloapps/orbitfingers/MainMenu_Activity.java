@@ -142,8 +142,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                      editor.putInt    ("current_score", 0);
                      editor.putInt    ("set_peak_min", 2);
                      editor.putBoolean("Signed_In", false);
-                     editor.putString ("user_password","");
-                     editor.putString("current_user","");
+                     editor.putString ("current_user","");
                      editor.commit();
                      SetText_TColors();
                      ((TextView) findViewById(R.id.peak_score_value)).setText

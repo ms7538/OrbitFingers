@@ -57,7 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                editor.putString("user_password",password);
                                 editor.putString("user_id",username);
                                 editor.apply();
 

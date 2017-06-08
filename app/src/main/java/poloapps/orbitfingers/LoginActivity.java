@@ -72,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra("smp", set_min_peak_rem);
 
                                 editor.putString("current_user",username);
-                                editor.putString("user_password",password);
                                 editor.apply();
                                 LoginActivity.this.startActivity(intent);
                             } else {

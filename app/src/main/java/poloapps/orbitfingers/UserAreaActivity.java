@@ -73,7 +73,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
 
         final String username = mSettings.getString("current_user","");
-        final String password = mSettings.getString("user_password","");
+
 
         tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
         tv_Device_Min_value.setText (String.format(Locale.US,"%d",min_score_device));
@@ -150,8 +150,8 @@ public class UserAreaActivity extends AppCompatActivity {
                         }
                     };
                     Log.i("OB2",Integer.toString(peak_score_device));
-                    UpdateRequest updateRequest = new UpdateRequest( username, password,
-                                                            peak_score_device,responseListener);
+                    UpdateRequest updateRequest = new UpdateRequest( username,peak_score_device,
+                                                                                responseListener);
                     RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
                     queue.add(updateRequest);
 
