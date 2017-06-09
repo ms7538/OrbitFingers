@@ -162,16 +162,25 @@ public class MainMenu_Activity extends AppCompatActivity {
      }
     private void SetText_TColors(){   // set text and color fields
 
-        final int L1_Target_Score = 100;
-        final int L2_Target_Score = 300;
-        final int L3_Target_Score = 600;
-        final int L4_Target_Score = 1000;
+        final int L1_Target_Score = getApplicationContext()
+                                             .getResources().getInteger(R.integer.L1_target_score);
+        final int L2_Target_Score = getApplicationContext()
+                                             .getResources().getInteger(R.integer.L2_target_score);
+        final int L3_Target_Score = getApplicationContext()
+                                             .getResources().getInteger(R.integer.L3_target_score);
+        final int L4_Target_Score = getApplicationContext()
+                                             .getResources().getInteger(R.integer.L4_target_score);
 
-        final int L1_Penalty = 1;
-        final int L2_Penalty = 5;
-        final int L3_Penalty = 10;
-        final int L4_Penalty = 15;
-        final int L5_Penalty = 20;
+        final int L1_Penalty = getApplicationContext()
+                                                  .getResources().getInteger(R.integer.L1_penalty);
+        final int L2_Penalty = getApplicationContext()
+                                                  .getResources().getInteger(R.integer.L2_penalty);
+        final int L3_Penalty = getApplicationContext()
+                                                  .getResources().getInteger(R.integer.L3_penalty);
+        final int L4_Penalty = getApplicationContext()
+                                                  .getResources().getInteger(R.integer.L4_penalty);
+        final int L5_Penalty = getApplicationContext()
+                                                  .getResources().getInteger(R.integer.L5_penalty);
 
         SharedPreferences mSettings           = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();

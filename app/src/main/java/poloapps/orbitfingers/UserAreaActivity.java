@@ -26,6 +26,8 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
+import static java.security.AccessController.getContext;
+
 public class UserAreaActivity extends AppCompatActivity {
 
     @Override
@@ -96,12 +98,32 @@ public class UserAreaActivity extends AppCompatActivity {
             Device_Set_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-
-                    editor.putInt("peakscore",   mSettings.getInt("peak_server",0));
-                    editor.putInt("min_score",   mSettings.getInt("min_server", 0));
+                    int min_score_db = mSettings.getInt("min_server", 0);
+                    editor.putInt("peakscore"   ,mSettings.getInt("peak_server",0));
+                    editor.putInt("min_score"   ,min_score_db  );
                     editor.putInt("set_peak_min",mSettings.getInt("smp_server", 0));
                     editor.apply();
 
+                    if ( min_score_db >= getApplicationContext()
+                            .getResources().getInteger(R.integer.L4_target_score)){
+                        editor.putInt("levl",5);
+                    }
+                    else if (min_score_db >= getApplicationContext()
+                            .getResources().getInteger(R.integer.L3_target_score)){
+                        editor.putInt("levl",4);
+                    }
+                    else if (min_score_db >= getApplicationContext()
+                            .getResources().getInteger(R.integer.L2_target_score)){
+                        editor.putInt("levl",3);
+                    }
+                    else if (min_score_db >= getApplicationContext()
+                            .getResources().getInteger(R.integer.L1_target_score)){
+                        editor.putInt("levl",2);
+                    }
+                    else
+                        editor.putInt("levl",1);
+
+                    editor.apply();
                     //Restart Current Activity
                     Intent intent = getIntent();
                     finish();

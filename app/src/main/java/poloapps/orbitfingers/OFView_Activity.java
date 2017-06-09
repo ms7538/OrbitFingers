@@ -405,14 +405,14 @@ public class OFView_Activity extends View {
     }
 
     private void update() {
-        int level2_min = 100;
-        int level3_min = 300;
-        int level4_min = 600;
-        int level5_min = 1000;
-        int level2_pen = 5;
-        int level3_pen = 10;
-        int level4_pen = 15;
-        int level5_pen = 20;
+        int level2_min = getContext().getResources().getInteger(R.integer.L1_target_score);
+        int level3_min = getContext().getResources().getInteger(R.integer.L2_target_score);
+        int level4_min = getContext().getResources().getInteger(R.integer.L3_target_score);
+        int level5_min = getContext().getResources().getInteger(R.integer.L4_target_score);
+        int level2_pen = getContext().getResources().getInteger(R.integer.L2_penalty);
+        int level3_pen = getContext().getResources().getInteger(R.integer.L3_penalty);
+        int level4_pen = getContext().getResources().getInteger(R.integer.L4_penalty);
+        int level5_pen = getContext().getResources().getInteger(R.integer.L5_penalty);
 
         score_color = ScCo;
         if (score <= ScoreMin) {
