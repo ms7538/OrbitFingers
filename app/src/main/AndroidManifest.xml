@@ -28,7 +28,9 @@
                 android:value=".MainMenu_Activity" />
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".UserAreaActivity" />
+        <activity android:name=".UserAreaActivity"
+                  android:parentActivityName=".MainMenu_Activity"
+                                                                 />
         <activity android:name=".LoginActivity"></activity>
     </application>
 

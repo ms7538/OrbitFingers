@@ -34,7 +34,9 @@ public class UserAreaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
-
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        assert bar != null;
+        bar.setTitle(R.string.load_save);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 

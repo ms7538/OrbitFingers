@@ -24,7 +24,6 @@ public class OF_Activity extends AppCompatActivity {
 
 
         android.support.v7.app.ActionBar bar = getSupportActionBar();
-
         assert bar != null;
         bar.setTitle("ORBITFINGERS");
 

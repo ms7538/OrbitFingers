@@ -18,7 +18,7 @@ import android.widget.Toast;
 //V3.6b
 public class OFView_Activity extends View {
 
-    SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
+    SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
 
     String  max_height     = prefs.getString("max_h", "1");
     String  max_width      = prefs.getString("max_w", "1");
