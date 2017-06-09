@@ -38,18 +38,15 @@
                 android:text="@string/set"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:layout_alignBaseline="@+id/device_set_button"
-                android:layout_alignBottom="@+id/device_set_button"
-                android:layout_alignLeft="@+id/tv_Server"
-                android:layout_alignStart="@+id/tv_Server" />
+                android:layout_above="@+id/adView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <Button
                 android:id="@+id/device_set_button"
                 style="?attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/tv_Device"
-                android:layout_alignRight="@+id/tv_Device"
                 android:layout_below="@+id/tvSMP"
                 android:layout_marginTop="23dp"
                 android:text="@string/set"
@@ -69,13 +66,11 @@
                 android:id="@+id/tv_Peak_Device_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/x"
                 android:layout_alignBaseline="@+id/tvPeak"
                 android:layout_alignBottom="@+id/tvPeak"
-                android:layout_alignLeft="@+id/tv_Device"
-                android:layout_alignStart="@+id/tv_Device"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:text="@string/x" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/tvUsername"
@@ -85,7 +80,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="18dp"
                 android:text="@string/username"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
 
 
             <TextView
@@ -96,18 +92,19 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:text="@string/peak_score"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
 
             <TextView
                 android:id="@+id/tvMin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/tvUsername"
-                android:layout_alignRight="@+id/tvUsername"
                 android:layout_below="@+id/tvPeak"
-                android:layout_marginTop="22dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
                 android:text="@string/min_score"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
 
 
             <TextView
@@ -118,29 +115,26 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="@string/smps_remaining"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
 
             <TextView
                 android:id="@+id/tv_Device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/device"
                 android:layout_above="@+id/tvPeak"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="26dp"
-                android:layout_marginStart="26dp"
-                android:text="@string/device" />
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/tv_Server"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/server"
                 android:layout_above="@+id/tvPeak"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="34dp"
-                android:layout_marginRight="34dp"
-                android:text="@string/server" />
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/tv_Min_Device_value"
@@ -155,13 +149,11 @@
                 android:id="@+id/tv_Server_Peak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/x"
                 android:layout_alignBaseline="@+id/tvPeak"
                 android:layout_alignBottom="@+id/tvPeak"
-                android:layout_alignEnd="@+id/tv_Server"
-                android:layout_alignRight="@+id/tv_Server"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
-                android:text="@string/x" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/tv_Server_Min"
@@ -176,11 +168,11 @@
                 android:id="@+id/tv_Server_SMP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/x"
                 android:layout_alignBaseline="@+id/tvSMP"
                 android:layout_alignBottom="@+id/tvSMP"
-                android:layout_alignLeft="@+id/tv_Server_Min"
-                android:layout_alignStart="@+id/tv_Server_Min"
-                android:text="@string/x" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
 
         </RelativeLayout>
