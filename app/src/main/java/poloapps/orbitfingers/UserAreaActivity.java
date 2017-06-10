@@ -100,12 +100,12 @@ public class UserAreaActivity extends AppCompatActivity {
 
         Integer Device_BG_Color         = Dark_Gray;
         Integer Server_BG_Color         = Dark_Gray;
-        Integer Device_Peak_Color       = Navy_Blue;
-        Integer Device_Min_Color        = Navy_Blue;
-        Integer Device_SMP_Color        = Navy_Blue;
-        Integer Server_Peak_Color       = Navy_Blue;
-        Integer Server_Min_Color        = Navy_Blue;
-        Integer Server_SMP_Color        = Navy_Blue;
+        Integer Device_Peak_BG_Color    = Dark_Gray;
+        Integer Device_Min_BG_Color     = Dark_Gray;
+        Integer Device_SMP_BG_Color     = Dark_Gray;
+        Integer Server_Peak_BG_Color    = Dark_Gray;
+        Integer Server_Min_BG_Color     = Dark_Gray;
+        Integer Server_SMP_BG_Color     = Dark_Gray;
         Integer Device_SET_Button_Color = Dark_Gray;
         Integer Server_SET_Button_Color = Dark_Gray;
 
@@ -201,13 +201,13 @@ public class UserAreaActivity extends AppCompatActivity {
         else{
             
         }
-        tv_Device_Peak_value.setBackgroundColor(Device_Peak_Color);
-        tv_Device_Min_value.setBackgroundColor(Device_Min_Color);
-        tv_Device_SMP_value.setBackgroundColor(Device_SMP_Color);
+        tv_Device_Peak_value.setBackgroundColor(Device_Peak_BG_Color);
+        tv_Device_Min_value.setBackgroundColor(Device_Min_BG_Color);
+        tv_Device_SMP_value.setBackgroundColor(Device_SMP_BG_Color);
 
-        tv_Server_Peak_value.setBackgroundColor(Server_Peak_Color);
-        tv_Server_Min_value.setBackgroundColor(Server_Min_Color);
-        tv_Server_SMP_value.setBackgroundColor(Server_SMP_Color);
+        tv_Server_Peak_value.setBackgroundColor(Server_Peak_BG_Color);
+        tv_Server_Min_value.setBackgroundColor(Server_Min_BG_Color);
+        tv_Server_SMP_value.setBackgroundColor(Server_SMP_BG_Color);
         
         tv_Device_text.setBackgroundColor(Device_BG_Color);
         tv_Server_text.setBackgroundColor(Server_BG_Color);
@@ -217,7 +217,14 @@ public class UserAreaActivity extends AppCompatActivity {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+
+
+
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
