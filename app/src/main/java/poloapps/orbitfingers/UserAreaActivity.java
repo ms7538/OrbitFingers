@@ -98,8 +98,8 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer Green        = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
         Integer Red          = ContextCompat.getColor(getApplicationContext(),(R.color.red));
 
-        Integer Device_Text_Color       = Navy_Blue;
-        Integer Server_Text_Color       = Navy_Blue;
+        Integer Device_BG_Color         = Dark_Gray;
+        Integer Server_BG_Color         = Dark_Gray;
         Integer Device_Peak_Color       = Navy_Blue;
         Integer Device_Min_Color        = Navy_Blue;
         Integer Device_SMP_Color        = Navy_Blue;
@@ -112,6 +112,7 @@ public class UserAreaActivity extends AppCompatActivity {
         if ( peak_score_device < peak_score_server){
 
             Device_SET_Button_Color = Navy_Blue;
+            Device_BG_Color         = Navy_Blue;
             Device_Set_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -152,6 +153,7 @@ public class UserAreaActivity extends AppCompatActivity {
         else if (peak_score_device > peak_score_server){
 
             Server_SET_Button_Color = Navy_Blue;
+            Server_BG_Color         = Navy_Blue;
             Server_Set_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -207,8 +209,8 @@ public class UserAreaActivity extends AppCompatActivity {
         tv_Server_Min_value.setBackgroundColor(Server_Min_Color);
         tv_Server_SMP_value.setBackgroundColor(Server_SMP_Color);
         
-        tv_Device_text.setBackgroundColor(Device_Text_Color);
-        tv_Server_text.setBackgroundColor(Server_Text_Color);
+        tv_Device_text.setBackgroundColor(Device_BG_Color);
+        tv_Server_text.setBackgroundColor(Server_BG_Color);
         Device_Set_Button.setBackgroundColor(Device_SET_Button_Color);
         Server_Set_Button.setBackgroundColor(Server_SET_Button_Color);
 

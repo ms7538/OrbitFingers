@@ -122,19 +122,21 @@
                 android:id="@+id/tv_Device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/device"
                 android:layout_above="@+id/tvPeak"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:text="@string/device"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:id="@+id/tv_Server"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/server"
                 android:layout_above="@+id/tvPeak"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:text="@string/server"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:id="@+id/tv_Min_Device_value"
