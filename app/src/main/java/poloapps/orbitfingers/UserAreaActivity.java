@@ -6,28 +6,21 @@ import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Locale;
 
-import static java.security.AccessController.getContext;
-
+//v3.6e Database Position Indication
 public class UserAreaActivity extends AppCompatActivity {
 
     @Override
@@ -44,7 +37,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
         if (!logged_in){
             Intent intent   = getIntent();
-            String name     = intent.getStringExtra("name");
+            //String name     = intent.getStringExtra("name");
             String username = intent.getStringExtra("username");
             int peak        = intent.getIntExtra("peak", -1);
             int min         = intent.getIntExtra("min", -1);
