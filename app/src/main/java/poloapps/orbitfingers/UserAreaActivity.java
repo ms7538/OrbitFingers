@@ -57,62 +57,90 @@ public class UserAreaActivity extends AppCompatActivity {
             editor.putInt    ("smp_server",smp);
             editor.apply();
         }
-        final String username                   = mSettings.getString("current_user","");
-        final Integer min_score_device          = mSettings.getInt("min_score",0);
-        final Integer smp_device                = mSettings.getInt("set_peak_min",2);
-        final Integer peak_score_device         = mSettings.getInt("peakscore", 0);
-
-        Integer min_score_server    = mSettings.getInt("min_server",0);
-        Integer smp_server          = mSettings.getInt("smp_server",0);
-        Integer peak_score_server   = mSettings.getInt("peak_server", 0);
+        final String username               = mSettings.getString("current_user","");
+        final int min_score_device          = mSettings.getInt("min_score",0);
+        final int smp_device                = mSettings.getInt("set_peak_min",2);
+        final int peak_score_device         = mSettings.getInt("peakscore", 0);
+        int min_score_server                = mSettings.getInt("min_server",0);
+        int smp_server                      = mSettings.getInt("smp_server",0);
+        int peak_score_server               = mSettings.getInt("peak_server", 0);
 
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
         TextView tv_Server_text        = (TextView) findViewById(R.id.tv_Server);
-
         TextView tv_Device_Peak_value  = (TextView) findViewById(R.id.tv_Peak_Device_value);
         TextView tv_Device_Min_value   = (TextView) findViewById(R.id.tv_Min_Device_value);
         TextView tv_Device_SMP_value   = (TextView) findViewById(R.id.tv_Device_SMP);
-
         TextView tv_Server_Peak_value  = (TextView) findViewById(R.id.tv_Server_Peak);
         TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
         TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
+
+        TextView tv_Peak_Text          = (TextView) findViewById((R.id.tvPeak));
+        TextView tv_Min_Text           = (TextView) findViewById((R.id.tvMin));
+        TextView tv_SMP_Text           = (TextView) findViewById((R.id.tvSMP));
 
         Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
         Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
 
         tv_Username_Display.setText(username);
-
-
         tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
         tv_Device_Min_value.setText (String.format(Locale.US,"%d",min_score_device));
         tv_Device_SMP_value.setText (String.format(Locale.US,"%d",smp_device));
-
         tv_Server_Peak_value.setText(String.format(Locale.US,"%d",peak_score_server));
         tv_Server_Min_value.setText (String.format(Locale.US,"%d",min_score_server));
         tv_Server_SMP_value.setText (String.format(Locale.US,"%d",smp_server));
 
 
-        Integer Navy_Blue    = ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
-        Integer Dark_Gray    = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
-        Integer Green        = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
-        Integer Red          = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+        Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
+        Integer Dark_Gray = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
+        Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
+        Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+        Integer White     = ContextCompat.getColor(getApplicationContext(),(R.color.white));
+        Integer Yellow    = ContextCompat.getColor(getApplicationContext(),(R.color.bright_yellow));
 
         Integer Device_BG_Color         = Dark_Gray;
         Integer Server_BG_Color         = Dark_Gray;
-        Integer Device_Peak_BG_Color    = Dark_Gray;
-        Integer Device_Min_BG_Color     = Dark_Gray;
-        Integer Device_SMP_BG_Color     = Dark_Gray;
-        Integer Server_Peak_BG_Color    = Dark_Gray;
-        Integer Server_Min_BG_Color     = Dark_Gray;
-        Integer Server_SMP_BG_Color     = Dark_Gray;
+        Integer Device_Peak_Color       = Green;
+        Integer Device_Min_Color        = Green;
+        Integer Device_SMP_Color        = Green;
+        Integer Server_Peak_Color       = Green;
+        Integer Server_Min_Color        = Green;
+        Integer Server_SMP_Color        = Green;
         Integer Device_SET_Button_Color = Dark_Gray;
         Integer Server_SET_Button_Color = Dark_Gray;
+        Integer Peak_Text_Color         = White;
+        Integer Min_Text_Color          = White;
+        Integer SMP_Text_Color          = White;
+
 
         if ( peak_score_device < peak_score_server){
 
-            Device_SET_Button_Color = Navy_Blue;
-            Device_BG_Color         = Navy_Blue;
+            Peak_Text_Color          = Navy_Blue;
+            Device_Peak_Color        = Navy_Blue;
+            Server_Peak_Color        = Green;
+
+            if( min_score_device > min_score_server ) {
+
+                Min_Text_Color       = Red;
+                Server_Min_Color     = Red;
+
+            }
+            else
+                Min_Text_Color       = Navy_Blue;
+
+            Device_Min_Color = Navy_Blue;
+
+            if( smp_device > smp_server ) {
+                SMP_Text_Color       = Red;
+                Server_SMP_Color     = Red;
+            }
+            else
+                SMP_Text_Color       = Navy_Blue;
+
+            Device_SMP_Color         = Navy_Blue;
+            Device_SET_Button_Color  = Navy_Blue;
+            Device_BG_Color          = Navy_Blue;
+
             Device_Set_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -152,8 +180,29 @@ public class UserAreaActivity extends AppCompatActivity {
         }
         else if (peak_score_device > peak_score_server){
 
-            Server_SET_Button_Color = Navy_Blue;
-            Server_BG_Color         = Navy_Blue;
+            Peak_Text_Color          = Navy_Blue;
+            Server_Peak_Color        = Navy_Blue;
+            Server_Min_Color         = Navy_Blue;
+            Server_SMP_Color         = Navy_Blue;
+
+            if ( min_score_device < min_score_server) {
+                Min_Text_Color       = Red;
+                Device_Min_Color     = Red;
+            }
+            else
+                Min_Text_Color       = Navy_Blue;
+
+            if ( smp_device < smp_server) {
+
+                SMP_Text_Color       = Red;
+                Device_SMP_Color     = Red;
+            }
+            else
+                SMP_Text_Color       = Navy_Blue;
+
+            Server_SET_Button_Color  = Navy_Blue;
+            Server_BG_Color          = Navy_Blue;
+
             Server_Set_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -198,28 +247,51 @@ public class UserAreaActivity extends AppCompatActivity {
                 }
             });
         }
-        else{
-            
-        }
-        tv_Device_Peak_value.setBackgroundColor(Device_Peak_BG_Color);
-        tv_Device_Min_value.setBackgroundColor(Device_Min_BG_Color);
-        tv_Device_SMP_value.setBackgroundColor(Device_SMP_BG_Color);
+        else if (min_score_device != min_score_server){
 
-        tv_Server_Peak_value.setBackgroundColor(Server_Peak_BG_Color);
-        tv_Server_Min_value.setBackgroundColor(Server_Min_BG_Color);
-        tv_Server_SMP_value.setBackgroundColor(Server_SMP_BG_Color);
-        
+            Min_Text_Color       = White;
+            Device_Min_Color     = Yellow;
+            Server_Min_Color     = Yellow;
+
+            if (smp_device != smp_server){
+
+                SMP_Text_Color   = White;
+                Device_SMP_Color = Yellow;
+                Server_SMP_Color = Yellow;
+
+            }
+
+        }
+        else if (smp_device != smp_server){
+
+            SMP_Text_Color       = White;
+            Device_SMP_Color     = Yellow;
+            Server_SMP_Color     = Yellow;
+
+        }
+
+
+        tv_Device_Peak_value.setTextColor(Device_Peak_Color);
+        tv_Device_Min_value.setTextColor(Device_Min_Color);
+        tv_Device_SMP_value.setTextColor(Device_SMP_Color);
+
+        tv_Peak_Text.setTextColor(Peak_Text_Color);
+        tv_Min_Text.setTextColor(Min_Text_Color);
+        tv_SMP_Text.setTextColor(SMP_Text_Color);
+
+        tv_Server_Peak_value.setTextColor(Server_Peak_Color);
+        tv_Server_Min_value.setTextColor(Server_Min_Color);
+        tv_Server_SMP_value.setTextColor(Server_SMP_Color);
+
         tv_Device_text.setBackgroundColor(Device_BG_Color);
         tv_Server_text.setBackgroundColor(Server_BG_Color);
+
         Device_Set_Button.setBackgroundColor(Device_SET_Button_Color);
         Server_Set_Button.setBackgroundColor(Server_SET_Button_Color);
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-
-
 
 
     }
