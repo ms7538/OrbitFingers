@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
@@ -33,6 +35,7 @@ public class UserAreaActivity extends AppCompatActivity {
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
+
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
 
         if (!logged_in){
@@ -54,6 +57,45 @@ public class UserAreaActivity extends AppCompatActivity {
         final int min_score_device          = mSettings.getInt("min_score",0);
         final int smp_device                = mSettings.getInt("set_peak_min",2);
         final int peak_score_device         = mSettings.getInt("peakscore", 0);
+
+        Response.Listener<String> responseListener2 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if (success) {
+
+                        editor.putInt("peak_server",jsonResponse.getInt("peak"));
+                        editor.putInt("min_server" ,jsonResponse.getInt("min"));
+                        editor.putInt("smp_server" ,jsonResponse.getInt("smp"));
+                        editor.apply();
+                        Toast.makeText(getBaseContext(), "Success",
+                                Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Toast.makeText(getBaseContext(), "Success",
+                                Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                UserAreaActivity.this);
+                        builder.setMessage("Get Server Values Failed")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+
+
+        ValuesRequest valuesRequest = new ValuesRequest( username,responseListener2);
+        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+        queue.add(valuesRequest);
+
         int min_score_server                = mSettings.getInt("min_server",0);
         int smp_server                      = mSettings.getInt("smp_server",0);
         int peak_score_server               = mSettings.getInt("peak_server", 0);
@@ -104,6 +146,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer Peak_Text_Color         = White;
         Integer Min_Text_Color          = White;
         Integer SMP_Text_Color          = White;
+
 
 
         if ( peak_score_device < peak_score_server){
