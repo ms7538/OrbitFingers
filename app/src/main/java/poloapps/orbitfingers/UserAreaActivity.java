@@ -3,6 +3,7 @@ package poloapps.orbitfingers;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,8 @@ import com.google.android.gms.ads.AdView;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //v3.6e Database Position Indication
 public class UserAreaActivity extends AppCompatActivity {
@@ -53,48 +56,62 @@ public class UserAreaActivity extends AppCompatActivity {
             editor.putInt    ("smp_server",smp);
             editor.apply();
         }
+        else{
+            Response.Listener<String> responseListener2 = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        if (success) {
+                            int peak_check     = jsonResponse.getInt("peak");
+                            int DB_peak_stored = mSettings.getInt("peak_server", 0);
+                            int min_check     = jsonResponse.getInt("min");
+                            int DB_min_stored = mSettings.getInt("min_server", 0);
+                            int smp_check     = jsonResponse.getInt("smp");
+                            int DB_smp_stored = mSettings.getInt("smp_server", 0);
+
+                            if (peak_check != DB_peak_stored || min_check != DB_min_stored ||
+                                                                    smp_check != DB_smp_stored) {
+
+                                editor.putInt("peak_server", peak_check);
+                                editor.putInt("min_server", min_check);
+                                editor.putInt("smp_server", smp_check);
+                                editor.apply();
+
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+
+                            }
+                        } else {
+                            Toast.makeText(getBaseContext(), "Failed To Get Database Values",
+                                    Toast.LENGTH_LONG).show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(
+                                    UserAreaActivity.this);
+                            builder.setMessage("Get Server Values Failed")
+                                    .setNegativeButton("Retry", null)
+                                    .create()
+                                    .show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+
+
+
+            ValuesRequest valuesRequest = new ValuesRequest(mSettings.getString("current_user",""),
+                                                                                responseListener2);
+            RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+            queue.add(valuesRequest);
+        }
         final String username               = mSettings.getString("current_user","");
         final int min_score_device          = mSettings.getInt("min_score",0);
         final int smp_device                = mSettings.getInt("set_peak_min",2);
         final int peak_score_device         = mSettings.getInt("peakscore", 0);
-
-        Response.Listener<String> responseListener2 = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-                    if (success) {
-
-                        editor.putInt("peak_server",jsonResponse.getInt("peak"));
-                        editor.putInt("min_server" ,jsonResponse.getInt("min"));
-                        editor.putInt("smp_server" ,jsonResponse.getInt("smp"));
-                        editor.apply();
-                        Toast.makeText(getBaseContext(), "Success",
-                                Toast.LENGTH_LONG).show();
-
-                    } else {
-                        Toast.makeText(getBaseContext(), "Success",
-                                Toast.LENGTH_LONG).show();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(
-                                UserAreaActivity.this);
-                        builder.setMessage("Get Server Values Failed")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-
-
-        ValuesRequest valuesRequest = new ValuesRequest( username,responseListener2);
-        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
-        queue.add(valuesRequest);
 
         int min_score_server                = mSettings.getInt("min_server",0);
         int smp_server                      = mSettings.getInt("smp_server",0);
@@ -331,7 +348,31 @@ public class UserAreaActivity extends AppCompatActivity {
 
     }
 
+    private void checkDB_Values(){
 
+    }
+
+    private void setRepeatingAsyncTask() {
+
+        final Handler handler = new Handler();
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+
+                        } catch (Exception e) {
+                            // error, do something
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(task, 0, 10*1000);  // interval of one minute
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
