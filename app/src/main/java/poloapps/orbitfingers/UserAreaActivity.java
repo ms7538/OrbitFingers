@@ -153,6 +153,8 @@ public class UserAreaActivity extends AppCompatActivity {
         TextView tv_Peak_Text          = (TextView) findViewById((R.id.tvPeak));
         TextView tv_Min_Text           = (TextView) findViewById((R.id.tvMin));
         TextView tv_SMP_Text           = (TextView) findViewById((R.id.tvSMP));
+        final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
+        tv_Tied_indication.setVisibility(View.INVISIBLE);
         Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
         Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
 
@@ -373,15 +375,19 @@ public class UserAreaActivity extends AppCompatActivity {
 
         timer.schedule(task, 0 , 30000);  // interval of 30 sec
 
-
     }
 
     private void check_Ranking(){
         /////Ranking
         final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
+        final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+
         int peak_score_server             = mSettings.getInt("peak_server", 0);
         final String username             = mSettings.getString("current_user","");
+
+        final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+
         Response.Listener<String> responseListener3 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -391,10 +397,14 @@ public class UserAreaActivity extends AppCompatActivity {
                     if (success) {
                         int number_peaks_above   = jsonResponse.getInt("higher_peaks") + 1;
                         tv_Rank_value.setText(String.format(Locale.US,"%d",number_peaks_above));
+                        if ( number_peaks_above > 9 ){
 
-                        // bool equal_peaks = jsonResponse.getBool("equal_peaks");
-                        Toast.makeText(getBaseContext(),Integer.toString(number_peaks_above),
-                                Toast.LENGTH_SHORT).show();
+                            tv_Rank_value.setTextColor(Red);
+                        }
+                         boolean equal_peaks = jsonResponse.getBoolean("equal_peaks");
+                        if (equal_peaks){
+                            tv_Tied_indication.setVisibility(View.VISIBLE);
+                        }
 
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To get Ranking",

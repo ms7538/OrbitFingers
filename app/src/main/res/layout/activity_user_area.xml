@@ -19,13 +19,25 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tv_Tie_Indication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_Ranking_Value"
+                android:layout_alignBottom="@+id/tv_Ranking_Value"
+                android:layout_toEndOf="@+id/tv_Ranking_Value"
+                android:layout_toRightOf="@+id/tv_Ranking_Value"
+                android:text="@string/tied"
+                android:textColor="@color/bright_yellow" />
+
+            <TextView
                 android:id="@+id/tv_Ranking_Value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/x"
                 android:layout_above="@+id/adView"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="7dp" />
+                android:layout_marginBottom="7dp"
+                android:text="@string/x"
+                android:textColor="@color/green2" />
 
             <TextView
                 android:id="@+id/tv_Ranking"
@@ -40,25 +52,24 @@
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/device_set_button"
                 android:layout_marginTop="26dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"
-                android:layout_below="@+id/device_set_button"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-            </com.google.android.gms.ads.AdView>
+                ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
 
             <Button
                 android:id="@+id/server_set_button"
                 style="?attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/adView"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:text="@string/set"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_above="@+id/adView"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/device_set_button"
@@ -183,11 +194,11 @@
                 android:id="@+id/tv_Server_Min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/x"
-                android:textColor="@android:color/background_light"
                 android:layout_above="@+id/tvSMP"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
 
             <TextView
                 android:id="@+id/tv_Server_SMP"
