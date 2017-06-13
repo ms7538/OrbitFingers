@@ -43,5 +43,7 @@
     <string name="server">Server</string>
     <string name="set">SET</string>
     <string name="load_save">Load / Save</string>
+    <string name="position">RANKING:</string>
     <string name="level">Level:</string>
+    <string name="not_available">N/A</string>
 </resources>

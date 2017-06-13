@@ -18,16 +18,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tv_Ranking_Value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/x"
+                android:layout_above="@+id/adView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="7dp" />
+
+            <TextView
+                android:id="@+id/tv_Ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/server_set_button"
+                android:layout_centerHorizontal="true"
+                android:text="@string/position"
+                android:textColor="?android:attr/textColorLinkInverse" />
+
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/device_set_button"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="26dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id">
+                ads:adUnitId="@string/banner_ad_unit_id"
+                android:layout_below="@+id/device_set_button"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
             </com.google.android.gms.ads.AdView>
 
             <Button
@@ -165,11 +183,11 @@
                 android:id="@+id/tv_Server_Min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/tvSMP"
-                android:layout_alignLeft="@+id/tv_Server_Peak"
-                android:layout_alignStart="@+id/tv_Server_Peak"
                 android:text="@string/x"
-                android:textColor="@android:color/background_light" />
+                android:textColor="@android:color/background_light"
+                android:layout_above="@+id/tvSMP"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/tv_Server_SMP"

@@ -108,6 +108,8 @@ public class UserAreaActivity extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
             queue.add(valuesRequest);
         }
+
+
         final String username               = mSettings.getString("current_user","");
         final int min_score_device          = mSettings.getInt("min_score",0);
         final int smp_device                = mSettings.getInt("set_peak_min",2);
@@ -116,6 +118,8 @@ public class UserAreaActivity extends AppCompatActivity {
         int min_score_server                = mSettings.getInt("min_server",0);
         int smp_server                      = mSettings.getInt("smp_server",0);
         int peak_score_server               = mSettings.getInt("peak_server", 0);
+
+
 
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
@@ -126,11 +130,10 @@ public class UserAreaActivity extends AppCompatActivity {
         TextView tv_Server_Peak_value  = (TextView) findViewById(R.id.tv_Server_Peak);
         TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
         TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
-
+        final TextView tv_Rank_value         = (TextView) findViewById(R.id.tv_Ranking_Value);
         TextView tv_Peak_Text          = (TextView) findViewById((R.id.tvPeak));
         TextView tv_Min_Text           = (TextView) findViewById((R.id.tvMin));
         TextView tv_SMP_Text           = (TextView) findViewById((R.id.tvSMP));
-
         Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
         Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
 
@@ -141,7 +144,48 @@ public class UserAreaActivity extends AppCompatActivity {
         tv_Server_Peak_value.setText(String.format(Locale.US,"%d",peak_score_server));
         tv_Server_Min_value.setText (String.format(Locale.US,"%d",min_score_server));
         tv_Server_SMP_value.setText (String.format(Locale.US,"%d",smp_server));
+        tv_Rank_value.setText(R.string.not_available);
 
+        /////Ranking
+        Response.Listener<String> responseListener3 = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("rank_success");
+                    if (success) {
+                        int number_peaks_above   = jsonResponse.getInt("higher_peaks") + 1;
+                        tv_Rank_value.setText(String.format(Locale.US,"%d",number_peaks_above));
+
+                        // bool equal_peaks = jsonResponse.getBool("equal_peaks");
+                        Toast.makeText(getBaseContext(),Integer.toString(number_peaks_above),
+                                Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getBaseContext(), "Failed To get Ranking",
+                                Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                UserAreaActivity.this);
+                        builder.setMessage("Get Ranking Failed")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                    }
+
+                } catch (JSONException e) {
+                    Toast.makeText(getBaseContext(),"JSON EXCEPTION",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        };
+
+
+        RankingRequest rankingRequest = new RankingRequest(username,peak_score_server,
+                responseListener3);
+        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+        queue.add(rankingRequest);
+        /////////Ranking Finished
 
         Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
         Integer Dark_Gray = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
@@ -164,6 +208,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer Min_Text_Color          = White;
         Integer SMP_Text_Color          = White;
 
+        //setRepeatingAsyncTask();
 
 
         if ( peak_score_device < peak_score_server){
@@ -348,7 +393,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
     }
 
-    private void checkDB_Values(){
+    private void check_Ranking(){
 
     }
 
