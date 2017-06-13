@@ -3,7 +3,9 @@ package poloapps.orbitfingers;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +29,23 @@ import java.util.TimerTask;
 
 //v3.6e Database Position Indication
 public class UserAreaActivity extends AppCompatActivity {
+
+    final Handler handler = new Handler();
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                public void run() {
+                    try {
+                        check_Ranking();
+                    } catch (Exception e) {
+                        // error, do something
+                    }
+                }
+            });
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +138,7 @@ public class UserAreaActivity extends AppCompatActivity {
         int smp_server                      = mSettings.getInt("smp_server",0);
         int peak_score_server               = mSettings.getInt("peak_server", 0);
 
-
+        check_Ranking();
 
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
@@ -130,7 +149,7 @@ public class UserAreaActivity extends AppCompatActivity {
         TextView tv_Server_Peak_value  = (TextView) findViewById(R.id.tv_Server_Peak);
         TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
         TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
-        final TextView tv_Rank_value         = (TextView) findViewById(R.id.tv_Ranking_Value);
+        final TextView tv_Rank_value   = (TextView) findViewById(R.id.tv_Ranking_Value);
         TextView tv_Peak_Text          = (TextView) findViewById((R.id.tvPeak));
         TextView tv_Min_Text           = (TextView) findViewById((R.id.tvMin));
         TextView tv_SMP_Text           = (TextView) findViewById((R.id.tvSMP));
@@ -146,46 +165,7 @@ public class UserAreaActivity extends AppCompatActivity {
         tv_Server_SMP_value.setText (String.format(Locale.US,"%d",smp_server));
         tv_Rank_value.setText(R.string.not_available);
 
-        /////Ranking
-        Response.Listener<String> responseListener3 = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("rank_success");
-                    if (success) {
-                        int number_peaks_above   = jsonResponse.getInt("higher_peaks") + 1;
-                        tv_Rank_value.setText(String.format(Locale.US,"%d",number_peaks_above));
 
-                        // bool equal_peaks = jsonResponse.getBool("equal_peaks");
-                        Toast.makeText(getBaseContext(),Integer.toString(number_peaks_above),
-                                Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(getBaseContext(), "Failed To get Ranking",
-                                Toast.LENGTH_LONG).show();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(
-                                UserAreaActivity.this);
-                        builder.setMessage("Get Ranking Failed")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
-                    }
-
-                } catch (JSONException e) {
-                    Toast.makeText(getBaseContext(),"JSON EXCEPTION",
-                            Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-            }
-        };
-
-
-        RankingRequest rankingRequest = new RankingRequest(username,peak_score_server,
-                responseListener3);
-        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
-        queue.add(rankingRequest);
-        /////////Ranking Finished
 
         Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),(R.color.navy_blue));
         Integer Dark_Gray = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
@@ -208,7 +188,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer Min_Text_Color          = White;
         Integer SMP_Text_Color          = White;
 
-        //setRepeatingAsyncTask();
+
 
 
         if ( peak_score_device < peak_score_server){
@@ -391,33 +371,58 @@ public class UserAreaActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        timer.schedule(task, 0, 10*1000);  // interval of one minute
+
+
     }
 
     private void check_Ranking(){
-
-    }
-
-    private void setRepeatingAsyncTask() {
-
-        final Handler handler = new Handler();
-        Timer timer = new Timer();
-
-        TimerTask task = new TimerTask() {
+        /////Ranking
+        final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
+        final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        int peak_score_server             = mSettings.getInt("peak_server", 0);
+        final String username             = mSettings.getString("current_user","");
+        Response.Listener<String> responseListener3 = new Response.Listener<String>() {
             @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    public void run() {
-                        try {
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("rank_success");
+                    if (success) {
+                        int number_peaks_above   = jsonResponse.getInt("higher_peaks") + 1;
+                        tv_Rank_value.setText(String.format(Locale.US,"%d",number_peaks_above));
 
-                        } catch (Exception e) {
-                            // error, do something
-                        }
+                        // bool equal_peaks = jsonResponse.getBool("equal_peaks");
+                        Toast.makeText(getBaseContext(),Integer.toString(number_peaks_above),
+                                Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getBaseContext(), "Failed To get Ranking",
+                                Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                UserAreaActivity.this);
+                        builder.setMessage("Get Ranking Failed")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
                     }
-                });
+
+                } catch (JSONException e) {
+                    Toast.makeText(getBaseContext(),"JSON EXCEPTION",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
             }
         };
-        timer.schedule(task, 0, 10*1000);  // interval of one minute
+
+
+        RankingRequest rankingRequest = new RankingRequest(username,peak_score_server,
+                                                                                responseListener3);
+        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+        queue.add(rankingRequest);
+        /////////Ranking Finished
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -430,6 +435,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainMenu_Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        task.cancel();
         super.startActivity(intent);
     }
 
@@ -438,5 +444,6 @@ public class UserAreaActivity extends AppCompatActivity {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
+
 
 }
