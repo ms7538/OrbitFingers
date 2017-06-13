@@ -138,7 +138,7 @@ public class UserAreaActivity extends AppCompatActivity {
         int smp_server                      = mSettings.getInt("smp_server",0);
         int peak_score_server               = mSettings.getInt("peak_server", 0);
 
-        check_Ranking();
+        //check_Ranking();
 
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
@@ -371,7 +371,7 @@ public class UserAreaActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        timer.schedule(task, 0, 10*1000);  // interval of one minute
+        timer.schedule(task, 0 , 30000);  // interval of 30 sec
 
 
     }
