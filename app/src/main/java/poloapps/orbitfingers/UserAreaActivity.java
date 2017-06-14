@@ -3,9 +3,7 @@ package poloapps.orbitfingers;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -405,7 +403,6 @@ public class UserAreaActivity extends AppCompatActivity {
                         if (equal_peaks){
                             tv_Tied_indication.setVisibility(View.VISIBLE);
                         }
-
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To get Ranking",
                                 Toast.LENGTH_LONG).show();
@@ -444,7 +441,7 @@ public class UserAreaActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, MainMenu_Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         task.cancel();
         super.startActivity(intent);
     }
@@ -454,6 +451,10 @@ public class UserAreaActivity extends AppCompatActivity {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        task.cancel();
+    }
 
 }
