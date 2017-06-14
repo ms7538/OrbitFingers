@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//v3.6e Database Position Indication
+//v3.6f Top 10 Display in progress
 public class UserAreaActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
