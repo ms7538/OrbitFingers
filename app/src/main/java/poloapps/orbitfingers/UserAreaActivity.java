@@ -137,7 +137,7 @@ public class UserAreaActivity extends AppCompatActivity {
         int peak_score_server               = mSettings.getInt("peak_server", 0);
 
         //check_Ranking();
-
+        final TextView tv_TT10_Link    = (TextView) findViewById(R.id.tv_Top_Ten_Link);
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
         TextView tv_Server_text        = (TextView) findViewById(R.id.tv_Server);
@@ -370,6 +370,14 @@ public class UserAreaActivity extends AppCompatActivity {
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        tv_TT10_Link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent TT10Intent = new Intent(UserAreaActivity.this, TopTenActivity.class);
+                UserAreaActivity.this.startActivity(TT10Intent);
+            }
+        });
 
         timer.schedule(task, 0 , 30000);  // interval of 30 sec
 

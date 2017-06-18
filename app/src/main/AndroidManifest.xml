@@ -28,10 +28,18 @@
                 android:value=".MainMenu_Activity" />
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".UserAreaActivity"
-                  android:parentActivityName=".MainMenu_Activity"
-                                                                 />
-        <activity android:name=".LoginActivity"></activity>
+        <activity
+            android:name=".UserAreaActivity"
+            android:parentActivityName=".MainMenu_Activity" />
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".TopTenActivity"
+            android:label="@string/title_activity_top_ten"
+            android:parentActivityName=".UserAreaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="poloapps.orbitfingers.UserAreaActivity" />
+        </activity>
     </application>
 
 </manifest>
