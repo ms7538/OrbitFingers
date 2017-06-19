@@ -1,10 +1,10 @@
 package poloapps.orbitfingers;
 
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
+        import com.android.volley.Response;
+        import com.android.volley.toolbox.StringRequest;
 
-import java.util.HashMap;
-import java.util.Map;
+        import java.util.HashMap;
+        import java.util.Map;
 //login
 class RankingRequest extends StringRequest {
     private static final String RANK_REQUEST_URL = "http://www.poloapps.com/GetRank.php";
