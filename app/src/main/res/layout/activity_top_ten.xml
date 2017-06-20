@@ -20,13 +20,24 @@
 
 
             <TextView
+                android:id="@+id/tv_top3_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/x"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/tv_top_2"
+                android:layout_alignLeft="@+id/tv_top_2"
+                android:layout_alignStart="@+id/tv_top_2" />
+
+            <TextView
                 android:id="@+id/tv_top2_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/adView"
+                android:text="@string/not_available"
+                android:layout_alignBaseline="@+id/tv_top_2"
+                android:layout_alignBottom="@+id/tv_top_2"
                 android:layout_alignLeft="@+id/tv_top_username"
-                android:layout_alignStart="@+id/tv_top_username"
-                android:text="@string/not_available" />
+                android:layout_alignStart="@+id/tv_top_username" />
 
             <TextView
                 android:id="@+id/tv_top_2"
@@ -56,8 +67,8 @@
                 android:layout_height="wrap_content"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id"
-                android:layout_marginTop="23dp"
-                android:layout_below="@+id/tv_top_2"
+                android:layout_marginTop="47dp"
+                android:layout_below="@+id/tv_top3_value"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
