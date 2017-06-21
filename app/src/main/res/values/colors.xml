@@ -4,7 +4,7 @@
     <color name="green"         >#009900</color>
     <color name="green2"        >#17ff00</color>
     <color name="l1col"         >#576bff</color>
-    <color name="l2col"         >#E800FF</color>
+    <color name="l2col"         >#e800ff</color>
     <color name="l3col"         >#11dbec</color>
     <color name="l4col"         >#ffc63d</color>
     <color name="l5col"         >#8165C5</color>
@@ -13,4 +13,5 @@
     <color name="navy_blue"     >#017ed5</color>
     <color name="bright_yellow" >#fff400</color>
     <color name="light_gray"    >#f0f5f5</color>
+    <color name="white"         >#FFFFFF</color>
 </resources>

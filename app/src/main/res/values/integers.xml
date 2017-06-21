@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="L1_target_score">100</integer>
+    <integer name="L2_target_score">300</integer>
+    <integer name="L3_target_score">600</integer>
+    <integer name="L4_target_score">1000</integer>
+
+    <integer name="L1_penalty"     >1</integer>
+    <integer name="L2_penalty"     >5</integer>
+    <integer name="L3_penalty"     >10</integer>
+    <integer name="L4_penalty"     >15</integer>
+    <integer name="L5_penalty"     >20</integer>
+
+</resources>

@@ -15,12 +15,11 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.6 Created-- Ready for MySQL DB integration
+//V3.6b
 public class OFView_Activity extends View {
 
-    SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0); //
+    SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
 
-    //String  density_scale = prefs.getString("scale", "1");
     String  max_height     = prefs.getString("max_h", "1");
     String  max_width      = prefs.getString("max_w", "1");
     Integer LS             = prefs.getInt("ls", 1);
@@ -41,7 +40,7 @@ public class OFView_Activity extends View {
     String next_level_value = "100";
     String next_text        =  getContext().getString(R.string.level_2);
 
-    //float  scale_factor     = Float.parseFloat(density_scale);
+
     double Max_Height       = Double.parseDouble(max_height); // max y (height)
     double Max_Width        = Double.parseDouble(max_width); //max x (width)
 
@@ -96,7 +95,7 @@ public class OFView_Activity extends View {
     private int  CY         = Math.round(YAL);
 
     private double B1dist   = .125 * Max_Height; // orbit 1 distance
-    private double B2dist   = .25 * Max_Height; // orbit 2 distance
+    private double B2dist   = .25  * Max_Height; // orbit 2 distance
 
     private float FB1       = (float) B1dist;
     private float FB2       = (float) B2dist;
@@ -106,7 +105,7 @@ public class OFView_Activity extends View {
     private float FB2_xx    = (float) B2dist - 2;
 
 
-    private String Level_Color = "#"+ Integer.toHexString(L1C);
+    private String Level_Color  = "#"+ Integer.toHexString(L1C);
     private String L2col        = "#"+ Integer.toHexString(L2C);
     private String L3col        = "#"+ Integer.toHexString(L3C);
     private String L4col        = "#"+ Integer.toHexString(L4C);
@@ -406,14 +405,14 @@ public class OFView_Activity extends View {
     }
 
     private void update() {
-        int level2_min = 100;
-        int level3_min = 300;
-        int level4_min = 600;
-        int level5_min = 1000;
-        int level2_pen = 5;
-        int level3_pen = 10;
-        int level4_pen = 15;
-        int level5_pen = 20;
+        int level2_min = getContext().getResources().getInteger(R.integer.L1_target_score);
+        int level3_min = getContext().getResources().getInteger(R.integer.L2_target_score);
+        int level4_min = getContext().getResources().getInteger(R.integer.L3_target_score);
+        int level5_min = getContext().getResources().getInteger(R.integer.L4_target_score);
+        int level2_pen = getContext().getResources().getInteger(R.integer.L2_penalty);
+        int level3_pen = getContext().getResources().getInteger(R.integer.L3_penalty);
+        int level4_pen = getContext().getResources().getInteger(R.integer.L4_penalty);
+        int level5_pen = getContext().getResources().getInteger(R.integer.L5_penalty);
 
         score_color = ScCo;
         if (score <= ScoreMin) {

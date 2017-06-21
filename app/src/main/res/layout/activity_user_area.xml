@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context=".UserAreaActivity"
+    >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_Top_Ten_Link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/tv_Ranking"
+                android:layout_alignRight="@+id/tv_Ranking"
+                android:layout_below="@+id/tv_Ranking_Value"
+                android:layout_marginTop="20dp"
+                android:text="@string/top_ten"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/bright_yellow" />
+
+            <TextView
+                android:id="@+id/tv_Tie_Indication"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_Ranking_Value"
+                android:layout_alignBottom="@+id/tv_Ranking_Value"
+                android:layout_toEndOf="@+id/tv_Ranking_Value"
+                android:layout_toRightOf="@+id/tv_Ranking_Value"
+                android:text="@string/tied"
+                android:textColor="@color/bright_yellow" />
+
+            <TextView
+                android:id="@+id/tv_Ranking_Value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/adView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="7dp"
+                android:text="@string/x"
+                android:textColor="@color/green2" />
+
+            <TextView
+                android:id="@+id/tv_Ranking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/server_set_button"
+                android:layout_centerHorizontal="true"
+                android:text="@string/position"
+                android:textColor="?android:attr/textColorLinkInverse" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/device_set_button"
+                android:layout_marginTop="50dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id" />
+
+            <Button
+                android:id="@+id/server_set_button"
+                style="?attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/adView"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/set"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/device_set_button"
+                style="?attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSMP"
+                android:layout_marginTop="23dp"
+                android:text="@string/set"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_Device_SMP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/device_set_button"
+                android:layout_alignLeft="@+id/tv_Min_Device_value"
+                android:layout_alignStart="@+id/tv_Min_Device_value"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tv_Peak_Device_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvPeak"
+                android:layout_alignBottom="@+id/tvPeak"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:text="@string/username"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
+
+
+            <TextView
+                android:id="@+id/tvPeak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvUsername"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="@string/peak_score"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
+
+            <TextView
+                android:id="@+id/tvMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPeak"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
+                android:text="@string/min_score"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
+
+
+            <TextView
+                android:id="@+id/tvSMP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvMin"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/smps_remaining"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/bright_yellow" />
+
+            <TextView
+                android:id="@+id/tv_Device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvPeak"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="@string/device"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tv_Server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvPeak"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/server"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tv_Min_Device_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvSMP"
+                android:layout_alignLeft="@+id/tv_Peak_Device_value"
+                android:layout_alignStart="@+id/tv_Peak_Device_value"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tv_Server_Peak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvPeak"
+                android:layout_alignBottom="@+id/tvPeak"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tv_Server_Min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tvSMP"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/tv_Server_SMP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvSMP"
+                android:layout_alignBottom="@+id/tvSMP"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

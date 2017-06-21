@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    tools:context=".TopTenActivity"
+    >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_top3_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/x"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/tv_top_2"
+                android:layout_alignLeft="@+id/tv_top_2"
+                android:layout_alignStart="@+id/tv_top_2" />
+
+            <TextView
+                android:id="@+id/tv_top2_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_available"
+                android:layout_alignBaseline="@+id/tv_top_2"
+                android:layout_alignBottom="@+id/tv_top_2"
+                android:layout_alignLeft="@+id/tv_top_username"
+                android:layout_alignStart="@+id/tv_top_username" />
+
+            <TextView
+                android:id="@+id/tv_top_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/x"
+                android:layout_below="@+id/tv_top_1"
+                android:layout_alignLeft="@+id/tv_top_1"
+                android:layout_alignStart="@+id/tv_top_1" />
+
+            <TextView
+                android:id="@+id/tv_top_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="118dp"
+                android:layout_marginStart="118dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/not_available" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id"
+                android:layout_marginTop="47dp"
+                android:layout_below="@+id/tv_top3_value"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+
+
+            <TextView
+                android:id="@+id/tv_top_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/x"
+                android:textColor="@android:color/background_light"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="70dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="13dp" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
