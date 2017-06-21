@@ -23,16 +23,14 @@ public class TopTenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_ten);
-        final TextView tv_Top_Peak_value      = (TextView) findViewById(R.id.tv_top_1);
+        final TextView tv_Top_Peak_value       = (TextView) findViewById(R.id.tv_top_1);
         final TextView tv_Top2_Peak_value      = (TextView) findViewById(R.id.tv_top_2);
         final TextView tv_Top3_Peak_value      = (TextView) findViewById(R.id.tv_top3_value);
-        final TextView tv_Top_Username        = (TextView) findViewById(R.id.tv_top_username);
+        final TextView tv_Top_Username         = (TextView) findViewById(R.id.tv_top_username);
         final TextView tv_Top2_Username        = (TextView) findViewById(R.id.tv_top2_username);
 
-        final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-
-
-        final String username             = mSettings.getString("current_user","");
+        final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
+        final String username                  = mSettings.getString("current_user","");
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -42,11 +40,11 @@ public class TopTenActivity extends Activity {
                     boolean success = jsonResponse.getBoolean("tt_success");
                     if (success) {
 
-                        int top_peak       = jsonResponse.getInt("top1_peak");
-                        String top_username = jsonResponse.getString("top1_username");
-                        int top2_peak       = jsonResponse.getInt("top2_peak");
+                        int top_peak         = jsonResponse.getInt("top1_peak");
+                        String top_username  = jsonResponse.getString("top1_username");
+                        int top2_peak        = jsonResponse.getInt("top2_peak");
                         String top2_username = jsonResponse.getString("top2_username");
-                        int top3_peak       = jsonResponse.getInt("count");
+                        int top3_peak        = jsonResponse.getInt("count");
                         tv_Top3_Peak_value.setText(String.format(Locale.US,"%d",top3_peak));
                         tv_Top_Peak_value.setText(String.format(Locale.US,"%d",top_peak));
                         tv_Top_Username.setText(top_username);
