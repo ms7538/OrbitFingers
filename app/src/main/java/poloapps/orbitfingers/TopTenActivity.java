@@ -44,24 +44,24 @@ public class TopTenActivity extends Activity {
                     boolean success = jsonResponse.getBoolean("tt_success");
                     if (success) {
 
-                        int top_peak         = jsonResponse.getInt("top1_peak");
+                        int top_peak         = jsonResponse.getInt   ("top1_peak");
                         String top_username  = jsonResponse.getString("top1_username");
-                        int top2_peak        = jsonResponse.getInt("top2_peak");
+                        int top2_peak        = jsonResponse.getInt   ("top2_peak");
                         String top2_username = jsonResponse.getString("top2_username");
-                        int top3_peak        = jsonResponse.getInt("top3_peak");
+                        int top3_peak        = jsonResponse.getInt   ("top3_peak");
                         String top3_username = jsonResponse.getString("top3_username");
-                        int top4_peak        = jsonResponse.getInt("top4_peak");
+                        int top4_peak        = jsonResponse.getInt   ("top4_peak");
                         String top4_username = jsonResponse.getString("top4_username");
-                        int top5_peak        = jsonResponse.getInt("top5_peak");
+                        int top5_peak        = jsonResponse.getInt   ("top5_peak");
                         String top5_username = jsonResponse.getString("top5_username");
 
-                        tv_Top_Peak_value.setText(String.format(Locale.US,"%d",top_peak));
+                        tv_Top_Peak_value.setText (String.format(Locale.US,"%d",top_peak));
                         tv_Top2_Peak_value.setText(String.format(Locale.US,"%d",top2_peak));
                         tv_Top3_Peak_value.setText(String.format(Locale.US,"%d",top3_peak));
                         tv_Top4_Peak_value.setText(String.format(Locale.US,"%d",top4_peak));
                         tv_Top5_Peak_value.setText(String.format(Locale.US,"%d",top5_peak));
 
-                        tv_Top_Username.setText(top_username);
+                        tv_Top_Username.setText (top_username);
                         tv_Top2_Username.setText(top2_username);
                         tv_Top3_Username.setText(top3_username);
                         tv_Top4_Username.setText(top4_username);
