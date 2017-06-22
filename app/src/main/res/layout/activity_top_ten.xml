@@ -20,6 +20,16 @@
 
 
             <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="12dp"
+                android:text="@string/one" />
+
+            <TextView
                 android:id="@+id/tv_top3_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,13 +63,13 @@
                 android:id="@+id/tv_top_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="118dp"
-                android:layout_marginStart="118dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/not_available" />
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/not_available"
+                android:layout_alignBaseline="@+id/tv_top_1"
+                android:layout_alignBottom="@+id/tv_top_1"
+                android:layout_toRightOf="@+id/tv_top_1"
+                android:layout_toEndOf="@+id/tv_top_1" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
@@ -80,12 +90,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="70dp"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="13dp" />
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_alignBaseline="@+id/textView"
+                android:layout_alignBottom="@+id/textView"
+                android:layout_toRightOf="@+id/textView"
+                android:layout_toEndOf="@+id/textView" />
 
 
         </RelativeLayout>

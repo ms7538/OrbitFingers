@@ -379,7 +379,7 @@ public class UserAreaActivity extends AppCompatActivity {
             }
         });
 
-        timer.schedule(task, 0 , 30000);  // interval of 30 sec
+        timer.schedule(task, 0 , 10000);  // interval of 10 sec
 
     }
 
@@ -463,6 +463,11 @@ public class UserAreaActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         task.cancel();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        task.run();
     }
 
 }
