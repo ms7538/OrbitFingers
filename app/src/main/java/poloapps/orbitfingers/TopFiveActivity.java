@@ -3,7 +3,8 @@ package poloapps.orbitfingers;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Activity;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,13 +16,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class TopTenActivity extends Activity {
+public class TopFiveActivity extends AppCompatActivity {
+
+    final Handler handler = new Handler();
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                public void run() {
+                    try {
+                        //check_Ranking();
+                    } catch (Exception e) {
+                        // error, do something
+                    }
+                }
+            });
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_ten);
+
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        assert bar != null;
+        bar.setTitle(R.string.top_five);
         final TextView tv_Top_Peak_value       = (TextView) findViewById(R.id.tv_top_1);
         final TextView tv_Top2_Peak_value      = (TextView) findViewById(R.id.tv_top_2);
         final TextView tv_Top3_Peak_value      = (TextView) findViewById(R.id.tv_top_3);
@@ -71,7 +96,7 @@ public class TopTenActivity extends Activity {
                         Toast.makeText(getBaseContext(), "Failed To Get TT",
                                 Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(
-                                TopTenActivity.this);
+                                TopFiveActivity.this);
                         builder.setMessage("Get TT Failed")
                                 .setNegativeButton("Retry", null)
                                 .create()
@@ -87,9 +112,11 @@ public class TopTenActivity extends Activity {
         };
 
 
-        TopTenRequest topTenRequest = new TopTenRequest(username,responseListener);
-        RequestQueue queue = Volley.newRequestQueue(TopTenActivity.this);
-        queue.add(topTenRequest);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseListener);
+        RequestQueue queue = Volley.newRequestQueue(TopFiveActivity.this);
+        queue.add(topFiveRequest);
 
     }
+
+
 }

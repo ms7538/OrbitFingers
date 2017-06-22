@@ -6,11 +6,11 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 //login
-class TopTenRequest extends StringRequest {
+class TopFiveRequest extends StringRequest {
     private static final String TOP10_REQUEST_URL = "http://www.poloapps.com/GetTT.php";
     private Map<String, String> params;
 
-    TopTenRequest(String username, Response.Listener<String> listener) {
+    TopFiveRequest(String username, Response.Listener<String> listener) {
         super(Method.POST, TOP10_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("username",username);

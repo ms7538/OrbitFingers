@@ -47,11 +47,12 @@
     <string name="level">Level:</string>
     <string name="not_available">N/A</string>
     <string name="tied">T</string>
-    <string name="top_ten">TOP 10</string>
+    <string name="top_five">TOP 5</string>
     <string name="title_activity_top_ten">TopTenActivity</string>
     <string name="one"  >1</string>
     <string name="two"  >2</string>
     <string name="three">3</string>
     <string name="four" >4</string>
     <string name="five" >5</string>
+
 </resources>

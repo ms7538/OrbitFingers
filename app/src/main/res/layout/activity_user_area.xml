@@ -26,7 +26,7 @@
                 android:layout_alignRight="@+id/tv_Ranking"
                 android:layout_below="@+id/tv_Ranking_Value"
                 android:layout_marginTop="20dp"
-                android:text="@string/top_ten"
+                android:text="@string/top_five"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/bright_yellow" />
 

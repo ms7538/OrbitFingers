@@ -374,7 +374,7 @@ public class UserAreaActivity extends AppCompatActivity {
         tv_TT10_Link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent TT10Intent = new Intent(UserAreaActivity.this, TopTenActivity.class);
+                Intent TT10Intent = new Intent(UserAreaActivity.this, TopFiveActivity.class);
                 UserAreaActivity.this.startActivity(TT10Intent);
             }
         });
