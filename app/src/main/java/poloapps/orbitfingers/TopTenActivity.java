@@ -60,7 +60,6 @@ public class TopTenActivity extends Activity {
                         tv_Top3_Peak_value.setText(String.format(Locale.US,"%d",top3_peak));
                         tv_Top4_Peak_value.setText(String.format(Locale.US,"%d",top4_peak));
                         tv_Top5_Peak_value.setText(String.format(Locale.US,"%d",top5_peak));
-
                         tv_Top_Username.setText (top_username);
                         tv_Top2_Username.setText(top2_username);
                         tv_Top3_Username.setText(top3_username);
