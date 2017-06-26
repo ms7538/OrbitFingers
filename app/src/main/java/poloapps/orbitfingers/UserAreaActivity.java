@@ -54,7 +54,7 @@ public class UserAreaActivity extends AppCompatActivity {
         bar.setTitle(R.string.load_save);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
-
+        timer.schedule(task, 0 , 10000);  // interval of 10 sec
 
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
 
@@ -379,7 +379,7 @@ public class UserAreaActivity extends AppCompatActivity {
             }
         });
 
-        timer.schedule(task, 0 , 10000);  // interval of 10 sec
+
 
     }
 

@@ -1,10 +1,13 @@
 package poloapps.orbitfingers;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +25,14 @@ import java.util.TimerTask;
 public class TopFiveActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
-    Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
+    Timer timer2 = new Timer();
+    TimerTask task2 = new TimerTask() {
         @Override
         public void run() {
             handler.post(new Runnable() {
                 public void run() {
                     try {
-                        //check_Ranking();
+                        get_Ranking();
                     } catch (Exception e) {
                         // error, do something
                     }
@@ -43,10 +46,14 @@ public class TopFiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_ten);
-
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         assert bar != null;
         bar.setTitle(R.string.top_five);
+        timer2.schedule(task2, 0 , 10000);  // interval of 10 sec
+
+    }
+
+    private void get_Ranking(){
         final TextView tv_Top_Peak_value       = (TextView) findViewById(R.id.tv_top_1);
         final TextView tv_Top2_Peak_value      = (TextView) findViewById(R.id.tv_top_2);
         final TextView tv_Top3_Peak_value      = (TextView) findViewById(R.id.tv_top_3);
@@ -60,7 +67,6 @@ public class TopFiveActivity extends AppCompatActivity {
 
         final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
         final String username                  = mSettings.getString("current_user","");
-
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -117,6 +123,34 @@ public class TopFiveActivity extends AppCompatActivity {
         queue.add(topFiveRequest);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, UserAreaActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        task2.cancel();
+        super.startActivity(intent);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        task2.cancel();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        task2.run();
+    }
 }
