@@ -137,7 +137,7 @@ public class UserAreaActivity extends AppCompatActivity {
         int peak_score_server               = mSettings.getInt("peak_server", 0);
 
         //check_Ranking();
-        final TextView tv_TT10_Link    = (TextView) findViewById(R.id.tv_Top_Ten_Link);
+        final TextView tv_TT10_Link    = (TextView) findViewById(R.id.tv_Top_Five_Link);
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
         TextView tv_Server_text        = (TextView) findViewById(R.id.tv_Server);
@@ -387,12 +387,12 @@ public class UserAreaActivity extends AppCompatActivity {
         /////Ranking
         final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
         final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
+        final TextView tv_Top_5           = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-
         int peak_score_server             = mSettings.getInt("peak_server", 0);
         final String username             = mSettings.getString("current_user","");
-
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+        final Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
 
         Response.Listener<String> responseListener3 = new Response.Listener<String>() {
             @Override
@@ -436,6 +436,69 @@ public class UserAreaActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
         queue.add(rankingRequest);
         /////////Ranking Finished
+
+        Response.Listener<String> responseT5Listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("tt_success");
+                    if (success) {
+
+                        String top_username  = jsonResponse.getString("top1_username");
+                        String top2_username = jsonResponse.getString("top2_username");
+                        String top3_username = jsonResponse.getString("top3_username");
+                        String top4_username = jsonResponse.getString("top4_username");
+                        String top5_username = jsonResponse.getString("top5_username");
+
+                        if (username.equals(top_username)){
+                            tv_Top_5.setTextColor(Green);
+                        }
+                        else if (username.equals(top2_username)){
+                            tv_Top_5.setTextColor(Green);
+                        }
+                        else if (username.equals(top3_username)){
+                            tv_Top_5.setTextColor(Green);
+                        }
+                        else if (username.equals(top4_username)){
+                            tv_Top_5.setTextColor(Green);
+                        }
+                        else if (username.equals(top5_username)){
+                            tv_Top_5.setTextColor(Green);
+                        }
+                        else {
+                            tv_Top_5.setTextColor(Red);
+                        }
+
+
+                    } else {
+                        Toast.makeText(getBaseContext(), "Failed To Get TT",
+                                Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                UserAreaActivity.this);
+                        builder.setMessage("Get TT Failed")
+                                .setNegativeButton("Retry", null)
+                                .create()
+                                .show();
+                    }
+
+                } catch (JSONException e) {
+                    Toast.makeText(getBaseContext(),"JSON EXCEPTION",
+                            Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        };
+
+
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseT5Listener);
+        queue.add(topFiveRequest);
+
+
+
+
+
+
     }
 
 
