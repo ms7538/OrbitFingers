@@ -389,8 +389,10 @@ public class UserAreaActivity extends AppCompatActivity {
         final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
         final TextView tv_Top_5           = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        final SharedPreferences.Editor editor = mSettings.edit();
         int peak_score_server             = mSettings.getInt("peak_server", 0);
         final String username             = mSettings.getString("current_user","");
+
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
         final Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
 
@@ -401,17 +403,17 @@ public class UserAreaActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("rank_success");
                     if (success) {
-                        int number_peaks_above   = jsonResponse.getInt("higher_peaks") + 1;
-                        tv_Rank_value.setText(String.format(Locale.US,"%d",number_peaks_above));
-                        if ( number_peaks_above > 9 ){
+                        if( mSettings.getInt("ut5", 0) == 0 ) {
+                            int number_peaks_above = jsonResponse.getInt("higher_peaks") + 1;
+                            tv_Rank_value.setText(String.format(Locale.US, "%d",
+                                                                              number_peaks_above));
 
-                            tv_Rank_value.setTextColor(Red);
+                            boolean equal_peaks = jsonResponse.getBoolean("equal_peaks");
+                            if (equal_peaks) {
+                                tv_Tied_indication.setVisibility(View.VISIBLE);
+                            }
                         }
-                         boolean equal_peaks = jsonResponse.getBoolean("equal_peaks");
-                        if (equal_peaks){
-                            tv_Tied_indication.setVisibility(View.VISIBLE);
-                        }
-                    } else {
+                        } else {
                         Toast.makeText(getBaseContext(), "Failed To get Ranking",
                                 Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -435,7 +437,7 @@ public class UserAreaActivity extends AppCompatActivity {
                                                                                 responseListener3);
         RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
         queue.add(rankingRequest);
-        /////////Ranking Finished
+
 
         Response.Listener<String> responseT5Listener = new Response.Listener<String>() {
             @Override
@@ -444,6 +446,7 @@ public class UserAreaActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("tt_success");
                     if (success) {
+                        int UserT5        = 0;
 
                         String top_username  = jsonResponse.getString("top1_username");
                         String top2_username = jsonResponse.getString("top2_username");
@@ -452,24 +455,34 @@ public class UserAreaActivity extends AppCompatActivity {
                         String top5_username = jsonResponse.getString("top5_username");
 
                         if (username.equals(top_username)){
-                            tv_Top_5.setTextColor(Green);
+                            UserT5 = 1;
                         }
                         else if (username.equals(top2_username)){
-                            tv_Top_5.setTextColor(Green);
+                            UserT5 = 2;
                         }
                         else if (username.equals(top3_username)){
-                            tv_Top_5.setTextColor(Green);
+                            UserT5 = 3;
                         }
                         else if (username.equals(top4_username)){
-                            tv_Top_5.setTextColor(Green);
+                            UserT5 = 4;
                         }
                         else if (username.equals(top5_username)){
-                            tv_Top_5.setTextColor(Green);
-                        }
-                        else {
-                            tv_Top_5.setTextColor(Red);
+                            UserT5 = 5;
                         }
 
+                        editor.putInt("ut5", UserT5);
+                        editor.apply();
+
+                        if( UserT5 != 0 ) {
+                            tv_Top_5.setTextColor(Green);
+                            tv_Rank_value.setText(String.format(Locale.US,"%d",UserT5));
+                            tv_Tied_indication.setVisibility(View.INVISIBLE);
+
+                        }
+                        else{
+                            tv_Top_5.setTextColor(Red);
+                            tv_Rank_value.setTextColor(Red);
+                        }
 
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To Get TT",
@@ -493,12 +506,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
         TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseT5Listener);
         queue.add(topFiveRequest);
-
-
-
-
-
-
+        /////////Ranking Finished
     }
 
 

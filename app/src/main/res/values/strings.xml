@@ -54,5 +54,7 @@
     <string name="three">3</string>
     <string name="four" >4</string>
     <string name="five" >5</string>
+    <string name="message">Enter Your Display Message</string>
+    <string name="set_message">Set Message</string>
 
 </resources>

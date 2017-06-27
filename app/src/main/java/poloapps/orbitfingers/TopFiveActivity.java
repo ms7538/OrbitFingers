@@ -8,6 +8,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +48,7 @@ public class TopFiveActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_top_ten);
+        setContentView(R.layout.activity_top_five);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         assert bar != null;
         bar.setTitle(R.string.top_five);
@@ -64,9 +67,13 @@ public class TopFiveActivity extends AppCompatActivity {
         final TextView tv_Top3_Username        = (TextView) findViewById(R.id.tv_top3_username);
         final TextView tv_Top4_Username        = (TextView) findViewById(R.id.tv_top4_username);
         final TextView tv_Top5_Username        = (TextView) findViewById(R.id.tv_top5_username);
-
+        final EditText etMessage               = (EditText) findViewById(R.id.et_message);
+        final Button   SetMessage_Button       = (Button)   findViewById(R.id.SetMessage_btn);
         final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
+        final SharedPreferences.Editor editor = mSettings.edit();
         final String username                  = mSettings.getString("current_user","");
+
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -74,7 +81,7 @@ public class TopFiveActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("tt_success");
                     if (success) {
-
+                        int UserT5        = 0;
                         int top_peak         = jsonResponse.getInt   ("top1_peak");
                         String top_username  = jsonResponse.getString("top1_username");
                         int top2_peak        = jsonResponse.getInt   ("top2_peak");
@@ -96,6 +103,25 @@ public class TopFiveActivity extends AppCompatActivity {
                         tv_Top3_Username.setText(top3_username);
                         tv_Top4_Username.setText(top4_username);
                         tv_Top5_Username.setText(top5_username);
+
+                        if (username.equals(top_username)){
+                            UserT5 = 1;
+                        }
+                        else if (username.equals(top2_username)){
+                            UserT5 = 2;
+                        }
+                        else if (username.equals(top3_username)){
+                            UserT5 = 3;
+                        }
+                        else if (username.equals(top4_username)){
+                            UserT5 = 4;
+                        }
+                        else if (username.equals(top5_username)){
+                            UserT5 = 5;
+                        }
+
+                        editor.putInt("ut5", UserT5);
+                        editor.apply();
 
 
                     } else {
@@ -121,6 +147,11 @@ public class TopFiveActivity extends AppCompatActivity {
         TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseListener);
         RequestQueue queue = Volley.newRequestQueue(TopFiveActivity.this);
         queue.add(topFiveRequest);
+        int U5 =  mSettings.getInt("ut5", 0);
+        if( U5 != 0){
+            etMessage.setVisibility(View.VISIBLE);
+            SetMessage_Button.setVisibility(View.VISIBLE);        }
+
 
     }
     @Override

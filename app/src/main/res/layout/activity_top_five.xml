@@ -16,7 +16,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
 
             <TextView
@@ -160,18 +162,6 @@
                 android:layout_toRightOf="@+id/tv_top_1"
                 android:layout_toEndOf="@+id/tv_top_1" />
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"
-                android:layout_marginTop="25dp"
-                android:layout_below="@+id/tv_top5_username"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-
 
             <TextView
                 android:id="@+id/tv_top_1"
@@ -185,6 +175,83 @@
                 android:layout_alignBottom="@+id/tv_one"
                 android:layout_toRightOf="@+id/tv_one"
                 android:layout_toEndOf="@+id/tv_one" />
+
+            <TextView
+                android:id="@+id/tv_top_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_top_username"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/tv_top_username"
+                android:layout_toRightOf="@+id/tv_top_username"
+                android:text="@string/empty" />
+
+            <TextView
+                android:id="@+id/tv_t2_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_top2_username"
+                android:layout_alignBottom="@+id/tv_top2_username"
+                android:layout_toEndOf="@+id/tv_top_message"
+                android:layout_toRightOf="@+id/tv_top_message"
+                android:text="@string/empty" />
+
+            <TextView
+                android:id="@+id/tv_t3_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_t2_message"
+                android:layout_alignStart="@+id/tv_t2_message"
+                android:layout_alignTop="@+id/tv_top3_username"
+                android:text="@string/empty" />
+
+            <TextView
+                android:id="@+id/tv_t4_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_top4_username"
+                android:layout_alignBottom="@+id/tv_top4_username"
+                android:layout_toEndOf="@+id/tv_t3_message"
+                android:layout_toRightOf="@+id/tv_t3_message"
+                android:text="@string/empty" />
+
+            <TextView
+                android:id="@+id/tv_t5_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_t4_message"
+                android:layout_alignStart="@+id/tv_t4_message"
+                android:layout_alignTop="@+id/tv_top5_username"
+                android:text="@string/empty" />
+
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_top5_username"
+                android:layout_marginTop="75dp"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="text|textCapCharacters"
+                android:text="@string/message"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/SetMessage_btn"
+                style="@android:style/ButtonBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_message"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                android:text="@string/set_message"
+                android:textColorHighlight="@color/bright_yellow"
+                android:textStyle="bold|italic"
+                android:theme="@style/AppTheme"
+                android:visibility="invisible" />
 
 
         </RelativeLayout>
