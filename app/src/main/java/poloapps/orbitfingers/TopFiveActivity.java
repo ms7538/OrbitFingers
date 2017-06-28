@@ -67,6 +67,11 @@ public class TopFiveActivity extends AppCompatActivity {
         final TextView tv_Top3_Username        = (TextView) findViewById(R.id.tv_top3_username);
         final TextView tv_Top4_Username        = (TextView) findViewById(R.id.tv_top4_username);
         final TextView tv_Top5_Username        = (TextView) findViewById(R.id.tv_top5_username);
+        final TextView tv_Top_MSG              = (TextView) findViewById(R.id.tv_top_message);
+        final TextView tv_T2_MSG               = (TextView) findViewById(R.id.tv_t2_message);
+        final TextView tv_T3_MSG               = (TextView) findViewById(R.id.tv_t3_message);
+        final TextView tv_T4_MSG               = (TextView) findViewById(R.id.tv_t4_message);
+        final TextView tv_T5_MSG               = (TextView) findViewById(R.id.tv_t5_message);
         final EditText etMessage               = (EditText) findViewById(R.id.et_message);
         final Button   SetMessage_Button       = (Button)   findViewById(R.id.SetMessage_btn);
         final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
@@ -84,14 +89,19 @@ public class TopFiveActivity extends AppCompatActivity {
                         int UserT5        = 0;
                         int top_peak         = jsonResponse.getInt   ("top1_peak");
                         String top_username  = jsonResponse.getString("top1_username");
+                        String top_message   = jsonResponse.getString("top1_message");
                         int top2_peak        = jsonResponse.getInt   ("top2_peak");
                         String top2_username = jsonResponse.getString("top2_username");
+                        String top2_message  = jsonResponse.getString("top2_message");
                         int top3_peak        = jsonResponse.getInt   ("top3_peak");
                         String top3_username = jsonResponse.getString("top3_username");
+                        String top3_message  = jsonResponse.getString("top3_message");
                         int top4_peak        = jsonResponse.getInt   ("top4_peak");
                         String top4_username = jsonResponse.getString("top4_username");
+                        String top4_message  = jsonResponse.getString("top4_message");
                         int top5_peak        = jsonResponse.getInt   ("top5_peak");
                         String top5_username = jsonResponse.getString("top5_username");
+                        String top5_message  = jsonResponse.getString("top5_message");
 
                         tv_Top_Peak_value.setText (String.format(Locale.US,"%d",top_peak));
                         tv_Top2_Peak_value.setText(String.format(Locale.US,"%d",top2_peak));
@@ -103,6 +113,11 @@ public class TopFiveActivity extends AppCompatActivity {
                         tv_Top3_Username.setText(top3_username);
                         tv_Top4_Username.setText(top4_username);
                         tv_Top5_Username.setText(top5_username);
+                        tv_Top_MSG.setText(top_message);
+                        tv_T2_MSG.setText(top2_message);
+                        tv_T3_MSG.setText(top3_message);
+                        tv_T4_MSG.setText(top4_message);
+                        tv_T5_MSG.setText(top5_message);
 
                         if (username.equals(top_username)){
                             UserT5 = 1;

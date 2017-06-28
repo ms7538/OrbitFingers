@@ -185,17 +185,17 @@
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/tv_top_username"
                 android:layout_toRightOf="@+id/tv_top_username"
-                android:text="@string/empty" />
+                android:text="@string/x" />
 
             <TextView
                 android:id="@+id/tv_t2_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/x"
                 android:layout_alignBaseline="@+id/tv_top2_username"
                 android:layout_alignBottom="@+id/tv_top2_username"
-                android:layout_toEndOf="@+id/tv_top_message"
-                android:layout_toRightOf="@+id/tv_top_message"
-                android:text="@string/empty" />
+                android:layout_alignLeft="@+id/tv_top_message"
+                android:layout_alignStart="@+id/tv_top_message" />
 
             <TextView
                 android:id="@+id/tv_t3_message"
@@ -204,17 +204,17 @@
                 android:layout_alignLeft="@+id/tv_t2_message"
                 android:layout_alignStart="@+id/tv_t2_message"
                 android:layout_alignTop="@+id/tv_top3_username"
-                android:text="@string/empty" />
+                android:text="@string/x" />
 
             <TextView
                 android:id="@+id/tv_t4_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/x"
                 android:layout_alignBaseline="@+id/tv_top4_username"
                 android:layout_alignBottom="@+id/tv_top4_username"
-                android:layout_toEndOf="@+id/tv_t3_message"
-                android:layout_toRightOf="@+id/tv_t3_message"
-                android:text="@string/empty" />
+                android:layout_alignLeft="@+id/tv_t3_message"
+                android:layout_alignStart="@+id/tv_t3_message" />
 
             <TextView
                 android:id="@+id/tv_t5_message"
@@ -223,7 +223,7 @@
                 android:layout_alignLeft="@+id/tv_t4_message"
                 android:layout_alignStart="@+id/tv_t4_message"
                 android:layout_alignTop="@+id/tv_top5_username"
-                android:text="@string/empty" />
+                android:text="@string/x" />
 
             <EditText
                 android:id="@+id/et_message"
