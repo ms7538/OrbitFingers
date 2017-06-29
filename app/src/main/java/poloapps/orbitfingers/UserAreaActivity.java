@@ -55,6 +55,7 @@ public class UserAreaActivity extends AppCompatActivity {
         bar.setTitle(R.string.load_save);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
+        final EditText etRMessage  = (EditText) findViewById(R.id.et_ranking_message);
         timer.schedule(task, 0 , 10000);  // interval of 10 sec
 
         Boolean logged_in = mSettings.getBoolean("Signed_In", false);
@@ -66,7 +67,7 @@ public class UserAreaActivity extends AppCompatActivity {
             int peak        = intent.getIntExtra("peak", -1);
             int min         = intent.getIntExtra("min", -1);
             int smp         = intent.getIntExtra("smp", -1);
-
+            editor.putString ("name",rank_msg);
             editor.putString ("rank_message",rank_msg);
             editor.putString ("current_user",username);
             editor.putBoolean("Signed_In", true);
@@ -120,9 +121,8 @@ public class UserAreaActivity extends AppCompatActivity {
                 }
             };
 
-            final EditText etRMessage  = (EditText) findViewById(R.id.et_ranking_message);
-            final String rank_msg      = mSettings.getString("rank_message","");
-            etRMessage.setText(rank_msg);
+
+
 
             ValuesRequest valuesRequest = new ValuesRequest(mSettings.getString("current_user",""),
                                                                                 responseListener2);
@@ -130,7 +130,8 @@ public class UserAreaActivity extends AppCompatActivity {
             queue.add(valuesRequest);
         }
 
-
+        final String rank_msg      = mSettings.getString("rank_message","");
+        etRMessage.setText(rank_msg);
         final String username               = mSettings.getString("current_user","");
         final int min_score_device          = mSettings.getInt("min_score",0);
         final int smp_device                = mSettings.getInt("set_peak_min",2);
@@ -143,7 +144,7 @@ public class UserAreaActivity extends AppCompatActivity {
         //check_Ranking();
         final TextView tv_TT10_Link    = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final TextView tv_SRM_Link     = (TextView) findViewById(R.id.tv_rank_msg_link);
-        final EditText etRMessage      = (EditText) findViewById(R.id.et_ranking_message);
+
 
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
@@ -403,7 +404,8 @@ public class UserAreaActivity extends AppCompatActivity {
                                     if (success) {
                                         String MSG  = jsonResponse.getString("message");
 
-                                        Toast.makeText(getBaseContext(), MSG,
+                                        Toast.makeText(getBaseContext(), "Ranking Message Set To" +
+                                                                                                MSG,
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getBaseContext(), "Failed To set MSGs",
