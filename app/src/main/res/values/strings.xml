@@ -56,5 +56,6 @@
     <string name="five" >5</string>
     <string name="message">Enter Your Display Message</string>
     <string name="set_message">Set Message</string>
+    <string name="set_ranking_message">Set Ranking Message</string>
 
 </resources>

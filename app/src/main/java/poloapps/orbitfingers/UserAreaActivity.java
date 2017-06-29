@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -388,6 +389,7 @@ public class UserAreaActivity extends AppCompatActivity {
         final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
         final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
         final TextView tv_Top_5           = (TextView) findViewById(R.id.tv_Top_Five_Link);
+        final EditText etRMessage         = (EditText) findViewById(R.id.et_ranking_message);
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         int peak_score_server             = mSettings.getInt("peak_server", 0);
@@ -396,7 +398,7 @@ public class UserAreaActivity extends AppCompatActivity {
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
         final Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
 
-        Response.Listener<String> responseListener3 = new Response.Listener<String>() {
+        final Response.Listener<String> responseListener3 = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -435,7 +437,7 @@ public class UserAreaActivity extends AppCompatActivity {
 
         RankingRequest rankingRequest = new RankingRequest(username,peak_score_server,
                                                                                 responseListener3);
-        RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+        final RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
         queue.add(rankingRequest);
 
 
@@ -477,11 +479,48 @@ public class UserAreaActivity extends AppCompatActivity {
                             tv_Top_5.setTextColor(Green);
                             tv_Rank_value.setText(String.format(Locale.US,"%d",UserT5));
                             tv_Tied_indication.setVisibility(View.INVISIBLE);
+                            etRMessage.setVisibility(View.VISIBLE);
+                            String RMessage = etRMessage.getText().toString();
+                            final Response.Listener<String> responseListener4 =
+                                                                new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    try {
+                                        JSONObject jsonResponse = new JSONObject(response);
+                                        boolean success = jsonResponse.getBoolean("msg_success");
+                                        if (success) {
+                                            String MSG  = jsonResponse.getString("message");
+                                            int TPos    = jsonResponse.getInt("pos");
+                                            Toast.makeText(getBaseContext(), MSG,
+                                                    Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getBaseContext(), "Failed To set MSGs",
+                                                    Toast.LENGTH_LONG).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(
+                                                    UserAreaActivity.this);
+                                            builder.setMessage("Set Message Failed")
+                                                    .setNegativeButton("Retry", null)
+                                                    .create()
+                                                    .show();
+                                        }
+
+                                    } catch (JSONException e) {
+                                        Toast.makeText(getBaseContext(),"JSON EXCEPTION",
+                                                Toast.LENGTH_SHORT).show();
+                                        e.printStackTrace();
+                                    }
+                                }
+                            };
+
+                            MessageRequest messageRequest = new MessageRequest(username, RMessage,
+                                                                        UserT5, responseListener4);
+                            queue.add(messageRequest);
 
                         }
                         else{
                             tv_Top_5.setTextColor(Red);
                             tv_Rank_value.setTextColor(Red);
+                            etRMessage.setVisibility(View.INVISIBLE);
                         }
 
                     } else {

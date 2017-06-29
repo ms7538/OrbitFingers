@@ -225,34 +225,6 @@
                 android:layout_alignTop="@+id/tv_top5_username"
                 android:text="@string/x" />
 
-            <EditText
-                android:id="@+id/et_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/tv_top5_username"
-                android:layout_marginTop="75dp"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="text|textCapCharacters"
-                android:text="@string/message"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/SetMessage_btn"
-                style="@android:style/ButtonBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/et_message"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp"
-                android:text="@string/set_message"
-                android:textColorHighlight="@color/bright_yellow"
-                android:textStyle="bold|italic"
-                android:theme="@style/AppTheme"
-                android:visibility="invisible" />
-
 
         </RelativeLayout>
     </ScrollView>

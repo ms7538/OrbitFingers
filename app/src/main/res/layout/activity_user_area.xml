@@ -16,13 +16,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:id="@+id/tv_Top_Five_Link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:text="@string/top_five"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/bright_yellow"
@@ -54,21 +55,22 @@
                 android:id="@+id/tv_Ranking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/server_set_button"
-                android:layout_centerHorizontal="true"
                 android:text="@string/position"
-                android:textColor="?android:attr/textColorLinkInverse" />
+                android:textColor="?android:attr/textColorLinkInverse"
+                android:layout_alignTop="@+id/server_set_button"
+                android:layout_alignRight="@+id/tvMin"
+                android:layout_alignEnd="@+id/tvMin" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/device_set_button"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="149dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id" />
+                ads:adUnitId="@string/banner_ad_unit_id"
+                android:layout_below="@+id/device_set_button"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <Button
                 android:id="@+id/server_set_button"
@@ -221,6 +223,20 @@
                 android:layout_alignParentRight="true"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
+
+            <EditText
+                android:id="@+id/et_ranking_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tv_Top_Five_Link"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/set_ranking_message"
+                android:inputType="textPersonName"
+                android:text="@string/empty"
+                android:textColor="@color/navy_blue" />
 
 
         </RelativeLayout>

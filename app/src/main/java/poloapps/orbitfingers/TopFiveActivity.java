@@ -72,8 +72,7 @@ public class TopFiveActivity extends AppCompatActivity {
         final TextView tv_T3_MSG               = (TextView) findViewById(R.id.tv_t3_message);
         final TextView tv_T4_MSG               = (TextView) findViewById(R.id.tv_t4_message);
         final TextView tv_T5_MSG               = (TextView) findViewById(R.id.tv_t5_message);
-        final EditText etMessage               = (EditText) findViewById(R.id.et_message);
-        final Button   SetMessage_Button       = (Button)   findViewById(R.id.SetMessage_btn);
+
         final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         final String username                  = mSettings.getString("current_user","");
@@ -162,10 +161,6 @@ public class TopFiveActivity extends AppCompatActivity {
         TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseListener);
         RequestQueue queue = Volley.newRequestQueue(TopFiveActivity.this);
         queue.add(topFiveRequest);
-        int U5 =  mSettings.getInt("ut5", 0);
-        if( U5 != 0){
-            etMessage.setVisibility(View.VISIBLE);
-            SetMessage_Button.setVisibility(View.VISIBLE);        }
 
 
     }
