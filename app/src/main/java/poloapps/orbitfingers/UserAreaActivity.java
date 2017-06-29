@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//v3.6g Top 5 Display Messages in progress
+//v3.6h Top 5 Display Table Layout in progress
 public class UserAreaActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
@@ -402,7 +402,7 @@ public class UserAreaActivity extends AppCompatActivity {
                                     boolean success = jsonResponse.getBoolean("msg_success");
                                     if (success) {
                                         String MSG  = jsonResponse.getString("message");
-                                        
+
                                         Toast.makeText(getBaseContext(), MSG,
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
