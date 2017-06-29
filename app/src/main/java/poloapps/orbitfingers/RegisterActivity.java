@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                 final String username = etUsername.getText().toString();
                 final int peak        = mSettings.getInt("peakscore", 0);
                 final int min         = mSettings.getInt("min_score", 0);
-                final int smp         = mSettings.getInt("set_peak_min", 0);
+                final int smp         = mSettings.getInt("set_peak_min", 2);
                 final String password = etPassword.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {

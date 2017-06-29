@@ -33,7 +33,7 @@
             android:parentActivityName=".MainMenu_Activity" />
         <activity android:name=".LoginActivity" />
         <activity
-            android:name=".TopTenActivity"
+            android:name=".TopFiveActivity"
             android:label="@string/title_activity_top_ten"
             android:parentActivityName=".UserAreaActivity">
             <meta-data

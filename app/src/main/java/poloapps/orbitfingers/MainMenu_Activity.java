@@ -143,6 +143,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                      editor.putInt    ("set_peak_min", 2);
                      editor.putBoolean("Signed_In", false);
                      editor.putString ("current_user","");
+                     editor.putString ("rank_message","");
                      editor.commit();
                      SetText_TColors();
                      ((TextView) findViewById(R.id.peak_score_value)).setText
