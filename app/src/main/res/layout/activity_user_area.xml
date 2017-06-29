@@ -233,9 +233,19 @@
                 android:layout_below="@+id/tv_Top_Five_Link"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/set_ranking_message"
-                android:inputType="textPersonName"
+                android:inputType="textCapCharacters|textPersonName"
                 android:text="@string/empty"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:id="@+id/tv_rank_msg_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/et_ranking_message"
+                android:gravity="center"
+                android:text="@string/set_ranking_message"
                 android:textColor="@color/navy_blue" />
 
 
