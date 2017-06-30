@@ -8,187 +8,6 @@
     tools:context=".TopFiveActivity"
     >
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:id="@+id/scrollView2">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-
-            <TextView
-                android:id="@+id/tv_top5_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_top_5"
-                android:layout_alignBottom="@+id/tv_top_5"
-                android:layout_alignLeft="@+id/tv_top4_username"
-                android:layout_alignStart="@+id/tv_top4_username"
-                android:text="@string/not_available" />
-
-            <TextView
-                android:id="@+id/tv_top4_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/not_available"
-                android:layout_above="@+id/tv_top5_username"
-                android:layout_alignLeft="@+id/tv_top2_username"
-                android:layout_alignStart="@+id/tv_top2_username" />
-
-            <TextView
-                android:id="@+id/tv_top_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_five"
-                android:layout_alignBottom="@+id/tv_five"
-
-                android:text="@string/x" />
-
-            <TextView
-                android:id="@+id/tv_five"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/tv_four"
-                android:layout_marginTop="14dp"
-                android:text="@string/five" />
-
-            <TextView
-                android:id="@+id/tv_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/tv_three"
-                android:layout_marginTop="11dp"
-                android:text="@string/four" />
-
-
-
-            <TextView
-                android:id="@+id/tv_top3_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_top_3"
-                android:layout_alignBottom="@+id/tv_top_3"
-                android:layout_alignLeft="@+id/tv_top2_username"
-                android:layout_alignStart="@+id/tv_top2_username"
-                android:text="@string/not_available" />
-
-            <TextView
-                android:id="@+id/tv_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_top_3"
-                android:layout_alignBottom="@+id/tv_top_3"
-                android:layout_alignLeft="@+id/tv_four"
-                android:layout_alignStart="@+id/tv_four"
-                android:text="@string/three" />
-
-            <TextView
-
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/two"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/tv_three" />
-
-            <TextView
-                android:id="@+id/tv_top_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/textView2"
-                android:layout_alignRight="@+id/textView2"
-                android:layout_below="@+id/textView2"
-                android:text="@string/x" />
-
-            <TextView
-                android:id="@+id/tv_top2_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/not_available"
-                android:layout_above="@+id/tv_top4_username"
-                android:layout_toLeftOf="@+id/tv_t2_message"
-                android:layout_toStartOf="@+id/tv_t2_message" />
-
-
-            <TextView
-                android:id="@+id/tv_top_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="@string/not_available"
-                android:layout_marginLeft="26dp"
-                android:layout_marginStart="26dp"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/textView2"
-                android:layout_toEndOf="@+id/textView2" />
-
-
-            <TextView
-                android:id="@+id/tv_top_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="33dp"
-                android:layout_marginStart="33dp"
-                android:text="@string/x"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/tv_top_username"
-                android:layout_toEndOf="@+id/tv_top_username" />
-
-            <TextView
-                android:id="@+id/tv_t2_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/x"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/tv_t3_message"
-                android:layout_toStartOf="@+id/tv_t3_message"
-                android:layout_marginRight="21dp"
-                android:layout_marginEnd="21dp" />
-
-            <TextView
-                android:id="@+id/tv_t3_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/x"
-                android:layout_alignBaseline="@+id/tv_top3_username"
-                android:layout_alignBottom="@+id/tv_top3_username"
-                android:layout_toRightOf="@+id/tv_top_message"
-                android:layout_toEndOf="@+id/tv_top_message"
-                android:layout_marginLeft="54dp"
-                android:layout_marginStart="54dp" />
-
-            <TextView
-                android:id="@+id/tv_t4_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/x"
-
-                android:layout_alignLeft="@+id/tv_t3_message"
-                android:layout_alignStart="@+id/tv_t3_message" />
-
-            <TextView
-                android:id="@+id/tv_t5_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tv_t4_message"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/tv_t4_message"
-                android:text="@string/x" />
-
-
-        </RelativeLayout>
-    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -197,7 +16,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/scrollView2">
+        >
 
         <TableLayout
             android:layout_width="fill_parent"
@@ -219,8 +38,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginLeft="8dp"
                     android:text="@string/x" />
+                <TextView
+                    android:id="@+id/tv_top_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_available"
+                    android:layout_marginLeft="20dp"
+                    android:layout_column="3"
+                    />
+                <TextView
+                    android:id="@+id/tv_top_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x"
+                    android:layout_marginLeft="30dp"
+                    android:layout_column="4"
+                    />
 
             </TableRow>
 
@@ -229,6 +64,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tv_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
@@ -239,20 +75,60 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="2"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginLeft="8dp"
                     android:text="@string/x"
                     />
-
+                <TextView
+                    android:id="@+id/tv_top2_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_available"
+                    android:layout_marginLeft="20dp"
+                    android:layout_column="3"
+                    />
+                <TextView
+                    android:id="@+id/tv_t2_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x"
+                    android:layout_marginLeft="30dp"
+                    android:layout_column="4"
+                    />
 
             </TableRow>
 
             <TableRow>
 
                 <TextView
+                    android:id="@+id/tv_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:text="@string/three" />
+                <TextView
+                    android:id="@+id/tv_top_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/x"
+                    />
+                <TextView
+                    android:id="@+id/tv_top3_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_available"
+                    android:layout_marginLeft="20dp"
+                    android:layout_column="3"
+                    />
+                <TextView
+                    android:id="@+id/tv_t3_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x"
+                    android:layout_marginLeft="30dp"
+                    android:layout_column="4"
+                    />
 
             </TableRow>
 
@@ -261,28 +137,76 @@
                 android:layout_height="fill_parent">
 
                 <TextView
-                    android:id="@+id/tv_top_4"
+                    android:id="@+id/tv_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:text="@string/four" />
 
+                <TextView
+                    android:id="@+id/tv_top_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/x"
+                    />
+                <TextView
+                    android:id="@+id/tv_top4_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_available"
+                    android:layout_marginLeft="20dp"
+                    android:layout_column="3"
+                    />
+                <TextView
+                    android:id="@+id/tv_t4_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x"
+                    android:layout_marginLeft="30dp"
+                    android:layout_column="4"
+                    />
+
 
             </TableRow>
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
 
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
                 <TextView
+                    android:id="@+id/tv_five"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:text="@string/five" />
+                <TextView
+                    android:id="@+id/tv_top_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/x"
+                    />
+                <TextView
+                    android:id="@+id/tv_top5_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/not_available"
+                    android:layout_marginLeft="20dp"
+                    android:layout_column="3"
+                    />
+                <TextView
+                    android:id="@+id/tv_t5_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/x"
+                    android:layout_marginLeft="30dp"
+                    android:layout_column="4"
+                    />
+
+
 
 
             </TableRow>

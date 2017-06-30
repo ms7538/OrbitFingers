@@ -403,8 +403,9 @@ public class UserAreaActivity extends AppCompatActivity {
                                     boolean success = jsonResponse.getBoolean("msg_success");
                                     if (success) {
                                         String MSG  = jsonResponse.getString("message");
-
-                                        Toast.makeText(getBaseContext(), "Ranking Message Set To" +
+                                        editor.putString ("rank_message",MSG);
+                                        editor.apply();
+                                        Toast.makeText(getBaseContext(), "Ranking Message Set To: "+
                                                                                                 MSG,
                                                 Toast.LENGTH_SHORT).show();
                                     } else {
