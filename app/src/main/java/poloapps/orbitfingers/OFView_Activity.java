@@ -575,7 +575,7 @@ public class OFView_Activity extends View {
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
-        if ((Right_Color != Level_Color) || Left_Color != Level_Color) {
+        if (!(Right_Color.equals( Level_Color)) || !(Left_Color.equals(Level_Color))){
             Sleep(80);
             Right_Color = Level_Color;
             Left_Color = Level_Color;
