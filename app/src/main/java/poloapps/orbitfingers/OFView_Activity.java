@@ -138,10 +138,7 @@ public class OFView_Activity extends View {
     private double Left_theta2           = 270;
     private int    LMch                  = 0;
 
-    private int c2;
-    private int c3;
-    private int c4;
-    private int c5;
+    private int  c2,c3,c4,c5;
 
     private double AA_min   = .973;
     private double AA_max   = 1.027;
@@ -578,7 +575,7 @@ public class OFView_Activity extends View {
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
-        if ((Right_Color.equals(Level_Color)) || Left_Color.equals(Level_Color)) {
+        if ((Right_Color != Level_Color) || Left_Color != Level_Color) {
             Sleep(80);
             Right_Color = Level_Color;
             Left_Color = Level_Color;
