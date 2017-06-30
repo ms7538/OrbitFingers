@@ -34,7 +34,7 @@ public class OFView_Activity extends View {
     private int L5C         = ContextCompat.getColor(getContext(), (R.color.l5col));
     private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
     private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
-    private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
+    //private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
 
     String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
@@ -112,7 +112,7 @@ public class OFView_Activity extends View {
     private String L5col        = "#"+ Integer.toHexString(L5C);
     private String Green1       = "#"+ Integer.toHexString(GREEN);
     private String Red1         = "#"+ Integer.toHexString(RED);
-    private String Orange       = "#"+ Integer.toHexString(ORANGE);
+    //private String Orange       = "#"+ Integer.toHexString(ORANGE);
 
     private String Right_Color  = Level_Color;
     private String Left_Color   = Level_Color;
@@ -126,8 +126,8 @@ public class OFView_Activity extends View {
     private double theta2       = 0;
     private int    Mch          = 0;
 
-    private double ThtAbs1  = 0.0, ThtAbs2  = 0.0;
-    private double LThtAbs1 = 0.0, LThtAbs2 = 0.0;
+    private double ThtAbs1, ThtAbs2;
+    private double LThtAbs1, LThtAbs2;
 
     private StringBuilder statusMsg = new StringBuilder();
     private Formatter formatter     = new Formatter(statusMsg);  // Formatting the statusMs
@@ -138,7 +138,10 @@ public class OFView_Activity extends View {
     private double Left_theta2           = 270;
     private int    LMch                  = 0;
 
-    private int c1 = 0, c2 = 0,c3=0,c4=0,c5=0;
+    private int c2;
+    private int c3;
+    private int c4;
+    private int c5;
 
     private double AA_min   = .973;
     private double AA_max   = 1.027;
@@ -185,7 +188,8 @@ public class OFView_Activity extends View {
         else      Peak_Value_X = 0;
 
 
-        if (c1 == 0) {
+        int c1 = 0;
+        while (c1 == 0) {
             Toast.makeText(getContext(), "Click during alignment to gain points ",
                     Toast.LENGTH_LONG).show();
             c1++;
@@ -196,6 +200,14 @@ public class OFView_Activity extends View {
         this.requestFocus();
         // To enable touch mode
         this.setFocusableInTouchMode(true);
+        ThtAbs1 = 0.0;
+        ThtAbs2 = 0.0;
+        LThtAbs1 = 0.0;
+        LThtAbs2 = 0.0;
+        c2 = 0;
+        c3 = 0;
+        c4 = 0;
+        c5 = 0;
     }
     @Override
     protected void onDraw(Canvas canvas) {
@@ -289,7 +301,7 @@ public class OFView_Activity extends View {
         // Delay
         try {
             Thread.sleep(25);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
         }
         canvas.restore();
         invalidate();  // Force a re-draw
@@ -566,7 +578,7 @@ public class OFView_Activity extends View {
         B2XL = CXL + (float) E2x;
         B2yL = CY + (float) E2y;
 
-        if ((Right_Color != Level_Color) || Left_Color != Level_Color) {
+        if ((Right_Color.equals(Level_Color)) || Left_Color.equals(Level_Color)) {
             Sleep(80);
             Right_Color = Level_Color;
             Left_Color = Level_Color;
