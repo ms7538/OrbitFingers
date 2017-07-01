@@ -57,5 +57,9 @@
     <string name="message">Enter Your Display Message</string>
     <string name="set_message">Set Message</string>
     <string name="set_ranking_message">Set Ranking Message</string>
+    <string name="rank">Rank:</string>
+    <string name="user_name">Username:</string>
+    <string name="peak_txt">Peak:</string>
+    <string name="msg_txt">Message:</string>
 
 </resources>
