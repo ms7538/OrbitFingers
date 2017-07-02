@@ -196,8 +196,6 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer SMP_Text_Color          = White;
 
 
-
-
         if ( peak_score_device < peak_score_server){
 
             Peak_Text_Color          = Navy_Blue;
@@ -355,7 +353,6 @@ public class UserAreaActivity extends AppCompatActivity {
 
         }
 
-
         tv_Device_Peak_value.setTextColor(Device_Peak_Color);
         tv_Device_Min_value.setTextColor(Device_Min_Color);
         tv_Device_SMP_value.setTextColor(Device_SMP_Color);
@@ -438,16 +435,19 @@ public class UserAreaActivity extends AppCompatActivity {
 
     private void check_Ranking(){
         /////Ranking
+        final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
         final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
         final TextView tv_Top5_Link       = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final TextView tv_RM_Link         = (TextView) findViewById(R.id.tv_rank_msg_link);
         final EditText etRMessage         = (EditText) findViewById(R.id.et_ranking_message);
-        final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-        final SharedPreferences.Editor editor = mSettings.edit();
-        int peak_score_server             = mSettings.getInt("peak_server", 0);
-        final String username             = mSettings.getString("current_user","");
 
+        final SharedPreferences.Editor editor = mSettings.edit();
+        final int peak_score_server           = mSettings.getInt("peak_server",0);
+        final int min_score_server            = mSettings.getInt("min_server", 0);
+        final int smp_server                  = mSettings.getInt("smp_server", 2);
+        final String username                 = mSettings.getString("current_user","");
+        final String rank_msg                 = mSettings.getString("rank_message","");
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
         final Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
 
@@ -514,6 +514,31 @@ public class UserAreaActivity extends AppCompatActivity {
                         String top3_username = jsonResponse.getString("top3_username");
                         String top4_username = jsonResponse.getString("top4_username");
                         String top5_username = jsonResponse.getString("top5_username");
+                        Integer user_Peak    = jsonResponse.getInt   ("user_peak");
+                        Integer user_Min     = jsonResponse.getInt   ("user_min");
+                        Integer user_SMP     = jsonResponse.getInt   ("user_smp");
+                        String  user_RMsg    = jsonResponse.getString("user_msg");
+                        Boolean restart      = false;
+
+                        if(user_Peak != peak_score_server){
+                            editor.putInt("peak_server",user_Peak);
+                            restart = true;
+
+                        }
+                        if(user_Min != min_score_server){
+                            editor.putInt("min_server",user_Min);
+                            restart = true;
+                        }
+                        if(user_SMP != smp_server){
+                            editor.putInt("smp_server",user_SMP);
+                            restart = true;
+                        }
+                        if(!(user_RMsg.equals(rank_msg))){
+                            editor.putString("rank_message",rank_msg);
+                            restart = true;
+
+                        }
+
 
                         if (username.equals(top_username)){
                             UserT5 = 1;
@@ -550,6 +575,14 @@ public class UserAreaActivity extends AppCompatActivity {
                             tv_RM_Link.setVisibility(View.INVISIBLE);
                         }
 
+                        if(restart){
+
+                            editor.apply();
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To Get TT",
                                 Toast.LENGTH_LONG).show();
@@ -570,7 +603,7 @@ public class UserAreaActivity extends AppCompatActivity {
         };
 
 
-        TopFiveRequest topFiveRequest = new TopFiveRequest(username,1,responseT5Listener);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,100000,responseT5Listener);
         queue.add(topFiveRequest);
         /////////Ranking Finished
     }
