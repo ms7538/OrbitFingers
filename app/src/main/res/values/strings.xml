@@ -61,5 +61,6 @@
     <string name="user_name">Username:</string>
     <string name="peak_txt">Peak:</string>
     <string name="msg_txt">Message:</string>
+    <string name="T">T</string>
 
 </resources>

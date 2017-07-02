@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="visible"
     tools:context=".TopFiveActivity">
+
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
 
         <TextView
             android:id="@+id/tv_rank_txt"
@@ -49,9 +51,9 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/tr_top1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tv_one"
@@ -95,165 +97,220 @@
 
     </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <TableRow
+        android:id="@+id/tr_top2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray">
 
-                <TextView
-                    android:id="@+id/tv_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/two"
-                    android:textColor="@color/green_A" />
+        <TextView
+            android:id="@+id/tv_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginBottom="5dp"
+            android:text="@string/two"
+            android:textColor="@color/green_A" />
 
-                <TextView
-                    android:id="@+id/tv_top_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/x"
-                    android:textColor="@color/green_A"/>
-                <TextView
-                    android:id="@+id/tv_top2_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_available"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="3"
-                    android:textColor="@color/green_A" />
-                <TextView
-                    android:id="@+id/tv_t2_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/x"
-                    android:layout_marginLeft="30dp"
-                    android:layout_column="4"
-                    android:textColor="@color/green_A" />
+        <TextView
+            android:id="@+id/tv_top_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="8dp"
+            android:text="@string/x"
+            android:textColor="@color/green_A" />
 
-            </TableRow>
+        <TextView
+            android:id="@+id/tv_top2_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="20dp"
+            android:text="@string/not_available"
+            android:textColor="@color/green_A" />
 
-            <TableRow>
+        <TextView
+            android:id="@+id/tv_t2_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_marginLeft="30dp"
+            android:text="@string/x"
+            android:textColor="@color/green_A" />
 
-                <TextView
-                    android:id="@+id/tv_three"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/three"
-                    android:textColor="@color/green_B" />
-                <TextView
-                    android:id="@+id/tv_top_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/x"
-                    android:textColor="@color/green_B"/>
-                <TextView
-                    android:id="@+id/tv_top3_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_available"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="3"
-                    android:textColor="@color/green_B" />
-                <TextView
-                    android:id="@+id/tv_t3_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/x"
-                    android:layout_marginLeft="30dp"
-                    android:layout_column="4"
-                    android:textColor="@color/green_B"/>
+    </TableRow>
 
-            </TableRow>
+    <TableRow
+        android:id="@+id/tr_top3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray">
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/tv_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginBottom="5dp"
+            android:text="@string/three"
+            android:textColor="@color/green_B" />
 
-                <TextView
-                    android:id="@+id/tv_four"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/four"
-                    android:textColor="@color/green_C" />
+        <TextView
+            android:id="@+id/tv_top_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="8dp"
+            android:text="@string/x"
+            android:textColor="@color/green_B" />
 
-                <TextView
-                    android:id="@+id/tv_top_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/x"
-                    android:textColor="@color/green_C"/>
-                <TextView
-                    android:id="@+id/tv_top4_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_available"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="3"
-                    android:textColor="@color/green_C"/>
-                <TextView
-                    android:id="@+id/tv_t4_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/x"
-                    android:layout_marginLeft="30dp"
-                    android:layout_column="4"
-                    android:textColor="@color/green_C"/>
+        <TextView
+            android:id="@+id/tv_top3_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="20dp"
+            android:text="@string/not_available"
+            android:textColor="@color/green_B" />
 
+        <TextView
+            android:id="@+id/tv_t3_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_marginLeft="30dp"
+            android:text="@string/x"
+            android:textColor="@color/green_B" />
 
-            </TableRow>
+    </TableRow>
 
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+    <TableRow
+        android:id="@+id/tr_top4"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/dark_gray">
 
-                <TextView
-                    android:id="@+id/tv_five"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1"
-                    android:text="@string/five"
-                    android:textColor="@color/green_D" />
-                <TextView
-                    android:id="@+id/tv_top_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/x"
-                    android:textColor="@color/green_D" />
-                <TextView
-                    android:id="@+id/tv_top5_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/not_available"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="3"
-                    android:textColor="@color/green_D"/>
-                <TextView
-                    android:id="@+id/tv_t5_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/x"
-                    android:layout_marginLeft="30dp"
-                    android:layout_column="4"
-                    android:textColor="@color/green_D"/>
+        <TextView
+            android:id="@+id/tv_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginBottom="5dp"
+            android:text="@string/four"
+            android:textColor="@color/green_C" />
+
+        <TextView
+            android:id="@+id/tv_top_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="8dp"
+            android:text="@string/x"
+            android:textColor="@color/green_C" />
+
+        <TextView
+            android:id="@+id/tv_top4_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="20dp"
+            android:text="@string/not_available"
+            android:textColor="@color/green_C" />
+
+        <TextView
+            android:id="@+id/tv_t4_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_marginLeft="30dp"
+            android:text="@string/x"
+            android:textColor="@color/green_C" />
 
 
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tr_top5"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/dark_gray">
+
+        <TextView
+            android:id="@+id/tv_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_marginBottom="5dp"
+            android:text="@string/five"
+            android:textColor="@color/green_D" />
+
+        <TextView
+            android:id="@+id/tv_top_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="8dp"
+            android:text="@string/x"
+            android:textColor="@color/green_D" />
+
+        <TextView
+            android:id="@+id/tv_top5_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="20dp"
+            android:text="@string/not_available"
+            android:textColor="@color/green_D" />
+
+        <TextView
+            android:id="@+id/tv_t5_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_marginLeft="30dp"
+            android:text="@string/x"
+            android:textColor="@color/green_D" />
 
 
-            </TableRow>
+    </TableRow>
 
-        </TableLayout>
+    <TableRow
+        android:id="@+id/tr_nonT5"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/maroon"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/tv_NT5_Rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/x"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/tv_NT5_Peak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_marginLeft="8dp"
+            android:text="@string/x"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/tv_nt5_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="3"
+            android:layout_marginLeft="20dp"
+            android:text="@string/not_available"
+            android:textColor="@color/red" />
+
+
+    </TableRow>
+
+</TableLayout>
 
 

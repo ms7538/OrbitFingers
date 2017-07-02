@@ -132,19 +132,16 @@ public class UserAreaActivity extends AppCompatActivity {
 
         final String rank_msg      = mSettings.getString("rank_message","");
         etRMessage.setText(rank_msg);
-        final String username               = mSettings.getString("current_user","");
-        final int min_score_device          = mSettings.getInt("min_score",0);
-        final int smp_device                = mSettings.getInt("set_peak_min",2);
-        final int peak_score_device         = mSettings.getInt("peakscore", 0);
-
-        int min_score_server                = mSettings.getInt("min_server",0);
-        int smp_server                      = mSettings.getInt("smp_server",0);
-        int peak_score_server               = mSettings.getInt("peak_server", 0);
-
+        final String username          = mSettings.getString("current_user","");
+        final int min_score_device     = mSettings.getInt("min_score",0);
+        final int smp_device           = mSettings.getInt("set_peak_min",2);
+        final int peak_score_device    = mSettings.getInt("peakscore", 0);
+        int min_score_server           = mSettings.getInt("min_server",0);
+        int smp_server                 = mSettings.getInt("smp_server",0);
+        int peak_score_server          = mSettings.getInt("peak_server", 0);
         //check_Ranking();
-        final TextView tv_TT10_Link    = (TextView) findViewById(R.id.tv_Top_Five_Link);
+        final TextView tv_Top5_Link    = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final TextView tv_SRM_Link     = (TextView) findViewById(R.id.tv_rank_msg_link);
-
 
         TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
         TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
@@ -379,11 +376,11 @@ public class UserAreaActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        tv_TT10_Link.setOnClickListener(new View.OnClickListener() {
+        tv_Top5_Link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent TT10Intent = new Intent(UserAreaActivity.this, TopFiveActivity.class);
-                UserAreaActivity.this.startActivity(TT10Intent);
+                Intent T5Intent = new Intent(UserAreaActivity.this, TopFiveActivity.class);
+                UserAreaActivity.this.startActivity(T5Intent);
             }
         });
 
@@ -463,12 +460,18 @@ public class UserAreaActivity extends AppCompatActivity {
                             int number_peaks_above = jsonResponse.getInt("higher_peaks") + 1;
                             tv_Rank_value.setText(String.format(Locale.US, "%d",
                                                                               number_peaks_above));
-
                             boolean equal_peaks = jsonResponse.getBoolean("equal_peaks");
                             if (equal_peaks) {
                                 tv_Tied_indication.setVisibility(View.VISIBLE);
+                            }else{
+                                tv_Tied_indication.setVisibility(View.INVISIBLE);
                             }
+
+                            editor.putInt    ("users_with_higher_peaks", number_peaks_above);
+                            editor.putBoolean("users_equal_peaks", equal_peaks);
+                            editor.apply();
                         }
+
                         } else {
                         Toast.makeText(getBaseContext(), "Failed To get Ranking",
                                 Toast.LENGTH_LONG).show();

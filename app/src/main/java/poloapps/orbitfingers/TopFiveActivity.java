@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.view.View;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,19 +45,34 @@ public class TopFiveActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_five);
+        SharedPreferences mSettings    = this.getSharedPreferences("Settings", 0);
+        final TextView tv_N5_rank            = (TextView) findViewById(R.id.tv_NT5_Rank);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         assert bar != null;
         bar.setTitle(R.string.top_five);
-        timer2.schedule(task2, 0 , 10000);  // interval of 10 sec
 
+        int Peaks_Above       = mSettings.getInt("users_with_higher_peaks", 0);
+        boolean Tied          = mSettings.getBoolean("users_equal_peaks", false);
+        int NT5_Ranking       = mSettings.getInt("ut5", 0);
+
+        if (NT5_Ranking == 0) {
+
+            String Ranking_String = Integer.toString(Peaks_Above);
+            if (Tied) {
+                Ranking_String = Ranking_String + this.getString(R.string.T);
+            }
+            tv_N5_rank.setText(Ranking_String);
+
+        }
+        timer2.schedule(task2, 0 , 10000);  // interval of 10 sec
     }
 
     private void get_Ranking(){
+
         final TextView tv_Top_Peak_value       = (TextView) findViewById(R.id.tv_top_1);
         final TextView tv_Top2_Peak_value      = (TextView) findViewById(R.id.tv_top_2);
         final TextView tv_Top3_Peak_value      = (TextView) findViewById(R.id.tv_top_3);
@@ -70,11 +88,9 @@ public class TopFiveActivity extends AppCompatActivity {
         final TextView tv_T3_MSG               = (TextView) findViewById(R.id.tv_t3_message);
         final TextView tv_T4_MSG               = (TextView) findViewById(R.id.tv_t4_message);
         final TextView tv_T5_MSG               = (TextView) findViewById(R.id.tv_t5_message);
-
         final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         final String username                  = mSettings.getString("current_user","");
-
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -83,7 +99,7 @@ public class TopFiveActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("tt_success");
                     if (success) {
-                        int UserT5        = 0;
+                        int UserT5           = 0;
                         int top_peak         = jsonResponse.getInt   ("top1_peak");
                         String top_username  = jsonResponse.getString("top1_username");
                         String top_message   = jsonResponse.getString("top1_message");
@@ -131,7 +147,7 @@ public class TopFiveActivity extends AppCompatActivity {
                         else if (username.equals(top5_username)){
                             UserT5 = 5;
                         }
-
+                        set_Highlight(UserT5);
                         editor.putInt("ut5", UserT5);
                         editor.apply();
 
@@ -162,6 +178,62 @@ public class TopFiveActivity extends AppCompatActivity {
 
 
     }
+
+    private void set_Highlight(int pos){
+
+        final Integer Dark   = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
+        final Integer Marker = ContextCompat.getColor(getApplicationContext(),(R.color.maroon));
+        Integer trT1         = Dark;
+        Integer trT2         = Dark;
+        Integer trT3         = Dark;
+        Integer trT4         = Dark;
+        Integer trT5         = Dark;
+
+        final TableRow tr_Top1  = (TableRow) findViewById(R.id.tr_top1);
+        final TableRow tr_Top2  = (TableRow) findViewById(R.id.tr_top2);
+        final TableRow tr_Top3  = (TableRow) findViewById(R.id.tr_top3);
+        final TableRow tr_Top4  = (TableRow) findViewById(R.id.tr_top4);
+        final TableRow tr_Top5  = (TableRow) findViewById(R.id.tr_top5);
+        final TableRow tr_NT5   = (TableRow) findViewById(R.id.tr_nonT5);
+
+        switch (pos){
+            case 1:
+                trT1 = Marker;
+                break;
+            case 2:
+                trT2 = Marker;
+                break;
+            case 3:
+                trT3 = Marker;
+                break;
+            case 4:
+                trT4 = Marker;
+                break;
+            case 5:
+                trT5 = Marker;
+                break;
+            case 0:
+
+                final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+                final String username             = mSettings.getString("current_user","");
+                int peak_score_server             = mSettings.getInt("peak_server", 0);
+
+                final TextView tv_N5_name = (TextView) findViewById(R.id.tv_nt5_username);
+                final TextView tv_N5_peak = (TextView) findViewById(R.id.tv_NT5_Peak);
+                final TextView tv_N5_rank = (TextView) findViewById(R.id.tv_NT5_Rank);
+
+                tv_N5_peak.setText(String.format(Locale.US,"%d",peak_score_server));
+                tv_N5_name.setText(username);
+                tr_NT5.setVisibility(View.VISIBLE);
+                break;
+        }
+        tr_Top1.setBackgroundColor(trT1);
+        tr_Top2.setBackgroundColor(trT2);
+        tr_Top3.setBackgroundColor(trT3);
+        tr_Top4.setBackgroundColor(trT4);
+        tr_Top5.setBackgroundColor(trT5);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
