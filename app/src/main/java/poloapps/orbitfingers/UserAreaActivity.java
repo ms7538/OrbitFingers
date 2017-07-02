@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//v3.6h Top 5 Display Table Layout in progress
+//v3.6h Top 5 Display Complete
 public class UserAreaActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
