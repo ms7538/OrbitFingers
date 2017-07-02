@@ -18,7 +18,7 @@
     <string name="reset">RESET</string>
     <string name="set_peak_min">SET MINIMUM TO PEAK (SMP) </string>
     <string name="set_peak_min_text">SMPs Remaining: </string>
-    <string name="spacer">======================================</string>
+    <string name="spacer">^^^^^_______^^^^^</string>
     <string name="x">X</string>
     <string name="level_2">NEXT L2</string>
     <string name="level_3">NEXT L3</string>
@@ -57,5 +57,10 @@
     <string name="message">Enter Your Display Message</string>
     <string name="set_message">Set Message</string>
     <string name="set_ranking_message">Set Ranking Message</string>
+    <string name="rank">Rank:</string>
+    <string name="user_name">Username:</string>
+    <string name="peak_txt">Peak:</string>
+    <string name="msg_txt">Message:</string>
+    <string name="T">T</string>
 
 </resources>

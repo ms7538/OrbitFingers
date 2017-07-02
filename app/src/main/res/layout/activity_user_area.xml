@@ -65,12 +65,12 @@
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="149dp"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id"
+                android:layout_marginTop="105dp"
                 android:layout_below="@+id/device_set_button"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <Button
                 android:id="@+id/server_set_button"
@@ -232,6 +232,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_Top_Five_Link"
                 android:ems="10"
+                android:maxLength="16"
                 android:gravity="center"
                 android:inputType="textCapCharacters|textPersonName"
                 android:text="@string/empty"

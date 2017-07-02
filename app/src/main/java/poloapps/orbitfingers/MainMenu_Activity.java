@@ -22,7 +22,7 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 
-import static java.security.AccessController.getContext;
+
 
 //V3.6c created
 public class MainMenu_Activity extends AppCompatActivity {
