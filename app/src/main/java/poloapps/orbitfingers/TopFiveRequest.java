@@ -10,10 +10,11 @@ class TopFiveRequest extends StringRequest {
     private static final String TOP10_REQUEST_URL = "http://www.poloapps.com/GetTT.php";
     private Map<String, String> params;
 
-    TopFiveRequest(String username, Response.Listener<String> listener) {
+    TopFiveRequest(String username, int Server_Peak, Response.Listener<String> listener) {
         super(Method.POST, TOP10_REQUEST_URL, listener, null);
         params = new HashMap<>();
         params.put("username",username);
+        params.put("server_peak",Server_Peak + "");
     }
 
     @Override

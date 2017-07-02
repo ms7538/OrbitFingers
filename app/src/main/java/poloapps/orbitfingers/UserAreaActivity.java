@@ -91,6 +91,11 @@ public class UserAreaActivity extends AppCompatActivity {
                             int smp_check      = jsonResponse.getInt("smp");
                             int DB_smp_stored  = mSettings.getInt("smp_server", 0);
 
+                            String RMsg =jsonResponse.getString("rank_msg");
+                            editor.putString("rank_message", RMsg);
+                            editor.apply();
+                            etRMessage.setText(RMsg);
+
                             if (peak_check != DB_peak_stored || min_check != DB_min_stored ||
                                                                     smp_check != DB_smp_stored) {
 
@@ -120,9 +125,6 @@ public class UserAreaActivity extends AppCompatActivity {
                     }
                 }
             };
-
-
-
 
             ValuesRequest valuesRequest = new ValuesRequest(mSettings.getString("current_user",""),
                                                                                 responseListener2);
@@ -467,7 +469,7 @@ public class UserAreaActivity extends AppCompatActivity {
                                 tv_Tied_indication.setVisibility(View.INVISIBLE);
                             }
 
-                            editor.putInt    ("users_with_higher_peaks", number_peaks_above);
+                            editor.putInt    ("users_higher_peaks", number_peaks_above);
                             editor.putBoolean("users_equal_peaks", equal_peaks);
                             editor.apply();
                         }
@@ -568,7 +570,7 @@ public class UserAreaActivity extends AppCompatActivity {
         };
 
 
-        TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseT5Listener);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,1,responseT5Listener);
         queue.add(topFiveRequest);
         /////////Ranking Finished
     }

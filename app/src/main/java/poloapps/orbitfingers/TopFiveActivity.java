@@ -49,25 +49,10 @@ public class TopFiveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_five);
-        SharedPreferences mSettings    = this.getSharedPreferences("Settings", 0);
-        final TextView tv_N5_rank            = (TextView) findViewById(R.id.tv_NT5_Rank);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         assert bar != null;
         bar.setTitle(R.string.top_five);
-
-        int Peaks_Above       = mSettings.getInt("users_with_higher_peaks", 0);
-        boolean Tied          = mSettings.getBoolean("users_equal_peaks", false);
-        int NT5_Ranking       = mSettings.getInt("ut5", 0);
-
-        if (NT5_Ranking == 0) {
-
-            String Ranking_String = Integer.toString(Peaks_Above);
-            if (Tied) {
-                Ranking_String = Ranking_String + this.getString(R.string.T);
-            }
-            tv_N5_rank.setText(Ranking_String);
-
-        }
+        set_NT5_Rank();
         timer2.schedule(task2, 0 , 10000);  // interval of 10 sec
     }
 
@@ -89,9 +74,9 @@ public class TopFiveActivity extends AppCompatActivity {
         final TextView tv_T4_MSG               = (TextView) findViewById(R.id.tv_t4_message);
         final TextView tv_T5_MSG               = (TextView) findViewById(R.id.tv_t5_message);
         final SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
-        final SharedPreferences.Editor editor = mSettings.edit();
+        final SharedPreferences.Editor editor  = mSettings.edit();
         final String username                  = mSettings.getString("current_user","");
-
+        int peak_score_server          = mSettings.getInt("peak_server", 0);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -115,6 +100,13 @@ public class TopFiveActivity extends AppCompatActivity {
                         int top5_peak        = jsonResponse.getInt   ("top5_peak");
                         String top5_username = jsonResponse.getString("top5_username");
                         String top5_message  = jsonResponse.getString("top5_message");
+                        editor.putBoolean("users_equal_peaks",jsonResponse.getBoolean
+                                                                                 ("equal_peaks"));
+                        editor.putInt("users_higher_peaks",jsonResponse.getInt
+                                                                                 ("higher_peaks")+1);
+
+                        editor.putInt("peak_server",jsonResponse.getInt("user_peak"));
+                        editor.apply();
 
                         tv_Top_Peak_value.setText (String.format(Locale.US,"%d",top_peak));
                         tv_Top2_Peak_value.setText(String.format(Locale.US,"%d",top2_peak));
@@ -172,7 +164,8 @@ public class TopFiveActivity extends AppCompatActivity {
         };
 
 
-        TopFiveRequest topFiveRequest = new TopFiveRequest(username,responseListener);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,peak_score_server,
+                                                                                responseListener);
         RequestQueue queue = Volley.newRequestQueue(TopFiveActivity.this);
         queue.add(topFiveRequest);
 
@@ -195,7 +188,7 @@ public class TopFiveActivity extends AppCompatActivity {
         final TableRow tr_Top4  = (TableRow) findViewById(R.id.tr_top4);
         final TableRow tr_Top5  = (TableRow) findViewById(R.id.tr_top5);
         final TableRow tr_NT5   = (TableRow) findViewById(R.id.tr_nonT5);
-
+        boolean NT5_Visible     = false;
         switch (pos){
             case 1:
                 trT1 = Marker;
@@ -213,25 +206,49 @@ public class TopFiveActivity extends AppCompatActivity {
                 trT5 = Marker;
                 break;
             case 0:
-
+                NT5_Visible = true;
                 final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
                 final String username             = mSettings.getString("current_user","");
                 int peak_score_server             = mSettings.getInt("peak_server", 0);
 
                 final TextView tv_N5_name = (TextView) findViewById(R.id.tv_nt5_username);
                 final TextView tv_N5_peak = (TextView) findViewById(R.id.tv_NT5_Peak);
-                final TextView tv_N5_rank = (TextView) findViewById(R.id.tv_NT5_Rank);
+                set_NT5_Rank();
 
                 tv_N5_peak.setText(String.format(Locale.US,"%d",peak_score_server));
                 tv_N5_name.setText(username);
-                tr_NT5.setVisibility(View.VISIBLE);
+
                 break;
         }
+        if(NT5_Visible){
+            tr_NT5.setVisibility(View.VISIBLE);
+        }
+        else tr_NT5.setVisibility(View.INVISIBLE);
+
         tr_Top1.setBackgroundColor(trT1);
         tr_Top2.setBackgroundColor(trT2);
         tr_Top3.setBackgroundColor(trT3);
         tr_Top4.setBackgroundColor(trT4);
         tr_Top5.setBackgroundColor(trT5);
+    }
+    private  void set_NT5_Rank(){
+
+        SharedPreferences mSettings   = this.getSharedPreferences("Settings", 0);
+        int NT5_Ranking               = mSettings.getInt("ut5", 0);
+
+        if (NT5_Ranking == 0) {
+
+            final TextView tv_N5_rank  = (TextView) findViewById(R.id.tv_NT5_Rank);
+            int Peaks_Above            = mSettings.getInt("users_higher_peaks", 0);
+            boolean Tied               = mSettings.getBoolean("users_equal_peaks", false);
+            String Ranking_String      = Integer.toString(Peaks_Above);
+            if (Tied) {
+                Ranking_String = Ranking_String + this.getString(R.string.T);
+            }
+            tv_N5_rank.setText(Ranking_String);
+
+        }
+
     }
 
     @Override
