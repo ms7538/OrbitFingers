@@ -732,8 +732,6 @@ public class OFView_Activity extends View {
        }
         score_color = ScCo;
    }
-
-
    private void Peak_Score_Check(){
        if (score > Peak_Score) {
            Peak_Score = score;
