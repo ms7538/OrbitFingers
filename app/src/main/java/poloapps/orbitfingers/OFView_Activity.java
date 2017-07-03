@@ -27,14 +27,19 @@ public class OFView_Activity extends View {
     Integer SMPs_Remaining = prefs.getInt("set_peak_min", 2);
 
 
-    private int L1C         = ContextCompat.getColor(getContext(), (R.color.l1col));
-    private int L2C         = ContextCompat.getColor(getContext(), (R.color.l2col));
-    private int L3C         = ContextCompat.getColor(getContext(), (R.color.l3col));
-    private int L4C         = ContextCompat.getColor(getContext(), (R.color.l4col));
-    private int L5C         = ContextCompat.getColor(getContext(), (R.color.l5col));
-    private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
-    private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
-    private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
+    private int L1C     = ContextCompat.getColor(getContext(), (R.color.l1col));
+    private int L2C     = ContextCompat.getColor(getContext(), (R.color.l2col));
+    private int L3C     = ContextCompat.getColor(getContext(), (R.color.l3col));
+    private int L4C     = ContextCompat.getColor(getContext(), (R.color.l4col));
+    private int L5C     = ContextCompat.getColor(getContext(), (R.color.l5col));
+    private int RED     = ContextCompat.getColor(getContext(), (R.color.red));
+    private int GREEN   = ContextCompat.getColor(getContext(), (R.color.green2));
+    private int ORANGE  = ContextCompat.getColor(getContext(), (R.color.orange));
+    private int Fade1   = ContextCompat.getColor(getContext(), (R.color.fade1));
+    private int Fade2   = ContextCompat.getColor(getContext(), (R.color.fade2));
+    private int Fade3   = ContextCompat.getColor(getContext(), (R.color.fade3));
+    private int Fade4   = ContextCompat.getColor(getContext(), (R.color.fade4));
+    private int Fade5   = ContextCompat.getColor(getContext(), (R.color.fade5));
 
     String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
@@ -116,6 +121,11 @@ public class OFView_Activity extends View {
     private String Green1       = "#" + Integer.toHexString(GREEN);
     private String Red1         = "#" + Integer.toHexString(RED);
     private String Orange       = "#" + Integer.toHexString(ORANGE);
+    private String F1_color     = "#" + Integer.toHexString(Fade1);
+    private String F2_color     = "#" + Integer.toHexString(Fade2);
+    private String F3_color     = "#" + Integer.toHexString(Fade3);
+    private String F4_color     = "#" + Integer.toHexString(Fade4);
+    private String F5_color     = "#" + Integer.toHexString(Fade5);
 
     private String Right_Color  = Level_Color;
     private String Left_Color   = Level_Color;
@@ -254,19 +264,17 @@ public class OFView_Activity extends View {
             Score_X_Adjusted = Score_X_0_9;
         }
 
-        String SMP_Color;
+        String SMP_Color = Green1;
         if(SMPs_Remaining > 9){
             int lsf2 = (int) (Math.log10(SMPs_Remaining) + 1); // lsf = length_score_factor
             SMP_X_Adjusted = (int)( (1 - (.0125 * lsf2)) * Score_X_0_9);
-            SMP_Color = Green1;
-        }
+                    }
         else if (SMPs_Remaining < 3){
             SMP_Color = Red1;
         }
         else if (SMPs_Remaining < 6){
             SMP_Color = Orange;
         }
-        else SMP_Color = Green1;
 
         if ( Peak_Score < 1000 ) {
 
@@ -304,6 +312,25 @@ public class OFView_Activity extends View {
 
         if(LS == 5){
             next_level_value = " " + Integer.toString(Multi);
+
+            if (Multi > 7 ){
+                next_color = F1_color;
+            }
+            else if(Multi > 5){
+                next_color = F2_color;
+            }
+            else if(Multi > 3){
+                next_color = F3_color;
+            }
+            else if(Multi == 3){
+                next_color = F4_color;
+            }
+            else if(Multi == 2){
+                next_color = F5_color;
+            }
+            else if(Multi == 1 ){
+                next_color = Green1;
+            }
         }
 
         canvas_text(canvas, next_level_value,Next_Value_X, Peak_Next_Values_Y,
@@ -351,66 +378,61 @@ public class OFView_Activity extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
+                
                 if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY() >= C_TE_Y_S
-                                                                      && event.getY() < C_TE_Y_E) {
-                right_Finger_Print = BitmapFactory.decodeResource(
-                        getResources(),
-                        R.drawable.thmb2);
-                }
-                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY() >=
-                                                               C_TE_Y_S && event.getY() < C_TE_Y_E){
-                            left_Finger_Print = BitmapFactory.decodeResource(
-                            getResources(),
+                                                                        && event.getY() < C_TE_Y_E){
+                    right_Finger_Print = BitmapFactory.decodeResource(getResources(),
                             R.drawable.thmb2);
-
-                }
-                if((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY() >= C_TE_Y_S
-                                            && event.getY() < C_TE_Y_E) && (Mch == 10 || Mch == 5)){
-                    Right_Color = Green1;
-                    score_color = Green1;
-                    if(Mch == 10){
-                        score += 10;
-                    }else {
-                        score += 10;
-                    }
-                    Multi = Multi - 1;
-                    editor.putInt("current_score",score);
-                    Peak_Score_Check();
-                    editor.commit();
-
-                }else if ((event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY() >=
-                                 C_TE_Y_S && event.getY() < C_TE_Y_E) && !(Mch == 10 || Mch == 5)){
-                    Right_Color = Red1;
-                    if (score >= (ScoreMin + ScorePen)){
-                        score -= ScorePen;
-                        editor.putInt("current_score",score);
-                        Multi = 9;
+                    if (Mch == 10 || Mch == 5) {
+                        Right_Color = Green1;
+                        score_color = Green1;
+                        if (Mch == 10) {
+                            score += 10;
+                        } else {
+                            score += 10;
+                        }
+                        Multi = Multi - 1;
+                        editor.putInt("current_score", score);
+                        Peak_Score_Check();
                         editor.commit();
-                        score_color = Red1;
+                    } else {
+                        Right_Color = Red1;
+                        if (score >= (ScoreMin + ScorePen)) {
+                            score -= ScorePen;
+                            editor.putInt("current_score", score);
+                            Multi = 9;
+                            editor.commit();
+                            score_color = Red1;
+                        }
+
                     }
                 }
-                if((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY() >= C_TE_Y_S
-                                         && event.getY() < C_TE_Y_E) && (LMch == 10 || LMch == 5)){
-                    Left_Color = Green1;
-                    score_color = Green1;
-                    if(LMch == 10){
-                        score += 10;
+                else if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY() >=
+                                                               C_TE_Y_S && event.getY() < C_TE_Y_E){
+                    left_Finger_Print = BitmapFactory.decodeResource(getResources(),R.drawable.
+                                                                                             thmb2);
+                    if(LMch == 10 || LMch == 5) {
+                       Left_Color = Green1;
+                       score_color = Green1;
+                       if (LMch == 10) {
+                           score += 10;
+                       } else {
+                           score += 10;
+                       }
+                       Multi = Multi - 1;
+                       editor.putInt("current_score", score);
+                       Peak_Score_Check();
+                       editor.commit();
                     }else{
-                        score += 10;
-                    }
-                    Multi = Multi - 1;
-                    editor.putInt("current_score",score);
-                    Peak_Score_Check();
-                    editor.commit();
-                }else if ((event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY() >=
-                                C_TE_Y_S && event.getY() < C_TE_Y_E) &&!(LMch == 10 || LMch == 5)){
-                    Left_Color = Red1;
-                    if (score >= (ScoreMin + ScorePen)){
-                        score -= ScorePen;
-                        editor.putInt("current_score",score);
-                        Multi = 9;
-                        editor.commit();
-                        score_color = Red1;
+                       Left_Color = Red1;
+                       if (score >= (ScoreMin + ScorePen)){
+                           score -= ScorePen;
+                           editor.putInt("current_score",score);
+                           Multi = 9;
+                           editor.commit();
+                           score_color = Red1;
+                       }
+
                     }
                 }
                 break;
@@ -586,8 +608,8 @@ public class OFView_Activity extends View {
         }
         ScoreRSpeed();
         ThetaCalc();
-        double Ex = B1dist * Math.cos(Math.toRadians(theta));
-        double Ey = B1dist * Math.sin(Math.toRadians(theta));
+        double Ex  = B1dist * Math.cos(Math.toRadians(theta));
+        double Ey  = B1dist * Math.sin(Math.toRadians(theta));
         double E2x = B2dist * Math.cos(Math.toRadians(theta2));
         double E2y = B2dist * Math.sin(Math.toRadians(theta2));
         B1X = CX + (float) Ex;
@@ -649,7 +671,7 @@ public class OFView_Activity extends View {
 
            RotSpeed = 2.2;
 
-       }else if (score>=1300 && score < 1600){
+       }else if (score >= 1300 && score < 1600){
 
            RotSpeed = 2.4;
 
