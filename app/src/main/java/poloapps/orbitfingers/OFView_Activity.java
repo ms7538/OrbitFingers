@@ -378,7 +378,7 @@ public class OFView_Activity extends View {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
             case MotionEvent.ACTION_DOWN:
-                
+
                 if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY() >= C_TE_Y_S
                                                                         && event.getY() < C_TE_Y_E){
                     right_Finger_Print = BitmapFactory.decodeResource(getResources(),
@@ -404,7 +404,6 @@ public class OFView_Activity extends View {
                             editor.commit();
                             score_color = Red1;
                         }
-
                     }
                 }
                 else if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY() >=
@@ -432,24 +431,15 @@ public class OFView_Activity extends View {
                            editor.commit();
                            score_color = Red1;
                        }
-
                     }
                 }
                 break;
 
             case MotionEvent.ACTION_UP:
-                if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY()>= C_TE_Y_S
-                                                                    && event.getY() < C_TE_Y_E) {
-                            right_Finger_Print = BitmapFactory.decodeResource(
-                            getResources(),
-                            R.drawable.thmb1);
-                }
-                if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY()>= C_TE_Y_S
-                                                                      && event.getY() < C_TE_Y_E) {
-                            left_Finger_Print = BitmapFactory.decodeResource(
-                            getResources(),
-                            R.drawable.thmb1);
-                }
+
+                right_Finger_Print = BitmapFactory.decodeResource(getResources(),R.drawable.thmb1);
+                left_Finger_Print  = BitmapFactory.decodeResource(getResources(),R.drawable.thmb1);
+
                 break;
         }
 
