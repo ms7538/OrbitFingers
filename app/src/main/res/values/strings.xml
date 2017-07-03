@@ -62,5 +62,7 @@
     <string name="peak_txt">Peak:</string>
     <string name="msg_txt">Message:</string>
     <string name="T">T</string>
-
+    <string name="SMPs">SMPs:</string>
+    <string name="multi">|MULTI|</string>
+    <string name="arrow">></string>
 </resources>

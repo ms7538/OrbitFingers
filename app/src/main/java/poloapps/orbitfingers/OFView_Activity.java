@@ -34,7 +34,7 @@ public class OFView_Activity extends View {
     private int L5C         = ContextCompat.getColor(getContext(), (R.color.l5col));
     private int RED         = ContextCompat.getColor(getContext(), (R.color.red));
     private int GREEN       = ContextCompat.getColor(getContext(), (R.color.green2));
-    //private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
+    private int ORANGE      = ContextCompat.getColor(getContext(), (R.color.orange));
 
     String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
@@ -47,16 +47,19 @@ public class OFView_Activity extends View {
     int Min_Ind_X           = (int) (.478  * Max_Width);  // Min Score Indication X Start
     int Level_Ind_X         = (int) (.4325 * Max_Width);  // Level Number Text Indication X Start
     int Next_Ind_X          = (int) (.87   * Max_Width);   // Next Level Text Indication X Start
+    int SMP_Ind_X           = (int) (.47   * Max_Width);   // Next Level Text Indication X Start
     final int Score_X_0_9   = (int) (.495  * Max_Width);
     int Next_Value_X        = (int) (.915  * Max_Width);
     int Peak_Value_X        = 0;
     int Score_X_Adjusted    = Score_X_0_9;
+    int SMP_X_Adjusted      = Score_X_0_9;
 
-
-    int Min_Ind_Y           = (int) (.58  * Max_Height); // Min Score Indication Y Start
+    int Min_Ind_Y           = (int) (.23  * Max_Height); // Min Score Indication Y Start
     int Upper_Text_Y        = (int) (.05  * Max_Height); // Peak, Level, Next Indication Y Start
-    int Peak_Next_Values_Y  = (int) (.15  * Max_Height); // Peak, Next Values Y Start
-    int Score_Value_Y       = (int) (.35  * Max_Height); // Peak, Next Values Y Start
+    int Peak_Next_Values_Y  = (int) (.10  * Max_Height); // Peak, Next Values Y Start
+    int Score_Value_Y       = (int) (.15  * Max_Height); // Peak, Next Values Y Start
+    int SMP_Ind_Y           = (int) (.68  * Max_Height);
+    int SMP_Value_Y         = (int) (.75  * Max_Height);
     int Text_Length         = (int) (.03  * Max_Width);
 
 
@@ -112,7 +115,7 @@ public class OFView_Activity extends View {
     private String L5col        = "#"+ Integer.toHexString(L5C);
     private String Green1       = "#"+ Integer.toHexString(GREEN);
     private String Red1         = "#"+ Integer.toHexString(RED);
-    //private String Orange       = "#"+ Integer.toHexString(ORANGE);
+    private String Orange       = "#"+ Integer.toHexString(ORANGE);
 
     private String Right_Color  = Level_Color;
     private String Left_Color   = Level_Color;
@@ -243,13 +246,26 @@ public class OFView_Activity extends View {
 
         if( score > 9 ) {
 
-          int lsf = (int) (Math.log10(score) + 1); // lsf = length_score_factor
-
+            int lsf = (int) (Math.log10(score) + 1); // lsf = length_score_factor
             Score_X_Adjusted = (int)( (1 - (.0125 * lsf)) * Score_X_0_9);
         }
         else{
             Score_X_Adjusted = Score_X_0_9;
         }
+
+        String SMP_Color;
+        if(SMPs_Remaining > 9){
+            int lsf2 = (int) (Math.log10(SMPs_Remaining) + 1); // lsf = length_score_factor
+            SMP_X_Adjusted = (int)( (1 - (.0125 * lsf2)) * Score_X_0_9);
+            SMP_Color = Green1;
+        }
+        else if (SMPs_Remaining < 3){
+            SMP_Color = Red1;
+        }
+        else if (SMPs_Remaining < 6){
+            SMP_Color = Orange;
+        }
+        else SMP_Color = Green1;
 
         if ( Peak_Score < 1000 ) {
 
@@ -277,10 +293,13 @@ public class OFView_Activity extends View {
            Min_Text =  getContext().getString(R.string.min);
        }
 
-
+        canvas_text(canvas,Integer.toString(SMPs_Remaining),SMP_X_Adjusted,SMP_Value_Y,Text_Length,
+                SMP_Color);
         canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Red1);
-
-        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length, Green1 );
+        canvas_text(canvas,getContext().getString(R.string.SMPs), SMP_Ind_X , SMP_Ind_Y,Text_Length,
+                SMP_Color);
+        canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length,
+                                                                                            Green1);
 
         canvas_text(canvas, Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,
                                                                             Text_Length, Green1);
@@ -536,14 +555,14 @@ public class OFView_Activity extends View {
                 if (levl < 5) {
                     editor.putInt("levl", 5);
                     editor.putInt("min_score",level5_min);
-                    SMPs_Remaining  = SMPs_Remaining +5;
+                    SMPs_Remaining  = SMPs_Remaining + 5;
                     editor.putInt("set_peak_min",SMPs_Remaining);
                    }
                 editor.putInt("scorelevel",level5_min);
                 editor.commit();
-                next_text          = getContext().getString(R.string.empty) ;
+                next_text          = getContext().getString(R.string.multi);
                 next_color         = L5col;
-                next_level_value   = getContext().getString(R.string.empty);
+                next_level_value   = " " + Integer.toString(9);
                 Level_Color        = L5col;
 
                 if (ScoreMin  < level5_min){
@@ -566,36 +585,36 @@ public class OFView_Activity extends View {
         B1y = CY + (float) Ey;
         B2X = CX + (float) E2x;
         B2y = CY + (float) E2y;
-        Ex = B1dist * Math.cos(Math.toRadians(Left_theta));
-        Ey = B1dist * Math.sin(Math.toRadians(Left_theta));
+        Ex  = B1dist * Math.cos(Math.toRadians(Left_theta));
+        Ey  = B1dist * Math.sin(Math.toRadians(Left_theta));
         E2x = B2dist * Math.cos(Math.toRadians(Left_theta2));
         E2y = B2dist * Math.sin(Math.toRadians(Left_theta2));
         B1XL = CXL + (float) Ex;
-        B1yL = CY + (float) Ey;
+        B1yL = CY  + (float) Ey;
         B2XL = CXL + (float) E2x;
-        B2yL = CY + (float) E2y;
+        B2yL = CY  + (float) E2y;
 
         if (!(Right_Color.equals( Level_Color)) || !(Left_Color.equals(Level_Color))){
             Sleep(80);
             Right_Color = Level_Color;
-            Left_Color = Level_Color;
+            Left_Color  = Level_Color;
         }
     }
    private void ScoreRSpeed(){
-       Right_RS = RotSpeed;
-       Right_RS2 = RotSpeed;
+       Right_RS            = RotSpeed;
+       Right_RS2           = RotSpeed;
        Left_Rotation_Speed = RotSpeed;
-       Left_RS2 = RotSpeed;
+       Left_RS2            = RotSpeed;
 
        if (score >= 50 && score <100) {
            RotSpeed = 1.3;
        }else if (score >= 100 && score <175) {
 
-           RotSpeed=1.5;
+           RotSpeed = 1.5;
 
        }else if (score >= 175 && score <300) {
 
-           RotSpeed =  1.65;
+           RotSpeed = 1.65;
 
        }else if (score >= 300 && score <400) {
 
@@ -613,21 +632,21 @@ public class OFView_Activity extends View {
 
            RotSpeed = 1.95;
 
-       }else if (score>=1000&& score <1100){
+       }else if (score >= 1000 && score < 1100){
 
-           RotSpeed=2.05;
+           RotSpeed = 2.05;
 
-       }else if (score>=1100&& score <1300) {
+       }else if (score >= 1100 && score < 1300) {
 
            RotSpeed = 2.2;
 
        }else if (score>=1300&& score <1600){
 
-           RotSpeed=2.4;
+           RotSpeed = 2.4;
 
-       }else if (score>=1600){
+       }else if (score >= 1600){
 
-           RotSpeed=2.5;
+           RotSpeed = 2.5;
        }
    }
     private void ThetaCalc(){
@@ -647,32 +666,32 @@ public class OFView_Activity extends View {
        if (Left_theta2 > 360 || Left_theta2 < -360) {
            Left_theta2 = 0;
        }
-       if(theta<0){
-           ThtAbs1= theta+360;
+       if(theta < 0){
+           ThtAbs1 = theta+ 360;
        }else{
-           ThtAbs1= theta;
+           ThtAbs1 = theta;
        }
-       if(Left_theta <0){
-           LThtAbs1= Left_theta +360;
+       if(Left_theta < 0){
+           LThtAbs1 = Left_theta + 360;
        }else{
-           LThtAbs1= Left_theta;
+           LThtAbs1 = Left_theta;
        }
-       if(theta2<0){
-           ThtAbs2= theta2+360;
+       if(theta2 < 0){
+           ThtAbs2 = theta2 + 360;
        }else{
-           ThtAbs2= theta2;
+           ThtAbs2 = theta2;
        }
-       if(Left_theta2 <0){
-           LThtAbs2= Left_theta2 +360;
+       if(Left_theta2 < 0){
+           LThtAbs2 = Left_theta2 + 360;
        }else{
-           LThtAbs2= Left_theta2;
+           LThtAbs2 = Left_theta2;
        }
 
        if (ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1) {
            Mch = 10;
-       }else if(ThtAbs2 -ThtAbs1> AA_min *180 && ThtAbs2 -ThtAbs1< AA_max *180){
+       }else if(ThtAbs2 - ThtAbs1 > AA_min * 180 && ThtAbs2 - ThtAbs1 < AA_max * 180){
            Mch=5;
-       }else if(ThtAbs1 -ThtAbs2> AA_min *180 && ThtAbs1 -ThtAbs2< AA_max *180){
+       }else if(ThtAbs1 - ThtAbs2 > AA_min * 180 && ThtAbs1 - ThtAbs2 < AA_max * 180){
            Mch=5;
        } else {
            Mch = 0;
@@ -680,12 +699,12 @@ public class OFView_Activity extends View {
        if (LThtAbs2 > AA_min * LThtAbs1 && LThtAbs2 < AA_max * LThtAbs1) {
 
            LMch = 10;
-       }else if(LThtAbs2 -LThtAbs1> AA_min *180 && LThtAbs2 -LThtAbs1< AA_max *180){
+       }else if(LThtAbs2 - LThtAbs1 > AA_min * 180 && LThtAbs2 - LThtAbs1 < AA_max * 180){
 
-           LMch=5;
+           LMch = 5;
 
-       }else if(LThtAbs1 -LThtAbs2> AA_min *180 && LThtAbs1 -LThtAbs2< AA_max *180){
-           LMch=5;
+       }else if(LThtAbs1 - LThtAbs2 > AA_min * 180 && LThtAbs1 - LThtAbs2 < AA_max * 180){
+           LMch = 5;
 
        } else {
            LMch = 0;
