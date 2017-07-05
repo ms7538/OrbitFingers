@@ -1,6 +1,7 @@
 package poloapps.orbitfingers;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -42,7 +43,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                                                                                (R.color.navy_blue));
          Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
          Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
-         Integer Red             = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
          Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
          Integer Yellow          = ContextCompat.getColor(getApplicationContext(),
                                                                            (R.color.bright_yellow));
@@ -60,20 +61,16 @@ public class MainMenu_Activity extends AppCompatActivity {
 
          if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
 
-             if (  set_peak_min_remaining < 3 ){
-                 SMP_Button_Color = Fade1;
-             }
-             else if (  set_peak_min_remaining < 6 ){
-                 SMP_Button_Color = Yellow;
-             }
-             else SMP_Button_Color = Green;
+             if (  set_peak_min_remaining < 3 )      SMP_Button_Color = Fade1;
+             else if (  set_peak_min_remaining < 6 ) SMP_Button_Color = Yellow;
+             else                                    SMP_Button_Color = Green;
+
              Set_Peak_Min_btn.setBackgroundColor(SMP_Button_Color);
              Set_Peak_Min_btn.setTextColor(Dark_Gray);
              Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     Set_Peak_Min_btn.setBackgroundColor(Navy_Blue);
-
                     Integer SMPs_Remaining =  set_peak_min_remaining - 1;
                     editor.putInt("set_peak_min",SMPs_Remaining);
                     editor.putInt("min_score",peak_score_value);
@@ -85,13 +82,24 @@ public class MainMenu_Activity extends AppCompatActivity {
             });
 
 
-        }
-        else{
-            Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-        }
+         }
+         else   Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
 
+         if (min_score_value.equals(peak_score_value) && set_peak_min_remaining > 0){
+             Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
+                 @Override
+                 public void onClick(View arg0) {
+
+                     AlertDialog.Builder builder = new AlertDialog.Builder(
+                             MainMenu_Activity.this);
+                     builder.setMessage("Minimum & Peak Already Equal")
+                             .setNegativeButton("Back", null)
+                             .create()
+                             .show();
+                 }
+             });
+         }
          SetText_TColors();
-
          how_to_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -107,7 +115,6 @@ public class MainMenu_Activity extends AppCompatActivity {
                  launch_level();
              }
          });
-
 
          AdView mAdView = (AdView) findViewById(R.id.adView);
          AdRequest adRequest = new AdRequest.Builder().build();
@@ -211,7 +218,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer Yellow      = ContextCompat.getColor(getApplicationContext(),(R.color.
                                                                                     bright_yellow));
         Integer SMP_Color       = Red;
-        //Integer SMP_Btn_Color   = Dk_Orange;
+        
 
         Integer Min_Score_Value        = mSettings.getInt("min_score",0);
         Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",1);
