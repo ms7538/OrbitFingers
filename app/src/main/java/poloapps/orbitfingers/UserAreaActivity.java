@@ -132,11 +132,11 @@ public class UserAreaActivity extends AppCompatActivity {
             queue.add(valuesRequest);
         }
 
-        final String rank_msg      = mSettings.getString("rank_message","");
+        final String rank_msg          = mSettings.getString("rank_message","");
         etRMessage.setText(rank_msg);
         final String username          = mSettings.getString("current_user","");
         final int min_score_device     = mSettings.getInt("min_score",0);
-        final int smp_device           = mSettings.getInt("set_peak_min",2);
+        final int smp_device           = mSettings.getInt("set_peak_min",1);
         final int peak_score_device    = mSettings.getInt("peakscore", 0);
         int min_score_server           = mSettings.getInt("min_server",0);
         int smp_server                 = mSettings.getInt("smp_server",0);
@@ -196,7 +196,7 @@ public class UserAreaActivity extends AppCompatActivity {
         Integer SMP_Text_Color          = White;
 
 
-        if ( peak_score_device < peak_score_server){
+        if (peak_score_device < peak_score_server){
 
             Peak_Text_Color          = Navy_Blue;
             Device_Peak_Color        = Navy_Blue;

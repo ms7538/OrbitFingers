@@ -24,7 +24,7 @@ public class OFView_Activity extends View {
     String  max_width      = prefs.getString("max_w", "1");
     Integer LS             = prefs.getInt("ls", 1);
     Integer Peak_Score     = prefs.getInt("peakscore", 0);
-    Integer SMPs_Remaining = prefs.getInt("set_peak_min", 2);
+    Integer SMPs_Remaining = prefs.getInt("set_peak_min", 1);
 
 
     private int L1C     = ContextCompat.getColor(getContext(), (R.color.l1col));
@@ -34,12 +34,12 @@ public class OFView_Activity extends View {
     private int L5C     = ContextCompat.getColor(getContext(), (R.color.l5col));
     private int RED     = ContextCompat.getColor(getContext(), (R.color.red));
     private int GREEN   = ContextCompat.getColor(getContext(), (R.color.green2));
-    private int ORANGE  = ContextCompat.getColor(getContext(), (R.color.orange));
     private int Fade1   = ContextCompat.getColor(getContext(), (R.color.fade1));
     private int Fade2   = ContextCompat.getColor(getContext(), (R.color.fade2));
     private int Fade3   = ContextCompat.getColor(getContext(), (R.color.fade3));
     private int Fade4   = ContextCompat.getColor(getContext(), (R.color.fade4));
     private int Fade5   = ContextCompat.getColor(getContext(), (R.color.fade5));
+    private int YELLOW  = ContextCompat.getColor(getContext(), (R.color.bright_yellow));
 
     String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
@@ -120,12 +120,12 @@ public class OFView_Activity extends View {
     private String L5col        = "#" + Integer.toHexString(L5C);
     private String Green1       = "#" + Integer.toHexString(GREEN);
     private String Red1         = "#" + Integer.toHexString(RED);
-    private String Orange       = "#" + Integer.toHexString(ORANGE);
     private String F1_color     = "#" + Integer.toHexString(Fade1);
     private String F2_color     = "#" + Integer.toHexString(Fade2);
     private String F3_color     = "#" + Integer.toHexString(Fade3);
     private String F4_color     = "#" + Integer.toHexString(Fade4);
     private String F5_color     = "#" + Integer.toHexString(Fade5);
+    private String Yellow       = "#" + Integer.toHexString(YELLOW);
 
     private String Right_Color  = Level_Color;
     private String Left_Color   = Level_Color;
@@ -268,12 +268,15 @@ public class OFView_Activity extends View {
         if(SMPs_Remaining > 9){
             int lsf2 = (int) (Math.log10(SMPs_Remaining) + 1); // lsf = length_score_factor
             SMP_X_Adjusted = (int)( (1 - (.0125 * lsf2)) * Score_X_0_9);
-                    }
-        else if (SMPs_Remaining < 3){
+        }
+        if( SMPs_Remaining == 0 ){
             SMP_Color = Red1;
         }
-        else if (SMPs_Remaining < 6){
-            SMP_Color = Orange;
+        else if ( SMPs_Remaining < 3 ){
+            SMP_Color = F1_color;
+        }
+        else if ( SMPs_Remaining < 6 ){
+            SMP_Color = Yellow;
         }
 
         if ( Peak_Score < 1000 ) {
@@ -282,7 +285,7 @@ public class OFView_Activity extends View {
 
                 Peak_Value_X = (int) (.025 * Max_Width);
             }
-            else if(Peak_Score < 100){
+            else if( Peak_Score < 100 ){
 
                 Peak_Value_X = (int) (.018  * Max_Width);
             }
@@ -303,12 +306,12 @@ public class OFView_Activity extends View {
        }
 
         canvas_text(canvas,Integer.toString(SMPs_Remaining),SMP_X_Adjusted,SMP_Value_Y,Text_Length,
-                                                                                        SMP_Color);
+                                                                                         SMP_Color);
 
         canvas_text(canvas,getContext().getString(R.string.SMPs), SMP_Ind_X , SMP_Ind_Y,Text_Length, SMP_Color);
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length, Green1);
         canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Red1);
-        canvas_text(canvas, Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,Text_Length, Green1);
+        canvas_text(canvas,Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,Text_Length, Green1);
 
         if(LS == 5){
             next_level_value = " " + Integer.toString(Multi);
@@ -351,19 +354,19 @@ public class OFView_Activity extends View {
         canvas.restore();
         invalidate();  // Force a re-draw
     }
-    private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float FB1) {
+    private static void orbit(Canvas canvas, Paint paint, String blue1, int CX, int CY, float FB1){
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.parseColor(blue1));
         canvas.drawCircle(CX, CY, FB1, paint);
     }
     private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MB_size,
-                                                            float MBy, Paint paint, String MB_c) {
+                                                            float MBy, Paint paint, String MB_c){
         paint.setStyle(Paint.Style.FILL);
         ballBounds.set(MBx - MB_size, MBy - MB_size, MBx + MB_size, MBy + MB_size);
         paint.setColor(Color.parseColor(MB_c));
         canvas.drawOval(ballBounds, paint);//must be done for each
     }
-    private void canvas_text(Canvas canvas, String str, int x, int y, int t_size, String color) {
+    private void canvas_text(Canvas canvas, String str, int x, int y, int t_size, String color){
         paint.setTypeface(Typeface.MONOSPACE);
         paint.setTextSize(t_size);
         formatter.format(str);
@@ -375,7 +378,7 @@ public class OFView_Activity extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+        switch (event.getAction() & MotionEvent.ACTION_MASK){
 
             case MotionEvent.ACTION_DOWN:
 
@@ -473,7 +476,7 @@ public class OFView_Activity extends View {
                 if ( levl < 2 ) {
                     editor.putInt("levl", 2);
                     editor.putInt("min_score", level2_min);
-                    SMPs_Remaining = SMPs_Remaining +2;
+                    SMPs_Remaining = SMPs_Remaining + 1;
                     editor.putInt("set_peak_min",SMPs_Remaining);
                 }
 
@@ -503,12 +506,12 @@ public class OFView_Activity extends View {
                 ScorePen = level3_pen;
             }
 
-            if (c3==0) {
+            if ( c3 == 0 ) {
                c3++;
                if (levl < 3) {
                    editor.putInt("levl", 3);
                    editor.putInt("min_score",level3_min);
-                   SMPs_Remaining = SMPs_Remaining + 3;
+                   SMPs_Remaining = SMPs_Remaining + 2;
                    editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 LS               = 3;
@@ -539,7 +542,7 @@ public class OFView_Activity extends View {
                if (levl < 4) {
                    editor.putInt("levl", 4);
                    editor.putInt("min_score",level4_min);
-                   SMPs_Remaining = SMPs_Remaining +4;
+                   SMPs_Remaining = SMPs_Remaining + 2;
                    editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 editor.putInt("scorelevel",level4_min);
@@ -565,7 +568,7 @@ public class OFView_Activity extends View {
             }else  {
                 ScorePen = level5_pen;
             }
-            if( c5==0) {
+            if( c5 == 0) {
                 c5++;
                 if (levl < 5) {
                     editor.putInt("levl", 5);

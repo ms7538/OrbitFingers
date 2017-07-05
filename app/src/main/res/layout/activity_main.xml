@@ -162,7 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:text="@string/set_peak_min" />
+                android:text="@string/set_peak_min"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/smp_text_view"
