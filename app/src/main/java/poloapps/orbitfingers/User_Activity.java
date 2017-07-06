@@ -126,7 +126,7 @@ public class User_Activity extends AppCompatActivity {
             };
 
             ValuesRequest valuesRequest = new ValuesRequest(mSettings.getString("current_user",""),
-                                                                                responseListener2);
+                    responseListener2);
             RequestQueue queue          = Volley.newRequestQueue(User_Activity.this);
             queue.add(valuesRequest);
         }
@@ -369,7 +369,7 @@ public class User_Activity extends AppCompatActivity {
                                             editor.putString("rank_message", MSG);
                                             editor.apply();
                                             Toast.makeText(getBaseContext(),"Ranking Message Set To"
-                                                                                        + " " + MSG,
+                                                            + " " + MSG,
                                                     Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getBaseContext(), "Failed To set MSGs",
@@ -450,20 +450,18 @@ public class User_Activity extends AppCompatActivity {
                         if( mSettings.getInt("ut5", 0) == 0 ) {
                             int number_peaks_above = jsonResponse.getInt("higher_peaks") + 1;
                             tv_Rank_value.setText(String.format(Locale.US, "%d",
-                                                                              number_peaks_above));
+                                    number_peaks_above));
                             boolean equal_peaks = jsonResponse.getBoolean("equal_peaks");
                             if (equal_peaks) {
                                 tv_Tied_indication.setVisibility(View.VISIBLE);
-                            }else{
+                            } else {
                                 tv_Tied_indication.setVisibility(View.INVISIBLE);
                             }
-
-                            editor.putInt    ("users_higher_peaks", number_peaks_above);
-                            editor.putBoolean("users_equal_peaks",  equal_peaks);
+                            editor.putInt("users_higher_peaks", number_peaks_above);
+                            editor.putBoolean("users_equal_peaks", equal_peaks);
                             editor.apply();
                         }
-
-                        } else {
+                    } else {
                         Toast.makeText(getBaseContext(), "Failed To get Ranking",
                                 Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(
@@ -484,7 +482,7 @@ public class User_Activity extends AppCompatActivity {
 
 
         RankingRequest rankingRequest = new RankingRequest(username,peak_score_server,
-                                                                                responseListener3);
+                responseListener3);
         RequestQueue queue = Volley.newRequestQueue(User_Activity.this);
         queue.add(rankingRequest);
 
@@ -511,7 +509,6 @@ public class User_Activity extends AppCompatActivity {
                         if(user_Peak != peak_score_server){
                             editor.putInt("peak_server",user_Peak);
                             restart = true;
-
                         }
                         if(user_Min != min_score_server){
                             editor.putInt("min_server",user_Min);
@@ -525,21 +522,11 @@ public class User_Activity extends AppCompatActivity {
                             editor.putString("rank_message",rank_msg);
                             restart = true;
                         }
-                        if (username.equals(top_username)){
-                            UserT5 = 1;
-                        }
-                        else if (username.equals(top2_username)){
-                            UserT5 = 2;
-                        }
-                        else if (username.equals(top3_username)){
-                            UserT5 = 3;
-                        }
-                        else if (username.equals(top4_username)){
-                            UserT5 = 4;
-                        }
-                        else if (username.equals(top5_username)){
-                            UserT5 = 5;
-                        }
+                        if      (username.equals(top_username))  UserT5 = 1;
+                        else if (username.equals(top2_username)) UserT5 = 2;
+                        else if (username.equals(top3_username)) UserT5 = 3;
+                        else if (username.equals(top4_username)) UserT5 = 4;
+                        else if (username.equals(top5_username)) UserT5 = 5;
 
                         editor.putInt("ut5", UserT5);
                         editor.apply();

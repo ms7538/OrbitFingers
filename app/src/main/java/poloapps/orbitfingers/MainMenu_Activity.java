@@ -40,17 +40,17 @@ public class MainMenu_Activity extends AppCompatActivity {
          final   String username                  = mSettings.getString      ("current_user","");
 
          final Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),
-                                                                               (R.color.navy_blue));
+                 (R.color.navy_blue));
          Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
          Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
          final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
          Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
          Integer Yellow          = ContextCompat.getColor(getApplicationContext(),
-                                                                           (R.color.bright_yellow));
+                 (R.color.bright_yellow));
          final Integer Dark_Gray  = ContextCompat.getColor(getApplicationContext(),
-                                                                               (R.color.dark_gray));
+                 (R.color.dark_gray));
          final Integer Light_Gray = ContextCompat.getColor(getApplicationContext(),
-                                                                              (R.color.light_gray));
+                 (R.color.light_gray));
          Integer SMP_Button_Color;
 
          Button how_to_button          = (Button) findViewById(R.id.how_to_btn);
@@ -165,7 +165,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                      editor.commit();
                      SetText_TColors();
                      ((TextView) findViewById(R.id.peak_score_value)).setText
-                                                                (String.format(Locale.US,"%d",0));
+                             (String.format(Locale.US,"%d",0));
                      Intent intent = getIntent();
                      finish();
                      startActivity(intent);
@@ -175,7 +175,7 @@ public class MainMenu_Activity extends AppCompatActivity {
          else   reset_button.setBackgroundColor(Dark_Gray);
 
          ((TextView) findViewById(R.id.peak_score_value)).setText
-                                                   (String.format(Locale.US,"%d",peak_score_value));
+                 (String.format(Locale.US,"%d",peak_score_value));
 
 
      }
@@ -215,8 +215,8 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer Dark_Gray   = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
         Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
         Integer Dk_Orange   = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
-        Integer Yellow      = ContextCompat.getColor(getApplicationContext(),(R.color.
-                                                                                    bright_yellow));
+        Integer Yellow      = ContextCompat.getColor(getApplicationContext(),
+                (R.color.bright_yellow));
         Integer SMP_Color       = Red;
 
 

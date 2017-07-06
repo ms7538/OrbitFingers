@@ -5,7 +5,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="text|textCapCharacters"
         android:ems="10"
         android:maxLength="16"
         android:id="@+id/etName"
@@ -32,56 +32,87 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:hint="@string/password" />
+    <EditText
+        android:id="@+id/etPassword2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etPassword"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/r_password" />
+
     <Button
+        android:id="@+id/bRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/navy_blue"
         android:text="@string/register"
-        android:id="@+id/bRegister"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/etPassword"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="11dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:id="@+id/tv_peak_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/peak_score"
-        android:layout_alignTop="@+id/bRegister"
+        android:textColor="@color/bright_yellow"
+        android:layout_above="@+id/tv_min_text"
         android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/tv_peak_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/x"
-        android:layout_marginStart="13dp"
+        android:textColor="@color/navy_blue"
         android:layout_above="@+id/tv_min_score_value"
-        android:layout_toEndOf="@+id/smp_text" />
+        android:layout_alignEnd="@+id/textView" />
+
     <TextView
         android:id="@+id/tv_min_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/min_score"
-        android:layout_below="@+id/tv_peak_text"
+        android:textColor="@color/bright_yellow"
+        android:layout_above="@+id/smp_text"
         android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/tv_min_score_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/x"
         android:layout_above="@+id/smp_text"
-        android:layout_alignStart="@+id/tv_peak_value" />
+        android:layout_alignStart="@+id/tv_peak_value"
+        android:text="@string/x"
+        android:textColor="@color/navy_blue" />
+
     <TextView
         android:id="@+id/smp_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_min_text"
-        android:text="@string/set_peak_min_text" />
+        android:text="@string/set_peak_min_text"
+        android:textColor="@color/bright_yellow"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/tv_smp_rem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tv_min_score_value"
         android:layout_below="@+id/tv_min_score_value"
-        android:text="@string/x" />
+        android:text="@string/x"
+        android:textColor="@color/navy_blue" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reg_message"
+        android:textColor="@color/navy_blue"
+        android:layout_above="@+id/tv_peak_text"
+        android:layout_alignParentStart="true" />
+
+
 </RelativeLayout>

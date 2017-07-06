@@ -106,9 +106,9 @@ public class TopFiveActivity extends AppCompatActivity {
                             String top5_username = jsonResponse.getString("top5_username");
                             String top5_message  = jsonResponse.getString("top5_message");
                             editor.putBoolean("users_equal_peaks", jsonResponse.getBoolean
-                                                                                   ("equal_peaks"));
+                                    ("equal_peaks"));
                             editor.putInt("users_higher_peaks", jsonResponse.getInt
-                                                                              ("higher_peaks") + 1);
+                                    ("higher_peaks") + 1);
                             editor.putInt("peak_server", jsonResponse.getInt("user_peak"));
                             editor.apply();
                             tv_Top_Peak_value.setText (String.format(Locale.US, "%d", top_peak));

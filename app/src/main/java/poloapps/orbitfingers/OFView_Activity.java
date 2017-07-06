@@ -184,19 +184,12 @@ public class OFView_Activity extends View {
         // Set the font face and size of drawing text
 
         if ( Peak_Score < 1000 ) {
-
-            if(Peak_Score < 10){
-
-                  Peak_Value_X = (int) (.025 * Max_Width);
-            }
-            else if(Peak_Score < 100){
-
-                  Peak_Value_X = (int) (.018  * Max_Width);
-            }
-            else  Peak_Value_X = (int) (.005  * Max_Width);
+            if     (Peak_Score < 10)  Peak_Value_X = (int) (.025 * Max_Width);
+            else if(Peak_Score < 100) Peak_Value_X = (int) (.018  * Max_Width);
+            else                      Peak_Value_X = (int) (.005  * Max_Width);
 
         }
-        else      Peak_Value_X = 0;
+        else                          Peak_Value_X = 0;
 
 
         int c1 = 0;
@@ -242,63 +235,42 @@ public class OFView_Activity extends View {
         draw_ball(canvas, ballBounds, MBxL, Static_Radius, Common_Center_Y, paint, Left_Color);
         draw_ball(canvas, ballBounds, B1XL, Dynamic_Radius, B1yL, paint, Left_Color);
         draw_ball(canvas, ballBounds, B2XL, Dynamic_Radius, B2yL, paint, Left_Color);
-        draw_ball(canvas, ballBounds, MBx, Static_Radius, Common_Center_Y, paint, Right_Color);
-        draw_ball(canvas, ballBounds, B1X, Dynamic_Radius, B1y, paint, Right_Color);
-        draw_ball(canvas, ballBounds, B2X, Dynamic_Radius, B2y, paint, Right_Color);
+        draw_ball(canvas, ballBounds, MBx,  Static_Radius,  Common_Center_Y, paint, Right_Color);
+        draw_ball(canvas, ballBounds, B1X,  Dynamic_Radius, B1y, paint, Right_Color);
+        draw_ball(canvas, ballBounds, B2X,  Dynamic_Radius, B2y, paint, Right_Color);
 
-        if( score == Peak_Score && score != ScoreMin){
-            score_color = Green1;
-        }
-        else if (score == ScoreMin){
-            score_color = Red1;
-        }
-        else score_color = ScCo;
-
+        if( score == Peak_Score && score != ScoreMin) score_color = Green1;
+        else if (score == ScoreMin)                   score_color = Red1;
+        else                                          score_color = ScCo;
 
         if( score > 9 ) {
-
             int lsf = (int) (Math.log10(score) + 1); // lsf = length_score_factor
             Score_X_Adjusted = (int)( (1 - (.0125 * lsf)) * Score_X_0_9);
         }
-        else{
-            Score_X_Adjusted = Score_X_0_9;
-        }
+        else Score_X_Adjusted = Score_X_0_9;
 
         String SMP_Color = Green1;
         if(SMPs_Remaining > 9){
             int lsf2 = (int) (Math.log10(SMPs_Remaining) + 1); // lsf = length_score_factor
             SMP_X_Adjusted = (int)( (1 - (.0125 * lsf2)) * Score_X_0_9);
         }
-        if( SMPs_Remaining == 0 ){
-            SMP_Color = Red1;
-        }
-        else if ( SMPs_Remaining < 3 ){
-            SMP_Color = F1_color;
-        }
-        else if ( SMPs_Remaining < 6 ){
-            SMP_Color = Yellow;
-        }
+        if( SMPs_Remaining == 0 ) SMP_Color = Red1;
+        else if ( SMPs_Remaining < 3 ) SMP_Color = F1_color;
+        else if ( SMPs_Remaining < 6 ) SMP_Color = Yellow;
+
 
         if ( Peak_Score < 1000 ) {
-
-            if(Peak_Score < 10){
-
-                Peak_Value_X = (int) (.025 * Max_Width);
-            }
-            else if( Peak_Score < 100 ){
-
-                Peak_Value_X = (int) (.018  * Max_Width);
-            }
-            else  Peak_Value_X = (int) (.0075  * Max_Width);
-
+            if     (Peak_Score  < 10)   Peak_Value_X = (int) (.025 * Max_Width);
+            else if( Peak_Score < 100 ) Peak_Value_X = (int) (.018  * Max_Width);
+            else                        Peak_Value_X = (int) (.0075  * Max_Width);
         }
-        else      Peak_Value_X = 0;
+        else                            Peak_Value_X = 0;
 
         canvas_text(canvas,Integer.toString(score), Score_X_Adjusted,
                 Score_Value_Y, Text_Length, score_color);
 
         canvas_text(canvas, (getContext().getString(R.string.level_string) + Integer.toString(LS)), Level_Ind_X,
-                                Upper_Text_Y, Text_Length, Level_Color);
+                Upper_Text_Y, Text_Length, Level_Color);
 
         String Min_Text =  getContext().getString(R.string.empty);
         if (score == ScoreMin){
@@ -306,7 +278,7 @@ public class OFView_Activity extends View {
        }
 
         canvas_text(canvas,Integer.toString(SMPs_Remaining),SMP_X_Adjusted,SMP_Value_Y,Text_Length,
-                                                                                         SMP_Color);
+                SMP_Color);
 
         canvas_text(canvas,getContext().getString(R.string.SMPs), SMP_Ind_X , SMP_Ind_Y,Text_Length, SMP_Color);
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length, Green1);
@@ -316,28 +288,15 @@ public class OFView_Activity extends View {
         if(LS == 5){
             next_level_value = " " + Integer.toString(Multi);
 
-            if (Multi > 7 ){
-                next_color = F1_color;
-            }
-            else if(Multi > 5){
-                next_color = F2_color;
-            }
-            else if(Multi > 3){
-                next_color = F3_color;
-            }
-            else if(Multi == 3){
-                next_color = F4_color;
-            }
-            else if(Multi == 2){
-                next_color = F5_color;
-            }
-            else if(Multi == 1 ){
-                next_color = Green1;
-            }
+            if     (Multi  > 7)  next_color = F1_color;
+            else if(Multi  > 5)  next_color = F2_color;
+            else if(Multi  > 3)  next_color = F3_color;
+            else if(Multi == 3)  next_color = F4_color;
+            else if(Multi == 2)  next_color = F5_color;
+            else if(Multi == 1)  next_color = Green1;
         }
-
         canvas_text(canvas, next_level_value,Next_Value_X, Peak_Next_Values_Y,
-                                                                    Text_Length, next_color);
+                Text_Length, next_color);
 
         canvas_text(canvas, next_text, Next_Ind_X, Upper_Text_Y, Text_Length, next_color);
 
@@ -383,17 +342,15 @@ public class OFView_Activity extends View {
             case MotionEvent.ACTION_DOWN:
 
                 if(event.getX() >= R_TE_X_S && event.getX() <= R_TE_X_E && event.getY() >= C_TE_Y_S
-                                                                        && event.getY() < C_TE_Y_E){
+                        && event.getY() < C_TE_Y_E){
                     right_Finger_Print = BitmapFactory.decodeResource(getResources(),
                             R.drawable.thmb2);
                     if (Mch == 10 || Mch == 5) {
                         Right_Color = Green1;
                         score_color = Green1;
-                        if (Mch == 10) {
-                            score += 10;
-                        } else {
-                            score += 10;
-                        }
+                        if (Mch == 10) score += 10;
+                        else           score += 10;
+
                         Multi = Multi - 1;
                         editor.putInt("current_score", score);
                         Peak_Score_Check();
@@ -410,17 +367,15 @@ public class OFView_Activity extends View {
                     }
                 }
                 else if(event.getX() >= L_TE_X_S && event.getX() <= L_TE_X_E && event.getY() >=
-                                                               C_TE_Y_S && event.getY() < C_TE_Y_E){
+                        C_TE_Y_S && event.getY() < C_TE_Y_E){
+
                     left_Finger_Print = BitmapFactory.decodeResource(getResources(),R.drawable.
-                                                                                             thmb2);
+                            thmb2);
                     if(LMch == 10 || LMch == 5) {
                        Left_Color = Green1;
                        score_color = Green1;
-                       if (LMch == 10) {
-                           score += 10;
-                       } else {
-                           score += 10;
-                       }
+                       if (LMch == 10) score += 10;
+                       else            score += 10;
                        Multi = Multi - 1;
                        editor.putInt("current_score", score);
                        Peak_Score_Check();
@@ -466,11 +421,9 @@ public class OFView_Activity extends View {
         }
         if ( score >= level2_min && score < level3_min ){
             ScCo = L2col;
-            if ( score   < ScoreMin + level2_pen ){
-                ScorePen = score - ScoreMin;
-            }else  {
-                ScorePen = level2_pen;
-            }
+            if ( score   < ScoreMin + level2_pen ) ScorePen = score - ScoreMin;
+            else                                   ScorePen = level2_pen;
+
             if ( c2 == 0 ) {
                 c2++;
                 if ( levl < 2 ) {
@@ -487,25 +440,15 @@ public class OFView_Activity extends View {
                 next_text        = getContext().getString(R.string.level_3);
                 next_level_value = Integer.toString(level3_min);
                 Level_Color      = L2col;
-
-                if (ScoreMin  < level2_min){
-
-                    ScoreMin     = level2_min;
-                }
+                if (ScoreMin  < level2_min) ScoreMin  = level2_min;
                 AA_min           = .975;
                 AA_max           = 1.025;
-
             }
-
         }
         else if ( score  >= level3_min && score < level4_min ) {
             ScCo = L3col;
-            if ( score   < ScoreMin + level3_pen ){
-                ScorePen = score - ScoreMin;
-            }else  {
-                ScorePen = level3_pen;
-            }
-
+            if ( score   < ScoreMin + level3_pen ) ScorePen = score - ScoreMin;
+            else                                   ScorePen = level3_pen;
             if ( c3 == 0 ) {
                c3++;
                if (levl < 3) {
@@ -521,22 +464,15 @@ public class OFView_Activity extends View {
                 Level_Color      = L3col;
                 editor.putInt("scorelevel",level3_min);
                 editor.commit();
-
-
-                if (ScoreMin  < level3_min){
-
-                    ScoreMin     = level3_min;
-                }
+                if (ScoreMin  < level3_min)ScoreMin = level3_min;
                 AA_min           = .98;
                 AA_max           = 1.02;
             }
         }else if ( score >= level4_min && score < level5_min){
             ScCo = L4col;
-            if ( score   < ScoreMin + level4_pen ){
-                ScorePen = score - ScoreMin;
-            }else  {
-                ScorePen = level4_pen;
-            }
+            if ( score   < ScoreMin + level4_pen ) ScorePen = score - ScoreMin;
+            else ScorePen = level4_pen;
+
             if ( c4==0 ) {
                c4++;
                if (levl < 4) {
@@ -551,11 +487,7 @@ public class OFView_Activity extends View {
                 next_color       = L5col;
                 next_level_value = Integer.toString(level5_min);
                 Level_Color      = L4col;
-
-                if (ScoreMin  < level4_min){
-                    ScoreMin    = level4_min;
-                }
-
+                if (ScoreMin  < level4_min) ScoreMin  = level4_min;
                 AA_min          = .982;
                 AA_max          = 1.018;
                 LS              = 4;
@@ -563,11 +495,9 @@ public class OFView_Activity extends View {
            }
         }else if ( score >= level5_min ){
             ScCo = L5col;
-            if ( score   < ScoreMin + level5_pen ){
-                ScorePen = score - ScoreMin;
-            }else  {
-                ScorePen = level5_pen;
-            }
+            if ( score   < ScoreMin + level5_pen ) ScorePen = score - ScoreMin;
+            else ScorePen = level5_pen;
+
             if( c5 == 0) {
                 c5++;
                 if (levl < 5) {
@@ -583,11 +513,7 @@ public class OFView_Activity extends View {
                 Integer Multi = prefs.getInt("multi", 9);
                 next_level_value   = " " + Integer.toString(Multi);
                 Level_Color        = L5col;
-
-                if (ScoreMin  < level5_min){
-                    ScoreMin = level5_min;
-                }
-
+                if (ScoreMin  < level5_min) ScoreMin = level5_min;
                 AA_min            = .985;
                 AA_max            = 1.015;
                 LS                = 5;
@@ -630,109 +556,47 @@ public class OFView_Activity extends View {
        Left_Rotation_Speed = RotSpeed;
        Left_RS2            = RotSpeed;
 
-       if (score >= 50 && score <100) {
-           RotSpeed = 1.3;
-       }else if (score >= 100 && score <175) {
-
-           RotSpeed = 1.5;
-
-       }else if (score >= 175 && score <300) {
-
-           RotSpeed = 1.65;
-
-       }else if (score >= 300 && score <400) {
-
-           RotSpeed = 1.75;
-
-       }else if (score >= 400 && score < 600) {
-
-           RotSpeed = 1.85;
-
-       }else if (score >= 600 && score < 800) {
-
-           RotSpeed = 1.9;
-
-       }else if (score >= 800 && score < 1000) {
-
-           RotSpeed = 1.95;
-
-       }else if (score >= 1000 && score < 1100){
-
-           RotSpeed = 2.05;
-
-       }else if (score >= 1100 && score < 1300) {
-
-           RotSpeed = 2.2;
-
-       }else if (score >= 1300 && score < 1600){
-
-           RotSpeed = 2.4;
-
-       }else if (score >= 1600){
-
-           RotSpeed = 2.5;
-       }
+       if      (score >= 50   && score < 100)  RotSpeed = 1.3;
+       else if (score >= 100  && score < 175)  RotSpeed = 1.5;
+       else if (score >= 175  && score < 300)  RotSpeed = 1.65;
+       else if (score >= 300  && score < 400)  RotSpeed = 1.75;
+       else if (score >= 400  && score < 600)  RotSpeed = 1.85;
+       else if (score >= 600  && score < 800)  RotSpeed = 1.9;
+       else if (score >= 800  && score < 1000) RotSpeed = 1.95;
+       else if (score >= 1000 && score < 1100) RotSpeed = 2.05;
+       else if (score >= 1100 && score < 1300) RotSpeed = 2.2;
+       else if (score >= 1300 && score < 1600) RotSpeed = 2.4;
+       else if (score >= 1600)                 RotSpeed = 2.5;
    }
     private void ThetaCalc(){
-       theta += Right_RS;
-       if (theta > 360 || theta < -360) {
-           theta = 0;
-       }
-       Left_theta += Left_Rotation_Speed;
-       if (Left_theta > 360 || Left_theta < -360) {
-           Left_theta = 0;
-       }
-       theta2 -= Right_RS2;
-       if (theta2 > 360 || theta2 < -360) {
-           theta2 = 0;
-       }
-       Left_theta2 -= Left_RS2;
-       if (Left_theta2 > 360 || Left_theta2 < -360) {
-           Left_theta2 = 0;
-       }
-       if(theta < 0){
-           ThtAbs1 = theta+ 360;
-       }else{
-           ThtAbs1 = theta;
-       }
-       if(Left_theta < 0){
-           LThtAbs1 = Left_theta + 360;
-       }else{
-           LThtAbs1 = Left_theta;
-       }
-       if(theta2 < 0){
-           ThtAbs2 = theta2 + 360;
-       }else{
-           ThtAbs2 = theta2;
-       }
-       if(Left_theta2 < 0){
-           LThtAbs2 = Left_theta2 + 360;
-       }else{
-           LThtAbs2 = Left_theta2;
-       }
+        theta       += Right_RS;
+        if (theta > 360 || theta < -360)             theta = 0;
 
-       if (ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1) {
-           Mch = 10;
-       }else if(ThtAbs2 - ThtAbs1 > AA_min * 180 && ThtAbs2 - ThtAbs1 < AA_max * 180){
-           Mch = 5;
-       }else if(ThtAbs1 - ThtAbs2 > AA_min * 180 && ThtAbs1 - ThtAbs2 < AA_max * 180){
-           Mch = 5;
-       } else {
-           Mch = 0;
-       }
-       if (LThtAbs2 > AA_min * LThtAbs1 && LThtAbs2 < AA_max * LThtAbs1) {
+        Left_theta  += Left_Rotation_Speed;
 
-           LMch = 10;
-       }else if(LThtAbs2 - LThtAbs1 > AA_min * 180 && LThtAbs2 - LThtAbs1 < AA_max * 180){
+        if (Left_theta > 360 || Left_theta < -360)   Left_theta = 0;
+        theta2      -= Right_RS2;
+        if (theta2 > 360 || theta2 < -360)           theta2 = 0;
+        Left_theta2 -= Left_RS2;
+        if (Left_theta2 > 360 || Left_theta2 < -360) Left_theta2 = 0;
+        if(theta < 0)                                ThtAbs1     = theta+ 360;
+        else                                         ThtAbs1     = theta;
+        if(Left_theta < 0)                           LThtAbs1    = Left_theta + 360;
+        else                                         LThtAbs1    = Left_theta;
+        if(theta2 < 0)                               ThtAbs2     = theta2 + 360;
+        else                                         ThtAbs2     = theta2;
+        if(Left_theta2 < 0)                          LThtAbs2    = Left_theta2 + 360;
+        else                                         LThtAbs2    = Left_theta2;
 
-           LMch = 5;
 
-       }else if(LThtAbs1 - LThtAbs2 > AA_min * 180 && LThtAbs1 - LThtAbs2 < AA_max * 180){
-           LMch = 5;
-
-       } else {
-           LMch = 0;
-       }
+        if (ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1)                     Mch  = 10;
+        else if(ThtAbs2 - ThtAbs1 > AA_min * 180 && ThtAbs2 - ThtAbs1 < AA_max * 180)     Mch  = 5;
+        else if(ThtAbs1 - ThtAbs2 > AA_min * 180 && ThtAbs1 - ThtAbs2 < AA_max * 180)     Mch  = 5;
+        else                                                                              Mch  = 0;
+        if (LThtAbs2 > AA_min * LThtAbs1 && LThtAbs2 < AA_max * LThtAbs1)                 LMch = 10;
+        else if(LThtAbs2 - LThtAbs1 > AA_min * 180 && LThtAbs2 - LThtAbs1 < AA_max * 180) LMch = 5;
+        else if(LThtAbs1 - LThtAbs2 > AA_min * 180 && LThtAbs1 - LThtAbs2 < AA_max * 180) LMch = 5;
+        else                                                                              LMch = 0;
         score_color = ScCo;
    }
    private void Peak_Score_Check(){

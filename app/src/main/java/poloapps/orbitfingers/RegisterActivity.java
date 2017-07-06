@@ -34,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etName             = (EditText) findViewById(R.id.etName);
         final EditText etUsername         = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword         = (EditText) findViewById(R.id.etPassword);
+        final EditText etPassword2        = (EditText) findViewById(R.id.etPassword2);
         final Button   bRegister          = (Button) findViewById(R.id.bRegister);
         final TextView tvPeak_Value       = (TextView) findViewById(R.id.tv_peak_value);
         final TextView tvMin_Value        = (TextView) findViewById(R.id.tv_min_score_value);
@@ -55,47 +56,54 @@ public class RegisterActivity extends AppCompatActivity {
                 boolean Connect = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
                 if(Connect) {
-                    final String name     = etName.getText().toString();
-                    final String username = etUsername.getText().toString();
-                    final int peak        = mSettings.getInt("peakscore",   0);
-                    final int min         = mSettings.getInt("min_score",   0);
-                    final int smp         = mSettings.getInt("set_peak_min",1);
-                    final String password = etPassword.getText().toString();
+                    final String name      = etName.getText().toString();
+                    final String username  = etUsername.getText().toString();
+                    final int peak         = mSettings.getInt("peakscore",   0);
+                    final int min          = mSettings.getInt("min_score",   0);
+                    final int smp          = mSettings.getInt("set_peak_min",1);
+                    final String password  = etPassword.getText().toString();
+                    final String password2 = etPassword2.getText().toString();
+                    if( password.equals(password2) ) {
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonResponse = new JSONObject(response);
+                                    boolean success = jsonResponse.getBoolean("success");
+                                    if (success) {
+                                        editor.putString("user_id", username);
+                                        editor.apply();
 
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    editor.putString("user_id", username);
-                                    editor.apply();
-
-                                    Intent intent = new Intent(RegisterActivity.this,
-                                                                               LoginActivity.class);
-                                    RegisterActivity.this.startActivity(intent);
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(
-                                                                            RegisterActivity.this);
-                                    builder.setMessage("Register Failed").setCancelable(false)
-                                            .setNegativeButton("Retry", null)
-                                            .create()
-                                            .show();
+                                        Intent intent = new Intent(RegisterActivity.this,
+                                                LoginActivity.class);
+                                        RegisterActivity.this.startActivity(intent);
+                                    } else {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(
+                                                RegisterActivity.this);
+                                        builder.setMessage("Register Failed").setCancelable(false)
+                                                .setNegativeButton("Retry", null)
+                                                .create()
+                                                .show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
-                    };
-
-                    RegisterRequest registerRequest = new RegisterRequest(name, username, peak, min,
-                                                                   smp, password, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                    queue.add(registerRequest);
+                        };
+                        RegisterRequest registerRequest = new RegisterRequest(name, username, peak,
+                                min, smp, password, responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                        queue.add(registerRequest);
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity
+                                .this);
+                        builder.setMessage("Passwords Don't Match")
+                                .setNegativeButton("Back", null)
+                                .create()
+                                .show();
+                    }
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(
-                                                                             RegisterActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setMessage("No Internet Connection")
                             .setNegativeButton("Back", null)
                             .create()

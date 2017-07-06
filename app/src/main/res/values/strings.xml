@@ -31,6 +31,7 @@
     <string name="register">Register</string>
     <string name="username">USERNAME</string>
     <string name="password">Password</string>
+    <string name="r_password">Re-enter Password</string>
     <string name="login">Login</string>
     <string name="register_here">Register Here</string>
     <string name="name">NAME</string>
@@ -65,4 +66,5 @@
     <string name="SMPs">SMPs:</string>
     <string name="multi">|MULTI|</string>
     <string name="arrow">></string>
+    <string name="reg_message">Values To Be Registered:</string>
 </resources>
