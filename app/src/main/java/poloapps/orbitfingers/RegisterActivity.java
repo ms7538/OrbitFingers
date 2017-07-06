@@ -1,7 +1,11 @@
 package poloapps.orbitfingers;
 import android.app.AlertDialog;
+import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,51 +39,68 @@ public class RegisterActivity extends AppCompatActivity {
         final TextView tvMin_Value        = (TextView) findViewById(R.id.tv_min_score_value);
         final TextView tvSMPs_Value       = (TextView) findViewById(R.id.tv_smp_rem);
 
-        tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore", 0)));
-        tvMin_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("min_score", 0)));
+
+        tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore",    0)));
+        tvMin_Value.setText (String.format(Locale.US,"%d",mSettings.getInt("min_score",    0)));
         tvSMPs_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("set_peak_min", 0)));
+
+
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String name     = etName.getText().toString();
-                final String username = etUsername.getText().toString();
-                final int peak        = mSettings.getInt("peakscore", 0);
-                final int min         = mSettings.getInt("min_score", 0);
-                final int smp         = mSettings.getInt("set_peak_min", 2);
-                final String password = etPassword.getText().toString();
+                ConnectivityManager cm =
+                        (ConnectivityManager)getApplicationContext()
+                                .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean Connect = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                editor.putString("user_id",username);
-                                editor.apply();
+                if(Connect) {
+                    final String name     = etName.getText().toString();
+                    final String username = etUsername.getText().toString();
+                    final int peak        = mSettings.getInt("peakscore",   0);
+                    final int min         = mSettings.getInt("min_score",   0);
+                    final int smp         = mSettings.getInt("set_peak_min",1);
+                    final String password = etPassword.getText().toString();
 
-                                Intent intent = new Intent(RegisterActivity.this,
-                                                                              LoginActivity.class);
-                                RegisterActivity.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                if (success) {
+                                    editor.putString("user_id", username);
+                                    editor.apply();
+
+                                    Intent intent = new Intent(RegisterActivity.this,
+                                                                               LoginActivity.class);
+                                    RegisterActivity.this.startActivity(intent);
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(
                                                                             RegisterActivity.this);
-                                builder.setMessage("Register Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
+                                    builder.setMessage("Register Failed").setCancelable(false)
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                };
+                    };
 
-                RegisterRequest registerRequest = new RegisterRequest(name, username, peak, min,
+                    RegisterRequest registerRequest = new RegisterRequest(name, username, peak, min,
                                                                    smp, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
-
+                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                    queue.add(registerRequest);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(
+                                                                             RegisterActivity.this);
+                    builder.setMessage("No Internet Connection")
+                            .setNegativeButton("Back", null)
+                            .create()
+                            .show();
+                }
 
             }
         });

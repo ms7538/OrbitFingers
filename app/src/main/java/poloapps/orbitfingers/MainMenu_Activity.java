@@ -140,7 +140,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                  Intent myIntent = new Intent(MainMenu_Activity.this, LoginActivity.class);
 
                  if(logged_in) {
-                     myIntent = new Intent(MainMenu_Activity.this, UserAreaActivity.class);
+                     myIntent = new Intent(MainMenu_Activity.this, User_Activity.class);
                  }
                  MainMenu_Activity.this.startActivity(myIntent);
              }

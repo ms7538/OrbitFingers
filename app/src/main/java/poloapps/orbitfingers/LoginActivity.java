@@ -1,8 +1,11 @@
 package poloapps.orbitfingers;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -35,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
+
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,52 +50,66 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
+                ConnectivityManager cm =
+                        (ConnectivityManager)getApplicationContext()
+                                .getSystemService(Context.CONNECTIVITY_SERVICE);
 
-                // Response received from the server
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse  = new JSONObject(response);
-                            boolean success          = jsonResponse.getBoolean("success");
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean Connect = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-                            if (success) {
-                                String name          = jsonResponse.getString("name");
-                                int peak_score_value = jsonResponse.getInt   ("peak");
-                                int min_score_value  = jsonResponse.getInt   ("min");
-                                int set_min_peak_rem = jsonResponse.getInt   ("smp");
+                if(Connect) {
+                    final String username = etUsername.getText().toString();
+                    final String password = etPassword.getText().toString();
+                    // Response received from the server
+                    Response.Listener<String> r_Listener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
 
-                                Intent intent = new Intent(LoginActivity.this,
-                                                                            UserAreaActivity.class);
-                                intent.putExtra("name",     name);
-                                intent.putExtra("username", username);
-                                intent.putExtra("peak",     peak_score_value);
-                                intent.putExtra("min",      min_score_value);
-                                intent.putExtra("smp",      set_min_peak_rem);
+                                if (success) {
+                                    String name = jsonResponse.getString("name");
+                                    int peak_score_value = jsonResponse.getInt("peak");
+                                    int min_score_value = jsonResponse.getInt("min");
+                                    int set_min_peak_rem = jsonResponse.getInt("smp");
 
-                                editor.putString("current_user",username);
-                                editor.apply();
-                                LoginActivity.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(
-                                                                                LoginActivity.this);
-                                builder.setMessage("Login Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
+                                    Intent intent = new Intent(LoginActivity.this,
+                                            User_Activity.class);
+                                    intent.putExtra("name", name);
+                                    intent.putExtra("username", username);
+                                    intent.putExtra("peak", peak_score_value);
+                                    intent.putExtra("min", min_score_value);
+                                    intent.putExtra("smp", set_min_peak_rem);
+
+                                    editor.putString("current_user", username);
+                                    editor.apply();
+                                    LoginActivity.this.startActivity(intent);
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(
+                                            LoginActivity.this);
+                                    builder.setMessage("Login Failed")
+                                            .setNegativeButton("Retry", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                };
+                    };
 
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
-                RequestQueue queue        = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
+                    LoginRequest loginRequest = new LoginRequest(username, password, r_Listener);
+                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                    queue.add(loginRequest);
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setMessage("No Internet Connection")
+                            .setNegativeButton("Back", null)
+                            .create()
+                            .show();
+                }
             }
         });
     }
