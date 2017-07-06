@@ -569,34 +569,32 @@ public class OFView_Activity extends View {
        else if (score >= 1600)                 RotSpeed = 2.5;
    }
     private void ThetaCalc(){
-        theta       += Right_RS;
-        if (theta > 360 || theta < -360)             theta = 0;
-
-        Left_theta  += Left_Rotation_Speed;
-
-        if (Left_theta > 360 || Left_theta < -360)   Left_theta = 0;
-        theta2      -= Right_RS2;
-        if (theta2 > 360 || theta2 < -360)           theta2 = 0;
+        theta += Right_RS;
+        if(theta > 360 || theta < -360) theta = 0;
+        Left_theta += Left_Rotation_Speed;
+        if(Left_theta > 360 || Left_theta < -360) Left_theta = 0;
+        theta2 -= Right_RS2;
+        if(theta2 > 360 || theta2 < -360) theta2 = 0;
         Left_theta2 -= Left_RS2;
-        if (Left_theta2 > 360 || Left_theta2 < -360) Left_theta2 = 0;
-        if(theta < 0)                                ThtAbs1     = theta+ 360;
-        else                                         ThtAbs1     = theta;
-        if(Left_theta < 0)                           LThtAbs1    = Left_theta + 360;
-        else                                         LThtAbs1    = Left_theta;
-        if(theta2 < 0)                               ThtAbs2     = theta2 + 360;
-        else                                         ThtAbs2     = theta2;
-        if(Left_theta2 < 0)                          LThtAbs2    = Left_theta2 + 360;
-        else                                         LThtAbs2    = Left_theta2;
+        if(Left_theta2 > 360 || Left_theta2 < -360) Left_theta2 = 0;
+        if(theta < 0) ThtAbs1 = theta + 360;
+        else ThtAbs1 = theta;
+        if(Left_theta < 0) LThtAbs1 = Left_theta + 360;
+        else LThtAbs1 = Left_theta;
+        if(theta2 < 0) ThtAbs2 = theta2 + 360;
+        else ThtAbs2 = theta2;
+        if(Left_theta2 < 0)LThtAbs2    = Left_theta2 + 360;
+        else LThtAbs2    = Left_theta2;
 
 
-        if (ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1)                     Mch  = 10;
-        else if(ThtAbs2 - ThtAbs1 > AA_min * 180 && ThtAbs2 - ThtAbs1 < AA_max * 180)     Mch  = 5;
-        else if(ThtAbs1 - ThtAbs2 > AA_min * 180 && ThtAbs1 - ThtAbs2 < AA_max * 180)     Mch  = 5;
-        else                                                                              Mch  = 0;
-        if (LThtAbs2 > AA_min * LThtAbs1 && LThtAbs2 < AA_max * LThtAbs1)                 LMch = 10;
+        if(ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1)Mch  = 10;
+        else if(ThtAbs2 - ThtAbs1 > AA_min * 180 && ThtAbs2 - ThtAbs1 < AA_max * 180)Mch  = 5;
+        else if(ThtAbs1 - ThtAbs2 > AA_min * 180 && ThtAbs1 - ThtAbs2 < AA_max * 180)Mch  = 5;
+        else Mch  = 0;
+        if(LThtAbs2 > AA_min * LThtAbs1 && LThtAbs2 < AA_max * LThtAbs1) LMch = 10;
         else if(LThtAbs2 - LThtAbs1 > AA_min * 180 && LThtAbs2 - LThtAbs1 < AA_max * 180) LMch = 5;
         else if(LThtAbs1 - LThtAbs2 > AA_min * 180 && LThtAbs1 - LThtAbs2 < AA_max * 180) LMch = 5;
-        else                                                                              LMch = 0;
+        else LMch = 0;
         score_color = ScCo;
    }
    private void Peak_Score_Check(){

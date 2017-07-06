@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         assert bar != null;
-        bar.setTitle("Login");
+        bar.setTitle("Login To OrbitFingers");
 
         final EditText etUsername             = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword             = (EditText) findViewById(R.id.etPassword);
@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
-
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,17 +45,14 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
-
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConnectivityManager cm =
                         (ConnectivityManager)getApplicationContext()
                                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                 boolean Connect = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-
                 if(Connect) {
                     final String username = etUsername.getText().toString();
                     final String password = etPassword.getText().toString();
@@ -67,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
                                 boolean success = jsonResponse.getBoolean("success");
-
                                 if (success) {
                                     String name = jsonResponse.getString("name");
                                     int peak_score_value = jsonResponse.getInt("peak");
@@ -99,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }
                     };
-
                     LoginRequest loginRequest = new LoginRequest(username, password, r_Listener);
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     queue.add(loginRequest);

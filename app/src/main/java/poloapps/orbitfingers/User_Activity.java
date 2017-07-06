@@ -31,7 +31,6 @@ import java.util.TimerTask;
 
 //v3.6h Top 5 Display Complete
 public class User_Activity extends AppCompatActivity {
-
     final Handler handler = new Handler();
     Timer timer = new Timer();
     TimerTask task = new TimerTask() {
@@ -48,7 +47,6 @@ public class User_Activity extends AppCompatActivity {
             });
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +58,8 @@ public class User_Activity extends AppCompatActivity {
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         final EditText etRMessage             = (EditText) findViewById(R.id.et_ranking_message);
-        timer.schedule(task, 0 , 10000);  // interval of 10 sec
-
         Boolean logged_in                     = mSettings.getBoolean("Signed_In", false);
-
+        timer.schedule(task, 0 , 10000);  // interval of 10 sec
         if (!logged_in){
             Intent intent   = getIntent();
             String rank_msg = intent.getStringExtra("name");
@@ -94,12 +90,10 @@ public class User_Activity extends AppCompatActivity {
                             int DB_min_stored  = mSettings.getInt       ("min_server",  0);
                             int smp_check      = jsonResponse.getInt    ("smp");
                             int DB_smp_stored  = mSettings.getInt       ("smp_server",  0);
-
                             String RMsg        = jsonResponse.getString("rank_msg");
                             editor.putString("rank_message", RMsg);
                             editor.apply();
                             etRMessage.setText(RMsg);
-
                             if (peak_check != DB_peak_stored || min_check != DB_min_stored ||
                                                                     smp_check != DB_smp_stored) {
                                 editor.putInt("peak_server", peak_check);
@@ -124,7 +118,6 @@ public class User_Activity extends AppCompatActivity {
                     }
                 }
             };
-
             ValuesRequest valuesRequest = new ValuesRequest(mSettings.getString("current_user",""),
                     responseListener2);
             RequestQueue queue          = Volley.newRequestQueue(User_Activity.this);
@@ -220,49 +213,40 @@ public class User_Activity extends AppCompatActivity {
                     editor.putInt("set_peak_min",mSettings.getInt("smp_server", 0));
                     editor.apply();
 
-                    if      (min_score_db >= getApplicationContext()
+                    if      (min_score_db  >= getApplicationContext()
                             .getResources().getInteger(R.integer.L4_target_score)) editor.putInt("levl",5);
                     else if (min_score_db  >= getApplicationContext()
-                            .getResources().getInteger(R.integer.L3_target_score)) editor.putInt("levl",4);
+                            .getResources().getInteger(R.integer.L3_target_score))  editor.putInt("levl",4);
                     else if (min_score_db  >= getApplicationContext()
-                            .getResources().getInteger(R.integer.L2_target_score)) editor.putInt("levl",3);
+                            .getResources().getInteger(R.integer.L2_target_score))  editor.putInt("levl",3);
                     else if (min_score_db  >= getApplicationContext()
-                            .getResources().getInteger(R.integer.L1_target_score)) editor.putInt("levl",2);
-                    else                           editor.putInt("levl",1);
+                            .getResources().getInteger(R.integer.L1_target_score))  editor.putInt("levl",2);
+                    else                            editor.putInt("levl",1);
                     editor.apply();
                     Activity_restart();
                 }
             });
-
         }
         else if (peak_score_device > peak_score_server){
-            Peak_Text_Color          = Navy_Blue;
-            Server_Peak_Color        = Navy_Blue;
-            Server_Min_Color         = Navy_Blue;
-            Server_SMP_Color         = Navy_Blue;
-
+            Peak_Text_Color           = Navy_Blue;
+            Server_Peak_Color         = Navy_Blue;
+            Server_Min_Color          = Navy_Blue;
+            Server_SMP_Color          = Navy_Blue;
             if ( min_score_device < min_score_server) {
-                Min_Text_Color       = Red;
-                Device_Min_Color     = Red;
+                Min_Text_Color        = Red;
+                Device_Min_Color      = Red;
             }
-            else
-                Min_Text_Color       = Navy_Blue;
-
+            else Min_Text_Color       = Navy_Blue;
             if ( smp_device < smp_server) {
-
-                SMP_Text_Color       = Red;
-                Device_SMP_Color     = Red;
+                SMP_Text_Color        = Red;
+                Device_SMP_Color      = Red;
             }
-            else
-                SMP_Text_Color       = Navy_Blue;
-
-            Server_SET_Button_Color  = Navy_Blue;
-            Server_BG_Color          = Navy_Blue;
-
+            else SMP_Text_Color       = Navy_Blue;
+            Server_SET_Button_Color = Navy_Blue;
+            Server_BG_Color         = Navy_Blue;
             Server_Set_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-
                     if(check_Connection()) {
                         Response.Listener<String> responseListener = new Response.Listener<String>() {
                             @Override
@@ -271,14 +255,12 @@ public class User_Activity extends AppCompatActivity {
                                     JSONObject jsonResponse = new JSONObject(response);
                                     boolean success = jsonResponse.getBoolean("success");
                                     if (success) {
-
                                         editor.putInt("peak_server", jsonResponse.getInt("peak"));
                                         editor.putInt("min_server", jsonResponse.getInt("min"));
                                         editor.putInt("smp_server", jsonResponse.getInt("smp"));
                                         editor.apply();
                                         Activity_restart();
                                     } else {
-
                                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                                 User_Activity.this);
                                         builder.setMessage("Update Failed")
@@ -286,19 +268,16 @@ public class User_Activity extends AppCompatActivity {
                                                 .create()
                                                 .show();
                                     }
-
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         };
-
                         UpdateRequest updateRequest = new UpdateRequest(username, peak_score_device,
                                 min_score_device, smp_device, responseListener);
                         RequestQueue queue = Volley.newRequestQueue(User_Activity.this);
                         queue.add(updateRequest);
                     } else no_IC_alert();
-
                 }
             });
         }
@@ -306,7 +285,6 @@ public class User_Activity extends AppCompatActivity {
             Min_Text_Color       = White;
             Device_Min_Color     = Yellow;
             Server_Min_Color     = Yellow;
-
             if (smp_device != smp_server){
                 SMP_Text_Color   = White;
                 Device_SMP_Color = Yellow;
@@ -316,8 +294,7 @@ public class User_Activity extends AppCompatActivity {
         else if (smp_device != smp_server){
             SMP_Text_Color       = White;
             Device_SMP_Color     = Yellow;
-            Server_SMP_Color     = Yellow;
-        }
+            Server_SMP_Color     = Yellow;        }
 
         tv_Device_Peak_value.setTextColor(Device_Peak_Color);
         tv_Device_Min_value.setTextColor (Device_Min_Color);
@@ -330,14 +307,11 @@ public class User_Activity extends AppCompatActivity {
         tv_Server_SMP_value.setTextColor (Server_SMP_Color);
         tv_Device_text.setBackgroundColor(Device_BG_Color);
         tv_Server_text.setBackgroundColor(Server_BG_Color);
-
         Device_Set_Button.setBackgroundColor(Device_SET_Button_Color);
         Server_Set_Button.setBackgroundColor(Server_SET_Button_Color);
-
         AdView mAdView      = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
         tv_Top5_Link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -347,12 +321,10 @@ public class User_Activity extends AppCompatActivity {
                 }else no_IC_alert();
             }
         });
-
         tv_SRM_Link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if( check_Connection()) {
-
                     String rank_msg = etRMessage.getText().toString();
                     editor.putString("rank_message", rank_msg);
                     editor.apply();
@@ -397,7 +369,6 @@ public class User_Activity extends AppCompatActivity {
                 } else no_IC_alert();
             }
         });
-
     }
 
     private void Activity_restart(){
@@ -432,9 +403,9 @@ public class User_Activity extends AppCompatActivity {
         final EditText etRMessage         = (EditText) findViewById(R.id.et_ranking_message);
 
         final SharedPreferences.Editor editor = mSettings.edit();
-        final int peak_score_server           = mSettings.getInt("peak_server",0);
-        final int min_score_server            = mSettings.getInt("min_server", 0);
-        final int smp_server                  = mSettings.getInt("smp_server", 2);
+        final int peak_score_server           = mSettings.getInt   ("peak_server",0);
+        final int min_score_server            = mSettings.getInt   ("min_server", 0);
+        final int smp_server                  = mSettings.getInt   ("smp_server", 2);
         final String username                 = mSettings.getString("current_user","");
         final String rank_msg                 = mSettings.getString("rank_message","");
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
@@ -457,16 +428,16 @@ public class User_Activity extends AppCompatActivity {
                             } else {
                                 tv_Tied_indication.setVisibility(View.INVISIBLE);
                             }
-                            editor.putInt("users_higher_peaks", number_peaks_above);
+                            editor.putInt    ("users_higher_peaks", number_peaks_above);
                             editor.putBoolean("users_equal_peaks", equal_peaks);
                             editor.apply();
                         }
                     } else {
-                        Toast.makeText(getBaseContext(), "Failed To get Ranking",
+                        Toast.makeText(getBaseContext(),"Failed To get Ranking",
                                 Toast.LENGTH_LONG).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(
                                 User_Activity.this);
-                        builder.setMessage("Get Ranking Failed")
+                        builder.setMessage        ("Get Ranking Failed")
                                 .setNegativeButton("Retry", null)
                                 .create()
                                 .show();
@@ -538,7 +509,6 @@ public class User_Activity extends AppCompatActivity {
                             tv_Tied_indication.setVisibility(View.INVISIBLE);
                             etRMessage.setVisibility(View.VISIBLE);
                             tv_RM_Link.setVisibility(View.VISIBLE);
-
                         }
                         else{
                             tv_Top5_Link.setTextColor(Red);
@@ -546,12 +516,10 @@ public class User_Activity extends AppCompatActivity {
                             etRMessage.setVisibility(View.INVISIBLE);
                             tv_RM_Link.setVisibility(View.INVISIBLE);
                         }
-
                         if(restart){
                             editor.apply();
                             Activity_restart();
                         }
-
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To Get TT",
                                 Toast.LENGTH_LONG).show();
@@ -562,7 +530,6 @@ public class User_Activity extends AppCompatActivity {
                                 .create()
                                 .show();
                     }
-
                 } catch (JSONException e) {
                     Toast.makeText(getBaseContext(),"JSON EXCEPTION",
                             Toast.LENGTH_SHORT).show();
@@ -570,13 +537,10 @@ public class User_Activity extends AppCompatActivity {
                 }
             }
         };
-
-
-        TopFiveRequest topFiveRequest = new TopFiveRequest(username,100000,responseT5Listener);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,1000,responseT5Listener);
         queue.add(topFiveRequest);
         /////////Ranking Finished
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

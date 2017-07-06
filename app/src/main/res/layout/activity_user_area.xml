@@ -187,6 +187,7 @@
                 android:layout_alignParentEnd="true"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
+
             <EditText
                 android:id="@+id/et_ranking_message"
                 android:layout_width="match_parent"
@@ -194,12 +195,14 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_Top_Five_Link"
                 android:ems="10"
-                android:maxLength="16"
                 android:gravity="center"
                 android:inputType="textCapCharacters|textPersonName"
+                android:maxLength="16"
                 android:text="@string/empty"
                 android:textColor="@color/red"
+                android:visibility="invisible"
                 tools:ignore="LabelFor" />
+
             <TextView
                 android:id="@+id/tv_rank_msg_link"
                 android:layout_width="match_parent"
@@ -208,7 +211,8 @@
                 android:layout_below="@+id/et_ranking_message"
                 android:gravity="center"
                 android:text="@string/set_ranking_message"
-                android:textColor="@color/navy_blue" />
+                android:textColor="@color/navy_blue"
+                android:visibility="invisible" />
 
         </RelativeLayout>
     </ScrollView>

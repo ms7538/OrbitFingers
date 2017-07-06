@@ -26,12 +26,12 @@
     <string name="level_5">NEXT L5</string>
     <string name="peak_text">PEAK</string>
     <string name="level_string">LEVEL #</string>
-    <string name="login_register">Sign-In / Register</string>
+    <string name="login_register">Login / Register</string>
     <string name="peak_score">Peak Score:</string>
     <string name="register">Register</string>
     <string name="username">USERNAME</string>
     <string name="password">Password</string>
-    <string name="r_password">Re-enter Password</string>
+    <string name="r_password">Re-Enter Password</string>
     <string name="login">Login</string>
     <string name="register_here">Register Here</string>
     <string name="name">NAME</string>
