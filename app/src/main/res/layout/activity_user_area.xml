@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    tools:context=".UserAreaActivity"
-    >
-
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        tools:context=".UserAreaActivity"
         android:layout_alignParentStart="true">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true">
-
             <TextView
                 android:id="@+id/tv_Top_Five_Link"
                 android:layout_width="wrap_content"
@@ -29,7 +22,6 @@
                 android:textColor="@color/bright_yellow"
                 android:layout_below="@+id/tv_Ranking_Value"
                 android:layout_centerHorizontal="true" />
-
             <TextView
                 android:id="@+id/tv_Tie_Indication"
                 android:layout_width="wrap_content"
@@ -37,7 +29,6 @@
                 android:layout_alignBaseline="@+id/tv_Ranking_Value"
                 android:layout_alignBottom="@+id/tv_Ranking_Value"
                 android:layout_toEndOf="@+id/tv_Ranking_Value"
-                android:layout_toRightOf="@+id/tv_Ranking_Value"
                 android:text="@string/tied"
                 android:textColor="@color/bright_yellow" />
 
@@ -58,20 +49,16 @@
                 android:text="@string/position"
                 android:textColor="?android:attr/textColorLinkInverse"
                 android:layout_alignTop="@+id/server_set_button"
-                android:layout_alignRight="@+id/tvMin"
                 android:layout_alignEnd="@+id/tvMin" />
-
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/banner_ad_unit_id"
-                android:layout_marginTop="105dp"
+                android:layout_marginTop="97dp"
                 android:layout_below="@+id/device_set_button"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
+                android:layout_alignParentStart="true" />
             <Button
                 android:id="@+id/server_set_button"
                 style="?attr/buttonStyleSmall"
@@ -79,11 +66,9 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/adView"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="@string/set"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-
             <Button
                 android:id="@+id/device_set_button"
                 style="?attr/buttonStyleSmall"
@@ -94,28 +79,23 @@
                 android:text="@string/set"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/tv_Device_SMP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/device_set_button"
-                android:layout_alignLeft="@+id/tv_Min_Device_value"
                 android:layout_alignStart="@+id/tv_Min_Device_value"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
-
             <TextView
                 android:id="@+id/tv_Peak_Device_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/tvPeak"
                 android:layout_alignBottom="@+id/tvPeak"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
-
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
@@ -126,8 +106,6 @@
                 android:text="@string/username"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/bright_yellow" />
-
-
             <TextView
                 android:id="@+id/tvPeak"
                 android:layout_width="wrap_content"
@@ -138,7 +116,6 @@
                 android:text="@string/peak_score"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/bright_yellow" />
-
             <TextView
                 android:id="@+id/tvMin"
                 android:layout_width="wrap_content"
@@ -149,8 +126,6 @@
                 android:text="@string/min_score"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/bright_yellow" />
-
-
             <TextView
                 android:id="@+id/tvSMP"
                 android:layout_width="wrap_content"
@@ -161,13 +136,11 @@
                 android:text="@string/smps_remaining"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/bright_yellow" />
-
             <TextView
                 android:id="@+id/tv_Device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvPeak"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:text="@string/device"
                 android:textColor="@android:color/background_light" />
@@ -178,20 +151,16 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvPeak"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="@string/server"
                 android:textColor="@android:color/background_light" />
-
             <TextView
                 android:id="@+id/tv_Min_Device_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvSMP"
-                android:layout_alignLeft="@+id/tv_Peak_Device_value"
                 android:layout_alignStart="@+id/tv_Peak_Device_value"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
-
             <TextView
                 android:id="@+id/tv_Server_Peak"
                 android:layout_width="wrap_content"
@@ -199,20 +168,16 @@
                 android:layout_alignBaseline="@+id/tvPeak"
                 android:layout_alignBottom="@+id/tvPeak"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
-
             <TextView
                 android:id="@+id/tv_Server_Min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tvSMP"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
-
             <TextView
                 android:id="@+id/tv_Server_SMP"
                 android:layout_width="wrap_content"
@@ -220,15 +185,12 @@
                 android:layout_alignBaseline="@+id/tvSMP"
                 android:layout_alignBottom="@+id/tvSMP"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:text="@string/x"
                 android:textColor="@android:color/background_light" />
-
             <EditText
                 android:id="@+id/et_ranking_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/tv_Top_Five_Link"
                 android:ems="10"
@@ -236,21 +198,17 @@
                 android:gravity="center"
                 android:inputType="textCapCharacters|textPersonName"
                 android:text="@string/empty"
-                android:textColor="@color/red" />
-
+                android:textColor="@color/red"
+                tools:ignore="LabelFor" />
             <TextView
                 android:id="@+id/tv_rank_msg_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_below="@+id/et_ranking_message"
                 android:gravity="center"
                 android:text="@string/set_ranking_message"
                 android:textColor="@color/navy_blue" />
 
-
         </RelativeLayout>
     </ScrollView>
-
-</RelativeLayout>

@@ -28,11 +28,11 @@ public class LoginActivity extends AppCompatActivity {
         assert bar != null;
         bar.setTitle("Login");
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
-        final Button bLogin = (Button) findViewById(R.id.bLogin);
-        final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
+        final EditText etUsername             = (EditText) findViewById(R.id.etUsername);
+        final EditText etPassword             = (EditText) findViewById(R.id.etPassword);
+        final TextView tvRegisterLink         = (TextView) findViewById(R.id.tvRegisterLink);
+        final Button bLogin                   = (Button) findViewById(R.id.bLogin);
+        final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
@@ -54,22 +54,22 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
+                            JSONObject jsonResponse  = new JSONObject(response);
+                            boolean success          = jsonResponse.getBoolean("success");
 
                             if (success) {
-                                String name = jsonResponse.getString("name");
-                                int peak_score_value = jsonResponse.getInt("peak");
-                                int min_score_value = jsonResponse.getInt("min");
-                                int set_min_peak_rem = jsonResponse.getInt("smp");
+                                String name          = jsonResponse.getString("name");
+                                int peak_score_value = jsonResponse.getInt   ("peak");
+                                int min_score_value  = jsonResponse.getInt   ("min");
+                                int set_min_peak_rem = jsonResponse.getInt   ("smp");
 
                                 Intent intent = new Intent(LoginActivity.this,
                                                                             UserAreaActivity.class);
-                                intent.putExtra("name", name);
+                                intent.putExtra("name",     name);
                                 intent.putExtra("username", username);
-                                intent.putExtra("peak", peak_score_value);
-                                intent.putExtra("min", min_score_value);
-                                intent.putExtra("smp", set_min_peak_rem);
+                                intent.putExtra("peak",     peak_score_value);
+                                intent.putExtra("min",      min_score_value);
+                                intent.putExtra("smp",      set_min_peak_rem);
 
                                 editor.putString("current_user",username);
                                 editor.apply();
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 };
 
                 LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                RequestQueue queue        = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
             }
         });

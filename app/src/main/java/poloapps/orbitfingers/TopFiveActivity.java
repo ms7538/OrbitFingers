@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,7 +109,6 @@ public class TopFiveActivity extends AppCompatActivity {
 
                         editor.putInt("peak_server",jsonResponse.getInt("user_peak"));
                         editor.apply();
-
                         tv_Top_Peak_value.setText (String.format(Locale.US,"%d",top_peak));
                         tv_Top2_Peak_value.setText(String.format(Locale.US,"%d",top2_peak));
                         tv_Top3_Peak_value.setText(String.format(Locale.US,"%d",top3_peak));
@@ -123,7 +124,6 @@ public class TopFiveActivity extends AppCompatActivity {
                         tv_T3_MSG.setText(top3_message);
                         tv_T4_MSG.setText(top4_message);
                         tv_T5_MSG.setText(top5_message);
-
                         if (username.equals(top_username)){
                             UserT5 = 1;
                         }
@@ -142,8 +142,6 @@ public class TopFiveActivity extends AppCompatActivity {
                         set_Highlight(UserT5);
                         editor.putInt("ut5", UserT5);
                         editor.apply();
-
-
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To Get TT",
                                 Toast.LENGTH_LONG).show();
@@ -162,14 +160,10 @@ public class TopFiveActivity extends AppCompatActivity {
                 }
             }
         };
-
-
         TopFiveRequest topFiveRequest = new TopFiveRequest(username,peak_score_server,
                                                                                 responseListener);
         RequestQueue queue = Volley.newRequestQueue(TopFiveActivity.this);
         queue.add(topFiveRequest);
-
-
     }
 
     private void set_Highlight(int pos){
@@ -181,7 +175,6 @@ public class TopFiveActivity extends AppCompatActivity {
         Integer trT3         = Dark;
         Integer trT4         = Dark;
         Integer trT5         = Dark;
-
         final TableRow tr_Top1  = (TableRow) findViewById(R.id.tr_top1);
         final TableRow tr_Top2  = (TableRow) findViewById(R.id.tr_top2);
         final TableRow tr_Top3  = (TableRow) findViewById(R.id.tr_top3);
@@ -214,10 +207,11 @@ public class TopFiveActivity extends AppCompatActivity {
                 final TextView tv_N5_name = (TextView) findViewById(R.id.tv_nt5_username);
                 final TextView tv_N5_peak = (TextView) findViewById(R.id.tv_NT5_Peak);
                 set_NT5_Rank();
-
                 tv_N5_peak.setText(String.format(Locale.US,"%d",peak_score_server));
                 tv_N5_name.setText(username);
-
+                AdView mAdView = (AdView) findViewById(R.id.adView);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
                 break;
         }
         if(NT5_Visible){

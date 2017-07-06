@@ -218,7 +218,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer Yellow      = ContextCompat.getColor(getApplicationContext(),(R.color.
                                                                                     bright_yellow));
         Integer SMP_Color       = Red;
-        
+
 
         Integer Min_Score_Value        = mSettings.getInt("min_score",0);
         Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",1);
