@@ -75,8 +75,7 @@ public class User_Activity extends AppCompatActivity {
             editor.putInt    ("min_server",  min);
             editor.putInt    ("smp_server",  smp);
             editor.apply();
-        }
-        else{
+        } else{
             Response.Listener<String> responseListener2 = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -95,7 +94,7 @@ public class User_Activity extends AppCompatActivity {
                             editor.apply();
                             etRMessage.setText(RMsg);
                             if (peak_check != DB_peak_stored || min_check != DB_min_stored ||
-                                                                    smp_check != DB_smp_stored) {
+                                    smp_check != DB_smp_stored) {
                                 editor.putInt("peak_server", peak_check);
                                 editor.putInt("min_server", min_check);
                                 editor.putInt("smp_server", smp_check);
@@ -407,7 +406,6 @@ public class User_Activity extends AppCompatActivity {
         final int min_score_server            = mSettings.getInt   ("min_server", 0);
         final int smp_server                  = mSettings.getInt   ("smp_server", 2);
         final String username                 = mSettings.getString("current_user","");
-        final String rank_msg                 = mSettings.getString("rank_message","");
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
         final Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
 
@@ -474,25 +472,18 @@ public class User_Activity extends AppCompatActivity {
                         Integer user_Peak    = jsonResponse.getInt   ("user_peak");
                         Integer user_Min     = jsonResponse.getInt   ("user_min");
                         Integer user_SMP     = jsonResponse.getInt   ("user_smp");
-                        String  user_RMsg    = jsonResponse.getString("user_msg");
+
                         Boolean restart      = false;
 
-                        if(user_Peak != peak_score_server){
-                            editor.putInt("peak_server",user_Peak);
+                        if(user_Peak != peak_score_server || user_Min != min_score_server ||
+                                   user_SMP != smp_server ){
+                            editor.putInt   ("peak_server", user_Peak);
+                            editor.putInt   ("min_server",  user_Min);
+                            editor.putInt   ("smp_server",  user_SMP);
+
                             restart = true;
                         }
-                        if(user_Min != min_score_server){
-                            editor.putInt("min_server",user_Min);
-                            restart = true;
-                        }
-                        if(user_SMP != smp_server){
-                            editor.putInt("smp_server",user_SMP);
-                            restart = true;
-                        }
-                        if(!(user_RMsg.equals(rank_msg))){
-                            editor.putString("rank_message",rank_msg);
-                            restart = true;
-                        }
+
                         if      (username.equals(top_username))  UserT5 = 1;
                         else if (username.equals(top2_username)) UserT5 = 2;
                         else if (username.equals(top3_username)) UserT5 = 3;
@@ -501,6 +492,8 @@ public class User_Activity extends AppCompatActivity {
 
                         editor.putInt("ut5", UserT5);
                         editor.apply();
+
+                        tv_Top5_Link.setVisibility(View.VISIBLE);
 
                         if( UserT5 != 0 ) {
                             tv_Top5_Link.setTextColor(Green);
@@ -517,7 +510,7 @@ public class User_Activity extends AppCompatActivity {
                             tv_RM_Link.setVisibility(View.INVISIBLE);
                         }
                         if(restart){
-                            editor.apply();
+                            editor.commit();
                             Activity_restart();
                         }
                     } else {
@@ -537,7 +530,7 @@ public class User_Activity extends AppCompatActivity {
                 }
             }
         };
-        TopFiveRequest topFiveRequest = new TopFiveRequest(username,1000,responseT5Listener);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,100000,responseT5Listener);
         queue.add(topFiveRequest);
         /////////Ranking Finished
     }

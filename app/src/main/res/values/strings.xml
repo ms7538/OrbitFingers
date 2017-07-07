@@ -46,7 +46,7 @@
     <string name="load_save">Load / Save</string>
     <string name="position">RANKING:</string>
     <string name="level">Level:</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available">LOADING</string>
     <string name="tied">T</string>
     <string name="top_five">TOP 5</string>
     <string name="title_activity_top_ten">TopTenActivity</string>
@@ -66,5 +66,6 @@
     <string name="SMPs">SMPs:</string>
     <string name="multi">|MULTI|</string>
     <string name="arrow">></string>
+    <string name="load">LOADING</string>
     <string name="reg_message">Values To Be Registered:</string>
 </resources>

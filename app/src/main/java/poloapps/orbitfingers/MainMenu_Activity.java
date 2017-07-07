@@ -1,6 +1,5 @@
 package poloapps.orbitfingers;
 
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +21,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
-
-
 
 //V3.6c created
 public class MainMenu_Activity extends AppCompatActivity {
@@ -80,11 +77,8 @@ public class MainMenu_Activity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
-
          }
          else   Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-
          if (min_score_value.equals(peak_score_value) && set_peak_min_remaining > 0){
              Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
                  @Override
@@ -106,8 +100,6 @@ public class MainMenu_Activity extends AppCompatActivity {
 
              }
          });
-
-
          play_btn.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -154,14 +146,17 @@ public class MainMenu_Activity extends AppCompatActivity {
                  public void onClick(View arg0) {
                      reset_button.setBackgroundColor(Navy_Blue);
                      Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-                     editor.putInt    ("levl", 1);
-                     editor.putInt    ("peakscore", 0);
-                     editor.putInt    ("min_score", 0);
+                     editor.putInt    ("levl",          1);
+                     editor.putInt    ("peakscore",     0);
+                     editor.putInt    ("min_score",     0);
                      editor.putInt    ("current_score", 0);
-                     editor.putInt    ("set_peak_min", 1);
+                     editor.putInt    ("set_peak_min",  1);
                      editor.putBoolean("Signed_In", false);
-                     editor.putString ("current_user","");
-                     editor.putString ("rank_message","");
+                     editor.putString ("current_user","" );
+                     editor.putString ("rank_message","" );
+                     editor.putInt    ("peak_server",   0);
+                     editor.putInt    ("min_server",    0);
+                     editor.putInt    ("smp_server",    1);
                      editor.commit();
                      SetText_TColors();
                      ((TextView) findViewById(R.id.peak_score_value)).setText
