@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -15,7 +16,7 @@ import java.util.Formatter;
 import android.graphics.Typeface;
 import android.widget.Toast;
 
-//V3.6i View Activity updates in progress
+//V3.6j Sound Effects in progress
 public class OFView_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
@@ -175,6 +176,11 @@ public class OFView_Activity extends View {
             getResources(),
             R.drawable.thmb1);
 
+
+    MediaPlayer Hit_Sound  = MediaPlayer.create(this.getContext(), R.raw.b3);
+    MediaPlayer Miss_Sound = MediaPlayer.create(this.getContext(), R.raw.b1);
+    MediaPlayer SMP_Sound  = MediaPlayer.create(this.getContext(), R.raw.b2);
+
     public OFView_Activity(Context context) {
         super(context);
 
@@ -186,20 +192,16 @@ public class OFView_Activity extends View {
         if ( Peak_Score < 1000 ) {
             if     (Peak_Score < 10)  Peak_Value_X = (int) (.025 * Max_Width);
             else if(Peak_Score < 100) Peak_Value_X = (int) (.018  * Max_Width);
-            else                      Peak_Value_X = (int) (.005  * Max_Width);
+            else Peak_Value_X = (int) (.005  * Max_Width);
 
         }
-        else                          Peak_Value_X = 0;
-
-
+        else Peak_Value_X = 0;
         int c1 = 0;
         while (c1 == 0) {
             Toast.makeText(getContext(), "Click during alignment to gain points ",
                     Toast.LENGTH_LONG).show();
             c1++;
         }
-
-
         this.setFocusable(true);
         this.requestFocus();
         // To enable touch mode
@@ -215,10 +217,8 @@ public class OFView_Activity extends View {
     }
     @Override
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
         canvas.save();
-
         orbit(canvas, paint, Right_Color, CX, CY, FB1);
         orbit(canvas, paint, Right_Color, CX, CY, FB2);
         orbit(canvas, paint, Right_Color, CX, CY, FB1_x);
@@ -240,15 +240,13 @@ public class OFView_Activity extends View {
         draw_ball(canvas, ballBounds, B2X,  Dynamic_Radius, B2y, paint, Right_Color);
 
         if( score == Peak_Score && score != ScoreMin) score_color = Green1;
-        else if (score == ScoreMin)                   score_color = Red1;
-        else                                          score_color = ScCo;
-
+        else if (score == ScoreMin) score_color = Red1;
+        else score_color = ScCo;
         if( score > 9 ) {
             int lsf = (int) (Math.log10(score) + 1); // lsf = length_score_factor
             Score_X_Adjusted = (int)( (1 - (.0125 * lsf)) * Score_X_0_9);
         }
         else Score_X_Adjusted = Score_X_0_9;
-
         String SMP_Color = Green1;
         if(SMPs_Remaining > 9){
             int lsf2 = (int) (Math.log10(SMPs_Remaining) + 1); // lsf = length_score_factor
@@ -258,28 +256,22 @@ public class OFView_Activity extends View {
         else if ( SMPs_Remaining < 3 ) SMP_Color = F1_color;
         else if ( SMPs_Remaining < 6 ) SMP_Color = Yellow;
 
-
         if ( Peak_Score < 1000 ) {
-            if     (Peak_Score  < 10)   Peak_Value_X = (int) (.025 * Max_Width);
+            if (Peak_Score  < 10)       Peak_Value_X = (int) (.025  * Max_Width);
             else if( Peak_Score < 100 ) Peak_Value_X = (int) (.018  * Max_Width);
-            else                        Peak_Value_X = (int) (.0075  * Max_Width);
+            else Peak_Value_X = (int) (.0075  * Max_Width);
         }
-        else                            Peak_Value_X = 0;
-
+        else Peak_Value_X = 0;
         canvas_text(canvas,Integer.toString(score), Score_X_Adjusted,
                 Score_Value_Y, Text_Length, score_color);
-
         canvas_text(canvas, (getContext().getString(R.string.level_string) + Integer.toString(LS)), Level_Ind_X,
                 Upper_Text_Y, Text_Length, Level_Color);
-
         String Min_Text =  getContext().getString(R.string.empty);
         if (score == ScoreMin){
            Min_Text =  getContext().getString(R.string.min);
        }
-
         canvas_text(canvas,Integer.toString(SMPs_Remaining),SMP_X_Adjusted,SMP_Value_Y,Text_Length,
                 SMP_Color);
-
         canvas_text(canvas,getContext().getString(R.string.SMPs), SMP_Ind_X , SMP_Ind_Y,Text_Length, SMP_Color);
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length, Green1);
         canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Red1);
@@ -287,7 +279,6 @@ public class OFView_Activity extends View {
 
         if(LS == 5){
             next_level_value = " " + Integer.toString(Multi);
-
             if     (Multi  > 7)  next_color = F1_color;
             else if(Multi  > 5)  next_color = F2_color;
             else if(Multi  > 3)  next_color = F3_color;
@@ -297,9 +288,7 @@ public class OFView_Activity extends View {
         }
         canvas_text(canvas, next_level_value,Next_Value_X, Peak_Next_Values_Y,
                 Text_Length, next_color);
-
         canvas_text(canvas, next_text, Next_Ind_X, Upper_Text_Y, Text_Length, next_color);
-
         canvas.drawBitmap(right_Finger_Print, R_TE_X_S, C_TE_Y_S, null);
         canvas.drawBitmap(left_Finger_Print, L_TE_X_S, C_TE_Y_S, null);
 
@@ -319,7 +308,7 @@ public class OFView_Activity extends View {
         canvas.drawCircle(CX, CY, FB1, paint);
     }
     private static void draw_ball(Canvas canvas, RectF ballBounds, float MBx, float MB_size,
-                                                            float MBy, Paint paint, String MB_c){
+                                  float MBy, Paint paint, String MB_c){
         paint.setStyle(Paint.Style.FILL);
         ballBounds.set(MBx - MB_size, MBy - MB_size, MBx + MB_size, MBy + MB_size);
         paint.setColor(Color.parseColor(MB_c));
@@ -349,8 +338,8 @@ public class OFView_Activity extends View {
                         Right_Color = Green1;
                         score_color = Green1;
                         if (Mch == 10) score += 10;
-                        else           score += 10;
-
+                        else score += 10;
+                        Hit_Sound.start();
                         Multi = Multi - 1;
                         editor.putInt("current_score", score);
                         Peak_Score_Check();
@@ -362,6 +351,7 @@ public class OFView_Activity extends View {
                             editor.putInt("current_score", score);
                             Multi = 9;
                             editor.commit();
+                            Miss_Sound.start();
                             score_color = Red1;
                         }
                     }
@@ -372,20 +362,22 @@ public class OFView_Activity extends View {
                     left_Finger_Print = BitmapFactory.decodeResource(getResources(),R.drawable.
                             thmb2);
                     if(LMch == 10 || LMch == 5) {
-                       Left_Color = Green1;
-                       score_color = Green1;
-                       if (LMch == 10) score += 10;
-                       else            score += 10;
-                       Multi = Multi - 1;
-                       editor.putInt("current_score", score);
-                       Peak_Score_Check();
-                       editor.commit();
+                        Left_Color = Green1;
+                        score_color = Green1;
+                        if (LMch == 10) score += 10;
+                        else score += 10;
+                        Hit_Sound.start();
+                        Multi = Multi - 1;
+                        editor.putInt("current_score", score);
+                        Peak_Score_Check();
+                        editor.commit();
                     }else{
-                       Left_Color = Red1;
-                       if (score >= (ScoreMin + ScorePen)){
+                        Left_Color = Red1;
+                        if (score >= (ScoreMin + ScorePen)){
                            score -= ScorePen;
                            editor.putInt("current_score",score);
                            Multi = 9;
+                            Miss_Sound.start();
                            editor.commit();
                            score_color = Red1;
                        }
@@ -394,13 +386,10 @@ public class OFView_Activity extends View {
                 break;
 
             case MotionEvent.ACTION_UP:
-
                 right_Finger_Print = BitmapFactory.decodeResource(getResources(),R.drawable.thmb1);
                 left_Finger_Print  = BitmapFactory.decodeResource(getResources(),R.drawable.thmb1);
-
                 break;
         }
-
         detector.onTouchEvent(event);
         return true;
     }
@@ -422,7 +411,7 @@ public class OFView_Activity extends View {
         if ( score >= level2_min && score < level3_min ){
             ScCo = L2col;
             if ( score   < ScoreMin + level2_pen ) ScorePen = score - ScoreMin;
-            else                                   ScorePen = level2_pen;
+            else ScorePen = level2_pen;
 
             if ( c2 == 0 ) {
                 c2++;
@@ -430,6 +419,7 @@ public class OFView_Activity extends View {
                     editor.putInt("levl", 2);
                     editor.putInt("min_score", level2_min);
                     SMPs_Remaining = SMPs_Remaining + 1;
+                    SMP_Sound.start();
                     editor.putInt("set_peak_min",SMPs_Remaining);
                 }
 
@@ -448,13 +438,14 @@ public class OFView_Activity extends View {
         else if ( score  >= level3_min && score < level4_min ) {
             ScCo = L3col;
             if ( score   < ScoreMin + level3_pen ) ScorePen = score - ScoreMin;
-            else                                   ScorePen = level3_pen;
+            else ScorePen = level3_pen;
             if ( c3 == 0 ) {
                c3++;
                if (levl < 3) {
                    editor.putInt("levl", 3);
                    editor.putInt("min_score",level3_min);
                    SMPs_Remaining = SMPs_Remaining + 2;
+                   SMP_Sound.start();
                    editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 LS               = 3;
@@ -479,6 +470,7 @@ public class OFView_Activity extends View {
                    editor.putInt("levl", 4);
                    editor.putInt("min_score",level4_min);
                    SMPs_Remaining = SMPs_Remaining + 2;
+                   SMP_Sound.start();
                    editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 editor.putInt("scorelevel",level4_min);
@@ -504,6 +496,7 @@ public class OFView_Activity extends View {
                     editor.putInt("levl", 5);
                     editor.putInt("min_score",level5_min);
                     SMPs_Remaining  = SMPs_Remaining + 5;
+                    SMP_Sound.start();
                     editor.putInt("set_peak_min",SMPs_Remaining);
                    }
                 editor.putInt("scorelevel",level5_min);
@@ -521,6 +514,7 @@ public class OFView_Activity extends View {
         }
         if (Multi == 0){
             SMPs_Remaining = SMPs_Remaining  + 1;
+            SMP_Sound.start();
             Multi = 9;
             editor.putInt("set_peak_min",SMPs_Remaining);
             editor.apply();
@@ -584,7 +578,7 @@ public class OFView_Activity extends View {
         if(theta2 < 0) ThtAbs2 = theta2 + 360;
         else ThtAbs2 = theta2;
         if(Left_theta2 < 0)LThtAbs2    = Left_theta2 + 360;
-        else LThtAbs2    = Left_theta2;
+        else LThtAbs2 = Left_theta2;
 
 
         if(ThtAbs2 > AA_min * ThtAbs1 && ThtAbs2 < AA_max * ThtAbs1)Mch  = 10;
