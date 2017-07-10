@@ -54,12 +54,11 @@ public class User_Activity extends AppCompatActivity {
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         assert bar != null;
         bar.setTitle(R.string.load_save);
-        if( check_Connection()) check_Ranking();
+
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
         final EditText etRMessage             = (EditText) findViewById(R.id.et_ranking_message);
         Boolean logged_in                     = mSettings.getBoolean("Signed_In", false);
-        timer.schedule(task, 0 , 10000);  // interval of 10 sec
         if (!logged_in){
             Intent intent   = getIntent();
             String rank_msg = intent.getStringExtra("name");
@@ -75,52 +74,6 @@ public class User_Activity extends AppCompatActivity {
             editor.putInt    ("min_server",  min);
             editor.putInt    ("smp_server",  smp);
             editor.apply();
-        } else{
-            Response.Listener<String> responseListener2 = new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonResponse = new JSONObject(response);
-                        boolean success        = jsonResponse.getBoolean("success");
-                        if (success) {
-                            int peak_check     = jsonResponse.getInt    ("peak");
-                            int DB_peak_stored = mSettings.getInt       ("peak_server", 0);
-                            int min_check      = jsonResponse.getInt    ("min");
-                            int DB_min_stored  = mSettings.getInt       ("min_server",  0);
-                            int smp_check      = jsonResponse.getInt    ("smp");
-                            int DB_smp_stored  = mSettings.getInt       ("smp_server",  0);
-                            String RMsg        = jsonResponse.getString("rank_msg");
-                            editor.putString("rank_message", RMsg);
-                            editor.apply();
-                            etRMessage.setText(RMsg);
-                            if (peak_check != DB_peak_stored || min_check != DB_min_stored ||
-                                    smp_check != DB_smp_stored) {
-                                editor.putInt("peak_server", peak_check);
-                                editor.putInt("min_server", min_check);
-                                editor.putInt("smp_server", smp_check);
-                                editor.apply();
-                                Activity_restart();
-                            }
-                        } else {
-                            Toast.makeText(getBaseContext(), "Failed To Get Database Values",
-                                    Toast.LENGTH_LONG).show();
-                            AlertDialog.Builder builder = new AlertDialog.Builder(
-                                    User_Activity.this);
-                            builder.setMessage("Get Server Values Failed")
-                                    .setNegativeButton("Retry", null)
-                                    .create()
-                                    .show();
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            ValuesRequest valuesRequest = new ValuesRequest(mSettings.getString("current_user",""),
-                    responseListener2);
-            RequestQueue queue          = Volley.newRequestQueue(User_Activity.this);
-            queue.add(valuesRequest);
         }
 
         final String rank_msg          = mSettings.getString("rank_message","");
@@ -146,11 +99,11 @@ public class User_Activity extends AppCompatActivity {
         TextView tv_Peak_Text          = (TextView) findViewById((R.id.tvPeak));
         TextView tv_Min_Text           = (TextView) findViewById((R.id.tvMin));
         TextView tv_SMP_Text           = (TextView) findViewById((R.id.tvSMP));
-        final TextView tv_Tied         = (TextView) findViewById(R.id.tv_Tie_Indication);
+
         Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
         Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
         etRMessage.setText(rank_msg);
-        tv_Tied.setVisibility(View.INVISIBLE);
+
         tv_Username_Display.setText(username);
         tv_Device_Peak_value.setText(String.format(Locale.US,"%d",peak_score_device));
         tv_Device_Min_value.setText (String.format(Locale.US,"%d",min_score_device));
@@ -368,9 +321,12 @@ public class User_Activity extends AppCompatActivity {
                 } else no_IC_alert();
             }
         });
+
+        timer.schedule(task, 0 , 10000);  // interval of 10 sec
     }
 
     private void Activity_restart(){
+        task.cancel();
         Intent intent = getIntent();
         finish();
         startActivity(intent);
@@ -396,7 +352,7 @@ public class User_Activity extends AppCompatActivity {
         /////Ranking
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
         final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
-        final TextView tv_Tied_indication = (TextView) findViewById(R.id.tv_Tie_Indication);
+
         final TextView tv_Top5_Link       = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final TextView tv_RM_Link         = (TextView) findViewById(R.id.tv_rank_msg_link);
         final EditText etRMessage         = (EditText) findViewById(R.id.et_ranking_message);
@@ -409,52 +365,6 @@ public class User_Activity extends AppCompatActivity {
         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
         final Integer Green     = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
 
-        final Response.Listener<String> responseListener3 = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("rank_success");
-                    if (success) {
-                        if( mSettings.getInt("ut5", 0) == 0 ) {
-                            int number_peaks_above = jsonResponse.getInt("higher_peaks") + 1;
-                            tv_Rank_value.setText(String.format(Locale.US, "%d",
-                                    number_peaks_above));
-                            boolean equal_peaks = jsonResponse.getBoolean("equal_peaks");
-                            if (equal_peaks) {
-                                tv_Tied_indication.setVisibility(View.VISIBLE);
-                            } else {
-                                tv_Tied_indication.setVisibility(View.INVISIBLE);
-                            }
-                            editor.putInt    ("users_higher_peaks", number_peaks_above);
-                            editor.putBoolean("users_equal_peaks", equal_peaks);
-                            editor.apply();
-                        }
-                    } else {
-                        Toast.makeText(getBaseContext(),"Failed To get Ranking",
-                                Toast.LENGTH_LONG).show();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(
-                                User_Activity.this);
-                        builder.setMessage        ("Get Ranking Failed")
-                                .setNegativeButton("Retry", null)
-                                .create()
-                                .show();
-                    }
-
-                } catch (JSONException e) {
-                    Toast.makeText(getBaseContext(),"JSON EXCEPTION",
-                            Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-            }
-        };
-
-
-        RankingRequest rankingRequest = new RankingRequest(username,peak_score_server,
-                responseListener3);
-        RequestQueue queue = Volley.newRequestQueue(User_Activity.this);
-        queue.add(rankingRequest);
-
 
         Response.Listener<String> responseT5Listener = new Response.Listener<String>() {
             @Override
@@ -463,24 +373,26 @@ public class User_Activity extends AppCompatActivity {
                     JSONObject jsonResponse  = new JSONObject(response);
                     boolean success          = jsonResponse.getBoolean("tt_success");
                     if (success) {
-                        int UserT5           = 0;
-                        String top_username  = jsonResponse.getString("top1_username");
-                        String top2_username = jsonResponse.getString("top2_username");
-                        String top3_username = jsonResponse.getString("top3_username");
-                        String top4_username = jsonResponse.getString("top4_username");
-                        String top5_username = jsonResponse.getString("top5_username");
-                        Integer user_Peak    = jsonResponse.getInt   ("user_peak");
-                        Integer user_Min     = jsonResponse.getInt   ("user_min");
-                        Integer user_SMP     = jsonResponse.getInt   ("user_smp");
-
-                        Boolean restart      = false;
+                        int UserT5             = 0;
+                        int number_peaks_above = jsonResponse.getInt    ("higher_peaks") + 1;
+                        boolean equal_peaks    = jsonResponse.getBoolean("equal_peaks");
+                        String top_username    = jsonResponse.getString ("top1_username");
+                        String top2_username   = jsonResponse.getString ("top2_username");
+                        String top3_username   = jsonResponse.getString ("top3_username");
+                        String top4_username   = jsonResponse.getString ("top4_username");
+                        String top5_username   = jsonResponse.getString ("top5_username");
+                        Integer user_Peak      = jsonResponse.getInt    ("user_peak");
+                        Integer user_Min       = jsonResponse.getInt    ("user_min");
+                        Integer user_SMP       = jsonResponse.getInt    ("user_smp");
+                        editor.putInt          ("users_higher_peaks", number_peaks_above);
+                        editor.putBoolean      ("users_equal_peaks", equal_peaks);
+                        Boolean restart        = false;
 
                         if(user_Peak != peak_score_server || user_Min != min_score_server ||
                                    user_SMP != smp_server ){
                             editor.putInt   ("peak_server", user_Peak);
                             editor.putInt   ("min_server",  user_Min);
                             editor.putInt   ("smp_server",  user_SMP);
-
                             restart = true;
                         }
 
@@ -499,7 +411,7 @@ public class User_Activity extends AppCompatActivity {
                             tv_Top5_Link.setTextColor(Green);
                             tv_Rank_value.setText(String.format(Locale.US,"%d",UserT5));
                             tv_Rank_value.setTextColor(Green);
-                            tv_Tied_indication.setVisibility(View.INVISIBLE);
+
                             etRMessage.setVisibility(View.VISIBLE);
                             tv_RM_Link.setVisibility(View.VISIBLE);
                         }
@@ -508,11 +420,18 @@ public class User_Activity extends AppCompatActivity {
                             tv_Rank_value.setTextColor(Red);
                             etRMessage.setVisibility(View.INVISIBLE);
                             tv_RM_Link.setVisibility(View.INVISIBLE);
+                            String Ranking_String  = Integer.toString(number_peaks_above);
+                            if (equal_peaks) {
+                                Ranking_String = Ranking_String +
+                                        getApplicationContext().getString(R.string.T);
+                            }
+                            tv_Rank_value.setText(Ranking_String);
                         }
                         if(restart){
                             editor.commit();
                             Activity_restart();
                         }
+
                     } else {
                         Toast.makeText(getBaseContext(), "Failed To Get TT",
                                 Toast.LENGTH_LONG).show();
@@ -530,7 +449,9 @@ public class User_Activity extends AppCompatActivity {
                 }
             }
         };
-        TopFiveRequest topFiveRequest = new TopFiveRequest(username,100000,responseT5Listener);
+        TopFiveRequest topFiveRequest = new TopFiveRequest(username,peak_score_server,
+                responseT5Listener);
+        RequestQueue queue = Volley.newRequestQueue(User_Activity.this);
         queue.add(topFiveRequest);
         /////////Ranking Finished
     }

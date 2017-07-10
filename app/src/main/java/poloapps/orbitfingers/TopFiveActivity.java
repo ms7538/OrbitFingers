@@ -196,14 +196,14 @@ public class TopFiveActivity extends AppCompatActivity {
                 NT5_Visible = true;
                 final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
                 final String username             = mSettings.getString("current_user","");
-                int peak_score_server             = mSettings.getInt("peak_server", 0);
+                int   peak_score_server           = mSettings.getInt("peak_server", 0);
 
                 final TextView tv_N5_name = (TextView) findViewById(R.id.tv_nt5_username);
                 final TextView tv_N5_peak = (TextView) findViewById(R.id.tv_NT5_Peak);
                 set_NT5_Rank();
                 tv_N5_peak.setText(String.format(Locale.US,"%d",peak_score_server));
                 tv_N5_name.setText(username);
-                AdView mAdView = (AdView) findViewById(R.id.adView);
+                AdView mAdView      = (AdView) findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().build();
                 mAdView.loadAd(adRequest);
                 break;
@@ -223,7 +223,7 @@ public class TopFiveActivity extends AppCompatActivity {
         if (NT5_Ranking == 0) {
 
             final TextView tv_N5_rank  = (TextView) findViewById(R.id.tv_NT5_Rank);
-            int Peaks_Above            = mSettings.getInt    ("users_higher_peaks", 0);
+            int Peaks_Above            = mSettings.getInt("users_higher_peaks", 0);
             boolean Tied               = mSettings.getBoolean("users_equal_peaks", false);
             String Ranking_String      = Integer.toString(Peaks_Above);
             if (Tied) {
