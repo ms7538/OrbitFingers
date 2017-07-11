@@ -23,7 +23,7 @@
                 android:text="@string/top_five"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/bright_yellow"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tv_Ranking_Value"
@@ -193,7 +193,7 @@
                 android:maxLength="16"
                 android:text="@string/empty"
                 android:textColor="@color/red"
-                android:visibility="visible"
+                android:visibility="invisible"
                 tools:ignore="LabelFor" />
 
             <TextView
