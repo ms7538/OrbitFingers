@@ -68,4 +68,6 @@
     <string name="arrow">></string>
     <string name="load">LOADING</string>
     <string name="reg_message">Values To Be Registered:</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
 </resources>

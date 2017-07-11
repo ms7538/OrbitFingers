@@ -325,6 +325,7 @@ public class OFView_Activity extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        final boolean OnOff  = mSettings.getBoolean("sound",true);
 
         switch (event.getAction() & MotionEvent.ACTION_MASK){
 
@@ -339,7 +340,7 @@ public class OFView_Activity extends View {
                         score_color = Green1;
                         if (Mch == 10) score += 10;
                         else score += 10;
-                        Hit_Sound.start();
+                        if(OnOff) Hit_Sound.start();
                         Multi = Multi - 1;
                         editor.putInt("current_score", score);
                         Peak_Score_Check();
@@ -351,7 +352,7 @@ public class OFView_Activity extends View {
                             editor.putInt("current_score", score);
                             Multi = 9;
                             editor.commit();
-                            Miss_Sound.start();
+                            if(OnOff) Miss_Sound.start();
                             score_color = Red1;
                         }
                     }
@@ -366,7 +367,7 @@ public class OFView_Activity extends View {
                         score_color = Green1;
                         if (LMch == 10) score += 10;
                         else score += 10;
-                        Hit_Sound.start();
+                        if(OnOff) Hit_Sound.start();
                         Multi = Multi - 1;
                         editor.putInt("current_score", score);
                         Peak_Score_Check();
@@ -374,12 +375,12 @@ public class OFView_Activity extends View {
                     }else{
                         Left_Color = Red1;
                         if (score >= (ScoreMin + ScorePen)){
-                           score -= ScorePen;
-                           editor.putInt("current_score",score);
-                           Multi = 9;
-                            Miss_Sound.start();
-                           editor.commit();
-                           score_color = Red1;
+                            score -= ScorePen;
+                            editor.putInt("current_score",score);
+                            Multi = 9;
+                            if(OnOff) Miss_Sound.start();
+                            editor.commit();
+                            score_color = Red1;
                        }
                     }
                 }
@@ -395,6 +396,8 @@ public class OFView_Activity extends View {
     }
 
     private void update() {
+        final boolean OnOff  = mSettings.getBoolean("sound",true);
+
         int level2_min = getContext().getResources().getInteger(R.integer.L1_target_score);
         int level3_min = getContext().getResources().getInteger(R.integer.L2_target_score);
         int level4_min = getContext().getResources().getInteger(R.integer.L3_target_score);
@@ -419,7 +422,7 @@ public class OFView_Activity extends View {
                     editor.putInt("levl", 2);
                     editor.putInt("min_score", level2_min);
                     SMPs_Remaining = SMPs_Remaining + 1;
-                    SMP_Sound.start();
+                    if(OnOff) SMP_Sound.start();
                     editor.putInt("set_peak_min",SMPs_Remaining);
                 }
 
@@ -445,7 +448,7 @@ public class OFView_Activity extends View {
                    editor.putInt("levl", 3);
                    editor.putInt("min_score",level3_min);
                    SMPs_Remaining = SMPs_Remaining + 2;
-                   SMP_Sound.start();
+                   if(OnOff) SMP_Sound.start();
                    editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 LS               = 3;
@@ -470,7 +473,7 @@ public class OFView_Activity extends View {
                    editor.putInt("levl", 4);
                    editor.putInt("min_score",level4_min);
                    SMPs_Remaining = SMPs_Remaining + 2;
-                   SMP_Sound.start();
+                   if(OnOff) SMP_Sound.start();
                    editor.putInt("set_peak_min",SMPs_Remaining);
                }
                 editor.putInt("scorelevel",level4_min);
@@ -496,7 +499,7 @@ public class OFView_Activity extends View {
                     editor.putInt("levl", 5);
                     editor.putInt("min_score",level5_min);
                     SMPs_Remaining  = SMPs_Remaining + 5;
-                    SMP_Sound.start();
+                    if(OnOff) SMP_Sound.start();
                     editor.putInt("set_peak_min",SMPs_Remaining);
                    }
                 editor.putInt("scorelevel",level5_min);
@@ -514,7 +517,7 @@ public class OFView_Activity extends View {
         }
         if (Multi == 0){
             SMPs_Remaining = SMPs_Remaining  + 1;
-            SMP_Sound.start();
+            if(OnOff) SMP_Sound.start();
             Multi = 9;
             editor.putInt("set_peak_min",SMPs_Remaining);
             editor.apply();

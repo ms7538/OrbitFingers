@@ -342,18 +342,9 @@ public class MainMenu_Activity extends AppCompatActivity {
         editor.apply();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
     private void launch_level(){
         Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
         MainMenu_Activity.this.startActivity(myIntent);
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
+
 }

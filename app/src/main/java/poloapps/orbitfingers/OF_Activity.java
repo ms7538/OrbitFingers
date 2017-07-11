@@ -1,4 +1,6 @@
 package poloapps.orbitfingers;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -59,7 +61,37 @@ public class OF_Activity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        final   SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
+        final   SharedPreferences.Editor editor  = mSettings.edit();
+        String Sound;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                String Sound_on  = this.getString(R.string.on);
+                String Sound_off = this.getString(R.string.off);
+                final boolean OnOff    = mSettings.getBoolean("sound",true);
+                if(OnOff) Sound = Sound_off;
+                else Sound = Sound_on;
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        OF_Activity.this);
+                builder.setMessage("Sound")
+                        .setPositiveButton(Sound, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if(OnOff) editor.putBoolean("sound",false);
+                                else editor.putBoolean("sound",true);
+                                editor.apply();
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
