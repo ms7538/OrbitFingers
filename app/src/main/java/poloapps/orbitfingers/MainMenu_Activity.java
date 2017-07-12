@@ -9,8 +9,6 @@ import android.os.Bundle;
 
 
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,7 +36,7 @@ public class MainMenu_Activity extends AppCompatActivity {
 
          final Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),
                  (R.color.navy_blue));
-         Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+        // Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
          Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
          final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
          Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
@@ -50,11 +48,11 @@ public class MainMenu_Activity extends AppCompatActivity {
                  (R.color.light_gray));
          Integer SMP_Button_Color;
 
-         Button how_to_button          = (Button) findViewById(R.id.how_to_btn);
+        // Button how_to_button          = (Button) findViewById(R.id.how_to_btn);
          final Button play_btn         = (Button) findViewById(R.id.play_btn);
          final Button Set_Peak_Min_btn = (Button) findViewById(R.id.set_peak_min_button);
 
-         how_to_button.setBackgroundColor(Orange);
+        // how_to_button.setBackgroundColor(Orange);
 
          if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
 
@@ -94,12 +92,12 @@ public class MainMenu_Activity extends AppCompatActivity {
              });
          }
          SetText_TColors();
-         how_to_button.setOnClickListener(new OnClickListener() {
+      /*   how_to_button.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
 
              }
-         });
+         });*/
          play_btn.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -208,7 +206,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer Green2      = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
         Integer Light_Gray  = ContextCompat.getColor(getApplicationContext(),(R.color.light_gray));
         Integer Dark_Gray   = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
-        Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+        //Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
         Integer Dk_Orange   = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
         Integer Yellow      = ContextCompat.getColor(getApplicationContext(),
                 (R.color.bright_yellow));
@@ -219,7 +217,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",1);
         Integer current_level          = mSettings.getInt("levl", 1);
 
-        Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
+      //  Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
         final Button play_btn          = (Button)   findViewById(R.id.play_btn);
         Button reset_button            = (Button)   findViewById(R.id.reset1);
         Button Set_Peak_Min_btn        = (Button)   findViewById(R.id.set_peak_min_button);
@@ -239,7 +237,7 @@ public class MainMenu_Activity extends AppCompatActivity {
         TextView penalty_text_value    = (TextView) findViewById(R.id.current_penalty);
 
         penalty_text.setTextColor(Red);
-        how_to_button.setBackgroundColor(Orange);
+        //how_to_button.setBackgroundColor(Orange);
         reset_button.setBackgroundColor(Red);
         penalty_text_value.setTextColor(Red);
         SMPs_remaining_value.setText(String.format(Locale.US,"%d",set_peak_min_remaining));
@@ -343,7 +341,7 @@ public class MainMenu_Activity extends AppCompatActivity {
     }
 
     private void launch_level(){
-        Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
+        Intent myIntent = new Intent(MainMenu_Activity.this, OF_Main_Container_Activity.class);
         MainMenu_Activity.this.startActivity(myIntent);
     }
 

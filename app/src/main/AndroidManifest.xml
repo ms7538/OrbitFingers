@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OF_Activity"
+            android:name=".OF_Main_Container_Activity"
             android:label="@string/SOF"
             android:parentActivityName=".MainMenu_Activity"
             android:screenOrientation="landscape">

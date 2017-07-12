@@ -16,7 +16,7 @@ import android.view.View;
 
 
 
-public class OF_Activity extends AppCompatActivity {
+public class OF_Main_Container_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class OF_Activity extends AppCompatActivity {
         editor.putString( "max_w", String.valueOf(displayMetrics.widthPixels));
         editor.apply();
 
-        View view = new OFView_Activity(getApplicationContext());
+        View view = new OF_Main_Activity(getApplicationContext());
         setContentView(view);
         view.setBackgroundColor(Color.parseColor("#090404"));
     }
@@ -73,7 +73,7 @@ public class OF_Activity extends AppCompatActivity {
                 else Sound = Sound_on;
                 // User chose the "Settings" item, show the app settings UI...
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        OF_Activity.this);
+                        OF_Main_Container_Activity.this);
                 builder.setMessage("Sound")
                         .setPositiveButton(Sound, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {

@@ -21,10 +21,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/main_menu_message" />
 
-            <Button
+            <TextView
                 android:id="@+id/how_to_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/how_to" />
 
             <Button

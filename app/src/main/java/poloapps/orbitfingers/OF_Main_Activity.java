@@ -17,7 +17,7 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 
 //V3.6j Sound Effects in progress
-public class OFView_Activity extends View {
+public class OF_Main_Activity extends View {
 
     SharedPreferences prefs = super.getContext().getSharedPreferences("Settings", 0);
 
@@ -181,7 +181,7 @@ public class OFView_Activity extends View {
     MediaPlayer Miss_Sound = MediaPlayer.create(this.getContext(), R.raw.b1);
     MediaPlayer SMP_Sound  = MediaPlayer.create(this.getContext(), R.raw.b2);
 
-    public OFView_Activity(Context context) {
+    public OF_Main_Activity(Context context) {
         super(context);
 
         detector   = new ScaleGestureDetector(getContext(), new ScaleListener());

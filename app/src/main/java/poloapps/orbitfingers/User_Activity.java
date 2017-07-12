@@ -356,7 +356,7 @@ public class User_Activity extends AppCompatActivity {
         final TextView tv_Top5_Link       = (TextView) findViewById(R.id.tv_Top_Five_Link);
         final TextView tv_RM_Link         = (TextView) findViewById(R.id.tv_rank_msg_link);
         final EditText etRMessage         = (EditText) findViewById(R.id.et_ranking_message);
-
+        final Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
         final SharedPreferences.Editor editor = mSettings.edit();
         final int peak_score_server           = mSettings.getInt   ("peak_server",0);
         final int min_score_server            = mSettings.getInt   ("min_server", 0);
@@ -406,6 +406,7 @@ public class User_Activity extends AppCompatActivity {
                         editor.apply();
 
                         tv_Top5_Link.setVisibility(View.VISIBLE);
+                        Server_Set_Button.setVisibility(View.VISIBLE);
 
                         if( UserT5 != 0 ) {
                             tv_Top5_Link.setTextColor(Green);
