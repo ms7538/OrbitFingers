@@ -21,7 +21,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.Locale;
 
 //V3.6c created
-public class MainMenu_Activity extends AppCompatActivity {
+public class Home_Activity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class MainMenu_Activity extends AppCompatActivity {
 
          final Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),
                  (R.color.navy_blue));
-        // Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+         //Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
          Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
          final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
          Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
@@ -83,7 +83,7 @@ public class MainMenu_Activity extends AppCompatActivity {
                  public void onClick(View arg0) {
 
                      AlertDialog.Builder builder = new AlertDialog.Builder(
-                             MainMenu_Activity.this);
+                             Home_Activity.this);
                      builder.setMessage("Minimum & Peak Already Equal")
                              .setNegativeButton("Back", null)
                              .create()
@@ -127,12 +127,12 @@ public class MainMenu_Activity extends AppCompatActivity {
              public void onClick(View arg0) {
                  sign_in_button.setBackgroundColor(Dark_Gray);
                  sign_in_button.setTextColor(Light_Gray);
-                 Intent myIntent = new Intent(MainMenu_Activity.this, LoginActivity.class);
+                 Intent myIntent = new Intent(Home_Activity.this, LoginActivity.class);
 
                  if(logged_in) {
-                     myIntent = new Intent(MainMenu_Activity.this, User_Activity.class);
+                     myIntent = new Intent(Home_Activity.this, User_Activity.class);
                  }
-                 MainMenu_Activity.this.startActivity(myIntent);
+                 Home_Activity.this.startActivity(myIntent);
              }
          });
 
@@ -341,8 +341,8 @@ public class MainMenu_Activity extends AppCompatActivity {
     }
 
     private void launch_level(){
-        Intent myIntent = new Intent(MainMenu_Activity.this, OF_Main_Container_Activity.class);
-        MainMenu_Activity.this.startActivity(myIntent);
+        Intent myIntent = new Intent(Home_Activity.this, OF_Main_Container_Activity.class);
+        Home_Activity.this.startActivity(myIntent);
     }
 
 }

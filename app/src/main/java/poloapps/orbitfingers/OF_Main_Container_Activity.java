@@ -53,7 +53,7 @@ public class OF_Main_Container_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainMenu_Activity.class);
+        Intent intent = new Intent(this, Home_Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         super.startActivity(intent);
