@@ -94,11 +94,11 @@
         the allowed margin of error is reduced and the rotation speed is increased.
         \n
         \nLevel\t\t\tMin Score\t\t\tPenalty\t\t\tSMPs
-        \n\t\t1\t\t\t\t\t\t\t\t\t0\t\t\t\t\t\t\t\t\t\t\t1\t\t\t\t\t\t\t+1
-        \n\t\t2\t\t\t\t\t\t\t\t100\t\t\t\t\t\t\t\t\t5\t\t\t\t\t\t\t+1
-        \n\t\t3\t\t\t\t\t\t\t\t300\t\t\t\t\t\t\t\t\t10\t\t\t\t\t\t+2
-        \n\t\t4\t\t\t\t\t\t\t\t600\t\t\t\t\t\t\t\t\t15\t\t\t\t\t\t+2
-        \n\t\t5\t\t\t\t\t\t\t\t1000\t\t\t\t\t\t\t\t20\t\t\t\t\t\t+5
+        \n\t\t1\t\t\t\t\t\t\t\t\t0\t\t\t\t\t\t\t\t\t\t-1\t\t\t\t\t\t\t+1
+        \n\t\t2\t\t\t\t\t\t\t\t100\t\t\t\t\t\t\t\t-5\t\t\t\t\t\t\t+1
+        \n\t\t3\t\t\t\t\t\t\t\t300\t\t\t\t\t\t\t\t-10\t\t\t\t\t\t+2
+        \n\t\t4\t\t\t\t\t\t\t\t600\t\t\t\t\t\t\t\t-15\t\t\t\t\t\t+2
+        \n\t\t5\t\t\t\t\t\t\t\t1000\t\t\t\t\t\t\t-20\t\t\t\t\t\t+5
         \n
         \nClick the Login / Register Button to Login and set your Device Values to the previously
         saved Server Values or click the Register Link to sign up and register the current Device
