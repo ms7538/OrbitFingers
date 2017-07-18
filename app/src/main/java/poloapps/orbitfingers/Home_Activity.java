@@ -1,6 +1,7 @@
 package poloapps.orbitfingers;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -36,7 +37,7 @@ public class Home_Activity extends AppCompatActivity {
 
          final Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),
                  (R.color.navy_blue));
-         //Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+         Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
          Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
          final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
          Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
@@ -48,11 +49,11 @@ public class Home_Activity extends AppCompatActivity {
                  (R.color.light_gray));
          Integer SMP_Button_Color;
 
-        // Button how_to_button          = (Button) findViewById(R.id.how_to_btn);
-         final Button play_btn         = (Button) findViewById(R.id.play_btn);
-         final Button Set_Peak_Min_btn = (Button) findViewById(R.id.set_peak_min_button);
+         TextView how_to_link          = (TextView) findViewById(R.id.how_to_link);
+         final Button play_btn         = (Button)   findViewById(R.id.play_btn);
+         final Button Set_Peak_Min_btn = (Button)   findViewById(R.id.set_peak_min_button);
 
-        // how_to_button.setBackgroundColor(Orange);
+        how_to_link.setTextColor(Orange);
 
          if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
 
@@ -84,7 +85,7 @@ public class Home_Activity extends AppCompatActivity {
 
                      AlertDialog.Builder builder = new AlertDialog.Builder(
                              Home_Activity.this);
-                     builder.setMessage("Minimum & Peak Already Equal")
+                     builder.setMessage(getApplicationContext().getString(R.string.smp_equal))
                              .setNegativeButton("Back", null)
                              .create()
                              .show();
@@ -92,12 +93,18 @@ public class Home_Activity extends AppCompatActivity {
              });
          }
          SetText_TColors();
-      /*   how_to_button.setOnClickListener(new OnClickListener() {
+         how_to_link.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
+                 AlertDialog.Builder builder = new AlertDialog.Builder(
+                         Home_Activity.this);
+                 builder.setMessage(getApplicationContext().getString(R.string.alert_1))
+                         .setNegativeButton("Back", null)
+                         .create()
+                         .show();
 
              }
-         });*/
+         });
          play_btn.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -137,31 +144,45 @@ public class Home_Activity extends AppCompatActivity {
          });
 
          final Button reset_button = (Button) findViewById(R.id.reset1);
+
          if (peak_score_value > 0 || logged_in) {
-             reset_button.setBackgroundColor(Red);
-             reset_button.setOnClickListener(new OnClickListener() {
+            reset_button.setBackgroundColor(Red);
+            reset_button.setOnClickListener(new OnClickListener() {
                  @Override
                  public void onClick(View arg0) {
-                     reset_button.setBackgroundColor(Navy_Blue);
-                     Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-                     editor.putInt    ("levl",          1);
-                     editor.putInt    ("peakscore",     0);
-                     editor.putInt    ("min_score",     0);
-                     editor.putInt    ("current_score", 0);
-                     editor.putInt    ("set_peak_min",  1);
-                     editor.putBoolean("Signed_In", false);
-                     editor.putString ("current_user","" );
-                     editor.putString ("rank_message","" );
-                     editor.putInt    ("peak_server",   0);
-                     editor.putInt    ("min_server",    0);
-                     editor.putInt    ("smp_server",    1);
-                     editor.commit();
-                     SetText_TColors();
-                     ((TextView) findViewById(R.id.peak_score_value)).setText
-                             (String.format(Locale.US,"%d",0));
-                     Intent intent = getIntent();
-                     finish();
-                     startActivity(intent);
+                     AlertDialog.Builder builder = new AlertDialog.Builder(
+                             Home_Activity.this);
+                     builder.setMessage( getApplicationContext().getString(R.string.alert_2))
+                             .setPositiveButton(getApplicationContext().getString(R.string.yes),
+                                     new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int id) {
+                                     reset_button.setBackgroundColor(Navy_Blue);
+                                     Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
+                                     editor.putInt    ("levl",          1);
+                                     editor.putInt    ("peakscore",     0);
+                                     editor.putInt    ("min_score",     0);
+                                     editor.putInt    ("current_score", 0);
+                                     editor.putInt    ("set_peak_min",  1);
+                                     editor.putBoolean("Signed_In", false);
+                                     editor.putString ("current_user","" );
+                                     editor.putString ("rank_message","" );
+                                     editor.putInt    ("peak_server",   0);
+                                     editor.putInt    ("min_server",    0);
+                                     editor.putInt    ("smp_server",    1);
+                                     editor.commit();
+                                     SetText_TColors();
+                                     ((TextView) findViewById(R.id.peak_score_value)).setText
+                                             (String.format(Locale.US,"%d",0));
+                                     Intent intent = getIntent();
+                                     finish();
+                                     startActivity(intent);
+                                     dialog.cancel();
+                                 }
+                             })
+                             .setNegativeButton(getApplicationContext().getString(R.string.no),null)
+                             .create()
+                             .show();
+
                  }
              });
          }

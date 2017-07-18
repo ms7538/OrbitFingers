@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">OrbitFingers</string>
-    <string name="main_menu_message">OrbitFingers:</string>
+    <string name="main_menu_message">OrbitFingers</string>
     <string name="simple">Level 1</string>
     <string name="simple2">Level 2</string>
     <string name="action_settings">Sound</string>
@@ -70,4 +70,44 @@
     <string name="reg_message">Values To Be Registered:</string>
     <string name="on">ON</string>
     <string name="off">OFF</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="alert_1">\t\t\t\t\t\t\t\t\t\t\t\tHOW TO PLAY:
+        \n
+        \nThe goal of OrbitFingers is to get the highest possible Peak Score and to be ranked in the
+        TOP 5. The players who have the five highest Peak Scores will have their Usernames and
+        Ranking Messages shown in the Top 5 Display.
+        \nThe game contains a Left and a Right Orbit System which are independent but can only
+        be activated one at a time. Click the left / right finger print area when the applicable
+        Orbit System is in alignment to gain  10 points. There are two types of alignments:
+        \n
+        \n1: The static center is at the beginning of system alignment.
+        \n
+        \n2: The static center is in the middle of system alignment.
+        \n
+        \nThere is a penalty in points for activating the finger prints while the appropriate Orbit
+        System is not aligned. Points will be deducted until the current Min Score is reached. The
+        Min Score starts at zero and gets automatically set when a new Level is reached. The Min
+        Score can also be manually set to the same value as the Peak Score by clicking the SMP
+        button. The amount of times the SMP can be used is limited, however SMPs can be gained with
+        each new Level and also by getting nine consecutive hits. When each new Level is unlocked
+        the allowed margin of error is reduced and the rotation speed is increased.
+        \n
+        \nLevel\t\t\tMin Score\t\t\tPenalty\t\t\tSMPs
+        \n\t\t1\t\t\t\t\t\t\t\t\t0\t\t\t\t\t\t\t\t\t\t\t1\t\t\t\t\t\t\t+1
+        \n\t\t2\t\t\t\t\t\t\t\t100\t\t\t\t\t\t\t\t\t5\t\t\t\t\t\t\t+1
+        \n\t\t3\t\t\t\t\t\t\t\t300\t\t\t\t\t\t\t\t\t10\t\t\t\t\t\t+2
+        \n\t\t4\t\t\t\t\t\t\t\t600\t\t\t\t\t\t\t\t\t15\t\t\t\t\t\t+2
+        \n\t\t5\t\t\t\t\t\t\t\t1000\t\t\t\t\t\t\t\t20\t\t\t\t\t\t+5
+        \n
+        \nClick the Login / Register Button to Login and set your Device Values to the previously
+        saved Server Values or click the Register Link to sign up and register the current Device
+        Values. Once Logged-in the Player can update the Server Values and get the Current Rank
+        including the Top 5 Display. If the player is ranked in the Top 5, their Username and
+        adjustable Ranking Message will be displayed.
+    </string>
+    <string name="alert_2">
+        \nAre you sure? All unsaved Device Values will be LOST and / or the User will be LOGGED OUT.
+    </string>
+    <string name="smp_equal">Minimum And Peak Already Equal</string>
 </resources>
