@@ -1,9 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".Home_Activity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".OF_Main_Container_Activity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_privacy"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never|always" />
+        android:title="@string/privacy_policy"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/action_tou"
+        android:orderInCategory="100"
+        android:title="@string/tou"
+        app:showAsAction="collapseActionView" />
 </menu>

@@ -10,6 +10,8 @@ import android.os.Bundle;
 
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -77,7 +79,7 @@ public class Home_Activity extends AppCompatActivity {
                 }
             });
          }
-         else   Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
+         else Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
          if (min_score_value.equals(peak_score_value) && set_peak_min_remaining > 0){
              Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
                  @Override
@@ -85,7 +87,7 @@ public class Home_Activity extends AppCompatActivity {
 
                      AlertDialog.Builder builder = new AlertDialog.Builder(
                              Home_Activity.this);
-                     builder.setMessage(getApplicationContext().getString(R.string.smp_equal))
+                     builder.setMessage(R.string.smp_equal)
                              .setNegativeButton("Back", null)
                              .create()
                              .show();
@@ -98,8 +100,8 @@ public class Home_Activity extends AppCompatActivity {
              public void onClick(View arg0) {
                  AlertDialog.Builder builder = new AlertDialog.Builder(
                          Home_Activity.this);
-                 builder.setMessage(getApplicationContext().getString(R.string.alert_1))
-                         .setNegativeButton("Back", null)
+                 builder.setMessage(R.string.alert_1)
+                         .setNegativeButton(R.string.back, null)
                          .create()
                          .show();
 
@@ -152,8 +154,8 @@ public class Home_Activity extends AppCompatActivity {
                  public void onClick(View arg0) {
                      AlertDialog.Builder builder = new AlertDialog.Builder(
                              Home_Activity.this);
-                     builder.setMessage( getApplicationContext().getString(R.string.alert_2))
-                             .setPositiveButton(getApplicationContext().getString(R.string.yes),
+                     builder.setMessage(R.string.alert_2)
+                             .setPositiveButton(R.string.yes,
                                      new DialogInterface.OnClickListener() {
                                  public void onClick(DialogInterface dialog, int id) {
                                      reset_button.setBackgroundColor(Navy_Blue);
@@ -179,7 +181,7 @@ public class Home_Activity extends AppCompatActivity {
                                      dialog.cancel();
                                  }
                              })
-                             .setNegativeButton(getApplicationContext().getString(R.string.no),null)
+                             .setNegativeButton(R.string.no,null)
                              .create()
                              .show();
 
@@ -196,24 +198,24 @@ public class Home_Activity extends AppCompatActivity {
     private void SetText_TColors(){   // set text and color fields
 
         final int L1_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L1_target_score);
+                .getResources().getInteger(R.integer.L1_target_score);
         final int L2_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L2_target_score);
+                .getResources().getInteger(R.integer.L2_target_score);
         final int L3_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L3_target_score);
+                .getResources().getInteger(R.integer.L3_target_score);
         final int L4_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L4_target_score);
+                .getResources().getInteger(R.integer.L4_target_score);
 
         final int L1_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L1_penalty);
+                .getResources().getInteger(R.integer.L1_penalty);
         final int L2_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L2_penalty);
+                .getResources().getInteger(R.integer.L2_penalty);
         final int L3_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L3_penalty);
+                .getResources().getInteger(R.integer.L3_penalty);
         final int L4_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L4_penalty);
+                .getResources().getInteger(R.integer.L4_penalty);
         final int L5_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L5_penalty);
+                .getResources().getInteger(R.integer.L5_penalty);
 
         SharedPreferences mSettings           = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
@@ -365,5 +367,51 @@ public class Home_Activity extends AppCompatActivity {
         Intent myIntent = new Intent(Home_Activity.this, OF_Main_Container_Activity.class);
         Home_Activity.this.startActivity(myIntent);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_privacy:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        Home_Activity.this);
+                builder.setMessage(R.string.privacy_policy_actual)
+                        .setPositiveButton(R.string.back, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            case R.id.action_tou:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(
+                        Home_Activity.this);
+                builder2.setMessage(R.string.tou_actual)
+                        .setPositiveButton(R.string.back, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }

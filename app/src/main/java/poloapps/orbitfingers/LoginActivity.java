@@ -2,12 +2,15 @@ package poloapps.orbitfingers;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +22,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+
 
 public class LoginActivity extends AppCompatActivity {
     @Override
@@ -39,8 +44,22 @@ public class LoginActivity extends AppCompatActivity {
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerIntent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                builder.setMessage(R.string.tou_actual)
+                        .setPositiveButton(R.string.agree,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        Intent registerIntent = new Intent(LoginActivity.this,
+                                                RegisterActivity.class);
+                                        LoginActivity.this.startActivity(registerIntent);
+                                    }
+                                })
+                        .setNegativeButton(R.string.not_agree,null)
+                        .create()
+                        .show();
+
+
             }
         });
         bLogin.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(
                                             LoginActivity.this);
-                                    builder.setMessage("Login Failed")
-                                            .setNegativeButton("Retry", null)
+                                    builder.setMessage(R.string.login_fail)
+                                            .setNegativeButton(R.string.retry, null)
                                             .create()
                                             .show();
                                 }
@@ -97,8 +116,8 @@ public class LoginActivity extends AppCompatActivity {
                     queue.add(loginRequest);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage("No Internet Connection")
-                            .setNegativeButton("Back", null)
+                    builder.setMessage(R.string.no_ic)
+                            .setNegativeButton(R.string.back, null)
                             .create()
                             .show();
                 }
@@ -112,6 +131,53 @@ public class LoginActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK| Intent.FLAG_ACTIVITY_CLEAR_TASK);
         super.startActivity(intent);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_privacy:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        LoginActivity.this);
+                builder.setMessage(R.string.privacy_policy_actual)
+                        .setPositiveButton(this.getString(R.string.back), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            case R.id.action_tou:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(
+                        LoginActivity.this);
+                builder2.setMessage(R.string.tou_actual)
+                        .setPositiveButton(this.getString(R.string.back), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }
