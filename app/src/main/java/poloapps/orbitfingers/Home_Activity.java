@@ -1,6 +1,7 @@
 package poloapps.orbitfingers;
 
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -22,10 +23,8 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.Locale;
 
-
-
 //V3.6c created
-public class MainMenu_Activity extends AppCompatActivity {
+public class Home_Activity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -33,36 +32,43 @@ public class MainMenu_Activity extends AppCompatActivity {
          final   SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
          final   SharedPreferences.Editor editor  = mSettings.edit();
          Integer min_score_value                  = mSettings.getInt         ("min_score",0);
-         final   Integer set_peak_min_remaining   = mSettings.getInt         ("set_peak_min",2);
+         final   Integer set_peak_min_remaining   = mSettings.getInt         ("set_peak_min",1);
          final   Integer peak_score_value         = mSettings.getInt         ("peakscore", 0);
          final   Boolean logged_in                = mSettings.getBoolean     ("Signed_In", false);
          final   String username                  = mSettings.getString      ("current_user","");
 
          final Integer Navy_Blue = ContextCompat.getColor(getApplicationContext(),
-                                                                               (R.color.navy_blue));
-         Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
-         Integer Green       = ContextCompat.getColor(getApplicationContext(),(R.color.green));
-         Integer Red         = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+                 (R.color.navy_blue));
+         Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+         Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
+         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
+         Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
+         Integer Yellow          = ContextCompat.getColor(getApplicationContext(),
+                 (R.color.bright_yellow));
+         final Integer Dark_Gray  = ContextCompat.getColor(getApplicationContext(),
+                 (R.color.dark_gray));
+         final Integer Light_Gray = ContextCompat.getColor(getApplicationContext(),
+                 (R.color.light_gray));
+         Integer SMP_Button_Color;
 
-         final Integer Dark_Gray   = ContextCompat.getColor(getApplicationContext(),
-                                                                               (R.color.dark_gray));
-         final Integer Light_Gray   = ContextCompat.getColor(getApplicationContext(),
-                                                                              (R.color.light_gray));
+         TextView how_to_link          = (TextView) findViewById(R.id.how_to_link);
+         final Button play_btn         = (Button)   findViewById(R.id.play_btn);
+         final Button Set_Peak_Min_btn = (Button)   findViewById(R.id.set_peak_min_button);
 
-         Button how_to_button              = (Button) findViewById(R.id.how_to_btn);
-         final Button play_btn             = (Button) findViewById(R.id.play_btn);
-         final Button Set_Peak_Min_btn     = (Button) findViewById(R.id.set_peak_min_button);
-
-         how_to_button.setBackgroundColor(Orange);
+        how_to_link.setTextColor(Orange);
 
          if (min_score_value < peak_score_value && set_peak_min_remaining > 0){
 
-            Set_Peak_Min_btn.setBackgroundColor(Green);
-            Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
+             if (  set_peak_min_remaining < 3 )      SMP_Button_Color = Fade1;
+             else if (  set_peak_min_remaining < 6 ) SMP_Button_Color = Yellow;
+             else                                    SMP_Button_Color = Green;
+
+             Set_Peak_Min_btn.setBackgroundColor(SMP_Button_Color);
+             Set_Peak_Min_btn.setTextColor(Dark_Gray);
+             Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
                     Set_Peak_Min_btn.setBackgroundColor(Navy_Blue);
-
                     Integer SMPs_Remaining =  set_peak_min_remaining - 1;
                     editor.putInt("set_peak_min",SMPs_Remaining);
                     editor.putInt("min_score",peak_score_value);
@@ -72,23 +78,35 @@ public class MainMenu_Activity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+         }
+         else Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
+         if (min_score_value.equals(peak_score_value) && set_peak_min_remaining > 0){
+             Set_Peak_Min_btn.setOnClickListener(new OnClickListener() {
+                 @Override
+                 public void onClick(View arg0) {
 
-
-        }
-        else{
-            Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-        }
-
+                     AlertDialog.Builder builder = new AlertDialog.Builder(
+                             Home_Activity.this);
+                     builder.setMessage(R.string.smp_equal)
+                             .setNegativeButton("Back", null)
+                             .create()
+                             .show();
+                 }
+             });
+         }
          SetText_TColors();
-
-         how_to_button.setOnClickListener(new OnClickListener() {
+         how_to_link.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
+                 AlertDialog.Builder builder = new AlertDialog.Builder(
+                         Home_Activity.this);
+                 builder.setMessage(R.string.alert_1)
+                         .setNegativeButton(R.string.back, null)
+                         .create()
+                         .show();
 
              }
          });
-
-
          play_btn.setOnClickListener(new OnClickListener() {
              @Override
              public void onClick(View arg0) {
@@ -96,7 +114,6 @@ public class MainMenu_Activity extends AppCompatActivity {
                  launch_level();
              }
          });
-
 
          AdView mAdView = (AdView) findViewById(R.id.adView);
          AdRequest adRequest = new AdRequest.Builder().build();
@@ -119,69 +136,86 @@ public class MainMenu_Activity extends AppCompatActivity {
              public void onClick(View arg0) {
                  sign_in_button.setBackgroundColor(Dark_Gray);
                  sign_in_button.setTextColor(Light_Gray);
-                 Intent myIntent = new Intent(MainMenu_Activity.this, LoginActivity.class);
+                 Intent myIntent = new Intent(Home_Activity.this, LoginActivity.class);
 
                  if(logged_in) {
-                     myIntent = new Intent(MainMenu_Activity.this, UserAreaActivity.class);
+                     myIntent = new Intent(Home_Activity.this, User_Activity.class);
                  }
-                 MainMenu_Activity.this.startActivity(myIntent);
+                 Home_Activity.this.startActivity(myIntent);
              }
          });
 
          final Button reset_button = (Button) findViewById(R.id.reset1);
+
          if (peak_score_value > 0 || logged_in) {
-             reset_button.setBackgroundColor(Red);
-             reset_button.setOnClickListener(new OnClickListener() {
+            reset_button.setBackgroundColor(Red);
+            reset_button.setOnClickListener(new OnClickListener() {
                  @Override
                  public void onClick(View arg0) {
-                     reset_button.setBackgroundColor(Navy_Blue);
-                     Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-                     editor.putInt    ("levl", 1);
-                     editor.putInt    ("peakscore", 0);
-                     editor.putInt    ("min_score", 0);
-                     editor.putInt    ("current_score", 0);
-                     editor.putInt    ("set_peak_min", 2);
-                     editor.putBoolean("Signed_In", false);
-                     editor.putString ("current_user","");
-                     editor.putString ("rank_message","");
-                     editor.commit();
-                     SetText_TColors();
-                     ((TextView) findViewById(R.id.peak_score_value)).setText
-                                                                (String.format(Locale.US,"%d",0));
-                     Intent intent = getIntent();
-                     finish();
-                     startActivity(intent);
+                     AlertDialog.Builder builder = new AlertDialog.Builder(
+                             Home_Activity.this);
+                     builder.setMessage(R.string.alert_2)
+                             .setPositiveButton(R.string.yes,
+                                     new DialogInterface.OnClickListener() {
+                                 public void onClick(DialogInterface dialog, int id) {
+                                     reset_button.setBackgroundColor(Navy_Blue);
+                                     Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
+                                     editor.putInt    ("levl",          1);
+                                     editor.putInt    ("peakscore",     0);
+                                     editor.putInt    ("min_score",     0);
+                                     editor.putInt    ("current_score", 0);
+                                     editor.putInt    ("set_peak_min",  1);
+                                     editor.putBoolean("Signed_In", false);
+                                     editor.putString ("current_user","" );
+                                     editor.putString ("rank_message","" );
+                                     editor.putInt    ("peak_server",   0);
+                                     editor.putInt    ("min_server",    0);
+                                     editor.putInt    ("smp_server",    1);
+                                     editor.commit();
+                                     SetText_TColors();
+                                     ((TextView) findViewById(R.id.peak_score_value)).setText
+                                             (String.format(Locale.US,"%d",0));
+                                     Intent intent = getIntent();
+                                     finish();
+                                     startActivity(intent);
+                                     dialog.cancel();
+                                 }
+                             })
+                             .setNegativeButton(R.string.no,null)
+                             .create()
+                             .show();
+
                  }
              });
          }
          else   reset_button.setBackgroundColor(Dark_Gray);
 
          ((TextView) findViewById(R.id.peak_score_value)).setText
-                                                   (String.format(Locale.US,"%d",peak_score_value));
+                 (String.format(Locale.US,"%d",peak_score_value));
 
 
      }
     private void SetText_TColors(){   // set text and color fields
 
         final int L1_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L1_target_score);
+                .getResources().getInteger(R.integer.L1_target_score);
         final int L2_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L2_target_score);
+                .getResources().getInteger(R.integer.L2_target_score);
         final int L3_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L3_target_score);
+                .getResources().getInteger(R.integer.L3_target_score);
         final int L4_Target_Score = getApplicationContext()
-                                             .getResources().getInteger(R.integer.L4_target_score);
+                .getResources().getInteger(R.integer.L4_target_score);
 
         final int L1_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L1_penalty);
+                .getResources().getInteger(R.integer.L1_penalty);
         final int L2_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L2_penalty);
+                .getResources().getInteger(R.integer.L2_penalty);
         final int L3_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L3_penalty);
+                .getResources().getInteger(R.integer.L3_penalty);
         final int L4_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L4_penalty);
+                .getResources().getInteger(R.integer.L4_penalty);
         final int L5_Penalty = getApplicationContext()
-                                                  .getResources().getInteger(R.integer.L5_penalty);
+                .getResources().getInteger(R.integer.L5_penalty);
 
         SharedPreferences mSettings           = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
@@ -195,12 +229,18 @@ public class MainMenu_Activity extends AppCompatActivity {
         Integer Green2      = ContextCompat.getColor(getApplicationContext(),(R.color.green2));
         Integer Light_Gray  = ContextCompat.getColor(getApplicationContext(),(R.color.light_gray));
         Integer Dark_Gray   = ContextCompat.getColor(getApplicationContext(),(R.color.dark_gray));
-        Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+        //Integer Orange      = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
+        Integer Dk_Orange   = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
+        Integer Yellow      = ContextCompat.getColor(getApplicationContext(),
+                (R.color.bright_yellow));
+        Integer SMP_Color       = Red;
 
-        Integer Min_Score_Value = mSettings.getInt("min_score",0);
-        Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",2);
+
+        Integer Min_Score_Value        = mSettings.getInt("min_score",0);
+        Integer set_peak_min_remaining = mSettings.getInt("set_peak_min",1);
         Integer current_level          = mSettings.getInt("levl", 1);
-        Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
+
+      //  Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
         final Button play_btn          = (Button)   findViewById(R.id.play_btn);
         Button reset_button            = (Button)   findViewById(R.id.reset1);
         Button Set_Peak_Min_btn        = (Button)   findViewById(R.id.set_peak_min_button);
@@ -218,8 +258,9 @@ public class MainMenu_Activity extends AppCompatActivity {
         TextView SMPs_remaining_value  = (TextView) findViewById(R.id.remaining_smp_value);
         TextView SMPs_ui               = (TextView) findViewById(R.id.smp_ui);
         TextView penalty_text_value    = (TextView) findViewById(R.id.current_penalty);
+
         penalty_text.setTextColor(Red);
-        how_to_button.setBackgroundColor(Orange);
+        //how_to_button.setBackgroundColor(Orange);
         reset_button.setBackgroundColor(Red);
         penalty_text_value.setTextColor(Red);
         SMPs_remaining_value.setText(String.format(Locale.US,"%d",set_peak_min_remaining));
@@ -228,18 +269,16 @@ public class MainMenu_Activity extends AppCompatActivity {
 
         if( set_peak_min_remaining > 0 ){
             Set_Peak_Min_btn.setVisibility(View.VISIBLE);
-            SMPs_remaining_text.setTextColor(Green2);
-            SMPs_remaining_value.setTextColor(Green2);
-            SMPs_ui.setTextColor(Green2);
-
-        }
-        else{
-            Set_Peak_Min_btn.setVisibility(View.INVISIBLE);
-            SMPs_remaining_text.setTextColor(Red);
-            SMPs_remaining_value.setTextColor(Red);
-            SMPs_ui.setTextColor(Red);
+            if(set_peak_min_remaining < 3){
+                SMP_Color = Dk_Orange;
+            }else if(set_peak_min_remaining < 6) {
+                SMP_Color = Yellow;
+            }else SMP_Color = Green2;
         }
 
+        SMPs_remaining_text.setTextColor(SMP_Color);
+        SMPs_remaining_value.setTextColor(SMP_Color);
+        SMPs_ui.setTextColor(SMP_Color);
 
         switch (current_level){
             case 1:
@@ -324,18 +363,55 @@ public class MainMenu_Activity extends AppCompatActivity {
         editor.apply();
     }
 
+    private void launch_level(){
+        Intent myIntent = new Intent(Home_Activity.this, OF_Main_Container_Activity.class);
+        Home_Activity.this.startActivity(myIntent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    private void launch_level(){
-        Intent myIntent = new Intent(MainMenu_Activity.this, OF_Activity.class);
-        MainMenu_Activity.this.startActivity(myIntent);
-    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_privacy:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        Home_Activity.this);
+                builder.setMessage(R.string.privacy_policy_actual)
+                        .setPositiveButton(R.string.back, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            case R.id.action_tou:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(
+                        Home_Activity.this);
+                builder2.setMessage(R.string.tou_actual)
+                        .setPositiveButton(R.string.back, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="poloapps.orbitfingers">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="poloapps.orbitfingers"
+    >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Base.Theme.AppCompat"
-        >
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainMenu_Activity"
+            android:name=".Home_Activity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,27 +22,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OF_Activity"
+            android:name=".OF_Main_Container_Activity"
             android:label="@string/SOF"
-            android:parentActivityName=".MainMenu_Activity"
+            android:parentActivityName=".Home_Activity"
             android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainMenu_Activity" />
+                android:value=".Home_Activity" />
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity
-            android:name=".UserAreaActivity"
-            android:parentActivityName=".MainMenu_Activity" />
+            android:name=".User_Activity"
+            android:parentActivityName=".Home_Activity" />
         <activity android:name=".LoginActivity" />
         <activity
             android:name=".TopFiveActivity"
             android:label="@string/title_activity_top_ten"
-            android:parentActivityName=".UserAreaActivity"
+            android:parentActivityName=".User_Activity"
             android:screenOrientation="landscape">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="poloapps.orbitfingers.UserAreaActivity" />
+                android:value="poloapps.orbitfingers.User_Activity" />
         </activity>
     </application>
 

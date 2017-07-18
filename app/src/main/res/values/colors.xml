@@ -19,4 +19,9 @@
     <color name="green_C"       >#22bc89</color>
     <color name="green_D"       >#0fa58a</color>
     <color name="maroon"        >#581845</color>
+    <color name="fade1"         >#ff6700</color>
+    <color name="fade2"         >#f09100</color>
+    <color name="fade3"         >#ecbe00</color>
+    <color name="fade4"         >#e5dc00</color>
+    <color name="fade5"         >#f0ff00</color>
 </resources>

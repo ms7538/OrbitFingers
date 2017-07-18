@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "poloapps.orbitfingers"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 11
         versionName "2.3"
