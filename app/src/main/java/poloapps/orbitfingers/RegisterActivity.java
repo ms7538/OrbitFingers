@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore",    0)));
         tvMin_Value.setText (String.format(Locale.US,"%d",mSettings.getInt("min_score",    0)));
-        tvSMPs_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("set_peak_min", 0)));
+        tvSMPs_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("set_peak_min", 1)));
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
