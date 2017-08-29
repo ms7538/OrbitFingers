@@ -45,6 +45,8 @@ public class OF_Main_Activity extends View {
     String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
     String next_text        =  getContext().getString(R.string.level_2);
+    String multi_text       =  getContext().getString(R.string.empty) +
+            getContext().getString(R.string.multi);
 
 
     double Max_Height       = Double.parseDouble(max_height); // max y (height)
@@ -56,13 +58,14 @@ public class OF_Main_Activity extends View {
     int SMP_Ind_X           = (int) (.47   * Max_Width);   // Next Level Text Indication X Start
     final int Score_X_0_9   = (int) (.495  * Max_Width);
     int Next_Value_X        = (int) (.915  * Max_Width);
+    int Multi_Value_X       = (int) (.93   * Max_Width);
     int Peak_Value_X        = 0;
     int Score_X_Adjusted    = Score_X_0_9;
     int SMP_X_Adjusted      = Score_X_0_9;
 
     int Min_Ind_Y           = (int) (.23  * Max_Height); // Min Score Indication Y Start
     int Upper_Text_Y        = (int) (.05  * Max_Height); // Peak, Level, Next Indication Y Start
-    int Peak_Next_Values_Y  = (int) (.10  * Max_Height); // Peak, Next Values Y Start
+    int Upper_Values_Y = (int) (.10  * Max_Height); // Peak, Next Values Y Start
     int Score_Value_Y       = (int) (.15  * Max_Height); // Peak, Next Values Y Start
     int SMP_Ind_Y           = (int) (.68  * Max_Height);
     int SMP_Value_Y         = (int) (.75  * Max_Height);
@@ -133,13 +136,14 @@ public class OF_Main_Activity extends View {
     private String ScCo         = Level_Color;
     private String score_color  = ScCo;
     private String next_color   = L2col;
+    private String multi_color  = F1_color;
     private double RotSpeed     = 1.15;
     private double Right_RS     = RotSpeed;
     private double theta        = 0;
     private double Right_RS2    = RotSpeed;
     private double theta2       = 0;
     private int    Mch          = 0;
-    private int    Multi        = 9;
+    private int    Multi        = 2;
 
     private double ThtAbs1, ThtAbs2;
     private double LThtAbs1, LThtAbs2;
@@ -275,20 +279,21 @@ public class OF_Main_Activity extends View {
         canvas_text(canvas,getContext().getString(R.string.SMPs), SMP_Ind_X , SMP_Ind_Y,Text_Length, SMP_Color);
         canvas_text(canvas,getContext().getString(R.string.peak_text), 0, Upper_Text_Y, Text_Length, Green1);
         canvas_text(canvas,Min_Text, Min_Ind_X, Min_Ind_Y,Text_Length,Red1);
-        canvas_text(canvas,Peak_Score_Value, Peak_Value_X, Peak_Next_Values_Y,Text_Length, Green1);
+        canvas_text(canvas,Peak_Score_Value, Peak_Value_X, Upper_Values_Y,Text_Length, Green1);
 
-        if(LS == 5){
-            next_level_value = " " + Integer.toString(Multi);
-            if     (Multi  > 7)  next_color = F1_color;
-            else if(Multi  > 5)  next_color = F2_color;
-            else if(Multi  > 3)  next_color = F3_color;
-            else if(Multi == 3)  next_color = F4_color;
-            else if(Multi == 2)  next_color = F5_color;
-            else if(Multi == 1)  next_color = Green1;
-        }
-        canvas_text(canvas, next_level_value,Next_Value_X, Peak_Next_Values_Y,
-                Text_Length, next_color);
-        canvas_text(canvas, next_text, Next_Ind_X, Upper_Text_Y, Text_Length, next_color);
+        if     (Multi  > 7)  multi_color = F1_color;
+        else if(Multi  > 5)  multi_color = F2_color;
+        else if(Multi  > 3)  multi_color = F3_color;
+        else if(Multi == 3)  multi_color = F4_color;
+        else if(Multi == 2)  multi_color = F5_color;
+        else if(Multi == 1)  multi_color = Green1;
+
+        canvas_text(canvas, multi_text,Next_Ind_X, Upper_Text_Y,Text_Length,multi_color);
+        canvas_text(canvas, Integer.toString(Multi), Multi_Value_X, Upper_Values_Y, Text_Length,
+                multi_color);
+
+        canvas_text(canvas, next_level_value,Next_Value_X, SMP_Value_Y,Text_Length, next_color);
+        canvas_text(canvas, next_text, Next_Ind_X, SMP_Ind_Y, Text_Length, next_color);
         canvas.drawBitmap(right_Finger_Print, R_TE_X_S, C_TE_Y_S, null);
         canvas.drawBitmap(left_Finger_Print, L_TE_X_S, C_TE_Y_S, null);
 
@@ -504,10 +509,9 @@ public class OF_Main_Activity extends View {
                    }
                 editor.putInt("scorelevel",level5_min);
                 editor.commit();
-                next_text          = getContext().getString(R.string.multi);
+                next_text          = getContext().getString(R.string.empty);
                 next_color         = L5col;
-                Integer Multi = prefs.getInt("multi", 9);
-                next_level_value   = " " + Integer.toString(Multi);
+                next_level_value   = getContext().getString(R.string.empty);
                 Level_Color        = L5col;
                 if (ScoreMin  < level5_min) ScoreMin = level5_min;
                 AA_min            = .985;
