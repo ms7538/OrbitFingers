@@ -28,7 +28,7 @@ public class Home_Activity extends AppCompatActivity {
      @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_main); //sets activity_main xml file
+         setContentView(R.layout.activity_home); //sets activity_home xml file
          final   SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
          final   SharedPreferences.Editor editor  = mSettings.edit();
          Integer min_score_value                  = mSettings.getInt         ("min_score",0);
@@ -41,7 +41,6 @@ public class Home_Activity extends AppCompatActivity {
                  (R.color.navy_blue));
          Integer Orange          = ContextCompat.getColor(getApplicationContext(),(R.color.orange));
          Integer Green           = ContextCompat.getColor(getApplicationContext(),(R.color.green));
-         final Integer Red       = ContextCompat.getColor(getApplicationContext(),(R.color.red));
          Integer Fade1           = ContextCompat.getColor(getApplicationContext(),(R.color.fade1));
          Integer Yellow          = ContextCompat.getColor(getApplicationContext(),
                  (R.color.bright_yellow));
@@ -145,50 +144,6 @@ public class Home_Activity extends AppCompatActivity {
              }
          });
 
-         final Button reset_button = (Button) findViewById(R.id.reset1);
-
-         if (peak_score_value > 0 || logged_in) {
-            reset_button.setBackgroundColor(Red);
-            reset_button.setOnClickListener(new OnClickListener() {
-                 @Override
-                 public void onClick(View arg0) {
-                     AlertDialog.Builder builder = new AlertDialog.Builder(
-                             Home_Activity.this);
-                     builder.setMessage(R.string.alert_2)
-                             .setPositiveButton(R.string.yes,
-                                     new DialogInterface.OnClickListener() {
-                                 public void onClick(DialogInterface dialog, int id) {
-                                     reset_button.setBackgroundColor(Navy_Blue);
-                                     Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
-                                     editor.putInt    ("levl",          1);
-                                     editor.putInt    ("peakscore",     0);
-                                     editor.putInt    ("min_score",     0);
-                                     editor.putInt    ("current_score", 0);
-                                     editor.putInt    ("set_peak_min",  1);
-                                     editor.putBoolean("Signed_In", false);
-                                     editor.putString ("current_user","" );
-                                     editor.putString ("rank_message","" );
-                                     editor.putInt    ("peak_server",   0);
-                                     editor.putInt    ("min_server",    0);
-                                     editor.putInt    ("smp_server",    1);
-                                     editor.commit();
-                                     SetText_TColors();
-                                     ((TextView) findViewById(R.id.peak_score_value)).setText
-                                             (String.format(Locale.US,"%d",0));
-                                     Intent intent = getIntent();
-                                     finish();
-                                     startActivity(intent);
-                                     dialog.cancel();
-                                 }
-                             })
-                             .setNegativeButton(R.string.no,null)
-                             .create()
-                             .show();
-
-                 }
-             });
-         }
-         else   reset_button.setBackgroundColor(Dark_Gray);
 
          ((TextView) findViewById(R.id.peak_score_value)).setText
                  (String.format(Locale.US,"%d",peak_score_value));
@@ -242,7 +197,7 @@ public class Home_Activity extends AppCompatActivity {
 
       //  Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
         final Button play_btn          = (Button)   findViewById(R.id.play_btn);
-        Button reset_button            = (Button)   findViewById(R.id.reset1);
+
         Button Set_Peak_Min_btn        = (Button)   findViewById(R.id.set_peak_min_button);
         TextView current_level_text    = (TextView) findViewById(R.id.current_level_text_view);
         TextView level_current         = (TextView) findViewById(R.id.current_level);
@@ -261,7 +216,7 @@ public class Home_Activity extends AppCompatActivity {
 
         penalty_text.setTextColor(Red);
         //how_to_button.setBackgroundColor(Orange);
-        reset_button.setBackgroundColor(Red);
+
         penalty_text_value.setTextColor(Red);
         SMPs_remaining_value.setText(String.format(Locale.US,"%d",set_peak_min_remaining));
         level_current.setText(String.format(Locale.US,"%d",current_level));
@@ -375,7 +330,8 @@ public class Home_Activity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        final   SharedPreferences mSettings      = this.getSharedPreferences("Settings", 0);
+        final   SharedPreferences.Editor editor  = mSettings.edit();
         switch (item.getItemId()) {
             case R.id.action_privacy:
                 // User chose the "Settings" item, show the app settings UI...
@@ -403,6 +359,42 @@ public class Home_Activity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         })
+                        .create()
+                        .show();
+                return true;
+            case R.id.action_reset:
+                 builder = new AlertDialog.Builder(
+                        Home_Activity.this);
+                builder.setMessage(R.string.alert_2)
+                        .setPositiveButton(R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        final Integer Dark_Gray  = ContextCompat.getColor(getApplicationContext(),
+                                                (R.color.dark_gray));
+                                        final Button Set_Peak_Min_btn = (Button)   findViewById(R.id.set_peak_min_button);
+                                        Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
+                                        editor.putInt    ("levl",          1);
+                                        editor.putInt    ("peakscore",     0);
+                                        editor.putInt    ("min_score",     0);
+                                        editor.putInt    ("current_score", 0);
+                                        editor.putInt    ("set_peak_min",  1);
+                                        editor.putBoolean("Signed_In", false);
+                                        editor.putString ("current_user","" );
+                                        editor.putString ("rank_message","" );
+                                        editor.putInt    ("peak_server",   0);
+                                        editor.putInt    ("min_server",    0);
+                                        editor.putInt    ("smp_server",    1);
+                                        editor.apply();
+                                        SetText_TColors();
+                                        ((TextView) findViewById(R.id.peak_score_value)).setText
+                                                (String.format(Locale.US,"%d",0));
+                                        Intent intent = getIntent();
+                                        finish();
+                                        startActivity(intent);
+                                        dialog.cancel();
+                                    }
+                                })
+                        .setNegativeButton(R.string.no,null)
                         .create()
                         .show();
                 return true;
