@@ -39,13 +39,13 @@
 
         <Button
             android:id="@+id/play_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="@string/play"
             android:layout_below="@+id/how_to_link"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:text="@string/play" />
 
         <TextView
             android:id="@+id/current_level_text_view"
