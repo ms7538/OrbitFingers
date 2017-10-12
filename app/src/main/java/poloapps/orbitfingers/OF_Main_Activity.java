@@ -45,8 +45,7 @@ public class OF_Main_Activity extends View {
     String Peak_Score_Value = Integer.toString(Peak_Score);
     String next_level_value = "100";
     String next_text        =  getContext().getString(R.string.level_2);
-    String multi_text       =  getContext().getString(R.string.empty) +
-            getContext().getString(R.string.multi);
+    String multi_text       =  getContext().getString(R.string.empty) + getContext().getString(R.string.multi);
 
 
     double Max_Height       = Double.parseDouble(max_height); // max y (height)
@@ -143,7 +142,7 @@ public class OF_Main_Activity extends View {
     private double Right_RS2    = RotSpeed;
     private double theta2       = 0;
     private int    Mch          = 0;
-    private int    Multi        = 2;
+    private int    Multi        = 9;
 
     private double ThtAbs1, ThtAbs2;
     private double LThtAbs1, LThtAbs2;

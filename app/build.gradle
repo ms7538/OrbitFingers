@@ -8,8 +8,8 @@ android {
         applicationId "poloapps.orbitfingers"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 16
-        versionName "3.0.1c"
+        versionCode 21
+        versionName "3.0.4"
     }
     buildTypes {
         release {
