@@ -4,7 +4,7 @@
     tools:context=".OF_Main_Container_Activity">
     <item
         android:id="@+id/action_privacy"
-        android:orderInCategory="100"
+        android:orderInCategory="99"
         android:title="@string/privacy_policy"
         app:showAsAction="collapseActionView" />
     <item
@@ -16,5 +16,10 @@
         android:id="@+id/action_reset"
         android:orderInCategory="101"
         android:title="@string/reset"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="102"
+        android:title="@string/about"
         app:showAsAction="collapseActionView" />
 </menu>
