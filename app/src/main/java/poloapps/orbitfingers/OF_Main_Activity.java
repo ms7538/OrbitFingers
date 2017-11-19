@@ -1,4 +1,5 @@
 package poloapps.orbitfingers;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -327,6 +328,7 @@ public class OF_Main_Activity extends View {
         statusMsg.delete(0, statusMsg.length());
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final boolean OnOff  = mSettings.getBoolean("sound",true);
@@ -545,7 +547,7 @@ public class OF_Main_Activity extends View {
         B2yL = CY  + (float) E2y;
 
         if (!(Right_Color.equals( Level_Color)) || !(Left_Color.equals(Level_Color))){
-            Sleep(80);
+            Sleep();
             Right_Color = Level_Color;
             Left_Color  = Level_Color;
         }
@@ -606,9 +608,9 @@ public class OF_Main_Activity extends View {
        }
    }
 
-    private static void Sleep(int CX) {
+    private static void Sleep() {
         try {
-            Thread.sleep(CX);
+            Thread.sleep(80);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

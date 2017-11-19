@@ -1,5 +1,6 @@
 package poloapps.orbitfingers;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,9 +51,9 @@ public class Home_Activity extends AppCompatActivity {
                  (R.color.light_gray));
          Integer SMP_Button_Color;
 
-         TextView how_to_link          = (TextView) findViewById(R.id.how_to_link);
-         final Button play_btn         = (Button)   findViewById(R.id.play_btn);
-         final Button Set_Peak_Min_btn = (Button)   findViewById(R.id.set_peak_min_button);
+         TextView how_to_link          = findViewById(R.id.how_to_link);
+         final Button play_btn         = findViewById(R.id.play_btn);
+         final Button Set_Peak_Min_btn = findViewById(R.id.set_peak_min_button);
 
         how_to_link.setTextColor(Orange);
 
@@ -114,11 +115,11 @@ public class Home_Activity extends AppCompatActivity {
              }
          });
 
-         AdView mAdView = (AdView) findViewById(R.id.adView);
+         AdView mAdView = findViewById(R.id.adView);
          AdRequest adRequest = new AdRequest.Builder().build();
          mAdView.loadAd(adRequest);
 
-         final Button sign_in_button = (Button) findViewById(R.id.login_reg);
+         final Button sign_in_button = findViewById(R.id.login_reg);
 
          if(!logged_in) {
              sign_in_button.setText(this.getString(R.string.login_register));
@@ -196,23 +197,23 @@ public class Home_Activity extends AppCompatActivity {
         Integer current_level          = mSettings.getInt("levl", 1);
 
       //  Button how_to_button           = (Button)   findViewById(R.id.how_to_btn);
-        final Button play_btn          = (Button)   findViewById(R.id.play_btn);
+        final Button play_btn          =   findViewById(R.id.play_btn);
 
-        Button Set_Peak_Min_btn        = (Button)   findViewById(R.id.set_peak_min_button);
-        TextView current_level_text    = (TextView) findViewById(R.id.current_level_text_view);
-        TextView level_current         = (TextView) findViewById(R.id.current_level);
-        TextView level_current_ui      = (TextView) findViewById(R.id.current_level_ui);
-        TextView min_score_text        = (TextView) findViewById(R.id.min_score_text_view);
-        TextView min_score_value       = (TextView) findViewById(R.id.current_min_score);
-        TextView min_score_ui          = (TextView) findViewById(R.id.min_score_ui);
-        TextView target_score_text     = (TextView) findViewById(R.id.target_score_text_view);
-        TextView target_score_ui       = (TextView) findViewById(R.id.target_score_ui);
-        TextView target_score          = (TextView) findViewById(R.id.current_target_score);
-        TextView penalty_text          = (TextView) findViewById(R.id.penalty_text_view);
-        TextView SMPs_remaining_text   = (TextView) findViewById(R.id.smp_text_view);
-        TextView SMPs_remaining_value  = (TextView) findViewById(R.id.remaining_smp_value);
-        TextView SMPs_ui               = (TextView) findViewById(R.id.smp_ui);
-        TextView penalty_text_value    = (TextView) findViewById(R.id.current_penalty);
+        Button Set_Peak_Min_btn        = findViewById(R.id.set_peak_min_button);
+        TextView current_level_text    = findViewById(R.id.current_level_text_view);
+        TextView level_current         = findViewById(R.id.current_level);
+        TextView level_current_ui      = findViewById(R.id.current_level_ui);
+        TextView min_score_text        = findViewById(R.id.min_score_text_view);
+        TextView min_score_value       = findViewById(R.id.current_min_score);
+        TextView min_score_ui          = findViewById(R.id.min_score_ui);
+        TextView target_score_text     = findViewById(R.id.target_score_text_view);
+        TextView target_score_ui       = findViewById(R.id.target_score_ui);
+        TextView target_score          = findViewById(R.id.current_target_score);
+        TextView penalty_text          = findViewById(R.id.penalty_text_view);
+        TextView SMPs_remaining_text   = findViewById(R.id.smp_text_view);
+        TextView SMPs_remaining_value  = findViewById(R.id.remaining_smp_value);
+        TextView SMPs_ui               = findViewById(R.id.smp_ui);
+        TextView penalty_text_value    = findViewById(R.id.current_penalty);
 
         penalty_text.setTextColor(Red);
         //how_to_button.setBackgroundColor(Orange);
@@ -371,7 +372,7 @@ public class Home_Activity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
                                         final Integer Dark_Gray  = ContextCompat.getColor(getApplicationContext(),
                                                 (R.color.dark_gray));
-                                        final Button Set_Peak_Min_btn = (Button)   findViewById(R.id.set_peak_min_button);
+                                        final Button Set_Peak_Min_btn = findViewById(R.id.set_peak_min_button);
                                         Set_Peak_Min_btn.setBackgroundColor(Dark_Gray);
                                         editor.putInt    ("levl",          1);
                                         editor.putInt    ("peakscore",     0);
@@ -397,6 +398,23 @@ public class Home_Activity extends AppCompatActivity {
                         .setNegativeButton(R.string.no,null)
                         .create()
                         .show();
+                return true;
+            case R.id.action_about:
+                // User chose the "Settings" item, show the app settings UI...
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(
+                        Home_Activity.this);
+                @SuppressLint("InflateParams") View mView3 =
+                        getLayoutInflater().inflate(R.layout.about_dialog,null);
+                builder3.setView(mView3);
+                final AlertDialog dialog3 =  builder3.create();
+                Button Back_btn                = mView3.findViewById(R.id.back_btn);
+                Back_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        dialog3.cancel();
+                    }
+                });
+                dialog3.show();
                 return true;
 
             default:

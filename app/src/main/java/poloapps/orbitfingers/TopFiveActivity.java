@@ -10,9 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -62,21 +59,21 @@ public class TopFiveActivity extends AppCompatActivity {
     }
     private void get_Ranking() {
         if (check_Connection()) {
-            final TextView tv_Top_Peak_value  = (TextView) findViewById(R.id.tv_top_1);
-            final TextView tv_Top2_Peak_value = (TextView) findViewById(R.id.tv_top_2);
-            final TextView tv_Top3_Peak_value = (TextView) findViewById(R.id.tv_top_3);
-            final TextView tv_Top4_Peak_value = (TextView) findViewById(R.id.tv_top_4);
-            final TextView tv_Top5_Peak_value = (TextView) findViewById(R.id.tv_top_5);
-            final TextView tv_Top_Username    = (TextView) findViewById(R.id.tv_top_username);
-            final TextView tv_Top2_Username   = (TextView) findViewById(R.id.tv_top2_username);
-            final TextView tv_Top3_Username   = (TextView) findViewById(R.id.tv_top3_username);
-            final TextView tv_Top4_Username   = (TextView) findViewById(R.id.tv_top4_username);
-            final TextView tv_Top5_Username   = (TextView) findViewById(R.id.tv_top5_username);
-            final TextView tv_Top_MSG         = (TextView) findViewById(R.id.tv_top_message);
-            final TextView tv_T2_MSG          = (TextView) findViewById(R.id.tv_t2_message);
-            final TextView tv_T3_MSG          = (TextView) findViewById(R.id.tv_t3_message);
-            final TextView tv_T4_MSG          = (TextView) findViewById(R.id.tv_t4_message);
-            final TextView tv_T5_MSG          = (TextView) findViewById(R.id.tv_t5_message);
+            final TextView tv_Top_Peak_value  = findViewById(R.id.tv_top_1);
+            final TextView tv_Top2_Peak_value = findViewById(R.id.tv_top_2);
+            final TextView tv_Top3_Peak_value = findViewById(R.id.tv_top_3);
+            final TextView tv_Top4_Peak_value = findViewById(R.id.tv_top_4);
+            final TextView tv_Top5_Peak_value = findViewById(R.id.tv_top_5);
+            final TextView tv_Top_Username    = findViewById(R.id.tv_top_username);
+            final TextView tv_Top2_Username   = findViewById(R.id.tv_top2_username);
+            final TextView tv_Top3_Username   = findViewById(R.id.tv_top3_username);
+            final TextView tv_Top4_Username   = findViewById(R.id.tv_top4_username);
+            final TextView tv_Top5_Username   = findViewById(R.id.tv_top5_username);
+            final TextView tv_Top_MSG         = findViewById(R.id.tv_top_message);
+            final TextView tv_T2_MSG          = findViewById(R.id.tv_t2_message);
+            final TextView tv_T3_MSG          = findViewById(R.id.tv_t3_message);
+            final TextView tv_T4_MSG          = findViewById(R.id.tv_t4_message);
+            final TextView tv_T5_MSG          = findViewById(R.id.tv_t5_message);
             final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
 
             final SharedPreferences.Editor editor = mSettings.edit();
@@ -169,12 +166,12 @@ public class TopFiveActivity extends AppCompatActivity {
         Integer trT3         = Dark;
         Integer trT4         = Dark;
         Integer trT5         = Dark;
-        final TableRow tr_Top1  = (TableRow) findViewById(R.id.tr_top1);
-        final TableRow tr_Top2  = (TableRow) findViewById(R.id.tr_top2);
-        final TableRow tr_Top3  = (TableRow) findViewById(R.id.tr_top3);
-        final TableRow tr_Top4  = (TableRow) findViewById(R.id.tr_top4);
-        final TableRow tr_Top5  = (TableRow) findViewById(R.id.tr_top5);
-        final TableRow tr_NT5   = (TableRow) findViewById(R.id.tr_nonT5);
+        final TableRow tr_Top1  = findViewById(R.id.tr_top1);
+        final TableRow tr_Top2  = findViewById(R.id.tr_top2);
+        final TableRow tr_Top3  = findViewById(R.id.tr_top3);
+        final TableRow tr_Top4  = findViewById(R.id.tr_top4);
+        final TableRow tr_Top5  = findViewById(R.id.tr_top5);
+        final TableRow tr_NT5   = findViewById(R.id.tr_nonT5);
         boolean NT5_Visible     = false;
         switch (pos){
             case 1:
@@ -198,12 +195,12 @@ public class TopFiveActivity extends AppCompatActivity {
                 final String username             = mSettings.getString("current_user","");
                 int   peak_score_server           = mSettings.getInt("peak_server", 0);
 
-                final TextView tv_N5_name = (TextView) findViewById(R.id.tv_nt5_username);
-                final TextView tv_N5_peak = (TextView) findViewById(R.id.tv_NT5_Peak);
+                final TextView tv_N5_name = findViewById(R.id.tv_nt5_username);
+                final TextView tv_N5_peak = findViewById(R.id.tv_NT5_Peak);
                 set_NT5_Rank();
                 tv_N5_peak.setText(String.format(Locale.US,"%d",peak_score_server));
                 tv_N5_name.setText(username);
-                AdView mAdView      = (AdView) findViewById(R.id.adView);
+                AdView mAdView      = findViewById(R.id.adView);
                 AdRequest adRequest = new AdRequest.Builder().build();
                 mAdView.loadAd(adRequest);
                 break;
@@ -222,7 +219,7 @@ public class TopFiveActivity extends AppCompatActivity {
 
         if (NT5_Ranking == 0) {
 
-            final TextView tv_N5_rank  = (TextView) findViewById(R.id.tv_NT5_Rank);
+            final TextView tv_N5_rank  = findViewById(R.id.tv_NT5_Rank);
             int Peaks_Above            = mSettings.getInt("users_higher_peaks", 0);
             boolean Tied               = mSettings.getBoolean("users_equal_peaks", false);
             String Ranking_String      = Integer.toString(Peaks_Above);
@@ -244,6 +241,7 @@ public class TopFiveActivity extends AppCompatActivity {
         ConnectivityManager cm =
                 (ConnectivityManager)getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return ( activeNetwork != null && activeNetwork.isConnectedOrConnecting() );
     }

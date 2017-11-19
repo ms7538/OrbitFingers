@@ -34,10 +34,10 @@ public class LoginActivity extends AppCompatActivity {
         assert bar != null;
         bar.setTitle("Login To OrbitFingers");
 
-        final EditText etUsername             = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword             = (EditText) findViewById(R.id.etPassword);
-        final TextView tvRegisterLink         = (TextView) findViewById(R.id.tvRegisterLink);
-        final Button bLogin                   = (Button) findViewById(R.id.bLogin);
+        final EditText etUsername             = findViewById(R.id.etUsername);
+        final EditText etPassword             = findViewById(R.id.etPassword);
+        final TextView tvRegisterLink         = findViewById(R.id.tvRegisterLink);
+        final Button bLogin                   = findViewById(R.id.bLogin);
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
@@ -68,7 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                 ConnectivityManager cm =
                         (ConnectivityManager)getApplicationContext()
                                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                NetworkInfo activeNetwork = null;
+                if (cm != null) {
+                    activeNetwork = cm.getActiveNetworkInfo();
+                }
                 boolean Connect = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
                 if(Connect) {
                     final String username = etUsername.getText().toString();

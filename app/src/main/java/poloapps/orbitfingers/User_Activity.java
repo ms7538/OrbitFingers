@@ -55,7 +55,7 @@ public class User_Activity extends AppCompatActivity {
 
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
-        final EditText etRMessage             = (EditText) findViewById(R.id.et_ranking_message);
+        final EditText etRMessage             = findViewById(R.id.et_ranking_message);
         Boolean logged_in                     = mSettings.getBoolean("Signed_In", false);
         if (!logged_in){
             Intent intent   = getIntent();
@@ -82,24 +82,24 @@ public class User_Activity extends AppCompatActivity {
         int min_score_server           = mSettings.getInt   ("min_server",  0);
         int smp_server                 = mSettings.getInt   ("smp_server",  0);
         int peak_score_server          = mSettings.getInt   ("peak_server", 0);
-        final TextView tv_Top5_Link    = (TextView) findViewById(R.id.tv_Top_Five_Link);
-        final TextView tv_SRM_Link     = (TextView) findViewById(R.id.tv_rank_msg_link);
-        TextView tv_Username_Display   = (TextView) findViewById(R.id.tvUsername);
-        TextView tv_Device_text        = (TextView) findViewById(R.id.tv_Device);
-        TextView tv_Server_text        = (TextView) findViewById(R.id.tv_Server);
-        TextView tv_Device_Peak_value  = (TextView) findViewById(R.id.tv_Peak_Device_value);
-        TextView tv_Device_Min_value   = (TextView) findViewById(R.id.tv_Min_Device_value);
-        TextView tv_Device_SMP_value   = (TextView) findViewById(R.id.tv_Device_SMP);
-        TextView tv_Server_Peak_value  = (TextView) findViewById(R.id.tv_Server_Peak);
-        TextView tv_Server_Min_value   = (TextView) findViewById(R.id.tv_Server_Min);
-        TextView tv_Server_SMP_value   = (TextView) findViewById(R.id.tv_Server_SMP);
-        final TextView tv_Rank_value   = (TextView) findViewById(R.id.tv_Ranking_Value);
-        TextView tv_Peak_Text          = (TextView) findViewById((R.id.tvPeak));
-        TextView tv_Min_Text           = (TextView) findViewById((R.id.tvMin));
-        TextView tv_SMP_Text           = (TextView) findViewById((R.id.tvSMP));
+        final TextView tv_Top5_Link    = findViewById(R.id.tv_Top_Five_Link);
+        final TextView tv_SRM_Link     = findViewById(R.id.tv_rank_msg_link);
+        TextView tv_Username_Display   = findViewById(R.id.tvUsername);
+        TextView tv_Device_text        = findViewById(R.id.tv_Device);
+        TextView tv_Server_text        = findViewById(R.id.tv_Server);
+        TextView tv_Device_Peak_value  = findViewById(R.id.tv_Peak_Device_value);
+        TextView tv_Device_Min_value   = findViewById(R.id.tv_Min_Device_value);
+        TextView tv_Device_SMP_value   = findViewById(R.id.tv_Device_SMP);
+        TextView tv_Server_Peak_value  = findViewById(R.id.tv_Server_Peak);
+        TextView tv_Server_Min_value   = findViewById(R.id.tv_Server_Min);
+        TextView tv_Server_SMP_value   = findViewById(R.id.tv_Server_SMP);
+        final TextView tv_Rank_value   = findViewById(R.id.tv_Ranking_Value);
+        TextView tv_Peak_Text          = findViewById((R.id.tvPeak));
+        TextView tv_Min_Text           = findViewById((R.id.tvMin));
+        TextView tv_SMP_Text           = findViewById((R.id.tvSMP));
 
-        Button Device_Set_Button       = (Button)   findViewById((R.id.device_set_button));
-        Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
+        Button Device_Set_Button       = findViewById((R.id.device_set_button));
+        Button Server_Set_Button       = findViewById((R.id.server_set_button));
         etRMessage.setText(rank_msg);
 
         tv_Username_Display.setText(username);
@@ -259,7 +259,7 @@ public class User_Activity extends AppCompatActivity {
         tv_Server_text.setBackgroundColor(Server_BG_Color);
         Device_Set_Button.setBackgroundColor(Device_SET_Button_Color);
         Server_Set_Button.setBackgroundColor(Server_SET_Button_Color);
-        AdView mAdView      = (AdView) findViewById(R.id.adView);
+        AdView mAdView      = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         tv_Top5_Link.setOnClickListener(new View.OnClickListener() {
@@ -342,6 +342,7 @@ public class User_Activity extends AppCompatActivity {
         ConnectivityManager cm =
                 (ConnectivityManager)getApplicationContext()
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return ( activeNetwork != null && activeNetwork.isConnectedOrConnecting() );
     }
@@ -349,12 +350,12 @@ public class User_Activity extends AppCompatActivity {
     private void check_Ranking(){
         /////Ranking
         final SharedPreferences mSettings = this.getSharedPreferences("Settings", 0);
-        final TextView tv_Rank_value      = (TextView) findViewById(R.id.tv_Ranking_Value);
+        final TextView tv_Rank_value      = findViewById(R.id.tv_Ranking_Value);
 
-        final TextView tv_Top5_Link       = (TextView) findViewById(R.id.tv_Top_Five_Link);
-        final TextView tv_RM_Link         = (TextView) findViewById(R.id.tv_rank_msg_link);
-        final EditText etRMessage         = (EditText) findViewById(R.id.et_ranking_message);
-        final Button Server_Set_Button       = (Button)   findViewById((R.id.server_set_button));
+        final TextView tv_Top5_Link       = findViewById(R.id.tv_Top_Five_Link);
+        final TextView tv_RM_Link         = findViewById(R.id.tv_rank_msg_link);
+        final EditText etRMessage         = findViewById(R.id.et_ranking_message);
+        final Button Server_Set_Button       = findViewById((R.id.server_set_button));
         final SharedPreferences.Editor editor = mSettings.edit();
         final int peak_score_server           = mSettings.getInt   ("peak_server",0);
         final int min_score_server            = mSettings.getInt   ("min_server", 0);

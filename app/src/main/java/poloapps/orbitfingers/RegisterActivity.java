@@ -37,14 +37,14 @@ public class RegisterActivity extends AppCompatActivity {
         final SharedPreferences mSettings     = this.getSharedPreferences("Settings", 0);
         final SharedPreferences.Editor editor = mSettings.edit();
 
-        final EditText etName             = (EditText) findViewById(R.id.etName);
-        final EditText etUsername         = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword         = (EditText) findViewById(R.id.etPassword);
-        final EditText etPassword2        = (EditText) findViewById(R.id.etPassword2);
-        final Button   bRegister          = (Button)   findViewById(R.id.bRegister);
-        final TextView tvPeak_Value       = (TextView) findViewById(R.id.tv_peak_value);
-        final TextView tvMin_Value        = (TextView) findViewById(R.id.tv_min_score_value);
-        final TextView tvSMPs_Value       = (TextView) findViewById(R.id.tv_smp_rem);
+        final EditText etName             = findViewById(R.id.etName);
+        final EditText etUsername         = findViewById(R.id.etUsername);
+        final EditText etPassword         = findViewById(R.id.etPassword);
+        final EditText etPassword2        = findViewById(R.id.etPassword2);
+        final Button   bRegister          = findViewById(R.id.bRegister);
+        final TextView tvPeak_Value       = findViewById(R.id.tv_peak_value);
+        final TextView tvMin_Value        = findViewById(R.id.tv_min_score_value);
+        final TextView tvSMPs_Value       = findViewById(R.id.tv_smp_rem);
 
 
         tvPeak_Value.setText(String.format(Locale.US,"%d",mSettings.getInt("peakscore",    0)));
@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                 ConnectivityManager cm =
                         (ConnectivityManager)getApplicationContext()
                                 .getSystemService(Context.CONNECTIVITY_SERVICE);
+                assert cm != null;
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
                 boolean Connect = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
